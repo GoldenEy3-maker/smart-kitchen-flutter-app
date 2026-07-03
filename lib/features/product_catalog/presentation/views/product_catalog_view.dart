@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:smart_kitchen_flutter_app/core/l10n/app_localizations.dart";
+import "package:smart_kitchen_flutter_app/core/widgets/scroll/scroll.dart";
 
 class ProductCatalogView extends StatefulWidget {
   const ProductCatalogView({super.key});
@@ -11,49 +12,88 @@ class ProductCatalogView extends StatefulWidget {
 class Category {
   final String id;
   final String label;
+  final String emoji;
 
-  Category({required this.id, required this.label});
+  Category({required this.id, required this.label, required this.emoji});
 }
 
 final List<Category> categories = [
-  Category(id: "vegetables", label: "🥬 Овощи"),
-  Category(id: "fruits", label: "🍎 Фрукты"),
-  Category(id: "meat", label: "🍖 Мясо"),
-  Category(id: "fish", label: "🍣 Рыба"),
-  Category(id: "dairy", label: "🥛 Молоко"),
-  Category(id: "bread", label: "🍞 Хлеб"),
-  Category(id: "alcohol", label: "🍺 Алкоголь"),
-  Category(id: "other", label: "🍽 Другие"),
+  Category(id: "vegetables", label: "Овощи", emoji: "🥬"),
+  Category(id: "fruits", label: "Фрукты", emoji: "🍎"),
+  Category(id: "meat", label: "Мясо", emoji: "🍖"),
+  Category(id: "fish", label: "Рыба", emoji: "🍣"),
+  Category(id: "dairy", label: "Молоко", emoji: "🥛"),
+  Category(id: "bread", label: "Хлеб", emoji: "🍞"),
+  Category(id: "alcohol", label: "Алкоголь", emoji: "🍺"),
+  Category(id: "other", label: "Другие", emoji: "🍽"),
 ];
 
 class Product {
   final String id;
   final String name;
+  final String emoji;
   final String unit;
   final String categoryId;
 
   Product({
     required this.id,
     required this.name,
+    required this.emoji,
     required this.unit,
     required this.categoryId,
   });
 }
 
 final List<Product> products = [
-  Product(id: "1", name: "🥦 Картофель", unit: "кг", categoryId: "vegetables"),
-  Product(id: "2", name: "🍎 Яблоко", unit: "шт", categoryId: "fruits"),
-  Product(id: "3", name: "🍖 Говядина", unit: "кг", categoryId: "meat"),
-  Product(id: "4", name: "🍣 Лосось", unit: "шт", categoryId: "fish"),
-  Product(id: "5", name: "🥛 Молоко", unit: "л", categoryId: "dairy"),
-  Product(id: "6", name: "🍞 Хлеб", unit: "шт", categoryId: "bread"),
-  Product(id: "7", name: "🍺 Пиво", unit: "л", categoryId: "alcohol"),
-  Product(id: "8", name: "🍽 Салат", unit: "шт", categoryId: "other"),
-  Product(id: "9", name: "🥛 Творог", unit: "г", categoryId: "dairy"),
-  Product(id: "10", name: "🍝 Спагетти", unit: "г", categoryId: "bread"),
-  Product(id: "11", name: "🍷 Вино", unit: "л", categoryId: "alcohol"),
-  Product(id: "12", name: "🍔 Гамбургер", unit: "шт", categoryId: "other"),
-  Product(id: "13", name: "🥛 Сыр", unit: "г", categoryId: "dairy"),
+  Product(
+    id: "1",
+    name: "Картофель",
+    emoji: "🥦",
+    unit: "кг",
+    categoryId: "vegetables",
+  ),
+  Product(
+    id: "2",
+    name: "Яблоко",
+    emoji: "🍎",
+    unit: "шт",
+    categoryId: "fruits",
+  ),
+  Product(
+    id: "3",
+    name: "Говядина",
+    emoji: "🍖",
+    unit: "кг",
+    categoryId: "meat",
+  ),
+  Product(id: "4", name: "Лосось", emoji: "🍣", unit: "шт", categoryId: "fish"),
+  Product(id: "5", name: "Молоко", emoji: "🥛", unit: "л", categoryId: "dairy"),
+  Product(id: "6", name: "Хлеб", emoji: "🍞", unit: "шт", categoryId: "bread"),
+  Product(id: "7", name: "Пиво", emoji: "🍺", unit: "л", categoryId: "alcohol"),
+  Product(id: "8", name: "Салат", emoji: "🍽", unit: "шт", categoryId: "other"),
+  Product(id: "9", name: "Творог", emoji: "🥛", unit: "г", categoryId: "dairy"),
+  Product(
+    id: "10",
+    name: "Спагетти",
+    emoji: "🍝",
+    unit: "г",
+    categoryId: "bread",
+  ),
+  Product(
+    id: "11",
+    name: "Вино",
+    emoji: "🍷",
+    unit: "л",
+    categoryId: "alcohol",
+  ),
+  Product(
+    id: "12",
+    name: "Гамбургер",
+    emoji: "🍔",
+    unit: "шт",
+    categoryId: "other",
+  ),
+  Product(id: "13", name: "Сыр", emoji: "🥛", unit: "г", categoryId: "dairy"),
 ];
 
 class CategoryProduct {
@@ -88,92 +128,134 @@ class _ProductCatalogViewState extends State<ProductCatalogView> {
   static const double containerVerticalGap = 14;
   static const double containerHorizontalPadding = 20;
   static const double categoryChipsHeight = 36 + containerVerticalGap * 2;
+  static const double searchBarHeight = 56 + containerVerticalGap;
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
 
-    return CustomScrollView(
-      slivers: [
-        SliverToBoxAdapter(
-          child: Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: containerHorizontalPadding,
-            ),
-            margin: const EdgeInsets.only(bottom: containerVerticalGap),
-            child: Text(
-              l10n.productCatalogTotalWithDescription(totalProducts.toString()),
-              textAlign: TextAlign.center,
-            ),
-          ),
+    return SafeArea(
+      child: CustomScrollView(
+        physics: const NoImplicitScrollPhysics(
+          parent: AlwaysScrollableScrollPhysics(),
         ),
-        SliverToBoxAdapter(
-          child: Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: containerHorizontalPadding,
-            ),
-            child: TextField(
-              decoration: InputDecoration(
-                hintText: l10n.productCatalogSearchHint,
-                prefixIcon: Container(
-                  margin: const EdgeInsets.only(left: 10),
-                  child: Icon(Icons.search),
+        slivers: [
+          SliverToBoxAdapter(
+            child: Container(
+              padding: const EdgeInsets.symmetric(
+                horizontal: containerHorizontalPadding,
+              ),
+              child: Text(
+                l10n.productCatalogTotalWithDescription(
+                  totalProducts.toString(),
                 ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(24)),
-                ),
+                textAlign: TextAlign.center,
               ),
             ),
           ),
-        ),
-        SliverPersistentHeader(
-          pinned: true,
-          delegate: _CategoryChipsHeaderDelegate(
-            categories: categories,
-            selectedCategory: selectedCategory,
-            onCategorySelected: (category) {
-              setState(() {
-                selectedCategory = category;
-              });
-            },
+          SliverPersistentHeader(
+            floating: true,
+            delegate: _SearchHeaderDelegate(),
           ),
-        ),
-        for (var i = 0; i < categoryProducts.length; i++) ...[
-          if (i > 0)
+          SliverPersistentHeader(
+            pinned: true,
+            delegate: _CategoryChipsHeaderDelegate(
+              categories: categories,
+              selectedCategory: selectedCategory,
+              onCategorySelected: (category) {
+                setState(() {
+                  selectedCategory = category;
+                });
+              },
+            ),
+          ),
+          for (var i = 0; i < categoryProducts.length; i++) ...[
+            if (i > 0)
+              const SliverToBoxAdapter(
+                child: SizedBox(height: containerVerticalGap),
+              ),
+            SliverPadding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: containerHorizontalPadding,
+              ),
+              sliver: SliverToBoxAdapter(
+                child: Text(categoryProducts[i].category.label),
+              ),
+            ),
             const SliverToBoxAdapter(
               child: SizedBox(height: containerVerticalGap),
             ),
-          SliverPadding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: containerHorizontalPadding,
+            SliverPadding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: containerHorizontalPadding,
+              ),
+              sliver: SliverList.separated(
+                itemCount: categoryProducts[i].products.length,
+                separatorBuilder: (context, index) {
+                  return const SizedBox(height: containerVerticalGap);
+                },
+                itemBuilder: (context, index) {
+                  return _ProductTile(
+                    product: categoryProducts[i].products[index],
+                  );
+                },
+              ),
             ),
-            sliver: SliverToBoxAdapter(
-              child: Text(categoryProducts[i].category.label),
-            ),
-          ),
-          const SliverToBoxAdapter(
-            child: SizedBox(height: containerVerticalGap),
-          ),
-          SliverPadding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: containerHorizontalPadding,
-            ),
-            sliver: SliverList.separated(
-              itemCount: categoryProducts[i].products.length,
-              separatorBuilder: (context, index) {
-                return const SizedBox(height: containerVerticalGap);
-              },
-              itemBuilder: (context, index) {
-                return _ProductTile(
-                  product: categoryProducts[i].products[index],
-                );
-              },
-            ),
-          ),
+          ],
         ],
-        SliverSafeArea(sliver: SliverToBoxAdapter(child: SizedBox.shrink())),
-      ],
+      ),
     );
+  }
+}
+
+class _SearchHeaderDelegate extends SliverPersistentHeaderDelegate {
+  const _SearchHeaderDelegate();
+
+  @override
+  double get minExtent => _ProductCatalogViewState.searchBarHeight;
+
+  @override
+  double get maxExtent => minExtent;
+
+  @override
+  Widget build(
+    BuildContext context,
+    double shrinkOffset,
+    bool overlapsContent,
+  ) {
+    final l10n = AppLocalizations.of(context)!;
+    final theme = Theme.of(context);
+
+    return Container(
+      color: theme.scaffoldBackgroundColor,
+      height: _ProductCatalogViewState.searchBarHeight,
+      padding: const EdgeInsets.only(
+        top: _ProductCatalogViewState.containerVerticalGap,
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: _ProductCatalogViewState.containerHorizontalPadding,
+        ),
+        child: TextField(
+          scrollPadding: EdgeInsets.zero,
+          decoration: InputDecoration(
+            hintText: l10n.productCatalogSearchHint,
+            prefixIcon: Container(
+              margin: const EdgeInsets.only(left: 10),
+              child: const Icon(Icons.search),
+            ),
+            border: const OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(24)),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
+  bool shouldRebuild(covariant _SearchHeaderDelegate oldDelegate) {
+    return false;
   }
 }
 
@@ -236,7 +318,10 @@ class _CategoryChipsHeaderDelegate extends SliverPersistentHeaderDelegate {
 
           final category = categories[index - 1];
           return FilterChip(
-            label: Text(category.label),
+            label: Row(
+              spacing: 4,
+              children: [Text(category.emoji), Text(category.label)],
+            ),
             onSelected: (_) => onCategorySelected(category),
             showCheckmark: false,
             selected: selectedCategory?.id == category.id,
@@ -282,11 +367,11 @@ class _ProductTile extends StatelessWidget {
                   height: 40,
                   width: 40,
                   decoration: BoxDecoration(
-                    color: Colors.red,
+                    color: Colors.brown.shade100,
                     border: Border.all(color: Colors.transparent),
                     borderRadius: const BorderRadius.all(Radius.circular(100)),
                   ),
-                  child: const Icon(Icons.add),
+                  child: Center(child: Text(product.emoji)),
                 ),
                 const SizedBox(width: 12),
                 Column(
