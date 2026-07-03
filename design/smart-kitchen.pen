@@ -89,13 +89,13 @@
           "name": "Bar",
           "width": "fill_container",
           "height": 60,
-          "fill": "#FFFFFFE6",
+          "fill": "$surface-glass",
           "cornerRadius": 30,
           "effect": [
             {
               "type": "shadow",
               "shadowType": "outer",
-              "color": "#00000008",
+              "color": "$shadow-color",
               "offset": {
                 "x": 0,
                 "y": 1
@@ -105,7 +105,7 @@
             {
               "type": "shadow",
               "shadowType": "outer",
-              "color": "#0000000F",
+              "color": "$shadow-color-md",
               "offset": {
                 "x": 0,
                 "y": 8
@@ -158,7 +158,7 @@
               "name": "Tab Recipes",
               "width": "fill_container",
               "height": "fill_container",
-              "fill": "#FFFFFF00",
+              "fill": "$transparent",
               "cornerRadius": 24,
               "layout": "vertical",
               "gap": 2,
@@ -193,7 +193,7 @@
               "name": "Tab Menu",
               "width": "fill_container",
               "height": "fill_container",
-              "fill": "#FFFFFF00",
+              "fill": "$transparent",
               "cornerRadius": 24,
               "layout": "vertical",
               "gap": 2,
@@ -228,7 +228,7 @@
               "name": "Tab Shopping",
               "width": "fill_container",
               "height": "fill_container",
-              "fill": "#FFFFFF00",
+              "fill": "$transparent",
               "cornerRadius": 24,
               "layout": "vertical",
               "gap": 2,
@@ -274,7 +274,7 @@
       "effect": {
         "type": "shadow",
         "shadowType": "outer",
-        "color": "#00000008",
+        "color": "$shadow-color",
         "offset": {
           "x": 0,
           "y": 2
@@ -291,7 +291,7 @@
           "name": "Emoji Circle",
           "width": 44,
           "height": 44,
-          "fill": "$chip-bg",
+          "fill": "$icon-bg",
           "cornerRadius": 22,
           "justifyContent": "center",
           "alignItems": "center",
@@ -357,7 +357,7 @@
               "type": "text",
               "id": "v8mYzr",
               "name": "Badge Text",
-              "fill": "#3D8A50",
+              "fill": "$primary-text",
               "content": "до 12 июля",
               "fontFamily": "$font-body",
               "fontSize": 11,
@@ -538,7 +538,7 @@
                       "type": "text",
                       "id": "L4uSa0",
                       "name": "Chip Label",
-                      "fill": "#FFFFFF",
+                      "fill": "$on-primary",
                       "content": "Все",
                       "fontFamily": "$font-body",
                       "fontSize": 13,
@@ -670,7 +670,7 @@
                   "height": 22,
                   "icon": "alarm-clock",
                   "library": "lucide",
-                  "fill": "#B9770E"
+                  "fill": "$warning-text"
                 },
                 {
                   "type": "frame",
@@ -714,7 +714,7 @@
                   "height": 18,
                   "icon": "chevron-right",
                   "library": "lucide",
-                  "fill": "#B9770E"
+                  "fill": "$warning-text"
                 }
               ]
             },
@@ -750,7 +750,7 @@
                 },
                 "v8mYzr": {
                   "content": "ещё 2 дня",
-                  "fill": "#B9770E"
+                  "fill": "$warning-text"
                 }
               }
             },
@@ -775,7 +775,7 @@
                 },
                 "v8mYzr": {
                   "content": "до 15 июля",
-                  "fill": "#3D8A50"
+                  "fill": "$primary-text"
                 }
               }
             },
@@ -800,7 +800,7 @@
                 },
                 "v8mYzr": {
                   "content": "ещё 3 дня",
-                  "fill": "#B9770E"
+                  "fill": "$warning-text"
                 }
               }
             },
@@ -836,7 +836,7 @@
                 },
                 "v8mYzr": {
                   "content": "просрочены",
-                  "fill": "#C64537"
+                  "fill": "$danger-text"
                 }
               }
             },
@@ -861,7 +861,7 @@
                 },
                 "v8mYzr": {
                   "content": "до 11 июля",
-                  "fill": "#3D8A50"
+                  "fill": "$primary-text"
                 }
               }
             },
@@ -886,7 +886,7 @@
                 },
                 "v8mYzr": {
                   "content": "до 12 июля",
-                  "fill": "#3D8A50"
+                  "fill": "$primary-text"
                 }
               }
             },
@@ -946,7 +946,7 @@
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
-                "color": "#4CA66259",
+                "color": "$primary-glow",
                 "offset": {
                   "x": 0,
                   "y": 6
@@ -968,13 +968,13 @@
                   "height": 20,
                   "icon": "plus",
                   "library": "lucide",
-                  "fill": "#FFFFFF"
+                  "fill": "$on-primary"
                 },
                 {
                   "type": "text",
                   "id": "DQDHC",
                   "name": "FAB Label",
-                  "fill": "#FFFFFF",
+                  "fill": "$on-primary",
                   "content": "В холодильник",
                   "fontFamily": "$font-body",
                   "fontSize": 15,
@@ -1151,9 +1151,9 @@
                   "id": "qex4i",
                   "name": "Category Picker",
                   "width": "fill_container",
-                  "fill": "#FFFFFF",
+                  "fill": "$surface",
                   "cornerRadius": 16,
-                  "stroke": "#EFE7DA",
+                  "stroke": "$border",
                   "strokeWidth": 1,
                   "padding": [
                     14,
@@ -1166,7 +1166,7 @@
                       "type": "text",
                       "id": "eOlQ7",
                       "name": "Selected Value",
-                      "fill": "#8A8177",
+                      "fill": "$text-secondary",
                       "content": "Выберите или создайте",
                       "fontFamily": "Inter",
                       "fontSize": 15,
@@ -1180,7 +1180,7 @@
                       "height": 18,
                       "icon": "chevron-down",
                       "library": "lucide",
-                      "fill": "#8A8177"
+                      "fill": "$text-secondary"
                     }
                   ]
                 }
@@ -1283,7 +1283,7 @@
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
-                "color": "#4CA66240",
+                "color": "$primary-glow-soft",
                 "offset": {
                   "x": 0,
                   "y": 6
@@ -1297,7 +1297,7 @@
                   "type": "text",
                   "id": "Dl8F2",
                   "name": "Save Label",
-                  "fill": "#FFFFFF",
+                  "fill": "$on-primary",
                   "content": "Сохранить в каталог",
                   "fontFamily": "$font-body",
                   "fontSize": 16,
@@ -1415,7 +1415,7 @@
               "id": "OAgvO",
               "name": "Segmented",
               "width": "fill_container",
-              "fill": "$chip-bg",
+              "fill": "$surface-muted",
               "cornerRadius": 24,
               "gap": 4,
               "padding": 4,
@@ -1430,7 +1430,7 @@
                   "effect": {
                     "type": "shadow",
                     "shadowType": "outer",
-                    "color": "#0000000D",
+                    "color": "$shadow-color-segment",
                     "offset": {
                       "x": 0,
                       "y": 2
@@ -1492,7 +1492,7 @@
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
-                "color": "#00000008",
+                "color": "$shadow-color",
                 "offset": {
                   "x": 0,
                   "y": 2
@@ -1623,13 +1623,13 @@
                           "height": 16,
                           "icon": "circle-check",
                           "library": "lucide",
-                          "fill": "#3D8A50"
+                          "fill": "$primary-text"
                         },
                         {
                           "type": "text",
                           "id": "F5DkY",
                           "name": "Avail Text",
-                          "fill": "#3D8A50",
+                          "fill": "$primary-text",
                           "content": "Все ингредиенты есть",
                           "fontFamily": "$font-body",
                           "fontSize": 13,
@@ -1652,7 +1652,7 @@
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
-                "color": "#00000008",
+                "color": "$shadow-color",
                 "offset": {
                   "x": 0,
                   "y": 2
@@ -1783,13 +1783,13 @@
                           "height": 16,
                           "icon": "circle-check",
                           "library": "lucide",
-                          "fill": "#3D8A50"
+                          "fill": "$primary-text"
                         },
                         {
                           "type": "text",
                           "id": "dhkyI",
                           "name": "Avail Text",
-                          "fill": "#3D8A50",
+                          "fill": "$primary-text",
                           "content": "Все ингредиенты есть",
                           "fontFamily": "$font-body",
                           "fontSize": 13,
@@ -1812,7 +1812,7 @@
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
-                "color": "#00000008",
+                "color": "$shadow-color",
                 "offset": {
                   "x": 0,
                   "y": 2
@@ -1943,13 +1943,13 @@
                           "height": 16,
                           "icon": "circle-alert",
                           "library": "lucide",
-                          "fill": "#C77E2B"
+                          "fill": "$availability-partial"
                         },
                         {
                           "type": "text",
                           "id": "TFfus",
                           "name": "Avail Text",
-                          "fill": "#C77E2B",
+                          "fill": "$availability-partial",
                           "content": "Не хватает 2 ингредиентов",
                           "fontFamily": "$font-body",
                           "fontSize": 13,
@@ -1985,7 +1985,7 @@
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
-                "color": "#4CA66259",
+                "color": "$primary-glow",
                 "offset": {
                   "x": 0,
                   "y": 6
@@ -2007,13 +2007,13 @@
                   "height": 20,
                   "icon": "plus",
                   "library": "lucide",
-                  "fill": "#FFFFFF"
+                  "fill": "$on-primary"
                 },
                 {
                   "type": "text",
                   "id": "g3gqF",
                   "name": "FAB Label",
-                  "fill": "#FFFFFF",
+                  "fill": "$on-primary",
                   "content": "Добавить",
                   "fontFamily": "$font-body",
                   "fontSize": 15,
@@ -2031,7 +2031,7 @@
           "width": "fill_container",
           "descendants": {
             "ULBGf": {
-              "fill": "#FFFFFF00"
+              "fill": "$transparent"
             },
             "BoUUL": {
               "fill": "$text-secondary"
@@ -2098,7 +2098,7 @@
               "name": "Back Button",
               "width": 40,
               "height": 40,
-              "fill": "#FFFFFFE6",
+              "fill": "$surface-glass",
               "cornerRadius": 20,
               "justifyContent": "center",
               "alignItems": "center",
@@ -2121,7 +2121,7 @@
               "name": "Edit Button",
               "width": 40,
               "height": 40,
-              "fill": "#FFFFFFE6",
+              "fill": "$surface-glass",
               "cornerRadius": 20,
               "justifyContent": "center",
               "alignItems": "center",
@@ -2265,13 +2265,13 @@
                   "height": 20,
                   "icon": "circle-check",
                   "library": "lucide",
-                  "fill": "#3D8A50"
+                  "fill": "$primary-text"
                 },
                 {
                   "type": "text",
                   "id": "bDndp",
                   "name": "Summary Text",
-                  "fill": "#3D8A50",
+                  "fill": "$primary-text",
                   "textGrowth": "fixed-width",
                   "width": "fill_container",
                   "content": "Есть 5 из 7 ингредиентов",
@@ -2338,7 +2338,7 @@
                           "height": 17,
                           "icon": "circle-check",
                           "library": "lucide",
-                          "fill": "#3D8A50"
+                          "fill": "$primary-text"
                         },
                         {
                           "type": "text",
@@ -2388,7 +2388,7 @@
                           "height": 17,
                           "icon": "circle-check",
                           "library": "lucide",
-                          "fill": "#3D8A50"
+                          "fill": "$primary-text"
                         },
                         {
                           "type": "text",
@@ -2438,7 +2438,7 @@
                           "height": 17,
                           "icon": "circle-check",
                           "library": "lucide",
-                          "fill": "#3D8A50"
+                          "fill": "$primary-text"
                         },
                         {
                           "type": "text",
@@ -2488,7 +2488,7 @@
                           "height": 17,
                           "icon": "shopping-cart",
                           "library": "lucide",
-                          "fill": "#C77E2B"
+                          "fill": "$availability-partial"
                         },
                         {
                           "type": "text",
@@ -2506,7 +2506,7 @@
                           "type": "text",
                           "id": "DXfG0",
                           "name": "Qty",
-                          "fill": "#C77E2B",
+                          "fill": "$availability-partial",
                           "content": "50 г",
                           "fontFamily": "$font-body",
                           "fontSize": 14,
@@ -2538,7 +2538,7 @@
                           "height": 17,
                           "icon": "shopping-cart",
                           "library": "lucide",
-                          "fill": "#C77E2B"
+                          "fill": "$availability-partial"
                         },
                         {
                           "type": "text",
@@ -2556,7 +2556,7 @@
                           "type": "text",
                           "id": "EfXop",
                           "name": "Qty",
-                          "fill": "#C77E2B",
+                          "fill": "$availability-partial",
                           "content": "100 мл",
                           "fontFamily": "$font-body",
                           "fontSize": 14,
@@ -2588,7 +2588,7 @@
                           "height": 17,
                           "icon": "circle-check",
                           "library": "lucide",
-                          "fill": "#3D8A50"
+                          "fill": "$primary-text"
                         },
                         {
                           "type": "text",
@@ -2634,7 +2634,7 @@
                           "height": 17,
                           "icon": "circle-check",
                           "library": "lucide",
-                          "fill": "#3D8A50"
+                          "fill": "$primary-text"
                         },
                         {
                           "type": "text",
@@ -2684,13 +2684,13 @@
                   "height": 18,
                   "icon": "shopping-basket",
                   "library": "lucide",
-                  "fill": "#C05F1A"
+                  "fill": "$secondary-text"
                 },
                 {
                   "type": "text",
                   "id": "UBFVS",
                   "name": "Add Missing Label",
-                  "fill": "#C05F1A",
+                  "fill": "$secondary-text",
                   "content": "Добавить недостающее в покупки",
                   "fontFamily": "$font-body",
                   "fontSize": 14,
@@ -2738,7 +2738,7 @@
                           "type": "text",
                           "id": "O3Kc7",
                           "name": "Num",
-                          "fill": "#3D8A50",
+                          "fill": "$primary-text",
                           "content": "1",
                           "fontFamily": "$font-body",
                           "fontSize": 13,
@@ -2783,7 +2783,7 @@
                           "type": "text",
                           "id": "R2bu0g",
                           "name": "Num",
-                          "fill": "#3D8A50",
+                          "fill": "$primary-text",
                           "content": "2",
                           "fontFamily": "$font-body",
                           "fontSize": 13,
@@ -2828,7 +2828,7 @@
                           "type": "text",
                           "id": "YSEsJ",
                           "name": "Num",
-                          "fill": "#3D8A50",
+                          "fill": "$primary-text",
                           "content": "3",
                           "fontFamily": "$font-body",
                           "fontSize": 13,
@@ -2873,7 +2873,7 @@
                           "type": "text",
                           "id": "ypM2B",
                           "name": "Num",
-                          "fill": "#3D8A50",
+                          "fill": "$primary-text",
                           "content": "4",
                           "fontFamily": "$font-body",
                           "fontSize": 13,
@@ -3106,7 +3106,7 @@
                       "type": "text",
                       "id": "Cgr8c",
                       "name": "Day Name",
-                      "fill": "#DFF0E2",
+                      "fill": "$day-active-soft",
                       "content": "Ср",
                       "fontFamily": "$font-body",
                       "fontSize": 11,
@@ -3116,7 +3116,7 @@
                       "type": "text",
                       "id": "xVMWE",
                       "name": "Day Date",
-                      "fill": "#FFFFFF",
+                      "fill": "$on-primary",
                       "content": "9",
                       "fontFamily": "$font-body",
                       "fontSize": 15,
@@ -3311,7 +3311,7 @@
                   "effect": {
                     "type": "shadow",
                     "shadowType": "outer",
-                    "color": "#00000008",
+                    "color": "$shadow-color",
                     "offset": {
                       "x": 0,
                       "y": 2
@@ -3388,13 +3388,13 @@
                               "height": 13,
                               "icon": "circle-alert",
                               "library": "lucide",
-                              "fill": "#C77E2B"
+                              "fill": "$availability-partial"
                             },
                             {
                               "type": "text",
                               "id": "H3cXVC",
                               "name": "Avail Text",
-                              "fill": "#C77E2B",
+                              "fill": "$availability-partial",
                               "content": "Не хватает 2 ингр.",
                               "fontFamily": "$font-body",
                               "fontSize": 12,
@@ -3447,7 +3447,7 @@
                   "effect": {
                     "type": "shadow",
                     "shadowType": "outer",
-                    "color": "#00000008",
+                    "color": "$shadow-color",
                     "offset": {
                       "x": 0,
                       "y": 2
@@ -3524,13 +3524,13 @@
                               "height": 13,
                               "icon": "circle-check",
                               "library": "lucide",
-                              "fill": "#3D8A50"
+                              "fill": "$primary-text"
                             },
                             {
                               "type": "text",
                               "id": "Pw7LY",
                               "name": "Avail Text",
-                              "fill": "#3D8A50",
+                              "fill": "$primary-text",
                               "content": "Все ингредиенты есть",
                               "fontFamily": "$font-body",
                               "fontSize": 12,
@@ -3579,9 +3579,9 @@
                   "name": "Empty Slot",
                   "width": "fill_container",
                   "height": 64,
-                  "fill": "#4CA6620D",
+                  "fill": "$primary-empty-fill",
                   "cornerRadius": 16,
-                  "stroke": "#4CA66266",
+                  "stroke": "$primary-empty-stroke",
                   "strokeWidth": 1.5,
                   "gap": 8,
                   "justifyContent": "center",
@@ -3640,7 +3640,7 @@
                       "height": 20,
                       "icon": "shopping-basket",
                       "library": "lucide",
-                      "fill": "#C77E2B"
+                      "fill": "$availability-partial"
                     },
                     {
                       "type": "text",
@@ -3676,13 +3676,13 @@
                       "height": 18,
                       "icon": "list-plus",
                       "library": "lucide",
-                      "fill": "#FFFFFF"
+                      "fill": "$on-primary"
                     },
                     {
                       "type": "text",
                       "id": "w3ntXq",
                       "name": "Btn Label",
-                      "fill": "#FFFFFF",
+                      "fill": "$on-primary",
                       "content": "Сформировать список покупок",
                       "fontFamily": "$font-body",
                       "fontSize": 15,
@@ -3702,7 +3702,7 @@
           "width": "fill_container",
           "descendants": {
             "ULBGf": {
-              "fill": "#FFFFFF00"
+              "fill": "$transparent"
             },
             "BoUUL": {
               "fill": "$text-secondary"
@@ -3871,7 +3871,7 @@
                       "fill": "$surface",
                       "width": 22,
                       "height": 22,
-                      "stroke": "#C9BFB0",
+                      "stroke": "$border-muted",
                       "strokeWidth": 1.5
                     },
                     {
@@ -3903,7 +3903,7 @@
                               "type": "frame",
                               "id": "Fa7dP",
                               "name": "Tag",
-                              "fill": "$chip-bg",
+                              "fill": "$surface-muted",
                               "cornerRadius": 8,
                               "padding": [
                                 2,
@@ -3961,7 +3961,7 @@
                       "fill": "$surface",
                       "width": 22,
                       "height": 22,
-                      "stroke": "#C9BFB0",
+                      "stroke": "$border-muted",
                       "strokeWidth": 1.5
                     },
                     {
@@ -3993,7 +3993,7 @@
                               "type": "frame",
                               "id": "H30Op",
                               "name": "Tag",
-                              "fill": "$chip-bg",
+                              "fill": "$surface-muted",
                               "cornerRadius": 8,
                               "padding": [
                                 2,
@@ -4051,7 +4051,7 @@
                       "fill": "$surface",
                       "width": 22,
                       "height": 22,
-                      "stroke": "#C9BFB0",
+                      "stroke": "$border-muted",
                       "strokeWidth": 1.5
                     },
                     {
@@ -4083,7 +4083,7 @@
                               "type": "frame",
                               "id": "OIzNH",
                               "name": "Tag",
-                              "fill": "$chip-bg",
+                              "fill": "$surface-muted",
                               "cornerRadius": 8,
                               "padding": [
                                 2,
@@ -4141,7 +4141,7 @@
                       "fill": "$surface",
                       "width": 22,
                       "height": 22,
-                      "stroke": "#C9BFB0",
+                      "stroke": "$border-muted",
                       "strokeWidth": 1.5
                     },
                     {
@@ -4204,7 +4204,7 @@
                       "fill": "$surface",
                       "width": 22,
                       "height": 22,
-                      "stroke": "#C9BFB0",
+                      "stroke": "$border-muted",
                       "strokeWidth": 1.5
                     },
                     {
@@ -4266,7 +4266,7 @@
               "id": "qm25v",
               "name": "Done List",
               "width": "fill_container",
-              "fill": "#FFFFFF99",
+              "fill": "$surface-faded",
               "cornerRadius": 16,
               "stroke": "$border",
               "strokeWidth": 1,
@@ -4311,7 +4311,7 @@
                           "height": 14,
                           "icon": "check",
                           "library": "lucide",
-                          "fill": "#FFFFFF"
+                          "fill": "$on-primary"
                         }
                       ]
                     },
@@ -4374,7 +4374,7 @@
                           "height": 14,
                           "icon": "check",
                           "library": "lucide",
-                          "fill": "#FFFFFF"
+                          "fill": "$on-primary"
                         }
                       ]
                     },
@@ -4433,7 +4433,7 @@
                           "height": 14,
                           "icon": "check",
                           "library": "lucide",
-                          "fill": "#FFFFFF"
+                          "fill": "$on-primary"
                         }
                       ]
                     },
@@ -4483,13 +4483,13 @@
                   "height": 18,
                   "icon": "refrigerator",
                   "library": "lucide",
-                  "fill": "#3D8A50"
+                  "fill": "$primary-text"
                 },
                 {
                   "type": "text",
                   "id": "jDsqV",
                   "name": "Move Label",
-                  "fill": "#3D8A50",
+                  "fill": "$primary-text",
                   "content": "Перенести купленное в холодильник",
                   "fontFamily": "$font-body",
                   "fontSize": 14,
@@ -4521,7 +4521,7 @@
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
-                "color": "#4CA66259",
+                "color": "$primary-glow",
                 "offset": {
                   "x": 0,
                   "y": 6
@@ -4543,13 +4543,13 @@
                   "height": 20,
                   "icon": "plus",
                   "library": "lucide",
-                  "fill": "#FFFFFF"
+                  "fill": "$on-primary"
                 },
                 {
                   "type": "text",
                   "id": "e21pg",
                   "name": "FAB Label",
-                  "fill": "#FFFFFF",
+                  "fill": "$on-primary",
                   "content": "Добавить",
                   "fontFamily": "$font-body",
                   "fontSize": 15,
@@ -4567,7 +4567,7 @@
           "width": "fill_container",
           "descendants": {
             "ULBGf": {
-              "fill": "#FFFFFF00"
+              "fill": "$transparent"
             },
             "BoUUL": {
               "fill": "$text-secondary"
@@ -4608,7 +4608,7 @@
           "name": "Illustration Circle",
           "width": 120,
           "height": 120,
-          "fill": "$chip-bg",
+          "fill": "$icon-bg",
           "cornerRadius": 60,
           "justifyContent": "center",
           "alignItems": "center",
@@ -4661,7 +4661,7 @@
           "effect": {
             "type": "shadow",
             "shadowType": "outer",
-            "color": "#4CA66259",
+            "color": "$primary-glow",
             "offset": {
               "x": 0,
               "y": 6
@@ -4683,13 +4683,13 @@
               "height": 18,
               "icon": "plus",
               "library": "lucide",
-              "fill": "#FFFFFF"
+              "fill": "$on-primary"
             },
             {
               "type": "text",
               "id": "iRguS",
               "name": "CTA Label",
-              "fill": "#FFFFFF",
+              "fill": "$on-primary",
               "content": "Действие",
               "fontFamily": "$font-body",
               "fontSize": 15,
@@ -4997,7 +4997,7 @@
               "id": "DoIcH",
               "name": "Segmented",
               "width": "fill_container",
-              "fill": "$chip-bg",
+              "fill": "$surface-muted",
               "cornerRadius": 24,
               "gap": 4,
               "padding": 4,
@@ -5012,7 +5012,7 @@
                   "effect": {
                     "type": "shadow",
                     "shadowType": "outer",
-                    "color": "#0000000D",
+                    "color": "$shadow-color-segment",
                     "offset": {
                       "x": 0,
                       "y": 2
@@ -5106,7 +5106,7 @@
           "width": "fill_container",
           "descendants": {
             "ULBGf": {
-              "fill": "#FFFFFF00"
+              "fill": "$transparent"
             },
             "BoUUL": {
               "fill": "$text-secondary"
@@ -5276,7 +5276,7 @@
           "width": "fill_container",
           "descendants": {
             "ULBGf": {
-              "fill": "#FFFFFF00"
+              "fill": "$transparent"
             },
             "BoUUL": {
               "fill": "$text-secondary"
@@ -5420,7 +5420,7 @@
                       "name": "Photo Placeholder",
                       "width": 88,
                       "height": 88,
-                      "fill": "$chip-bg",
+                      "fill": "$surface-muted",
                       "cornerRadius": 16,
                       "stroke": "$border",
                       "strokeWidth": 1,
@@ -5713,13 +5713,13 @@
                           "height": 14,
                           "icon": "plus",
                           "library": "lucide",
-                          "fill": "#3D8A50"
+                          "fill": "$primary-text"
                         },
                         {
                           "type": "text",
                           "id": "AKY8i",
                           "name": "Add Label",
-                          "fill": "#3D8A50",
+                          "fill": "$primary-text",
                           "content": "Добавить",
                           "fontFamily": "$font-body",
                           "fontSize": 12,
@@ -5777,7 +5777,7 @@
                               "name": "Product Icon",
                               "width": 36,
                               "height": 36,
-                              "fill": "$chip-bg",
+                              "fill": "$icon-bg",
                               "cornerRadius": 18,
                               "justifyContent": "center",
                               "alignItems": "center",
@@ -5869,7 +5869,7 @@
                                   "type": "frame",
                                   "id": "dWHaW",
                                   "name": "Qty Stepper",
-                                  "fill": "$chip-bg",
+                                  "fill": "$surface-muted",
                                   "cornerRadius": 12,
                                   "gap": 10,
                                   "padding": [
@@ -5933,13 +5933,13 @@
                                   "height": 13,
                                   "icon": "refrigerator",
                                   "library": "lucide",
-                                  "fill": "#3D8A50"
+                                  "fill": "$primary-text"
                                 },
                                 {
                                   "type": "text",
                                   "id": "WU8mf",
                                   "name": "Badge Text",
-                                  "fill": "#3D8A50",
+                                  "fill": "$primary-text",
                                   "content": "В холодильнике",
                                   "fontFamily": "$font-body",
                                   "fontSize": 11,
@@ -5977,13 +5977,13 @@
                                   "height": 14,
                                   "icon": "trash-2",
                                   "library": "lucide",
-                                  "fill": "#C64537"
+                                  "fill": "$danger-text"
                                 },
                                 {
                                   "type": "text",
                                   "id": "Nw85l",
                                   "name": "Delete Label",
-                                  "fill": "#C64537",
+                                  "fill": "$danger-text",
                                   "content": "Убрать",
                                   "fontFamily": "$font-body",
                                   "fontSize": 12,
@@ -6022,7 +6022,7 @@
                               "name": "Product Icon",
                               "width": 36,
                               "height": 36,
-                              "fill": "$chip-bg",
+                              "fill": "$icon-bg",
                               "cornerRadius": 18,
                               "justifyContent": "center",
                               "alignItems": "center",
@@ -6114,7 +6114,7 @@
                                   "type": "frame",
                                   "id": "xjeBU",
                                   "name": "Qty Stepper",
-                                  "fill": "$chip-bg",
+                                  "fill": "$surface-muted",
                                   "cornerRadius": 12,
                                   "gap": 10,
                                   "padding": [
@@ -6178,13 +6178,13 @@
                                   "height": 13,
                                   "icon": "circle-alert",
                                   "library": "lucide",
-                                  "fill": "#C77E2B"
+                                  "fill": "$availability-partial"
                                 },
                                 {
                                   "type": "text",
                                   "id": "U6b8dC",
                                   "name": "Badge Text",
-                                  "fill": "#C77E2B",
+                                  "fill": "$availability-partial",
                                   "content": "Нет в холодильнике",
                                   "fontFamily": "$font-body",
                                   "fontSize": 11,
@@ -6222,13 +6222,13 @@
                                   "height": 14,
                                   "icon": "trash-2",
                                   "library": "lucide",
-                                  "fill": "#C64537"
+                                  "fill": "$danger-text"
                                 },
                                 {
                                   "type": "text",
                                   "id": "wMDr7",
                                   "name": "Delete Label",
-                                  "fill": "#C64537",
+                                  "fill": "$danger-text",
                                   "content": "Убрать",
                                   "fontFamily": "$font-body",
                                   "fontSize": 12,
@@ -6267,7 +6267,7 @@
                               "name": "Product Icon",
                               "width": 36,
                               "height": 36,
-                              "fill": "$chip-bg",
+                              "fill": "$icon-bg",
                               "cornerRadius": 18,
                               "justifyContent": "center",
                               "alignItems": "center",
@@ -6359,7 +6359,7 @@
                                   "type": "frame",
                                   "id": "WvPr9",
                                   "name": "Qty Stepper",
-                                  "fill": "$chip-bg",
+                                  "fill": "$surface-muted",
                                   "cornerRadius": 12,
                                   "gap": 10,
                                   "padding": [
@@ -6423,13 +6423,13 @@
                                   "height": 13,
                                   "icon": "refrigerator",
                                   "library": "lucide",
-                                  "fill": "#3D8A50"
+                                  "fill": "$primary-text"
                                 },
                                 {
                                   "type": "text",
                                   "id": "tJUhZ",
                                   "name": "Badge Text",
-                                  "fill": "#3D8A50",
+                                  "fill": "$primary-text",
                                   "content": "В холодильнике",
                                   "fontFamily": "$font-body",
                                   "fontSize": 11,
@@ -6467,13 +6467,13 @@
                                   "height": 14,
                                   "icon": "trash-2",
                                   "library": "lucide",
-                                  "fill": "#C64537"
+                                  "fill": "$danger-text"
                                 },
                                 {
                                   "type": "text",
                                   "id": "t1qBDW",
                                   "name": "Delete Label",
-                                  "fill": "#C64537",
+                                  "fill": "$danger-text",
                                   "content": "Убрать",
                                   "fontFamily": "$font-body",
                                   "fontSize": 12,
@@ -6503,8 +6503,10 @@
                           "id": "N4NW3",
                           "name": "Product Search",
                           "width": "fill_container",
-                          "fill": "$chip-bg",
+                          "fill": "$surface",
                           "cornerRadius": 14,
+                          "stroke": "$border",
+                          "strokeWidth": 1,
                           "gap": 10,
                           "padding": [
                             12,
@@ -6571,7 +6573,7 @@
                                   "name": "Icon",
                                   "width": 32,
                                   "height": 32,
-                                  "fill": "$chip-bg",
+                                  "fill": "$icon-bg",
                                   "cornerRadius": 16,
                                   "justifyContent": "center",
                                   "alignItems": "center",
@@ -6650,7 +6652,7 @@
                                   "name": "Icon",
                                   "width": 32,
                                   "height": 32,
-                                  "fill": "$chip-bg",
+                                  "fill": "$icon-bg",
                                   "cornerRadius": 16,
                                   "justifyContent": "center",
                                   "alignItems": "center",
@@ -6735,13 +6737,13 @@
                               "height": 16,
                               "icon": "plus",
                               "library": "lucide",
-                              "fill": "#3D8A50"
+                              "fill": "$primary-text"
                             },
                             {
                               "type": "text",
                               "id": "P8V4My",
                               "name": "Create Label",
-                              "fill": "#3D8A50",
+                              "fill": "$primary-text",
                               "content": "Создать «Пармезан» в каталоге",
                               "fontFamily": "$font-body",
                               "fontSize": 13,
@@ -6802,13 +6804,13 @@
                           "height": 14,
                           "icon": "plus",
                           "library": "lucide",
-                          "fill": "#3D8A50"
+                          "fill": "$primary-text"
                         },
                         {
                           "type": "text",
                           "id": "DngA1",
                           "name": "Add Label",
-                          "fill": "#3D8A50",
+                          "fill": "$primary-text",
                           "content": "Добавить шаг",
                           "fontFamily": "$font-body",
                           "fontSize": 12,
@@ -6840,7 +6842,7 @@
                           "type": "text",
                           "id": "OBO2r",
                           "name": "Num",
-                          "fill": "#3D8A50",
+                          "fill": "$primary-text",
                           "content": "1",
                           "fontFamily": "$font-body",
                           "fontSize": 13,
@@ -6906,7 +6908,7 @@
                           "height": 16,
                           "icon": "trash-2",
                           "library": "lucide",
-                          "fill": "#C64537"
+                          "fill": "$danger-text"
                         }
                       ]
                     }
@@ -6934,7 +6936,7 @@
                           "type": "text",
                           "id": "OAB7V",
                           "name": "Num",
-                          "fill": "#3D8A50",
+                          "fill": "$primary-text",
                           "content": "2",
                           "fontFamily": "$font-body",
                           "fontSize": 13,
@@ -7000,7 +7002,7 @@
                           "height": 16,
                           "icon": "trash-2",
                           "library": "lucide",
-                          "fill": "#C64537"
+                          "fill": "$danger-text"
                         }
                       ]
                     }
@@ -7035,7 +7037,7 @@
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
-                "color": "#4CA66240",
+                "color": "$primary-glow-soft",
                 "offset": {
                   "x": 0,
                   "y": 6
@@ -7049,7 +7051,7 @@
                   "type": "text",
                   "id": "fXBSD",
                   "name": "Save Label",
-                  "fill": "#FFFFFF",
+                  "fill": "$on-primary",
                   "content": "Сохранить",
                   "fontFamily": "$font-body",
                   "fontSize": 16,
@@ -7077,13 +7079,13 @@
                   "height": 18,
                   "icon": "trash-2",
                   "library": "lucide",
-                  "fill": "#C64537"
+                  "fill": "$danger-text"
                 },
                 {
                   "type": "text",
                   "id": "gClMU",
                   "name": "Delete Label",
-                  "fill": "#C64537",
+                  "fill": "$danger-text",
                   "content": "Удалить рецепт",
                   "fontFamily": "$font-body",
                   "fontSize": 15,
@@ -7283,7 +7285,7 @@
                       "type": "text",
                       "id": "PM8pH",
                       "name": "Chip Label",
-                      "fill": "#FFFFFF",
+                      "fill": "$on-primary",
                       "content": "Все",
                       "fontFamily": "$font-body",
                       "fontSize": 13,
@@ -7423,7 +7425,7 @@
                   "name": "Icon",
                   "width": 40,
                   "height": 40,
-                  "fill": "$chip-bg",
+                  "fill": "$icon-bg",
                   "cornerRadius": 20,
                   "justifyContent": "center",
                   "alignItems": "center",
@@ -7503,7 +7505,7 @@
                   "name": "Icon",
                   "width": 40,
                   "height": 40,
-                  "fill": "$chip-bg",
+                  "fill": "$icon-bg",
                   "cornerRadius": 20,
                   "justifyContent": "center",
                   "alignItems": "center",
@@ -7583,7 +7585,7 @@
                   "name": "Icon",
                   "width": 40,
                   "height": 40,
-                  "fill": "$chip-bg",
+                  "fill": "$icon-bg",
                   "cornerRadius": 20,
                   "justifyContent": "center",
                   "alignItems": "center",
@@ -7674,7 +7676,7 @@
                   "name": "Icon",
                   "width": 40,
                   "height": 40,
-                  "fill": "$chip-bg",
+                  "fill": "$icon-bg",
                   "cornerRadius": 20,
                   "justifyContent": "center",
                   "alignItems": "center",
@@ -7754,7 +7756,7 @@
                   "name": "Icon",
                   "width": 40,
                   "height": 40,
-                  "fill": "$chip-bg",
+                  "fill": "$icon-bg",
                   "cornerRadius": 20,
                   "justifyContent": "center",
                   "alignItems": "center",
@@ -7834,7 +7836,7 @@
                   "name": "Icon",
                   "width": 40,
                   "height": 40,
-                  "fill": "$chip-bg",
+                  "fill": "$icon-bg",
                   "cornerRadius": 20,
                   "justifyContent": "center",
                   "alignItems": "center",
@@ -7925,7 +7927,7 @@
                   "name": "Icon",
                   "width": 40,
                   "height": 40,
-                  "fill": "$chip-bg",
+                  "fill": "$icon-bg",
                   "cornerRadius": 20,
                   "justifyContent": "center",
                   "alignItems": "center",
@@ -8005,7 +8007,7 @@
                   "name": "Icon",
                   "width": 40,
                   "height": 40,
-                  "fill": "$chip-bg",
+                  "fill": "$icon-bg",
                   "cornerRadius": 20,
                   "justifyContent": "center",
                   "alignItems": "center",
@@ -8090,7 +8092,7 @@
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
-                "color": "#4CA66259",
+                "color": "$primary-glow",
                 "offset": {
                   "x": 0,
                   "y": 6
@@ -8112,13 +8114,13 @@
                   "height": 20,
                   "icon": "plus",
                   "library": "lucide",
-                  "fill": "#FFFFFF"
+                  "fill": "$on-primary"
                 },
                 {
                   "type": "text",
                   "id": "jfWLT",
                   "name": "FAB Label",
-                  "fill": "#FFFFFF",
+                  "fill": "$on-primary",
                   "content": "Новый продукт",
                   "fontFamily": "$font-body",
                   "fontSize": 15,
@@ -8289,7 +8291,7 @@
                   "name": "Icon",
                   "width": 44,
                   "height": 44,
-                  "fill": "#FFFFFFCC",
+                  "fill": "$surface-overlay",
                   "cornerRadius": 22,
                   "justifyContent": "center",
                   "alignItems": "center",
@@ -8581,7 +8583,7 @@
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
-                "color": "#4CA66240",
+                "color": "$primary-glow-soft",
                 "offset": {
                   "x": 0,
                   "y": 6
@@ -8595,7 +8597,7 @@
                   "type": "text",
                   "id": "f2LSF",
                   "name": "Save Label",
-                  "fill": "#FFFFFF",
+                  "fill": "$on-primary",
                   "content": "Добавить в холодильник",
                   "fontFamily": "$font-body",
                   "fontSize": 16,
@@ -8766,14 +8768,14 @@
                   "name": "Category Open",
                   "clip": true,
                   "width": "fill_container",
-                  "fill": "#FFFFFF",
+                  "fill": "$surface",
                   "cornerRadius": 16,
-                  "stroke": "#4CA662",
+                  "stroke": "$primary",
                   "strokeWidth": 1.5,
                   "effect": {
                     "type": "shadow",
                     "shadowType": "outer",
-                    "color": "#2B252120",
+                    "color": "$overlay-scrim",
                     "offset": {
                       "x": 0,
                       "y": 4
@@ -8787,7 +8789,7 @@
                       "id": "BEfva",
                       "name": "Trigger Row",
                       "width": "fill_container",
-                      "stroke": "#EFE7DA",
+                      "stroke": "$border",
                       "strokeWidth": {
                         "bottom": 1
                       },
@@ -8802,7 +8804,7 @@
                           "type": "text",
                           "id": "EpsuJ",
                           "name": "Placeholder",
-                          "fill": "#8A8177",
+                          "fill": "$text-secondary",
                           "content": "Выберите или создайте",
                           "fontFamily": "Inter",
                           "fontSize": 15,
@@ -8816,7 +8818,7 @@
                           "height": 18,
                           "icon": "chevron-up",
                           "library": "lucide",
-                          "fill": "#4CA662"
+                          "fill": "$primary"
                         }
                       ]
                     },
@@ -8825,7 +8827,7 @@
                       "id": "P7JB4I",
                       "name": "Option Молочное",
                       "width": "fill_container",
-                      "fill": "#FFFFFF",
+                      "fill": "$surface",
                       "padding": [
                         12,
                         16
@@ -8844,7 +8846,7 @@
                               "type": "text",
                               "id": "wf7iR",
                               "name": "Emoji",
-                              "fill": "#2B2521",
+                              "fill": "$text-primary",
                               "content": "🥛",
                               "fontFamily": "Inter",
                               "fontSize": 16,
@@ -8854,7 +8856,7 @@
                               "type": "text",
                               "id": "LE3vS",
                               "name": "Label",
-                              "fill": "#2B2521",
+                              "fill": "$text-primary",
                               "content": "Молочное",
                               "fontFamily": "Inter",
                               "fontSize": 15,
@@ -8886,7 +8888,7 @@
                               "type": "text",
                               "id": "aVUS2",
                               "name": "Emoji",
-                              "fill": "#2B2521",
+                              "fill": "$text-primary",
                               "content": "🧀",
                               "fontFamily": "Inter",
                               "fontSize": 16,
@@ -8896,7 +8898,7 @@
                               "type": "text",
                               "id": "GPCWV",
                               "name": "Label",
-                              "fill": "#2B2521",
+                              "fill": "$text-primary",
                               "content": "Сыры",
                               "fontFamily": "Inter",
                               "fontSize": 15,
@@ -8928,7 +8930,7 @@
                               "type": "text",
                               "id": "L10R6",
                               "name": "Emoji",
-                              "fill": "#2B2521",
+                              "fill": "$text-primary",
                               "content": "🥗",
                               "fontFamily": "Inter",
                               "fontSize": 16,
@@ -8938,7 +8940,7 @@
                               "type": "text",
                               "id": "vC9mv",
                               "name": "Label",
-                              "fill": "#2B2521",
+                              "fill": "$text-primary",
                               "content": "Заготовки",
                               "fontFamily": "Inter",
                               "fontSize": 15,
@@ -8954,7 +8956,7 @@
                       "name": "Divider",
                       "width": "fill_container",
                       "height": 1,
-                      "fill": "#EFE7DA"
+                      "fill": "$border"
                     },
                     {
                       "type": "frame",
@@ -8976,13 +8978,13 @@
                           "height": 18,
                           "icon": "plus",
                           "library": "lucide",
-                          "fill": "#4CA662"
+                          "fill": "$primary"
                         },
                         {
                           "type": "text",
                           "id": "tPKgH",
                           "name": "Label",
-                          "fill": "#4CA662",
+                          "fill": "$primary",
                           "content": "Создать категорию",
                           "fontFamily": "Inter",
                           "fontSize": 15,
@@ -9091,7 +9093,7 @@
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
-                "color": "#4CA66240",
+                "color": "$primary-glow-soft",
                 "offset": {
                   "x": 0,
                   "y": 6
@@ -9105,7 +9107,7 @@
                   "type": "text",
                   "id": "lXb3Q",
                   "name": "Save Label",
-                  "fill": "#FFFFFF",
+                  "fill": "$on-primary",
                   "content": "Сохранить в каталог",
                   "fontFamily": "$font-body",
                   "fontSize": 16,
@@ -9276,14 +9278,14 @@
                   "name": "Category Open",
                   "clip": true,
                   "width": "fill_container",
-                  "fill": "#FFFFFF",
+                  "fill": "$surface",
                   "cornerRadius": 16,
-                  "stroke": "#4CA662",
+                  "stroke": "$primary",
                   "strokeWidth": 1.5,
                   "effect": {
                     "type": "shadow",
                     "shadowType": "outer",
-                    "color": "#2B252120",
+                    "color": "$overlay-scrim",
                     "offset": {
                       "x": 0,
                       "y": 4
@@ -9297,7 +9299,7 @@
                       "id": "H3SVEV",
                       "name": "Trigger Row",
                       "width": "fill_container",
-                      "stroke": "#EFE7DA",
+                      "stroke": "$border",
                       "strokeWidth": {
                         "bottom": 1
                       },
@@ -9323,13 +9325,13 @@
                               "height": 18,
                               "icon": "chevron-left",
                               "library": "lucide",
-                              "fill": "#8A8177"
+                              "fill": "$text-secondary"
                             },
                             {
                               "type": "text",
                               "id": "rOuJU",
                               "name": "Title",
-                              "fill": "#2B2521",
+                              "fill": "$text-primary",
                               "content": "Новая категория",
                               "fontFamily": "Inter",
                               "fontSize": 15,
@@ -9345,7 +9347,7 @@
                           "height": 18,
                           "icon": "chevron-up",
                           "library": "lucide",
-                          "fill": "#4CA662"
+                          "fill": "$primary"
                         }
                       ]
                     },
@@ -9372,9 +9374,9 @@
                               "name": "Emoji Picker",
                               "width": 44,
                               "height": 44,
-                              "fill": "#F3EDE2",
+                              "fill": "$icon-bg",
                               "cornerRadius": 12,
-                              "stroke": "#4CA662",
+                              "stroke": "$primary",
                               "strokeWidth": 1.5,
                               "justifyContent": "center",
                               "alignItems": "center",
@@ -9383,7 +9385,7 @@
                                   "type": "text",
                                   "id": "XLDYf",
                                   "name": "Emoji",
-                                  "fill": "#2B2521",
+                                  "fill": "$text-primary",
                                   "content": "🏷️",
                                   "fontFamily": "Inter",
                                   "fontSize": 20,
@@ -9397,9 +9399,9 @@
                               "name": "Name Input",
                               "width": "fill_container",
                               "height": 44,
-                              "fill": "#FFFFFF",
+                              "fill": "$surface",
                               "cornerRadius": 12,
-                              "stroke": "#EFE7DA",
+                              "stroke": "$border",
                               "strokeWidth": 1,
                               "padding": [
                                 12,
@@ -9411,7 +9413,7 @@
                                   "type": "text",
                                   "id": "f7LEE8",
                                   "name": "Placeholder",
-                                  "fill": "#8A8177",
+                                  "fill": "$text-secondary",
                                   "content": "Название",
                                   "fontFamily": "Inter",
                                   "fontSize": 15,
@@ -9444,7 +9446,7 @@
                                   "type": "text",
                                   "id": "t1oXI",
                                   "name": "Label",
-                                  "fill": "#8A8177",
+                                  "fill": "$text-secondary",
                                   "content": "Отмена",
                                   "fontFamily": "Inter",
                                   "fontSize": 14,
@@ -9456,7 +9458,7 @@
                               "type": "frame",
                               "id": "EJBny",
                               "name": "Add Button",
-                              "fill": "#4CA662",
+                              "fill": "$primary",
                               "cornerRadius": 20,
                               "gap": 6,
                               "padding": [
@@ -9473,13 +9475,13 @@
                                   "height": 16,
                                   "icon": "check",
                                   "library": "lucide",
-                                  "fill": "#FFFFFF"
+                                  "fill": "$on-primary"
                                 },
                                 {
                                   "type": "text",
                                   "id": "m6SS5P",
                                   "name": "Label",
-                                  "fill": "#FFFFFF",
+                                  "fill": "$on-primary",
                                   "content": "Добавить",
                                   "fontFamily": "Inter",
                                   "fontSize": 14,
@@ -9592,7 +9594,7 @@
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
-                "color": "#4CA66240",
+                "color": "$primary-glow-soft",
                 "offset": {
                   "x": 0,
                   "y": 6
@@ -9606,7 +9608,7 @@
                   "type": "text",
                   "id": "olG43",
                   "name": "Save Label",
-                  "fill": "#FFFFFF",
+                  "fill": "$on-primary",
                   "content": "Сохранить в каталог",
                   "fontFamily": "$font-body",
                   "fontSize": 16,
@@ -9672,10 +9674,6 @@
       "type": "color",
       "value": "#EFE7DA"
     },
-    "chip-bg": {
-      "type": "color",
-      "value": "#F3EDE2"
-    },
     "font-heading": {
       "type": "string",
       "value": "Manrope"
@@ -9683,6 +9681,94 @@
     "font-body": {
       "type": "string",
       "value": "Inter"
+    },
+    "border-muted": {
+      "type": "color",
+      "value": "#C9BFB0"
+    },
+    "icon-bg": {
+      "type": "color",
+      "value": "#F3EDE2"
+    },
+    "surface-muted": {
+      "type": "color",
+      "value": "#F3EDE2"
+    },
+    "danger-text": {
+      "type": "color",
+      "value": "#C64537"
+    },
+    "primary-text": {
+      "type": "color",
+      "value": "#3D8A50"
+    },
+    "primary-glow": {
+      "type": "color",
+      "value": "#4CA66259"
+    },
+    "primary-glow-soft": {
+      "type": "color",
+      "value": "#4CA66240"
+    },
+    "secondary-text": {
+      "type": "color",
+      "value": "#C05F1A"
+    },
+    "surface-glass": {
+      "type": "color",
+      "value": "#FFFFFFE6"
+    },
+    "surface-faded": {
+      "type": "color",
+      "value": "#FFFFFF99"
+    },
+    "surface-overlay": {
+      "type": "color",
+      "value": "#FFFFFFCC"
+    },
+    "warning-text": {
+      "type": "color",
+      "value": "#B9770E"
+    },
+    "availability-partial": {
+      "type": "color",
+      "value": "#C77E2B"
+    },
+    "on-primary": {
+      "type": "color",
+      "value": "#FFFFFF"
+    },
+    "transparent": {
+      "type": "color",
+      "value": "#FFFFFF00"
+    },
+    "shadow-color": {
+      "type": "color",
+      "value": "#00000008"
+    },
+    "shadow-color-md": {
+      "type": "color",
+      "value": "#0000000F"
+    },
+    "shadow-color-segment": {
+      "type": "color",
+      "value": "#0000000D"
+    },
+    "overlay-scrim": {
+      "type": "color",
+      "value": "#2B252120"
+    },
+    "day-active-soft": {
+      "type": "color",
+      "value": "#DFF0E2"
+    },
+    "primary-empty-fill": {
+      "type": "color",
+      "value": "#4CA6620D"
+    },
+    "primary-empty-stroke": {
+      "type": "color",
+      "value": "#4CA66266"
     }
   },
   "fileToken": "46904bf9-a7b9-4585-90a1-19f74f4c454b"
