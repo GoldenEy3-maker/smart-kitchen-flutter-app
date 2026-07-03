@@ -1,0 +1,41 @@
+{
+  "@@locale": "ru",
+  "helloWorld": "Привет, мир!",
+  "@helloWorld": {
+    "description": "The conventional newborn programmer greeting"
+  },
+  "productCatalogTitle": "Каталог продуктов",
+  "@productCatalogTitle": {
+    "description": "Заголовок страницы каталога продуктов"
+  },
+  "productCatalogAllCategory": "Все",
+  "@productCatalogAllCategory": {
+    "description": "Название категории всех продуктов"
+  },
+  "productCatalogSearchHint": "Поиск продукта...",
+  "@productCatalogSearchHint": {
+    "description": "Подсказка для поиска продукта"
+  },
+  "productCatalogTotalWithDescription": "{total} продуктов · общий справочник для холодильника и рецептов",
+  "@productCatalogTotalWithDescription": {
+    "description": "Текст с количеством продуктов и описанием справочника",
+    "placeholders": {
+      "total": {
+        "type": "String",
+        "description": "Количество продуктов",
+        "example": "48"
+      }
+    }
+  },
+  "productCatalogProductUnit": "Ед. изм: {unit}",
+  "@productCatalogProductUnit": {
+    "description": "Текст с единицей измерения продукта",
+    "placeholders": {
+      "unit": {
+        "type": "String",
+        "description": "Единица измерения продукта",
+        "example": "кг"
+      }
+    }
+  }
+}

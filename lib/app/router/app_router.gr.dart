@@ -25,3 +25,19 @@ class HomeRoute extends PageRouteInfo<void> {
     },
   );
 }
+
+/// generated route for
+/// [ProductCatalogPage]
+class ProductCatalogRoute extends PageRouteInfo<void> {
+  const ProductCatalogRoute({List<PageRouteInfo>? children})
+    : super(ProductCatalogRoute.name, initialChildren: children);
+
+  static const String name = 'ProductCatalogRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ProductCatalogPage();
+    },
+  );
+}

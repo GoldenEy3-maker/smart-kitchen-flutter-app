@@ -1,6 +1,6 @@
 name: smart_kitchen_flutter_app
 description: "A new Flutter project."
-publish_to: 'none'
+publish_to: "none"
 version: 0.1.0+1
 
 environment:
@@ -14,8 +14,11 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^9.1.1
+  flutter_localizations:
+    sdk: flutter
   get_it: ^9.2.1
   hive: ^2.2.3
+  intl: any
   json_annotation: ^4.12.0
   path_provider: ^2.1.6
   talker_bloc_logger: ^5.1.17
@@ -31,4 +34,5 @@ dev_dependencies:
   bloc_lint: ^0.4.1
 
 flutter:
+  generate: true
   uses-material-design: true
