@@ -8,11 +8,11 @@ abstract final class AppColors {
   static const Color surfaceFaded = Color(0x99FFFFFF);
   static const Color surfaceOverlay = Color(0xCCFFFFFF);
 
-  static const Color border = Color(0xFFEFE7DA);
+  static const Color border = Color(0xFFF0E7DA);
   static const Color borderMuted = Color(0xFFC9BFB0);
 
   static const Color textPrimary = Color(0xFF2B2521);
-  static const Color textSecondary = Color(0xFF8A8177);
+  static const Color textSecondary = Color(0xFF8A8176);
 
   static const Color primary = Color(0xFF4CA662);
   static const Color primarySoft = Color(0xFFE7F3E9);

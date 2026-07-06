@@ -1,6 +1,9 @@
 import "package:flutter/material.dart";
 import "package:smart_kitchen_flutter_app/core/l10n/app_localizations.dart";
+import "package:smart_kitchen_flutter_app/core/theme/theme.dart";
+import "package:smart_kitchen_flutter_app/core/widgets/emoji_text/emoji_text.dart";
 import "package:smart_kitchen_flutter_app/features/product_catalog/domain/entities/entities.dart";
+import "package:lucide_icons_flutter/lucide_icons.dart";
 
 class ProductTile extends StatelessWidget {
   final Product product;
@@ -10,44 +13,54 @@ class ProductTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final theme = Theme.of(context);
 
     return Material(
       color: Colors.transparent,
       child: InkWell(
         onTap: () {},
-        borderRadius: const BorderRadius.all(Radius.circular(16)),
+        borderRadius: BorderRadius.all(Radius.circular(AppRadius.small)),
         child: Ink(
           decoration: BoxDecoration(
-            border: Border.all(color: Colors.grey.shade300),
-            borderRadius: const BorderRadius.all(Radius.circular(16)),
+            border: Border.all(color: AppColors.border),
+            color: AppColors.surface,
+            borderRadius: BorderRadius.all(Radius.circular(AppRadius.small)),
           ),
           child: Padding(
-            padding: const EdgeInsets.all(12),
+            padding: EdgeInsets.all(AppSpacing.medium),
             child: Row(
               children: [
                 Container(
                   height: 40,
                   width: 40,
                   decoration: BoxDecoration(
-                    color: Colors.brown.shade100,
+                    color: AppColors.iconBg,
                     border: Border.all(color: Colors.transparent),
-                    borderRadius: const BorderRadius.all(Radius.circular(100)),
+                    shape: BoxShape.circle,
                   ),
-                  child: Center(child: Text(product.emoji)),
+                  child: Center(
+                    child: EmojiText(
+                      emoji: product.emoji,
+                      style: theme.textTheme.labelLarge,
+                    ),
+                  ),
                 ),
-                const SizedBox(width: 12),
+                SizedBox(width: AppSpacing.medium),
                 Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(product.name),
-                    Text(l10n.productCatalogProductUnit(product.unit)),
+                    Text(product.name, style: theme.textTheme.titleMedium),
+                    Text(
+                      l10n.productCatalogProductUnit(product.unit),
+                      style: theme.textTheme.bodySmall,
+                    ),
                   ],
                 ),
                 const Expanded(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
-                    children: [Icon(Icons.chevron_right)],
+                    children: [Icon(LucideIcons.chevronRight, size: 18)],
                   ),
                 ),
               ],

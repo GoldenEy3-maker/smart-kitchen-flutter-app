@@ -1,15 +1,21 @@
 import "package:flutter/material.dart";
 import "package:smart_kitchen_flutter_app/core/l10n/app_localizations.dart";
+import "package:lucide_icons_flutter/lucide_icons.dart";
+import "package:smart_kitchen_flutter_app/core/theme/theme.dart";
 
 class SearchHeaderDelegate extends SliverPersistentHeaderDelegate {
   final double height;
   final double paddingTop;
   final double paddingHorizontal;
+  final TextEditingController? controller;
+  final void Function(String value)? onChanged;
 
   const SearchHeaderDelegate({
     required this.height,
     this.paddingTop = 0,
     this.paddingHorizontal = 0,
+    this.controller,
+    this.onChanged,
   });
 
   @override
@@ -35,16 +41,18 @@ class SearchHeaderDelegate extends SliverPersistentHeaderDelegate {
         right: paddingHorizontal,
       ),
       child: TextField(
-        scrollPadding: EdgeInsets.zero,
+        controller: controller,
+        onChanged: onChanged,
         decoration: InputDecoration(
           hintText: l10n.productCatalogSearchHint,
-          prefixIcon: Container(
-            margin: const EdgeInsets.only(left: 10),
-            child: const Icon(Icons.search),
+          prefixIcon: Padding(
+            padding: EdgeInsets.only(
+              right: AppSpacing.xSmall,
+              left: AppSpacing.large,
+            ),
+            child: const Icon(LucideIcons.search, size: 20),
           ),
-          border: const OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(24)),
-          ),
+          prefixIconConstraints: BoxConstraints(minWidth: 0),
         ),
       ),
     );

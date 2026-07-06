@@ -22,6 +22,7 @@ class CategoryProduct extends Equatable {
                 .toList(),
           ),
         )
+        .where((categoryProduct) => categoryProduct.products.isNotEmpty)
         .toList();
   }
 

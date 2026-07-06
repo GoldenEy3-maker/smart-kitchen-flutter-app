@@ -18,7 +18,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get productCatalogAllCategory => 'Все';
 
   @override
-  String get productCatalogSearchHint => 'Поиск продукта...';
+  String get productCatalogSearchHint => 'Найти продукты...';
 
   @override
   String productCatalogTotalWithDescription(String total) {
@@ -27,6 +27,6 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String productCatalogProductUnit(String unit) {
-    return 'Ед. изм: $unit';
+    return 'Единица измерения: $unit';
   }
 }

@@ -12,7 +12,7 @@
   "@productCatalogAllCategory": {
     "description": "Название категории всех продуктов"
   },
-  "productCatalogSearchHint": "Поиск продукта...",
+  "productCatalogSearchHint": "Найти продукты...",
   "@productCatalogSearchHint": {
     "description": "Подсказка для поиска продукта"
   },
@@ -27,7 +27,7 @@
       }
     }
   },
-  "productCatalogProductUnit": "Ед. изм: {unit}",
+  "productCatalogProductUnit": "Единица измерения: {unit}",
   "@productCatalogProductUnit": {
     "description": "Текст с единицей измерения продукта",
     "placeholders": {

@@ -115,7 +115,7 @@ abstract class AppLocalizations {
   /// Подсказка для поиска продукта
   ///
   /// In ru, this message translates to:
-  /// **'Поиск продукта...'**
+  /// **'Найти продукты...'**
   String get productCatalogSearchHint;
 
   /// Текст с количеством продуктов и описанием справочника
@@ -127,7 +127,7 @@ abstract class AppLocalizations {
   /// Текст с единицей измерения продукта
   ///
   /// In ru, this message translates to:
-  /// **'Ед. изм: {unit}'**
+  /// **'Единица измерения: {unit}'**
   String productCatalogProductUnit(String unit);
 }
 

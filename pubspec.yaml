@@ -20,6 +20,7 @@ dependencies:
   hive: ^2.2.3
   intl: any
   json_annotation: ^4.12.0
+  lucide_icons_flutter: ^3.1.14+2
   path_provider: ^2.1.6
   talker_bloc_logger: ^5.1.17
   talker_flutter: ^5.1.17
@@ -36,3 +37,19 @@ dev_dependencies:
 flutter:
   generate: true
   uses-material-design: true
+
+  fonts:
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/Inter-Regular.ttf
+        - asset: assets/fonts/Inter-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Inter-Bold.ttf
+          weight: 700
+    - family: Manrope
+      fonts:
+        - asset: assets/fonts/Manrope-Bold.ttf
+          weight: 700
+    - family: NotoEmoji
+      fonts:
+        - asset: assets/fonts/NotoEmoji-Regular.ttf

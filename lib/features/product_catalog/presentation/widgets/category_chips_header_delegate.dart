@@ -1,5 +1,7 @@
 import "package:flutter/material.dart";
 import "package:smart_kitchen_flutter_app/core/l10n/app_localizations.dart";
+import "package:smart_kitchen_flutter_app/core/widgets/category_chip/category_chip.dart";
+import "package:smart_kitchen_flutter_app/core/widgets/emoji_text/emoji_text.dart";
 import "package:smart_kitchen_flutter_app/features/product_catalog/domain/entities/entities.dart";
 
 class CategoryChipsHeaderDelegate extends SliverPersistentHeaderDelegate {
@@ -50,29 +52,24 @@ class CategoryChipsHeaderDelegate extends SliverPersistentHeaderDelegate {
         itemCount: categories.length + 1,
         itemBuilder: (context, index) {
           if (index == 0) {
-            return FilterChip(
+            return CategoryChip(
               label: Text(l10n.productCatalogAllCategory),
               onSelected: (_) => onCategorySelected(null),
-              showCheckmark: false,
               selected: selectedCategory == null,
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(24)),
-              ),
             );
           }
 
           final category = categories[index - 1];
-          return FilterChip(
+          return CategoryChip(
             label: Row(
               spacing: 4,
-              children: [Text(category.emoji), Text(category.label)],
+              children: [
+                EmojiText(emoji: category.emoji),
+                Text(category.label),
+              ],
             ),
             onSelected: (_) => onCategorySelected(category),
-            showCheckmark: false,
             selected: selectedCategory?.id == category.id,
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(24)),
-            ),
           );
         },
       ),
