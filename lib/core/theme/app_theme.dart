@@ -14,6 +14,7 @@ class AppTheme {
     scaffoldBackgroundColor: AppColors.bg,
     colorScheme: ColorScheme.light(
       primary: AppColors.primary,
+      onPrimary: AppColors.onPrimary,
       surface: AppColors.surface,
       onSurface: AppColors.textPrimary,
       outline: AppColors.border,
@@ -45,6 +46,9 @@ class AppTheme {
       backgroundColor: AppColors.bg,
       foregroundColor: AppColors.textPrimary,
       surfaceTintColor: Colors.transparent,
+      titleTextStyle: AppTypography.textTheme.titleLarge!.copyWith(
+        color: AppColors.textPrimary,
+      ),
     ),
     chipTheme: ChipThemeData(
       backgroundColor: AppColors.surface,

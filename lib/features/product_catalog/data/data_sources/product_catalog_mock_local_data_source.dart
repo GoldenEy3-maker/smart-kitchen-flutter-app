@@ -1,4 +1,5 @@
 import "package:smart_kitchen_flutter_app/core/error/failure.dart";
+import "package:smart_kitchen_flutter_app/core/icons/catalog_icons.dart";
 
 import "package:smart_kitchen_flutter_app/core/utils/either.dart";
 import "package:smart_kitchen_flutter_app/features/product_catalog/data/models/models.dart";
@@ -10,14 +11,46 @@ class ProductCatalogMockLocalDataSource
   @override
   Future<Either<Failure, List<CategoryModel>>> getCategories() async {
     return Right([
-      CategoryModel(id: "vegetables", label: "Овощи", emoji: "🥬"),
-      CategoryModel(id: "fruits", label: "Фрукты", emoji: "🍎"),
-      CategoryModel(id: "meat", label: "Мясо", emoji: "🍖"),
-      CategoryModel(id: "fish", label: "Рыба", emoji: "🍣"),
-      CategoryModel(id: "dairy", label: "Молоко", emoji: "🥛"),
-      CategoryModel(id: "bread", label: "Хлеб", emoji: "🍞"),
-      CategoryModel(id: "alcohol", label: "Алкоголь", emoji: "🍺"),
-      CategoryModel(id: "other", label: "Другие", emoji: "🍽"),
+      CategoryModel(
+        id: "vegetables",
+        label: "Овощи",
+        iconKey: CatalogIconsKeys.broccoli.name,
+      ),
+      CategoryModel(
+        id: "fruits",
+        label: "Фрукты",
+        iconKey: CatalogIconsKeys.apple.name,
+      ),
+      CategoryModel(
+        id: "meat",
+        label: "Мясо",
+        iconKey: CatalogIconsKeys.beef.name,
+      ),
+      CategoryModel(
+        id: "fish",
+        label: "Рыба",
+        iconKey: CatalogIconsKeys.fish.name,
+      ),
+      CategoryModel(
+        id: "dairy",
+        label: "Молоко",
+        iconKey: CatalogIconsKeys.milk.name,
+      ),
+      CategoryModel(
+        id: "bread",
+        label: "Хлеб",
+        iconKey: CatalogIconsKeys.wheat.name,
+      ),
+      CategoryModel(
+        id: "alcohol",
+        label: "Алкоголь",
+        iconKey: CatalogIconsKeys.wine.name,
+      ),
+      CategoryModel(
+        id: "other",
+        label: "Другие",
+        iconKey: CatalogIconsKeys.package.name,
+      ),
     ]);
   }
 
@@ -27,91 +60,91 @@ class ProductCatalogMockLocalDataSource
       ProductModel(
         id: "1",
         name: "Картофель",
-        emoji: "🥦",
+        iconKey: CatalogIconsKeys.broccoli.name,
         unit: "кг",
         categoryId: "vegetables",
       ),
       ProductModel(
         id: "2",
         name: "Яблоко",
-        emoji: "🍎",
+        iconKey: CatalogIconsKeys.apple.name,
         unit: "шт",
         categoryId: "fruits",
       ),
       ProductModel(
         id: "3",
         name: "Говядина",
-        emoji: "🍖",
+        iconKey: CatalogIconsKeys.beef.name,
         unit: "кг",
         categoryId: "meat",
       ),
       ProductModel(
         id: "4",
         name: "Лосось",
-        emoji: "🍣",
+        iconKey: CatalogIconsKeys.fish.name,
         unit: "шт",
         categoryId: "fish",
       ),
       ProductModel(
         id: "5",
         name: "Молоко",
-        emoji: "🥛",
+        iconKey: CatalogIconsKeys.milk.name,
         unit: "л",
         categoryId: "dairy",
       ),
       ProductModel(
         id: "6",
         name: "Хлеб",
-        emoji: "🍞",
+        iconKey: CatalogIconsKeys.wheat.name,
         unit: "шт",
         categoryId: "bread",
       ),
       ProductModel(
         id: "7",
         name: "Пиво",
-        emoji: "🍺",
+        iconKey: CatalogIconsKeys.beer.name,
         unit: "л",
         categoryId: "alcohol",
       ),
       ProductModel(
         id: "8",
         name: "Салат",
-        emoji: "🍽",
+        iconKey: CatalogIconsKeys.salad.name,
         unit: "шт",
         categoryId: "other",
       ),
       ProductModel(
         id: "9",
         name: "Творог",
-        emoji: "🥛",
+        iconKey: CatalogIconsKeys.milk.name,
         unit: "г",
         categoryId: "dairy",
       ),
       ProductModel(
         id: "10",
         name: "Спагетти",
-        emoji: "🍝",
+        iconKey: CatalogIconsKeys.salad.name,
         unit: "г",
         categoryId: "bread",
       ),
       ProductModel(
         id: "11",
         name: "Вино",
-        emoji: "🍷",
+        iconKey: CatalogIconsKeys.wine.name,
         unit: "л",
         categoryId: "alcohol",
       ),
       ProductModel(
         id: "12",
         name: "Гамбургер",
-        emoji: "🍔",
+        iconKey: CatalogIconsKeys.hamburger.name,
         unit: "шт",
         categoryId: "other",
       ),
       ProductModel(
         id: "13",
         name: "Сыр",
-        emoji: "🥛",
+        iconKey: CatalogIconsKeys.egg.name,
         unit: "г",
         categoryId: "dairy",
       ),

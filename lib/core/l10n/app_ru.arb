@@ -16,17 +16,6 @@
   "@productCatalogSearchHint": {
     "description": "Подсказка для поиска продукта"
   },
-  "productCatalogTotalWithDescription": "{total} продуктов · общий справочник для холодильника и рецептов",
-  "@productCatalogTotalWithDescription": {
-    "description": "Текст с количеством продуктов и описанием справочника",
-    "placeholders": {
-      "total": {
-        "type": "String",
-        "description": "Количество продуктов",
-        "example": "48"
-      }
-    }
-  },
   "productCatalogProductUnit": "Единица измерения: {unit}",
   "@productCatalogProductUnit": {
     "description": "Текст с единицей измерения продукта",

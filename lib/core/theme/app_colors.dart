@@ -12,9 +12,10 @@ abstract final class AppColors {
   static const Color borderMuted = Color(0xFFC9BFB0);
 
   static const Color textPrimary = Color(0xFF2B2521);
-  static const Color textSecondary = Color(0xFF8A8176);
+  static const Color textSecondary = Color(0xFF6B645C);
+  static const Color textMuted = Color(0xFF7A7268);
 
-  static const Color primary = Color(0xFF4CA662);
+  static const Color primary = Color(0xFF3A8A3E);
   static const Color primarySoft = Color(0xFFE7F3E9);
   static const Color primaryText = Color(0xFF3D8A50);
   static const Color onPrimary = Color(0xFFFFFFFF);

@@ -26,6 +26,11 @@ class CategoryProduct extends Equatable {
         .toList();
   }
 
+  static CategoryProduct get loading => CategoryProduct(
+    category: Category.loading,
+    products: [Product.loading, Product.loading, Product.loading],
+  );
+
   @override
   List<Object?> get props => [category, products];
 }

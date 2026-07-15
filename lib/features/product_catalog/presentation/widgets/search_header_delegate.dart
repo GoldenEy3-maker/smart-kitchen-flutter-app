@@ -18,6 +18,8 @@ class SearchHeaderDelegate extends SliverPersistentHeaderDelegate {
     this.onChanged,
   });
 
+  static const double kHeight = 48;
+
   @override
   double get minExtent => height;
 

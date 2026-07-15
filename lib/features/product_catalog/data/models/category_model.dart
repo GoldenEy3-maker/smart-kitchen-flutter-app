@@ -7,14 +7,14 @@ part "category_model.g.dart";
 class CategoryModel {
   final String id;
   final String label;
-  final String emoji;
+  final String iconKey;
 
-  CategoryModel({required this.id, required this.label, required this.emoji});
+  CategoryModel({required this.id, required this.label, required this.iconKey});
 
   factory CategoryModel.fromJson(Map<String, dynamic> json) =>
       _$CategoryModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$CategoryModelToJson(this);
 
-  Category toEntity() => Category(id: id, label: label, emoji: emoji);
+  Category toEntity() => Category(id: id, label: label, iconKey: iconKey);
 }

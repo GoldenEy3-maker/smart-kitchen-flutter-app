@@ -1,7 +1,9 @@
 import "package:flutter/material.dart";
+import "package:skeletonizer/skeletonizer.dart";
+import "package:smart_kitchen_flutter_app/core/icons/icons.dart";
 import "package:smart_kitchen_flutter_app/core/l10n/app_localizations.dart";
-import "package:smart_kitchen_flutter_app/core/widgets/category_chip/category_chip.dart";
-import "package:smart_kitchen_flutter_app/core/widgets/emoji_text/emoji_text.dart";
+import "package:smart_kitchen_flutter_app/core/theme/app_colors.dart";
+import "package:smart_kitchen_flutter_app/core/widgets/selectable_chip/selectable_chip.dart";
 import "package:smart_kitchen_flutter_app/features/product_catalog/domain/entities/entities.dart";
 
 class CategoryChipsHeaderDelegate extends SliverPersistentHeaderDelegate {
@@ -10,6 +12,7 @@ class CategoryChipsHeaderDelegate extends SliverPersistentHeaderDelegate {
   final double height;
   final double paddingVertical;
   final double paddingHorizontal;
+  final bool isLoading;
 
   final ValueChanged<Category?> onCategorySelected;
 
@@ -20,8 +23,10 @@ class CategoryChipsHeaderDelegate extends SliverPersistentHeaderDelegate {
     required this.height,
     this.paddingVertical = 0,
     this.paddingHorizontal = 0,
+    this.isLoading = false,
   });
 
+  static const double kHeight = 36;
   static const double _chipSeparatorWidth = 10;
 
   @override
@@ -38,46 +43,55 @@ class CategoryChipsHeaderDelegate extends SliverPersistentHeaderDelegate {
   ) {
     final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
+    final categoriesToRender = isLoading
+        ? [Category.loading, Category.loading, Category.loading]
+        : categories;
 
     return Container(
       color: theme.scaffoldBackgroundColor,
       height: height,
       padding: EdgeInsets.symmetric(vertical: paddingVertical),
-      child: ListView.separated(
-        scrollDirection: Axis.horizontal,
-        padding: EdgeInsets.symmetric(horizontal: paddingHorizontal),
-        separatorBuilder: (context, index) {
-          return const SizedBox(width: _chipSeparatorWidth);
-        },
-        itemCount: categories.length + 1,
-        itemBuilder: (context, index) {
-          if (index == 0) {
-            return CategoryChip(
-              label: Text(l10n.productCatalogAllCategory),
-              onSelected: (_) => onCategorySelected(null),
-              selected: selectedCategory == null,
-            );
-          }
+      child: Skeletonizer(
+        enabled: isLoading,
+        child: ListView.separated(
+          scrollDirection: Axis.horizontal,
+          padding: EdgeInsets.symmetric(horizontal: paddingHorizontal),
+          separatorBuilder: (context, index) {
+            return const SizedBox(width: _chipSeparatorWidth);
+          },
+          itemCount: categoriesToRender.length + 1,
+          itemBuilder: (context, index) {
+            if (index == 0) {
+              return Skeleton.keep(
+                child: SelectableChip(
+                  label: Text(l10n.productCatalogAllCategory),
+                  onSelected: (_) => onCategorySelected(null),
+                  selected: selectedCategory == null,
+                ),
+              );
+            }
 
-          final category = categories[index - 1];
-          return CategoryChip(
-            label: Row(
-              spacing: 4,
-              children: [
-                EmojiText(emoji: category.emoji),
-                Text(category.label),
-              ],
-            ),
-            onSelected: (_) => onCategorySelected(category),
-            selected: selectedCategory?.id == category.id,
-          );
-        },
+            final category = categoriesToRender[index - 1];
+            return SelectableChip(
+              label: Row(
+                spacing: 4,
+                children: [
+                  Icon(CatalogIcons.resolveByKey(category.iconKey), size: 14),
+                  Text(category.label),
+                ],
+              ),
+              onSelected: (_) => onCategorySelected(category),
+              selected: selectedCategory?.id == category.id,
+            );
+          },
+        ),
       ),
     );
   }
 
   @override
   bool shouldRebuild(covariant CategoryChipsHeaderDelegate oldDelegate) {
-    return oldDelegate.selectedCategory != selectedCategory;
+    return oldDelegate.selectedCategory != selectedCategory ||
+        oldDelegate.categories != categories;
   }
 }

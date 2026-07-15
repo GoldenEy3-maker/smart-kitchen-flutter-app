@@ -7,14 +7,14 @@ part "product_model.g.dart";
 class ProductModel {
   final String id;
   final String name;
-  final String emoji;
+  final String iconKey;
   final String unit;
   final String categoryId;
 
   const ProductModel({
     required this.id,
     required this.name,
-    required this.emoji,
+    required this.iconKey,
     required this.unit,
     required this.categoryId,
   });
@@ -27,7 +27,7 @@ class ProductModel {
   Product toEntity() => Product(
     id: id,
     name: name,
-    emoji: emoji,
+    iconKey: iconKey,
     unit: unit,
     categoryId: categoryId,
   );

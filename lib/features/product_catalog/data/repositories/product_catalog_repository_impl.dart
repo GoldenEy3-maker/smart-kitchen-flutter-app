@@ -12,6 +12,7 @@ class ProductCatalogRepositoryImpl implements ProductCatalogRepository {
 
   @override
   Future<Either<Failure, List<Category>>> getCategories() async {
+    await Future.delayed(const Duration(seconds: 2));
     final result = await _localDataSource.getCategories();
     return result.fold(
       (failure) => Left(failure),

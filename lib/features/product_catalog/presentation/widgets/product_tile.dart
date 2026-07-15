@@ -1,7 +1,8 @@
 import "package:flutter/material.dart";
+import "package:skeletonizer/skeletonizer.dart";
+import "package:smart_kitchen_flutter_app/core/icons/catalog_icons.dart";
 import "package:smart_kitchen_flutter_app/core/l10n/app_localizations.dart";
 import "package:smart_kitchen_flutter_app/core/theme/theme.dart";
-import "package:smart_kitchen_flutter_app/core/widgets/emoji_text/emoji_text.dart";
 import "package:smart_kitchen_flutter_app/features/product_catalog/domain/entities/entities.dart";
 import "package:lucide_icons_flutter/lucide_icons.dart";
 
@@ -30,18 +31,20 @@ class ProductTile extends StatelessWidget {
             padding: EdgeInsets.all(AppSpacing.medium),
             child: Row(
               children: [
-                Container(
-                  height: 40,
-                  width: 40,
-                  decoration: BoxDecoration(
-                    color: AppColors.iconBg,
-                    border: Border.all(color: Colors.transparent),
-                    shape: BoxShape.circle,
-                  ),
-                  child: Center(
-                    child: EmojiText(
-                      emoji: product.emoji,
-                      style: theme.textTheme.labelLarge,
+                Skeleton.leaf(
+                  child: Container(
+                    height: 44,
+                    width: 44,
+                    decoration: BoxDecoration(
+                      color: AppColors.iconBg,
+                      border: Border.all(color: Colors.transparent),
+                      shape: BoxShape.circle,
+                    ),
+                    child: Center(
+                      child: Icon(
+                        CatalogIcons.resolveByKey(product.iconKey),
+                        size: 20,
+                      ),
                     ),
                   ),
                 ),
@@ -60,7 +63,11 @@ class ProductTile extends StatelessWidget {
                 const Expanded(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
-                    children: [Icon(LucideIcons.chevronRight, size: 18)],
+                    children: [
+                      Skeleton.shade(
+                        child: Icon(LucideIcons.chevronRight, size: 18),
+                      ),
+                    ],
                   ),
                 ),
               ],

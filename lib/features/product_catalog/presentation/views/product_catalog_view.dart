@@ -1,28 +1,35 @@
 import "package:flutter/material.dart";
-import "package:smart_kitchen_flutter_app/core/l10n/app_localizations.dart";
+import "package:skeletonizer/skeletonizer.dart";
 import "package:smart_kitchen_flutter_app/core/theme/theme.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/scroll/scroll.dart";
+import "package:smart_kitchen_flutter_app/features/product_catalog/domain/entities/entities.dart";
 import "package:smart_kitchen_flutter_app/features/product_catalog/presentation/bloc/bloc.dart";
 import "package:smart_kitchen_flutter_app/features/product_catalog/presentation/widgets/widgets.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
 
+class ProductCatalogViewConfig {
+  static const double verticalGap = AppSpacing.standard;
+  static const double horizontalPadding = AppSpacing.xLarge;
+
+  static double categoryChipsHeight =
+      CategoryChipsHeaderDelegate.kHeight + verticalGap * 2;
+  static double searchBarHeight = SearchHeaderDelegate.kHeight;
+}
+
 class ProductCatalogView extends StatelessWidget {
   const ProductCatalogView({super.key});
 
-  static const double containerVerticalGap = AppSpacing.standard;
-  static const double containerHorizontalPadding = AppSpacing.xLarge;
-  static const double categoryChipsHeight = 36 + containerVerticalGap * 2;
-  static const double searchBarHeight = 48 + containerVerticalGap;
-
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
-    final theme = Theme.of(context);
-
     return BlocBuilder<ProductCatalogBloc, ProductCatalogState>(
       builder: (context, state) {
-        final categoryProducts = state.categoryProducts;
-        final totalProducts = state.products.length;
+        final categoryProducts = state.isLoading
+            ? [
+                CategoryProduct.loading,
+                CategoryProduct.loading,
+                CategoryProduct.loading,
+              ]
+            : state.categoryProducts;
 
         return SafeArea(
           child: CustomScrollView(
@@ -30,36 +37,24 @@ class ProductCatalogView extends StatelessWidget {
               parent: AlwaysScrollableScrollPhysics(),
             ),
             slivers: [
-              SliverToBoxAdapter(
-                child: Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: containerHorizontalPadding,
-                  ),
-                  child: Text(
-                    l10n.productCatalogTotalWithDescription(
-                      totalProducts.toString(),
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ),
               SliverPersistentHeader(
                 floating: true,
                 delegate: SearchHeaderDelegate(
                   onChanged: (value) => context.read<ProductCatalogBloc>().add(
                     SearchQueryChanged(query: value),
                   ),
-                  height: searchBarHeight,
-                  paddingTop: containerVerticalGap,
-                  paddingHorizontal: containerHorizontalPadding,
+                  height: ProductCatalogViewConfig.searchBarHeight,
+                  // paddingTop: containerVerticalGap,
+                  paddingHorizontal: ProductCatalogViewConfig.horizontalPadding,
                 ),
               ),
               SliverPersistentHeader(
                 pinned: true,
                 delegate: CategoryChipsHeaderDelegate(
-                  height: categoryChipsHeight,
-                  paddingVertical: containerVerticalGap,
-                  paddingHorizontal: containerHorizontalPadding,
+                  height: ProductCatalogViewConfig.categoryChipsHeight,
+                  paddingVertical: ProductCatalogViewConfig.verticalGap,
+                  paddingHorizontal: ProductCatalogViewConfig.horizontalPadding,
+                  isLoading: state.isLoading,
                   categories: state.categories,
                   selectedCategory: state.selectedCategory,
                   onCategorySelected: (category) => context
@@ -70,34 +65,44 @@ class ProductCatalogView extends StatelessWidget {
               for (var i = 0; i < categoryProducts.length; i++) ...[
                 if (i > 0)
                   const SliverToBoxAdapter(
-                    child: SizedBox(height: containerVerticalGap),
+                    child: SizedBox(
+                      height: ProductCatalogViewConfig.verticalGap,
+                    ),
                   ),
                 SliverPadding(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: containerHorizontalPadding,
+                    horizontal: ProductCatalogViewConfig.horizontalPadding,
                   ),
                   sliver: SliverToBoxAdapter(
-                    child: Text(
-                      categoryProducts[i].category.label.toUpperCase(),
-                      style: theme.textTheme.titleSmall,
+                    child: Skeletonizer(
+                      enabled: state.isLoading,
+                      child: Text(
+                        categoryProducts[i].category.label.toUpperCase(),
+                        style: AppTypography.textTheme.titleSmall,
+                      ),
                     ),
                   ),
                 ),
                 const SliverToBoxAdapter(
-                  child: SizedBox(height: containerVerticalGap),
+                  child: SizedBox(height: ProductCatalogViewConfig.verticalGap),
                 ),
                 SliverPadding(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: containerHorizontalPadding,
+                    horizontal: ProductCatalogViewConfig.horizontalPadding,
                   ),
                   sliver: SliverList.separated(
                     itemCount: categoryProducts[i].products.length,
                     separatorBuilder: (context, index) {
-                      return const SizedBox(height: containerVerticalGap);
+                      return const SizedBox(
+                        height: ProductCatalogViewConfig.verticalGap,
+                      );
                     },
                     itemBuilder: (context, index) {
-                      return ProductTile(
-                        product: categoryProducts[i].products[index],
+                      return Skeletonizer(
+                        enabled: state.isLoading,
+                        child: ProductTile(
+                          product: categoryProducts[i].products[index],
+                        ),
                       );
                     },
                   ),

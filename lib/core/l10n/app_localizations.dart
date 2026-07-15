@@ -118,12 +118,6 @@ abstract class AppLocalizations {
   /// **'Найти продукты...'**
   String get productCatalogSearchHint;
 
-  /// Текст с количеством продуктов и описанием справочника
-  ///
-  /// In ru, this message translates to:
-  /// **'{total} продуктов · общий справочник для холодильника и рецептов'**
-  String productCatalogTotalWithDescription(String total);
-
   /// Текст с единицей измерения продукта
   ///
   /// In ru, this message translates to:

@@ -21,11 +21,6 @@ class AppLocalizationsRu extends AppLocalizations {
   String get productCatalogSearchHint => 'Найти продукты...';
 
   @override
-  String productCatalogTotalWithDescription(String total) {
-    return '$total продуктов · общий справочник для холодильника и рецептов';
-  }
-
-  @override
   String productCatalogProductUnit(String unit) {
     return 'Единица измерения: $unit';
   }
