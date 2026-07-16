@@ -77,5 +77,19 @@ class AppTheme {
         side: BorderSide(color: AppColors.border),
       ),
     ),
+    floatingActionButtonTheme: FloatingActionButtonThemeData(
+      backgroundColor: AppColors.primary,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(AppRadius.xLarge),
+      ),
+      foregroundColor: AppColors.onPrimary,
+      extendedTextStyle: AppTypography.textTheme.titleMedium,
+      extendedIconLabelSpacing: AppSpacing.small,
+      sizeConstraints: BoxConstraints(minHeight: 48),
+      extendedPadding: EdgeInsets.symmetric(
+        horizontal: AppSpacing.xLarge,
+        vertical: AppSpacing.standard,
+      ),
+    ),
   );
 }

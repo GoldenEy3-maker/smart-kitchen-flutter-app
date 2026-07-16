@@ -2,7 +2,6 @@ import "package:flutter/material.dart";
 import "package:skeletonizer/skeletonizer.dart";
 import "package:smart_kitchen_flutter_app/core/icons/icons.dart";
 import "package:smart_kitchen_flutter_app/core/l10n/app_localizations.dart";
-import "package:smart_kitchen_flutter_app/core/theme/app_colors.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/selectable_chip/selectable_chip.dart";
 import "package:smart_kitchen_flutter_app/features/product_catalog/domain/entities/entities.dart";
 
@@ -92,6 +91,7 @@ class CategoryChipsHeaderDelegate extends SliverPersistentHeaderDelegate {
   @override
   bool shouldRebuild(covariant CategoryChipsHeaderDelegate oldDelegate) {
     return oldDelegate.selectedCategory != selectedCategory ||
-        oldDelegate.categories != categories;
+        oldDelegate.categories != categories ||
+        oldDelegate.isLoading != isLoading;
   }
 }
