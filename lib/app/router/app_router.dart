@@ -1,5 +1,7 @@
 import "package:auto_route/auto_route.dart";
 import "package:smart_kitchen_flutter_app/app/pages/pages.dart";
+import "package:flutter/material.dart";
+import "package:smart_kitchen_flutter_app/features/products/domain/entities/entities.dart";
 
 part "app_router.gr.dart";
 
@@ -12,6 +14,11 @@ class AppRouter extends RootStackRouter {
   List<AutoRoute> get routes => [
     AutoRoute(page: HomeRoute.page),
     AutoRoute(page: ProductCatalogRoute.page, initial: true),
+    AutoRoute(page: ProductFormRoute.page),
+    // CustomRoute(
+    //   page: ProductFormRoute.page,
+    //   customRouteBuilder: modalSheetBuilder,
+    // ),
   ];
 
   @override

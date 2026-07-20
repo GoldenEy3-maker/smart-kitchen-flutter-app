@@ -24,4 +24,13 @@ class AppLocalizationsRu extends AppLocalizations {
   String productCatalogProductUnit(String unit) {
     return 'Единица измерения: $unit';
   }
+
+  @override
+  String get newProduct => 'Новый продукт';
+
+  @override
+  String get name => 'Название';
+
+  @override
+  String get enterName => 'Введите название';
 }

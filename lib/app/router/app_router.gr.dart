@@ -41,3 +41,49 @@ class ProductCatalogRoute extends PageRouteInfo<void> {
     },
   );
 }
+
+/// generated route for
+/// [ProductFormPage]
+class ProductFormRoute extends PageRouteInfo<ProductFormRouteArgs> {
+  ProductFormRoute({Key? key, Product? product, List<PageRouteInfo>? children})
+    : super(
+        ProductFormRoute.name,
+        args: ProductFormRouteArgs(key: key, product: product),
+        initialChildren: children,
+      );
+
+  static const String name = 'ProductFormRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<ProductFormRouteArgs>(
+        orElse: () => const ProductFormRouteArgs(),
+      );
+      return ProductFormPage(key: args.key, product: args.product);
+    },
+  );
+}
+
+class ProductFormRouteArgs {
+  const ProductFormRouteArgs({this.key, this.product});
+
+  final Key? key;
+
+  final Product? product;
+
+  @override
+  String toString() {
+    return 'ProductFormRouteArgs{key: $key, product: $product}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! ProductFormRouteArgs) return false;
+    return key == other.key && product == other.product;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ product.hashCode;
+}

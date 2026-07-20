@@ -123,6 +123,24 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'Единица измерения: {unit}'**
   String productCatalogProductUnit(String unit);
+
+  /// Название страницы для добавления нового продукта
+  ///
+  /// In ru, this message translates to:
+  /// **'Новый продукт'**
+  String get newProduct;
+
+  /// Название поля для ввода имени
+  ///
+  /// In ru, this message translates to:
+  /// **'Название'**
+  String get name;
+
+  /// Подсказка для ввода названия
+  ///
+  /// In ru, this message translates to:
+  /// **'Введите название'**
+  String get enterName;
 }
 
 class _AppLocalizationsDelegate
