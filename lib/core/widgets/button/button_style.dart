@@ -7,6 +7,8 @@ final class ButtonStyle {
   final BoxShape? shape;
   final TextStyle? textStyle;
   final BoxBorder? border;
+  final double elevation;
+  final Color? shadowColor;
 
   ButtonStyle({
     required this.backgroundColor,
@@ -15,6 +17,8 @@ final class ButtonStyle {
     this.shape,
     this.textStyle,
     this.border,
+    this.elevation = 0,
+    this.shadowColor,
   });
 
   ButtonStyle copyWith({
@@ -24,6 +28,8 @@ final class ButtonStyle {
     BoxShape? shape,
     Border? border,
     TextStyle? textStyle,
+    double? elevation,
+    Color? shadowColor,
   }) {
     return ButtonStyle(
       backgroundColor: backgroundColor ?? this.backgroundColor,
@@ -32,6 +38,8 @@ final class ButtonStyle {
       shape: shape ?? this.shape,
       border: border ?? this.border,
       textStyle: textStyle ?? this.textStyle,
+      elevation: elevation ?? this.elevation,
+      shadowColor: shadowColor ?? this.shadowColor,
     );
   }
 }

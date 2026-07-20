@@ -7,15 +7,27 @@ abstract final class ButtonSizes {
   static ButtonSize get primary => ButtonSize(
     minHeight: 48,
     minWidth: 0,
+    maxHeight: double.infinity,
+    maxWidth: double.infinity,
     padding: EdgeInsets.symmetric(
       horizontal: AppSpacing.xLarge,
       vertical: AppSpacing.standard,
     ),
   );
 
-  static ButtonSize get icon =>
-      ButtonSize(minHeight: 48, minWidth: 48, padding: EdgeInsets.zero);
+  static ButtonSize get icon => ButtonSize(
+    minHeight: 48,
+    minWidth: 48,
+    maxHeight: 48,
+    maxWidth: 48,
+    padding: EdgeInsets.zero,
+  );
 
-  static ButtonSize get iconSmall =>
-      ButtonSize(minHeight: 44, minWidth: 44, padding: EdgeInsets.zero);
+  static ButtonSize get iconSmall => ButtonSize(
+    minHeight: 44,
+    minWidth: 44,
+    maxHeight: 44,
+    maxWidth: 44,
+    padding: EdgeInsets.zero,
+  );
 }

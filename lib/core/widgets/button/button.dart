@@ -33,7 +33,14 @@ class Button extends StatelessWidget {
         );
     final resolvedShape = resolvedStyle.shape ?? BoxShape.rectangle;
     final isCircle = resolvedShape == BoxShape.circle;
-    final isFixedSize = resolvedSize.minWidth > 0;
+    final materialShape = _materialShape(resolvedStyle, isCircle);
+    final inkBorder = isCircle
+        ? const CircleBorder()
+        : (resolvedStyle.borderRadius != null
+              ? RoundedRectangleBorder(
+                  borderRadius: resolvedStyle.borderRadius!,
+                )
+              : null);
 
     final content = Padding(
       padding: resolvedSize.padding,
@@ -43,40 +50,44 @@ class Button extends StatelessWidget {
       ),
     );
 
-    final material = Material(
-      color: Colors.transparent,
-      child: Ink(
-        decoration: BoxDecoration(
-          borderRadius: resolvedStyle.borderRadius,
-          color: resolvedStyle.backgroundColor,
-          shape: resolvedShape,
-          border: resolvedStyle.border,
-        ),
+    return ConstrainedBox(
+      constraints: BoxConstraints(
+        minHeight: resolvedSize.minHeight,
+        minWidth: resolvedSize.minWidth,
+        maxHeight: resolvedSize.maxHeight,
+        maxWidth: resolvedSize.maxWidth,
+      ),
+      child: Material(
+        color: resolvedStyle.backgroundColor,
+        elevation: resolvedStyle.elevation,
+        shadowColor: resolvedStyle.shadowColor,
+        surfaceTintColor: Colors.transparent,
+        shape: materialShape,
+        clipBehavior: Clip.antiAlias,
         child: InkWell(
           onTap: onPressed,
-          customBorder: isCircle
-              ? const CircleBorder()
-              : (resolvedStyle.borderRadius != null
-                    ? RoundedRectangleBorder(
-                        borderRadius: resolvedStyle.borderRadius!,
-                      )
-                    : null),
+          customBorder: inkBorder,
           child: content,
         ),
       ),
     );
+  }
 
-    if (isFixedSize) {
-      return SizedBox(
-        width: resolvedSize.minWidth,
-        height: resolvedSize.minHeight,
-        child: material,
-      );
+  static ShapeBorder _materialShape(
+    button_styles.ButtonStyle style,
+    bool isCircle,
+  ) {
+    final borderSide = style.border is Border
+        ? (style.border! as Border).top
+        : BorderSide.none;
+
+    if (isCircle) {
+      return CircleBorder(side: borderSide);
     }
 
-    return ConstrainedBox(
-      constraints: BoxConstraints(minHeight: resolvedSize.minHeight),
-      child: material,
+    return RoundedRectangleBorder(
+      borderRadius: style.borderRadius ?? BorderRadius.zero,
+      side: borderSide,
     );
   }
 }

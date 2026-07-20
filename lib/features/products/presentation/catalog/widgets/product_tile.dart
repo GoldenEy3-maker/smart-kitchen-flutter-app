@@ -23,61 +23,62 @@ class ProductTile extends StatelessWidget {
     final theme = Theme.of(context);
 
     return Material(
-      color: Colors.transparent,
+      color: AppColors.surface,
+      surfaceTintColor: Colors.transparent,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(AppRadius.small)),
+        side: Border.all(color: AppColors.border).top,
+      ),
       child: InkWell(
         onTap: () => navigator.openProductForm(product: product),
         borderRadius: BorderRadius.all(Radius.circular(AppRadius.small)),
-        child: Ink(
-          decoration: BoxDecoration(
-            border: Border.all(color: AppColors.border),
-            color: AppColors.surface,
-            borderRadius: BorderRadius.all(Radius.circular(AppRadius.small)),
-          ),
-          child: Padding(
-            padding: EdgeInsets.all(AppSpacing.medium),
-            child: Row(
-              children: [
-                Skeleton.leaf(
-                  child: Container(
-                    height: 44,
-                    width: 44,
-                    decoration: BoxDecoration(
-                      color: AppColors.iconBg,
-                      border: Border.all(color: Colors.transparent),
-                      shape: BoxShape.circle,
-                    ),
-                    child: Center(
-                      child: Icon(
-                        CatalogIcons.resolveByKey(product.iconKey),
-                        size: 20,
-                      ),
+        customBorder: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(AppRadius.small)),
+        ),
+        child: Padding(
+          padding: EdgeInsets.all(AppSpacing.medium),
+          child: Row(
+            children: [
+              Skeleton.leaf(
+                child: Container(
+                  height: 44,
+                  width: 44,
+                  decoration: BoxDecoration(
+                    color: AppColors.iconBg,
+                    border: Border.all(color: Colors.transparent),
+                    shape: BoxShape.circle,
+                  ),
+                  child: Center(
+                    child: Icon(
+                      CatalogIcons.resolveByKey(product.iconKey),
+                      size: 20,
                     ),
                   ),
                 ),
-                SizedBox(width: AppSpacing.medium),
-                Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+              ),
+              SizedBox(width: AppSpacing.medium),
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(product.name, style: theme.textTheme.titleMedium),
+                  Text(
+                    l10n.productCatalogProductUnit(product.unit),
+                    style: theme.textTheme.bodySmall,
+                  ),
+                ],
+              ),
+              const Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Text(product.name, style: theme.textTheme.titleMedium),
-                    Text(
-                      l10n.productCatalogProductUnit(product.unit),
-                      style: theme.textTheme.bodySmall,
+                    Skeleton.shade(
+                      child: Icon(LucideIcons.chevronRight, size: 18),
                     ),
                   ],
                 ),
-                const Expanded(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Skeleton.shade(
-                        child: Icon(LucideIcons.chevronRight, size: 18),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

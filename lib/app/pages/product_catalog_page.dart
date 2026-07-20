@@ -4,6 +4,7 @@ import "package:flutter_bloc/flutter_bloc.dart";
 import "package:lucide_icons_flutter/lucide_icons.dart";
 import "package:smart_kitchen_flutter_app/core/di/di.dart";
 import "package:smart_kitchen_flutter_app/core/l10n/app_localizations.dart";
+import "package:smart_kitchen_flutter_app/core/widgets/button/button_styles.dart";
 import "package:smart_kitchen_flutter_app/features/products/navigation/navigation.dart";
 import "package:smart_kitchen_flutter_app/core/theme/theme.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/button/button.dart";
@@ -20,7 +21,7 @@ class ProductCatalogPage extends StatelessWidget {
     final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.productCatalogTitle)),
+      appBar: AppBar(centerTitle: true, title: Text(l10n.productCatalogTitle)),
       body: BlocProvider(
         create: (context) => ProductCatalogBloc(
           getCategories: getIt.get<GetCategories>(),
@@ -29,6 +30,10 @@ class ProductCatalogPage extends StatelessWidget {
         child: ProductCatalogView(navigator: getIt.get<ProductsNavigator>()),
       ),
       floatingActionButton: Button(
+        style: ButtonStyles.primary.copyWith(
+          elevation: 6,
+          shadowColor: AppColors.primary.withValues(alpha: 0.35),
+        ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           spacing: AppSpacing.small,

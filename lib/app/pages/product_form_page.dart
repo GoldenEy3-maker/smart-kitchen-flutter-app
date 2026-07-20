@@ -24,6 +24,7 @@ class ProductFormPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: Text(appBarTitle),
         leadingWidth: ButtonSizes.iconSmall.minWidth,
         leading: Button(
