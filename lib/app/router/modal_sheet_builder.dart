@@ -9,9 +9,18 @@ Route<T> modalSheetBuilder<T>(
   RouteSettings page,
 ) {
   if (Platform.isIOS) {
+    final theme = Theme.of(context);
+    final surfaceColor = theme.colorScheme.surface;
+
     return CupertinoSheetRoute(
       settings: page,
-      scrollableBuilder: (context, controller) => child,
+      scrollableBuilder: (sheetContext, controller) => Theme(
+        data: theme,
+        child: Material(
+          color: surfaceColor,
+          child: child,
+        ),
+      ),
     );
   }
 

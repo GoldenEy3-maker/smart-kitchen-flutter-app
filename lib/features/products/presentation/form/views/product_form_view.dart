@@ -1,4 +1,3 @@
-import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 import "package:lucide_icons_flutter/lucide_icons.dart";
 import "package:smart_kitchen_flutter_app/core/icons/icons.dart";
@@ -49,13 +48,14 @@ class ProductFormViewState extends State<ProductFormView> {
                   onPressed: () {
                     showPlatformSheet(
                       context: context,
-                      child: Container(
-                        child: Center(
-                          child: Column(
-                            mainAxisSize: .min,
-                            children: [Text("Hello")],
-                          ),
-                        ),
+                      topGap: 0.2,
+                      showDragHandle: true,
+                      backgroundColor: AppColors.surface,
+                      builder: (context, scrollController) => ListView.builder(
+                        controller: scrollController,
+                        physics: const AlwaysScrollableScrollPhysics(),
+                        itemCount: 80,
+                        itemBuilder: (context, index) => Text("Hello"),
                       ),
                     );
                   },
