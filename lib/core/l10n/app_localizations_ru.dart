@@ -36,4 +36,10 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get enterName => 'Введите название';
+
+  @override
+  String get selectProductIcon => 'Выберите иконку продукта';
+
+  @override
+  String get select => 'Выбрать';
 }

@@ -15590,6 +15590,16 @@
                           "icon": "beef",
                           "library": "lucide",
                           "fill": "$text-secondary"
+                        },
+                        {
+                          "type": "frame",
+                          "id": "NFpdl",
+                          "name": "Frame 1",
+                          "clip": true,
+                          "width": 2,
+                          "height": 2,
+                          "fill": "#FFFFFF",
+                          "layout": "none"
                         }
                       ]
                     },

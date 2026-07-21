@@ -147,6 +147,18 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'Введите название'**
   String get enterName;
+
+  /// Заголовок для выбора иконки продукта
+  ///
+  /// In ru, this message translates to:
+  /// **'Выберите иконку продукта'**
+  String get selectProductIcon;
+
+  /// Текст для кнопки выбора
+  ///
+  /// In ru, this message translates to:
+  /// **'Выбрать'**
+  String get select;
 }
 
 class _AppLocalizationsDelegate

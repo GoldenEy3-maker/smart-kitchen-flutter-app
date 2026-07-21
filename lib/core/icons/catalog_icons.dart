@@ -1,7 +1,7 @@
 import "package:flutter/widgets.dart";
 import "package:lucide_icons_flutter/lucide_icons.dart";
 
-enum CatalogIconsKeys {
+enum CatalogIconsKey {
   broccoli,
   carrot,
   apple,
@@ -21,28 +21,28 @@ enum CatalogIconsKeys {
 }
 
 class CatalogIcons {
-  static const CatalogIconsKeys fallbackIconKey = CatalogIconsKeys.package;
+  static const CatalogIconsKey fallbackIconKey = CatalogIconsKey.package;
 
-  static const Map<CatalogIconsKeys, IconData> _icons = {
-    CatalogIconsKeys.broccoli: LucideIcons.broccoli,
-    CatalogIconsKeys.carrot: LucideIcons.carrot,
-    CatalogIconsKeys.apple: LucideIcons.apple,
-    CatalogIconsKeys.beef: LucideIcons.beef,
-    CatalogIconsKeys.fish: LucideIcons.fish,
-    CatalogIconsKeys.milk: LucideIcons.milk,
-    CatalogIconsKeys.wheat: LucideIcons.wheat,
-    CatalogIconsKeys.croissant: LucideIcons.croissant,
-    CatalogIconsKeys.cupSoda: LucideIcons.cupSoda,
-    CatalogIconsKeys.wine: LucideIcons.wine,
-    CatalogIconsKeys.snowflake: LucideIcons.snowflake,
-    CatalogIconsKeys.egg: LucideIcons.egg,
-    CatalogIconsKeys.salad: LucideIcons.salad,
-    CatalogIconsKeys.beer: LucideIcons.beer,
-    CatalogIconsKeys.hamburger: LucideIcons.hamburger,
-    CatalogIconsKeys.package: LucideIcons.package,
+  static const Map<CatalogIconsKey, IconData> _icons = {
+    CatalogIconsKey.broccoli: LucideIcons.broccoli,
+    CatalogIconsKey.carrot: LucideIcons.carrot,
+    CatalogIconsKey.apple: LucideIcons.apple,
+    CatalogIconsKey.beef: LucideIcons.beef,
+    CatalogIconsKey.fish: LucideIcons.fish,
+    CatalogIconsKey.milk: LucideIcons.milk,
+    CatalogIconsKey.wheat: LucideIcons.wheat,
+    CatalogIconsKey.croissant: LucideIcons.croissant,
+    CatalogIconsKey.cupSoda: LucideIcons.cupSoda,
+    CatalogIconsKey.wine: LucideIcons.wine,
+    CatalogIconsKey.snowflake: LucideIcons.snowflake,
+    CatalogIconsKey.egg: LucideIcons.egg,
+    CatalogIconsKey.salad: LucideIcons.salad,
+    CatalogIconsKey.beer: LucideIcons.beer,
+    CatalogIconsKey.hamburger: LucideIcons.hamburger,
+    CatalogIconsKey.package: LucideIcons.package,
   };
 
   static IconData resolveByKey(String key) {
-    return _icons[CatalogIconsKeys.values.byName(key)] ?? LucideIcons.package;
+    return _icons[CatalogIconsKey.values.byName(key)] ?? LucideIcons.package;
   }
 }

@@ -42,5 +42,13 @@
   "enterName": "Введите название",
   "@enterName": {
     "description": "Подсказка для ввода названия"
+  },
+  "selectProductIcon": "Выберите иконку продукта",
+  "@selectProductIcon": {
+    "description": "Заголовок для выбора иконки продукта"
+  },
+  "select": "Выбрать",
+  "@select": {
+    "description": "Текст для кнопки выбора"
   }
 }
