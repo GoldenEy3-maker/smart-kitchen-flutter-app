@@ -1,10 +1,10 @@
 import "package:flutter/widgets.dart";
 import "package:smart_kitchen_flutter_app/core/theme/theme.dart";
 
-import "input_shape.dart";
+import "app_input_shape.dart";
 
-abstract class InputShapes {
-  static InputShape get circular => InputShape(
+abstract class AppInputShapes {
+  static final AppInputShape circular = AppInputShape(
     height: 42,
     contentPadding: EdgeInsets.symmetric(
       horizontal: AppSpacing.standard,
@@ -17,7 +17,7 @@ abstract class InputShapes {
     borderRadius: BorderRadius.circular(AppRadius.large),
   );
 
-  static InputShape get rectangular => InputShape(
+  static final AppInputShape rectangular = AppInputShape(
     height: 46,
     contentPadding: EdgeInsets.symmetric(
       horizontal: AppSpacing.large,
@@ -30,7 +30,7 @@ abstract class InputShapes {
     borderRadius: BorderRadius.circular(AppRadius.small),
   );
 
-  static InputShape get rectangularSmall => InputShape(
+  static final AppInputShape rectangularSmall = AppInputShape(
     height: 44,
     contentPadding: EdgeInsets.symmetric(
       horizontal: AppSpacing.standard,

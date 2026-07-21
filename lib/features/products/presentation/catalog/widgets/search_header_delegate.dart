@@ -2,7 +2,6 @@ import "package:flutter/material.dart";
 import "package:smart_kitchen_flutter_app/core/l10n/app_localizations.dart";
 import "package:lucide_icons_flutter/lucide_icons.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/input/input.dart";
-import "package:smart_kitchen_flutter_app/core/widgets/input/input_shapes.dart";
 
 class SearchHeaderDelegate extends SliverPersistentHeaderDelegate {
   final double height;
@@ -19,7 +18,7 @@ class SearchHeaderDelegate extends SliverPersistentHeaderDelegate {
     this.onChanged,
   });
 
-  static double kHeight = InputShapes.circular.height;
+  static double kHeight = AppInputShapes.circular.height;
 
   @override
   double get minExtent => height;
@@ -43,12 +42,14 @@ class SearchHeaderDelegate extends SliverPersistentHeaderDelegate {
         left: paddingHorizontal,
         right: paddingHorizontal,
       ),
-      child: Input(
+      child: TextField(
         controller: controller,
         onChanged: onChanged,
-        shape: InputShapes.circular,
-        hintText: l10n.productCatalogSearchHint,
-        prefixIcon: const Icon(LucideIcons.search, size: 20),
+        decoration: AppInputDecoration(
+          hintText: l10n.productCatalogSearchHint,
+          prefixIcon: const Icon(LucideIcons.search, size: 20),
+          shape: AppInputShapes.circular,
+        ).toInputDecoration(),
       ),
     );
   }

@@ -1,12 +1,12 @@
 import "package:flutter/widgets.dart";
 
-class InputShape {
+class AppInputShape {
   final double height;
   final BorderRadius borderRadius;
   final EdgeInsets contentPadding;
   final EdgeInsets prefixIconPadding;
 
-  InputShape({
+  AppInputShape({
     required this.height,
     required this.contentPadding,
     required this.prefixIconPadding,

@@ -1,4 +1,4 @@
-import "package:flutter/widgets.dart";
+import "package:flutter/material.dart";
 import "package:smart_kitchen_flutter_app/core/l10n/app_localizations.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/input/input.dart";
 import "package:smart_kitchen_flutter_app/features/products/domain/entities/entities.dart";
@@ -22,7 +22,15 @@ class ProductFormViewState extends State<ProductFormView> {
     return SafeArea(
       child: Form(
         key: _formKey,
-        child: Column(children: [Input(hintText: l10n.enterName)]),
+        child: Column(
+          children: [
+            TextFormField(
+              decoration: AppInputDecoration(
+                hintText: l10n.enterName,
+              ).toInputDecoration(),
+            ),
+          ],
+        ),
       ),
     );
   }

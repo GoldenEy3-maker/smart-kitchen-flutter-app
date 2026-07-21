@@ -1,13 +1,13 @@
 import "package:flutter/widgets.dart";
 
-class InputStyle {
+class AppInputStyle {
   final Color? fillColor;
   final Color? borderColor;
   final Color? focusedBorderColor;
   final TextStyle? hintStyle;
   final Color? prefixIconColor;
 
-  InputStyle({
+  AppInputStyle({
     this.fillColor,
     this.borderColor,
     this.focusedBorderColor,
@@ -15,13 +15,13 @@ class InputStyle {
     this.prefixIconColor,
   });
 
-  InputStyle copyWith({
+  AppInputStyle copyWith({
     Color? fillColor,
     Color? borderColor,
     Color? focusedBorderColor,
     TextStyle? hintStyle,
     Color? prefixIconColor,
-  }) => InputStyle(
+  }) => AppInputStyle(
     fillColor: fillColor ?? this.fillColor,
     borderColor: borderColor ?? this.borderColor,
     focusedBorderColor: focusedBorderColor ?? this.focusedBorderColor,
