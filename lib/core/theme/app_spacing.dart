@@ -5,4 +5,6 @@ class AppSpacing {
   static const double standard = 14;
   static const double large = 16;
   static const double xLarge = 20;
+
+  static const double containerHorizontal = 20;
 }

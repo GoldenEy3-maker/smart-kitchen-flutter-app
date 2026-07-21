@@ -10,5 +10,6 @@ class AppTypography {
     bodySmall: TextStyle(fontSize: 12, fontWeight: FontWeight.w400),
     labelLarge: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
     labelMedium: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+    labelSmall: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
   );
 }

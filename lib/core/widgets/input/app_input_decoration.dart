@@ -1,9 +1,7 @@
 import "package:flutter/material.dart";
 
 import "app_input_shape.dart";
-import "app_input_shapes.dart";
 import "app_input_style.dart";
-import "app_input_styles.dart";
 
 class AppInputDecoration {
   final Widget? prefixIcon;
@@ -51,10 +49,7 @@ class AppInputDecoration {
       hintText: hintText,
       hintStyle: style.hintStyle,
       prefixIcon: prefixIcon != null
-          ? Padding(
-              padding: shape.prefixIconPadding,
-              child: prefixIcon,
-            )
+          ? Padding(padding: shape.prefixIconPadding, child: prefixIcon)
           : null,
       prefixIconConstraints: const BoxConstraints(minWidth: 0),
       prefixIconColor: style.prefixIconColor,

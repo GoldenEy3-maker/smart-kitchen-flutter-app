@@ -4,7 +4,7 @@ import "package:flutter_bloc/flutter_bloc.dart";
 import "package:lucide_icons_flutter/lucide_icons.dart";
 import "package:smart_kitchen_flutter_app/core/di/di.dart";
 import "package:smart_kitchen_flutter_app/core/l10n/app_localizations.dart";
-import "package:smart_kitchen_flutter_app/core/widgets/button/button_styles.dart";
+import "package:smart_kitchen_flutter_app/core/widgets/button/button_style.dart";
 import "package:smart_kitchen_flutter_app/features/products/navigation/navigation.dart";
 import "package:smart_kitchen_flutter_app/core/theme/theme.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/button/button.dart";

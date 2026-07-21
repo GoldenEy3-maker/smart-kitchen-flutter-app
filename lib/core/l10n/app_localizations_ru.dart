@@ -29,6 +29,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get newProduct => 'Новый продукт';
 
   @override
+  String get editProduct => 'Редактировать продукт';
+
+  @override
   String get name => 'Название';
 
   @override

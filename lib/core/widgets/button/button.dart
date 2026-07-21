@@ -3,15 +3,15 @@ import "package:smart_kitchen_flutter_app/core/theme/theme.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/button/button_style.dart"
     as button_styles;
 
-import "button_sizes.dart";
-import "button_size.dart" as button_sizes;
-import "button_styles.dart";
+import "button_rounder.dart";
+import "button_size.dart";
 
 class Button extends StatelessWidget {
   final Widget child;
   final VoidCallback onPressed;
   final button_styles.ButtonStyle? style;
-  final button_sizes.ButtonSize? size;
+  final ButtonSize? size;
+  final ButtonRounder? rounder;
 
   const Button({
     super.key,
@@ -19,26 +19,32 @@ class Button extends StatelessWidget {
     required this.onPressed,
     this.style,
     this.size,
+    this.rounder,
   });
 
   @override
   Widget build(BuildContext context) {
-    final resolvedStyle = style ?? ButtonStyles.primary;
+    final resolvedStyle = style ?? button_styles.ButtonStyles.primary;
     final resolvedSize = size ?? ButtonSizes.primary;
+    final resolvedRounder = rounder ?? ButtonRounders.rectangular;
     final resolvedTextStyle =
         resolvedStyle.textStyle ??
         AppTypography.textTheme.labelMedium!.copyWith(
           color: resolvedStyle.foregroundColor,
           fontSize: 16,
         );
-    final resolvedShape = resolvedStyle.shape ?? BoxShape.rectangle;
+    final resolvedShape = resolvedRounder.shape ?? BoxShape.rectangle;
     final isCircle = resolvedShape == BoxShape.circle;
-    final materialShape = _materialShape(resolvedStyle, isCircle);
+    final materialShape = _materialShape(
+      resolvedStyle,
+      resolvedRounder,
+      isCircle,
+    );
     final inkBorder = isCircle
         ? const CircleBorder()
-        : (resolvedStyle.borderRadius != null
+        : (resolvedRounder.borderRadius != null
               ? RoundedRectangleBorder(
-                  borderRadius: resolvedStyle.borderRadius!,
+                  borderRadius: resolvedRounder.borderRadius!,
                 )
               : null);
 
@@ -75,6 +81,7 @@ class Button extends StatelessWidget {
 
   static ShapeBorder _materialShape(
     button_styles.ButtonStyle style,
+    ButtonRounder rounder,
     bool isCircle,
   ) {
     final borderSide = style.border is Border
@@ -86,7 +93,7 @@ class Button extends StatelessWidget {
     }
 
     return RoundedRectangleBorder(
-      borderRadius: style.borderRadius ?? BorderRadius.zero,
+      borderRadius: rounder.borderRadius ?? BorderRadius.zero,
       side: borderSide,
     );
   }

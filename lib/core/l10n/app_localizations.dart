@@ -130,6 +130,12 @@ abstract class AppLocalizations {
   /// **'Новый продукт'**
   String get newProduct;
 
+  /// Название страницы для редактирования продукта
+  ///
+  /// In ru, this message translates to:
+  /// **'Редактировать продукт'**
+  String get editProduct;
+
   /// Название поля для ввода имени
   ///
   /// In ru, this message translates to:

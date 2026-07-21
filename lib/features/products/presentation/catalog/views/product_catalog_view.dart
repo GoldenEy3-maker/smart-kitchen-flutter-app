@@ -1,8 +1,8 @@
 import "package:flutter/material.dart";
 import "package:skeletonizer/skeletonizer.dart";
+import "package:smart_kitchen_flutter_app/core/widgets/button/button_size.dart";
 import "package:smart_kitchen_flutter_app/features/products/navigation/navigation.dart";
 import "package:smart_kitchen_flutter_app/core/theme/theme.dart";
-import "package:smart_kitchen_flutter_app/core/widgets/button/button_sizes.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/scroll/scroll.dart";
 import "package:smart_kitchen_flutter_app/features/products/domain/entities/entities.dart";
 import "package:smart_kitchen_flutter_app/features/products/presentation/catalog/bloc/bloc.dart";
@@ -11,7 +11,6 @@ import "package:flutter_bloc/flutter_bloc.dart";
 
 class ProductCatalogViewConfig {
   static const double verticalGap = AppSpacing.standard;
-  static const double horizontalPadding = AppSpacing.xLarge;
 
   static double categoryChipsHeight =
       CategoryChipsHeaderDelegate.kHeight + verticalGap * 2;
@@ -49,8 +48,7 @@ class ProductCatalogView extends StatelessWidget {
                     SearchQueryChanged(query: value),
                   ),
                   height: ProductCatalogViewConfig.searchBarHeight,
-                  // paddingTop: containerVerticalGap,
-                  paddingHorizontal: ProductCatalogViewConfig.horizontalPadding,
+                  paddingHorizontal: AppSpacing.containerHorizontal,
                 ),
               ),
               SliverPersistentHeader(
@@ -58,7 +56,7 @@ class ProductCatalogView extends StatelessWidget {
                 delegate: CategoryChipsHeaderDelegate(
                   height: ProductCatalogViewConfig.categoryChipsHeight,
                   paddingVertical: ProductCatalogViewConfig.verticalGap,
-                  paddingHorizontal: ProductCatalogViewConfig.horizontalPadding,
+                  paddingHorizontal: AppSpacing.containerHorizontal,
                   isLoading: state.isLoading,
                   categories: state.categories,
                   selectedCategory: state.selectedCategory,
@@ -76,7 +74,7 @@ class ProductCatalogView extends StatelessWidget {
                   ),
                 SliverPadding(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: ProductCatalogViewConfig.horizontalPadding,
+                    horizontal: AppSpacing.containerHorizontal,
                   ),
                   sliver: SliverToBoxAdapter(
                     child: Skeletonizer(
@@ -93,7 +91,7 @@ class ProductCatalogView extends StatelessWidget {
                 ),
                 SliverPadding(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: ProductCatalogViewConfig.horizontalPadding,
+                    horizontal: AppSpacing.containerHorizontal,
                   ),
                   sliver: SliverList.separated(
                     itemCount: categoryProducts[i].products.length,
