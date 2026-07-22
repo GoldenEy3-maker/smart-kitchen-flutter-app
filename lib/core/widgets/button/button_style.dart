@@ -54,4 +54,10 @@ abstract final class ButtonStyles {
     foregroundColor: AppColors.textPrimary,
     border: Border.all(color: AppColors.border, width: 1),
   );
+
+  static final ButtonStyle secondarySelected = ButtonStyle(
+    backgroundColor: AppColors.primarySoft,
+    foregroundColor: AppColors.primary,
+    border: Border.all(color: AppColors.primary, width: 1.5),
+  );
 }

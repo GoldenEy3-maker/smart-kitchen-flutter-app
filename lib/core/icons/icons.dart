@@ -1,2 +1,2 @@
 export "catalog_icons.dart";
-export "selectable_catalog_icons_sheet.dart";
+export "catalog_icons_picker_sheet.dart";

@@ -16,11 +16,31 @@ class ProductFormView extends StatefulWidget {
   const ProductFormView({super.key, this.product});
 
   @override
-  ProductFormViewState createState() => ProductFormViewState();
+  State<ProductFormView> createState() => _ProductFormViewState();
 }
 
-class ProductFormViewState extends State<ProductFormView> {
+class _ProductFormViewState extends State<ProductFormView> {
   final _formKey = GlobalKey<FormState>();
+  late CatalogIcon? _selectedIconKey = widget.product?.iconKey != null
+      ? CatalogIcon.fromName(widget.product!.iconKey)
+      : null;
+
+  void _onSelectedIconKey(CatalogIcon? iconKey) {
+    setState(() {
+      _selectedIconKey = iconKey;
+    });
+  }
+
+  void _onCatalogIconsPickerSheetOpened(BuildContext context) {
+    showCatalogIconsPickerSheet(
+      context: context,
+      initialSelectedIconKey: _selectedIconKey,
+    ).then((newIconKey) {
+      if (newIconKey != null) {
+        _onSelectedIconKey(newIconKey);
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,11 +61,11 @@ class ProductFormViewState extends State<ProductFormView> {
                   rounder: ButtonRounders.rectangular.copyWith(
                     borderRadius: AppInputDecoration().shape.borderRadius,
                   ),
-                  child: widget.product != null
-                      ? Icon(CatalogIcons.resolveByKey(widget.product!.iconKey))
+                  child: _selectedIconKey != null
+                      ? Icon(_selectedIconKey!.icon, size: 20)
                       : Icon(LucideIcons.tag, size: 20),
                   onPressed: () {
-                    showSelectableCatalogIconsSheet(context: context);
+                    _onCatalogIconsPickerSheetOpened(context);
                   },
                 ),
                 Expanded(

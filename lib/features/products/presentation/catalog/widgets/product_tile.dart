@@ -50,7 +50,7 @@ class ProductTile extends StatelessWidget {
                   ),
                   child: Center(
                     child: Icon(
-                      CatalogIcons.resolveByKey(product.iconKey),
+                      CatalogIcon.fromName(product.iconKey).icon,
                       size: 20,
                     ),
                   ),

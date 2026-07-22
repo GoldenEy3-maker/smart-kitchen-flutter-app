@@ -75,7 +75,7 @@ class CategoryChipsHeaderDelegate extends SliverPersistentHeaderDelegate {
               label: Row(
                 spacing: 4,
                 children: [
-                  Icon(CatalogIcons.resolveByKey(category.iconKey), size: 14),
+                  Icon(CatalogIcon.fromName(category.iconKey).icon, size: 14),
                   Text(category.label),
                 ],
               ),

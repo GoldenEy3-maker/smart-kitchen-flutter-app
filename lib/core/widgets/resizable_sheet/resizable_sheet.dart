@@ -1,7 +1,12 @@
 import "package:flutter/material.dart";
 import "package:smart_kitchen_flutter_app/core/theme/theme.dart";
 
-typedef ResizableSheetBuilder = Widget Function(BuildContext, ScrollController);
+typedef ResizableSheetBuilder =
+    Widget Function(
+      BuildContext context,
+      ScrollController scrollController,
+      DraggableScrollableController sheetController,
+    );
 
 class ResizableSheet extends StatefulWidget {
   const ResizableSheet({
@@ -91,7 +96,7 @@ class _ResizableSheetState extends State<ResizableSheet> {
           children: [
             NotificationListener<ScrollMetricsNotification>(
               onNotification: _onScrollMetrics,
-              child: widget.builder(context, scrollController),
+              child: widget.builder(context, scrollController, _controller),
             ),
             Positioned(
               top: -20,

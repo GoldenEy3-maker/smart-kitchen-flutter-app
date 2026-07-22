@@ -15,7 +15,7 @@ class Category extends Equatable {
   static Category get loading => Category(
     id: "loading",
     label: "Loading",
-    iconKey: CatalogIcons.fallbackIconKey.name,
+    iconKey: CatalogIcon.fallback.name,
   );
 
   @override
