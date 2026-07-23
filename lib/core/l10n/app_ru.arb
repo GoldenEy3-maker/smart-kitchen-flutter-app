@@ -50,5 +50,13 @@
   "select": "Выбрать",
   "@select": {
     "description": "Текст для кнопки выбора"
+  },
+  "category": "Категория",
+  "@category": {
+    "description": "Название поля для выбора категории"
+  },
+  "createCategory": "Создать категорию",
+  "@createCategory": {
+    "description": "Название кнопки для создания категории"
   }
 }

@@ -1046,7 +1046,7 @@
       "id": "lGLm6",
       "x": 3213,
       "y": 520,
-      "name": "02a Продукт в каталоге",
+      "name": "02a Продукт в каталоге — пустое поле",
       "clip": true,
       "width": 390,
       "fill": "$bg",
@@ -8725,7 +8725,7 @@
       "id": "A1VhhH",
       "x": 3683,
       "y": 520,
-      "name": "02a Продукт в каталоге — список категорий",
+      "name": "02a Продукт в каталоге — bottom sheet категорий",
       "clip": true,
       "width": 390,
       "fill": "$bg",
@@ -8875,233 +8875,39 @@
                 },
                 {
                   "type": "frame",
-                  "id": "GxvJe",
-                  "name": "Category Open",
-                  "clip": true,
+                  "id": "MwWeb",
+                  "name": "Category Picker",
                   "width": "fill_container",
                   "fill": "$surface",
                   "cornerRadius": 16,
                   "stroke": "$primary",
                   "strokeWidth": 1.5,
-                  "effect": {
-                    "type": "shadow",
-                    "shadowType": "outer",
-                    "color": "$overlay-scrim",
-                    "offset": {
-                      "x": 0,
-                      "y": 4
-                    },
-                    "blur": 12
-                  },
-                  "layout": "vertical",
+                  "padding": [
+                    14,
+                    16
+                  ],
+                  "justifyContent": "space_between",
+                  "alignItems": "center",
                   "children": [
                     {
-                      "type": "frame",
-                      "id": "BEfva",
-                      "name": "Trigger Row",
-                      "width": "fill_container",
-                      "stroke": "$border",
-                      "strokeWidth": {
-                        "bottom": 1
-                      },
-                      "padding": [
-                        14,
-                        16
-                      ],
-                      "justifyContent": "space_between",
-                      "alignItems": "center",
-                      "children": [
-                        {
-                          "type": "text",
-                          "id": "EpsuJ",
-                          "name": "Placeholder",
-                          "fill": "$text-secondary",
-                          "content": "Выберите или создайте",
-                          "fontFamily": "Inter",
-                          "fontSize": 15,
-                          "fontWeight": "normal"
-                        },
-                        {
-                          "type": "icon",
-                          "id": "r3myKa",
-                          "name": "Chevron Up",
-                          "width": 18,
-                          "height": 18,
-                          "icon": "chevron-up",
-                          "library": "lucide",
-                          "fill": "$primary"
-                        }
-                      ]
+                      "type": "text",
+                      "id": "Le9Lp",
+                      "name": "Placeholder",
+                      "fill": "$text-secondary",
+                      "content": "Выберите или создайте",
+                      "fontFamily": "Inter",
+                      "fontSize": 15,
+                      "fontWeight": "normal"
                     },
                     {
-                      "type": "frame",
-                      "id": "P7JB4I",
-                      "name": "Option Молочное",
-                      "width": "fill_container",
-                      "fill": "$surface",
-                      "padding": [
-                        12,
-                        16
-                      ],
-                      "justifyContent": "space_between",
-                      "alignItems": "center",
-                      "children": [
-                        {
-                          "type": "frame",
-                          "id": "I3PQo",
-                          "name": "Left",
-                          "gap": 10,
-                          "alignItems": "center",
-                          "children": [
-                            {
-                              "type": "text",
-                              "id": "wf7iR",
-                              "name": "Emoji",
-                              "fill": "$text-primary",
-                              "content": "🥛",
-                              "fontFamily": "Inter",
-                              "fontSize": 16,
-                              "fontWeight": "normal"
-                            },
-                            {
-                              "type": "text",
-                              "id": "LE3vS",
-                              "name": "Label",
-                              "fill": "$text-primary",
-                              "content": "Молочное",
-                              "fontFamily": "Inter",
-                              "fontSize": 15,
-                              "fontWeight": "normal"
-                            }
-                          ]
-                        }
-                      ]
-                    },
-                    {
-                      "type": "frame",
-                      "id": "TynYA",
-                      "name": "Option Сыры",
-                      "width": "fill_container",
-                      "padding": [
-                        12,
-                        16
-                      ],
-                      "alignItems": "center",
-                      "children": [
-                        {
-                          "type": "frame",
-                          "id": "F2VVp",
-                          "name": "Left",
-                          "gap": 10,
-                          "alignItems": "center",
-                          "children": [
-                            {
-                              "type": "text",
-                              "id": "aVUS2",
-                              "name": "Emoji",
-                              "fill": "$text-primary",
-                              "content": "🧀",
-                              "fontFamily": "Inter",
-                              "fontSize": 16,
-                              "fontWeight": "normal"
-                            },
-                            {
-                              "type": "text",
-                              "id": "GPCWV",
-                              "name": "Label",
-                              "fill": "$text-primary",
-                              "content": "Сыры",
-                              "fontFamily": "Inter",
-                              "fontSize": 15,
-                              "fontWeight": "normal"
-                            }
-                          ]
-                        }
-                      ]
-                    },
-                    {
-                      "type": "frame",
-                      "id": "MNjIK",
-                      "name": "Option Заготовки",
-                      "width": "fill_container",
-                      "padding": [
-                        12,
-                        16
-                      ],
-                      "alignItems": "center",
-                      "children": [
-                        {
-                          "type": "frame",
-                          "id": "pNNNs",
-                          "name": "Left",
-                          "gap": 10,
-                          "alignItems": "center",
-                          "children": [
-                            {
-                              "type": "text",
-                              "id": "L10R6",
-                              "name": "Emoji",
-                              "fill": "$text-primary",
-                              "content": "🥗",
-                              "fontFamily": "Inter",
-                              "fontSize": 16,
-                              "fontWeight": "normal"
-                            },
-                            {
-                              "type": "text",
-                              "id": "vC9mv",
-                              "name": "Label",
-                              "fill": "$text-primary",
-                              "content": "Заготовки",
-                              "fontFamily": "Inter",
-                              "fontSize": 15,
-                              "fontWeight": "normal"
-                            }
-                          ]
-                        }
-                      ]
-                    },
-                    {
-                      "type": "frame",
-                      "id": "xCf9s",
-                      "name": "Divider",
-                      "width": "fill_container",
-                      "height": 1,
-                      "fill": "$border"
-                    },
-                    {
-                      "type": "frame",
-                      "id": "E0ovj",
-                      "name": "Option Create",
-                      "width": "fill_container",
-                      "gap": 10,
-                      "padding": [
-                        12,
-                        16
-                      ],
-                      "alignItems": "center",
-                      "children": [
-                        {
-                          "type": "icon",
-                          "id": "YCEnZ",
-                          "name": "Plus",
-                          "width": 18,
-                          "height": 18,
-                          "icon": "plus",
-                          "library": "lucide",
-                          "fill": "$primary"
-                        },
-                        {
-                          "type": "text",
-                          "id": "tPKgH",
-                          "name": "Label",
-                          "fill": "$primary",
-                          "content": "Создать категорию",
-                          "fontFamily": "Inter",
-                          "fontSize": 15,
-                          "fontWeight": "600"
-                        }
-                      ]
+                      "type": "icon",
+                      "id": "yDuTA",
+                      "name": "Chevron",
+                      "width": 18,
+                      "height": 18,
+                      "icon": "chevron-down",
+                      "library": "lucide",
+                      "fill": "$primary"
                     }
                   ]
                 }
@@ -9235,7 +9041,7 @@
       "id": "ze102",
       "x": 4153,
       "y": 520,
-      "name": "02a Продукт в каталоге — создание категории",
+      "name": "02a Продукт в каталоге — bottom sheet создания",
       "clip": true,
       "width": 390,
       "fill": "$bg",
@@ -9385,224 +9191,39 @@
                 },
                 {
                   "type": "frame",
-                  "id": "vV0J1",
-                  "name": "Category Open",
-                  "clip": true,
+                  "id": "xrYG1",
+                  "name": "Category Picker",
                   "width": "fill_container",
                   "fill": "$surface",
                   "cornerRadius": 16,
                   "stroke": "$primary",
                   "strokeWidth": 1.5,
-                  "effect": {
-                    "type": "shadow",
-                    "shadowType": "outer",
-                    "color": "$overlay-scrim",
-                    "offset": {
-                      "x": 0,
-                      "y": 4
-                    },
-                    "blur": 12
-                  },
-                  "layout": "vertical",
+                  "padding": [
+                    14,
+                    16
+                  ],
+                  "justifyContent": "space_between",
+                  "alignItems": "center",
                   "children": [
                     {
-                      "type": "frame",
-                      "id": "H3SVEV",
-                      "name": "Trigger Row",
-                      "width": "fill_container",
-                      "stroke": "$border",
-                      "strokeWidth": {
-                        "bottom": 1
-                      },
-                      "padding": [
-                        14,
-                        16
-                      ],
-                      "justifyContent": "space_between",
-                      "alignItems": "center",
-                      "children": [
-                        {
-                          "type": "frame",
-                          "id": "hAS7a",
-                          "name": "Header Left",
-                          "gap": 8,
-                          "alignItems": "center",
-                          "children": [
-                            {
-                              "type": "icon",
-                              "id": "QLESo",
-                              "name": "Back",
-                              "width": 18,
-                              "height": 18,
-                              "icon": "chevron-left",
-                              "library": "lucide",
-                              "fill": "$text-secondary"
-                            },
-                            {
-                              "type": "text",
-                              "id": "rOuJU",
-                              "name": "Title",
-                              "fill": "$text-primary",
-                              "content": "Новая категория",
-                              "fontFamily": "Inter",
-                              "fontSize": 15,
-                              "fontWeight": "600"
-                            }
-                          ]
-                        },
-                        {
-                          "type": "icon",
-                          "id": "N0610s",
-                          "name": "Chevron Up",
-                          "width": 18,
-                          "height": 18,
-                          "icon": "chevron-up",
-                          "library": "lucide",
-                          "fill": "$primary"
-                        }
-                      ]
+                      "type": "text",
+                      "id": "us9fq",
+                      "name": "Placeholder",
+                      "fill": "$text-secondary",
+                      "content": "Выберите или создайте",
+                      "fontFamily": "Inter",
+                      "fontSize": 15,
+                      "fontWeight": "normal"
                     },
                     {
-                      "type": "frame",
-                      "id": "gEVJS",
-                      "name": "Create Form Body",
-                      "width": "fill_container",
-                      "layout": "vertical",
-                      "gap": 12,
-                      "padding": 12,
-                      "children": [
-                        {
-                          "type": "frame",
-                          "id": "E8IHsh",
-                          "name": "Input Row",
-                          "width": "fill_container",
-                          "gap": 8,
-                          "alignItems": "center",
-                          "children": [
-                            {
-                              "type": "frame",
-                              "id": "b5iKQ",
-                              "name": "Emoji Picker",
-                              "width": 44,
-                              "height": 44,
-                              "fill": "$icon-bg",
-                              "cornerRadius": 12,
-                              "stroke": "$primary",
-                              "strokeWidth": 1.5,
-                              "justifyContent": "center",
-                              "alignItems": "center",
-                              "children": [
-                                {
-                                  "type": "icon",
-                                  "id": "O59OcX",
-                                  "name": "Category Icon",
-                                  "width": 20,
-                                  "height": 20,
-                                  "icon": "tag",
-                                  "library": "lucide",
-                                  "fill": "$primary"
-                                }
-                              ]
-                            },
-                            {
-                              "type": "frame",
-                              "id": "G9zjiB",
-                              "name": "Name Input",
-                              "width": "fill_container",
-                              "height": 44,
-                              "fill": "$surface",
-                              "cornerRadius": 12,
-                              "stroke": "$border",
-                              "strokeWidth": 1,
-                              "padding": [
-                                12,
-                                14
-                              ],
-                              "alignItems": "center",
-                              "children": [
-                                {
-                                  "type": "text",
-                                  "id": "f7LEE8",
-                                  "name": "Placeholder",
-                                  "fill": "$text-secondary",
-                                  "content": "Название",
-                                  "fontFamily": "Inter",
-                                  "fontSize": 15,
-                                  "fontWeight": "normal"
-                                }
-                              ]
-                            }
-                          ]
-                        },
-                        {
-                          "type": "frame",
-                          "id": "K931t1",
-                          "name": "Actions Row",
-                          "width": "fill_container",
-                          "gap": 8,
-                          "justifyContent": "end",
-                          "alignItems": "center",
-                          "children": [
-                            {
-                              "type": "frame",
-                              "id": "uYpKs",
-                              "name": "Cancel Button",
-                              "cornerRadius": 20,
-                              "padding": [
-                                10,
-                                14
-                              ],
-                              "children": [
-                                {
-                                  "type": "text",
-                                  "id": "t1oXI",
-                                  "name": "Label",
-                                  "fill": "$text-secondary",
-                                  "content": "Отмена",
-                                  "fontFamily": "Inter",
-                                  "fontSize": 14,
-                                  "fontWeight": "600"
-                                }
-                              ]
-                            },
-                            {
-                              "type": "frame",
-                              "id": "EJBny",
-                              "name": "Add Button",
-                              "fill": "$primary",
-                              "cornerRadius": 20,
-                              "gap": 6,
-                              "padding": [
-                                10,
-                                16
-                              ],
-                              "alignItems": "center",
-                              "children": [
-                                {
-                                  "type": "icon",
-                                  "id": "iA5MC",
-                                  "name": "Check",
-                                  "width": 16,
-                                  "height": 16,
-                                  "icon": "check",
-                                  "library": "lucide",
-                                  "fill": "$on-primary"
-                                },
-                                {
-                                  "type": "text",
-                                  "id": "m6SS5P",
-                                  "name": "Label",
-                                  "fill": "$on-primary",
-                                  "content": "Добавить",
-                                  "fontFamily": "Inter",
-                                  "fontSize": 14,
-                                  "fontWeight": "600"
-                                }
-                              ]
-                            }
-                          ]
-                        }
-                      ]
+                      "type": "icon",
+                      "id": "V2fR5g",
+                      "name": "Chevron",
+                      "width": 18,
+                      "height": 18,
+                      "icon": "chevron-down",
+                      "library": "lucide",
+                      "fill": "$primary"
                     }
                   ]
                 }
@@ -9728,6 +9349,19 @@
               ]
             }
           ]
+        },
+        {
+          "type": "frame",
+          "id": "AhYAh",
+          "layoutPosition": "absolute",
+          "x": 0,
+          "y": 0,
+          "name": "Create Category Sheet Overlay",
+          "width": 390,
+          "height": 666,
+          "fill": "#2B252166",
+          "layout": "vertical",
+          "justifyContent": "end"
         }
       ]
     },
@@ -15082,224 +14716,58 @@
                 },
                 {
                   "type": "frame",
-                  "id": "q0BMWD",
-                  "name": "Category Open",
-                  "clip": true,
+                  "id": "GWIeC",
+                  "name": "Category Picker",
                   "width": "fill_container",
-                  "fill": "$surface",
+                  "fill": "$primary-soft",
                   "cornerRadius": 16,
                   "stroke": "$primary",
                   "strokeWidth": 1.5,
-                  "effect": {
-                    "type": "shadow",
-                    "shadowType": "outer",
-                    "color": "$overlay-scrim",
-                    "offset": {
-                      "x": 0,
-                      "y": 4
-                    },
-                    "blur": 12
-                  },
-                  "layout": "vertical",
+                  "padding": [
+                    14,
+                    16
+                  ],
+                  "justifyContent": "space_between",
+                  "alignItems": "center",
                   "children": [
                     {
                       "type": "frame",
-                      "id": "qQJ7c",
-                      "name": "Trigger Row",
-                      "width": "fill_container",
-                      "stroke": "$border",
-                      "strokeWidth": {
-                        "bottom": 1
-                      },
-                      "padding": [
-                        14,
-                        16
-                      ],
-                      "justifyContent": "space_between",
+                      "id": "m0m6M",
+                      "name": "Left",
+                      "gap": 10,
                       "alignItems": "center",
                       "children": [
                         {
-                          "type": "frame",
-                          "id": "ytv5z",
-                          "name": "Header Left",
-                          "gap": 8,
-                          "alignItems": "center",
-                          "children": [
-                            {
-                              "type": "icon",
-                              "id": "CNVS5",
-                              "name": "Back",
-                              "width": 18,
-                              "height": 18,
-                              "icon": "chevron-left",
-                              "library": "lucide",
-                              "fill": "$text-secondary"
-                            },
-                            {
-                              "type": "text",
-                              "id": "a6hTtc",
-                              "name": "Title",
-                              "fill": "$text-primary",
-                              "content": "Новая категория",
-                              "fontFamily": "Inter",
-                              "fontSize": 15,
-                              "fontWeight": "600"
-                            }
-                          ]
+                          "type": "text",
+                          "id": "z8cxy",
+                          "name": "Emoji",
+                          "fill": "$text-primary",
+                          "content": "🥗",
+                          "fontFamily": "Inter",
+                          "fontSize": 16,
+                          "fontWeight": "normal"
                         },
                         {
-                          "type": "icon",
-                          "id": "tZSDD",
-                          "name": "Chevron Up",
-                          "width": 18,
-                          "height": 18,
-                          "icon": "chevron-up",
-                          "library": "lucide",
-                          "fill": "$primary"
+                          "type": "text",
+                          "id": "XN3bW",
+                          "name": "Selected Value",
+                          "fill": "$text-primary",
+                          "content": "Заготовки",
+                          "fontFamily": "$font-body",
+                          "fontSize": 15,
+                          "fontWeight": "500"
                         }
                       ]
                     },
                     {
-                      "type": "frame",
-                      "id": "Ms4t4",
-                      "name": "Create Form Body",
-                      "width": "fill_container",
-                      "layout": "vertical",
-                      "gap": 12,
-                      "padding": 12,
-                      "children": [
-                        {
-                          "type": "frame",
-                          "id": "tW0WT",
-                          "name": "Input Row",
-                          "width": "fill_container",
-                          "gap": 8,
-                          "alignItems": "center",
-                          "children": [
-                            {
-                              "type": "frame",
-                              "id": "ffrS4",
-                              "name": "Emoji Picker",
-                              "width": 44,
-                              "height": 44,
-                              "fill": "$icon-bg",
-                              "cornerRadius": 12,
-                              "stroke": "$primary",
-                              "strokeWidth": 1.5,
-                              "justifyContent": "center",
-                              "alignItems": "center",
-                              "children": [
-                                {
-                                  "type": "icon",
-                                  "id": "TMtLi",
-                                  "name": "Category Icon",
-                                  "width": 20,
-                                  "height": 20,
-                                  "icon": "tag",
-                                  "library": "lucide",
-                                  "fill": "$primary"
-                                }
-                              ]
-                            },
-                            {
-                              "type": "frame",
-                              "id": "i1U4t",
-                              "name": "Name Input",
-                              "width": "fill_container",
-                              "height": 44,
-                              "fill": "$surface",
-                              "cornerRadius": 12,
-                              "stroke": "$border",
-                              "strokeWidth": 1,
-                              "padding": [
-                                12,
-                                14
-                              ],
-                              "alignItems": "center",
-                              "children": [
-                                {
-                                  "type": "text",
-                                  "id": "vvmHB",
-                                  "name": "Placeholder",
-                                  "fill": "$text-secondary",
-                                  "content": "Название",
-                                  "fontFamily": "Inter",
-                                  "fontSize": 15,
-                                  "fontWeight": "normal"
-                                }
-                              ]
-                            }
-                          ]
-                        },
-                        {
-                          "type": "frame",
-                          "id": "G6EndU",
-                          "name": "Actions Row",
-                          "width": "fill_container",
-                          "gap": 8,
-                          "justifyContent": "end",
-                          "alignItems": "center",
-                          "children": [
-                            {
-                              "type": "frame",
-                              "id": "xNkd5",
-                              "name": "Cancel Button",
-                              "cornerRadius": 20,
-                              "padding": [
-                                10,
-                                14
-                              ],
-                              "children": [
-                                {
-                                  "type": "text",
-                                  "id": "aenCi",
-                                  "name": "Label",
-                                  "fill": "$text-secondary",
-                                  "content": "Отмена",
-                                  "fontFamily": "Inter",
-                                  "fontSize": 14,
-                                  "fontWeight": "600"
-                                }
-                              ]
-                            },
-                            {
-                              "type": "frame",
-                              "id": "n4FI6",
-                              "name": "Add Button",
-                              "fill": "$primary",
-                              "cornerRadius": 20,
-                              "gap": 6,
-                              "padding": [
-                                10,
-                                16
-                              ],
-                              "alignItems": "center",
-                              "children": [
-                                {
-                                  "type": "icon",
-                                  "id": "Bnr7s",
-                                  "name": "Check",
-                                  "width": 16,
-                                  "height": 16,
-                                  "icon": "check",
-                                  "library": "lucide",
-                                  "fill": "$on-primary"
-                                },
-                                {
-                                  "type": "text",
-                                  "id": "BbjOA",
-                                  "name": "Label",
-                                  "fill": "$on-primary",
-                                  "content": "Добавить",
-                                  "fontFamily": "Inter",
-                                  "fontSize": 14,
-                                  "fontWeight": "600"
-                                }
-                              ]
-                            }
-                          ]
-                        }
-                      ]
+                      "type": "icon",
+                      "id": "W97Ft",
+                      "name": "Chevron",
+                      "width": 18,
+                      "height": 18,
+                      "icon": "chevron-down",
+                      "library": "lucide",
+                      "fill": "$primary"
                     }
                   ]
                 }
@@ -16780,6 +16248,835 @@
           "ref": "D5HfIl",
           "name": "Tab Bar",
           "width": "fill_container"
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "jjnu9",
+      "x": 3213,
+      "y": 1120,
+      "name": "02a Продукт в каталоге — категория выбрана",
+      "clip": true,
+      "width": 390,
+      "fill": "$bg",
+      "cornerRadius": 24,
+      "layout": "vertical",
+      "children": [
+        {
+          "id": "wBGkC",
+          "type": "ref",
+          "ref": "BeNfl",
+          "name": "Status Bar",
+          "width": "fill_container"
+        },
+        {
+          "type": "frame",
+          "id": "K8WP4",
+          "name": "Nav",
+          "width": "fill_container",
+          "padding": [
+            8,
+            20
+          ],
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "iG7sa",
+              "name": "Back Button",
+              "width": 40,
+              "height": 40,
+              "fill": "$surface",
+              "cornerRadius": 20,
+              "stroke": "$border",
+              "strokeWidth": 1,
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon",
+                  "id": "NePYi",
+                  "name": "Back Icon",
+                  "width": 22,
+                  "height": 22,
+                  "icon": "chevron-left",
+                  "library": "lucide",
+                  "fill": "$text-primary"
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "id": "HByIb",
+              "name": "Nav Title",
+              "fill": "$text-primary",
+              "content": "Новый продукт в каталоге",
+              "fontFamily": "$font-heading",
+              "fontSize": 18,
+              "fontWeight": "700"
+            },
+            {
+              "type": "frame",
+              "id": "gN1AD",
+              "name": "Nav Spacer",
+              "width": 44,
+              "height": 44,
+              "cornerRadius": 22
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "o45ZNw",
+          "name": "Form",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 20,
+          "padding": [
+            12,
+            20,
+            24,
+            20
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "CzEGY",
+              "name": "Field Name",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 8,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "Kl7oI",
+                  "name": "Label",
+                  "fill": "$text-primary",
+                  "content": "Название",
+                  "fontFamily": "$font-body",
+                  "fontSize": 14,
+                  "fontWeight": "600"
+                },
+                {
+                  "type": "frame",
+                  "id": "pcFIh",
+                  "name": "Input",
+                  "width": "fill_container",
+                  "fill": "$surface",
+                  "cornerRadius": 16,
+                  "stroke": "$primary",
+                  "strokeWidth": 1.5,
+                  "padding": [
+                    14,
+                    16
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "e5Bi3v",
+                      "name": "Value",
+                      "fill": "$text-primary",
+                      "content": "Йогурт греческий",
+                      "fontFamily": "$font-body",
+                      "fontSize": 15,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "VWMHz",
+              "name": "Field Category",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 8,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "kgLQg",
+                  "name": "Label",
+                  "fill": "$text-primary",
+                  "content": "Категория",
+                  "fontFamily": "$font-body",
+                  "fontSize": 14,
+                  "fontWeight": "600"
+                },
+                {
+                  "type": "frame",
+                  "id": "EZIRH",
+                  "name": "Category Picker",
+                  "width": "fill_container",
+                  "fill": "$primary-soft",
+                  "cornerRadius": 16,
+                  "stroke": "$primary",
+                  "strokeWidth": 1.5,
+                  "padding": [
+                    14,
+                    16
+                  ],
+                  "justifyContent": "space_between",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "KzMdg",
+                      "name": "Left",
+                      "gap": 10,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "a3tOk",
+                          "name": "Emoji",
+                          "fill": "$text-primary",
+                          "content": "🥛",
+                          "fontFamily": "Inter",
+                          "fontSize": 16,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "r6ppLS",
+                          "name": "Selected Value",
+                          "fill": "$text-primary",
+                          "content": "Молочное",
+                          "fontFamily": "$font-body",
+                          "fontSize": 15,
+                          "fontWeight": "500"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "icon",
+                      "id": "teSHE",
+                      "name": "Chevron",
+                      "width": 18,
+                      "height": 18,
+                      "icon": "chevron-down",
+                      "library": "lucide",
+                      "fill": "$primary"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "id": "az7CC",
+              "name": "Catalog Form Hint",
+              "fill": "$text-secondary",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Продукт попадёт в общий каталог. Количество и срок годности указываются при добавлении в холодильник.",
+              "lineHeight": 1.4,
+              "fontFamily": "$font-body",
+              "fontSize": 12,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "frame",
+              "id": "tng8V",
+              "name": "Field Default Unit",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 8,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "YRnCd",
+                  "name": "Label",
+                  "fill": "$text-primary",
+                  "content": "Ед. измерения по умолчанию",
+                  "fontFamily": "$font-body",
+                  "fontSize": 14,
+                  "fontWeight": "600"
+                },
+                {
+                  "type": "frame",
+                  "id": "vOG0p",
+                  "name": "Unit Input",
+                  "width": "fill_container",
+                  "fill": "$surface",
+                  "cornerRadius": 16,
+                  "stroke": "$border",
+                  "strokeWidth": 1,
+                  "padding": [
+                    14,
+                    16
+                  ],
+                  "justifyContent": "space_between",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "MprWI",
+                      "name": "Unit Value",
+                      "fill": "$text-primary",
+                      "content": "г",
+                      "fontFamily": "$font-body",
+                      "fontSize": 15,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "icon",
+                      "id": "zkGgR",
+                      "name": "Chevron",
+                      "width": 18,
+                      "height": 18,
+                      "icon": "chevron-down",
+                      "library": "lucide",
+                      "fill": "$text-secondary"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "OUgV0",
+          "name": "Footer",
+          "width": "fill_container",
+          "layout": "vertical",
+          "padding": [
+            8,
+            20,
+            24,
+            20
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "ITxi6",
+              "name": "Save Button",
+              "width": "fill_container",
+              "height": 52,
+              "fill": "$primary",
+              "cornerRadius": 26,
+              "effect": {
+                "type": "shadow",
+                "shadowType": "outer",
+                "color": "$primary-glow-soft",
+                "offset": {
+                  "x": 0,
+                  "y": 6
+                },
+                "blur": 16
+              },
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "TXLTr",
+                  "name": "Save Label",
+                  "fill": "$on-primary",
+                  "content": "Сохранить в каталог",
+                  "fontFamily": "$font-body",
+                  "fontSize": 16,
+                  "fontWeight": "600"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "EQ1Oz",
+      "x": 3683,
+      "y": 348,
+      "name": "Category Sheet Overlay",
+      "width": 390,
+      "height": 721,
+      "fill": "#2B252166",
+      "layout": "none",
+      "children": [
+        {
+          "type": "frame",
+          "id": "c086g5",
+          "x": 0,
+          "y": 333,
+          "name": "Category Sheet",
+          "width": 391,
+          "fill": "$surface",
+          "cornerRadius": [
+            24,
+            24,
+            0,
+            0
+          ],
+          "layout": "vertical",
+          "gap": 4,
+          "padding": [
+            12,
+            20,
+            34,
+            20
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "g1zQi",
+              "name": "Handle Row",
+              "width": "fill_container",
+              "padding": [
+                4,
+                0
+              ],
+              "justifyContent": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "veUo4",
+                  "name": "Handle",
+                  "width": 36,
+                  "height": 4,
+                  "fill": "$border",
+                  "cornerRadius": 2
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "id": "j8oBs",
+              "name": "Sheet Title",
+              "fill": "$text-primary",
+              "content": "Выберите категорию",
+              "textAlign": "center",
+              "fontFamily": "$font-heading",
+              "fontSize": 17,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "l7gd4f",
+              "name": "Sheet Subtitle",
+              "fill": "$text-secondary",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Или создайте новую для этого продукта",
+              "textAlign": "center",
+              "fontFamily": "$font-body",
+              "fontSize": 13,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "frame",
+              "id": "kPOc1",
+              "name": "Option Молочное",
+              "width": "fill_container",
+              "fill": "$primary-soft",
+              "cornerRadius": 12,
+              "padding": [
+                16,
+                4
+              ],
+              "justifyContent": "space_between",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "SgNr2",
+                  "name": "Left",
+                  "gap": 12,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "Zr0gz",
+                      "name": "Emoji",
+                      "fill": "$text-primary",
+                      "content": "🥛",
+                      "fontFamily": "Inter",
+                      "fontSize": 16,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "oMqmO",
+                      "name": "Label",
+                      "fill": "$text-primary",
+                      "content": "Молочное",
+                      "fontFamily": "$font-body",
+                      "fontSize": 16,
+                      "fontWeight": "500"
+                    }
+                  ]
+                },
+                {
+                  "type": "icon",
+                  "id": "fYxy3",
+                  "name": "Check",
+                  "width": 20,
+                  "height": 20,
+                  "icon": "check",
+                  "library": "lucide",
+                  "fill": "$primary"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "ud9gu",
+              "name": "Option Сыры",
+              "width": "fill_container",
+              "padding": [
+                16,
+                4
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "HJzUV",
+                  "name": "Left",
+                  "gap": 12,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "sHL54",
+                      "name": "Emoji",
+                      "fill": "$text-primary",
+                      "content": "🧀",
+                      "fontFamily": "Inter",
+                      "fontSize": 16,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "mBWMP",
+                      "name": "Label",
+                      "fill": "$text-primary",
+                      "content": "Сыры",
+                      "fontFamily": "$font-body",
+                      "fontSize": 16,
+                      "fontWeight": "500"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "R80nKV",
+              "name": "Option Заготовки",
+              "width": "fill_container",
+              "padding": [
+                16,
+                4
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "bBHCn",
+                  "name": "Left",
+                  "gap": 12,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "FTZO4",
+                      "name": "Emoji",
+                      "fill": "$text-primary",
+                      "content": "🥗",
+                      "fontFamily": "Inter",
+                      "fontSize": 16,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "Ht4Pu",
+                      "name": "Label",
+                      "fill": "$text-primary",
+                      "content": "Заготовки",
+                      "fontFamily": "$font-body",
+                      "fontSize": 16,
+                      "fontWeight": "500"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "qwwpB",
+              "name": "Divider",
+              "width": "fill_container",
+              "height": 1,
+              "fill": "$border"
+            },
+            {
+              "type": "frame",
+              "id": "R4k7t",
+              "name": "Option Create",
+              "width": "fill_container",
+              "gap": 12,
+              "padding": [
+                16,
+                4
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon",
+                  "id": "M6SzX",
+                  "name": "Plus",
+                  "width": 20,
+                  "height": 20,
+                  "icon": "plus",
+                  "library": "lucide",
+                  "fill": "$primary"
+                },
+                {
+                  "type": "text",
+                  "id": "NLmpv",
+                  "name": "Label",
+                  "fill": "$primary",
+                  "content": "Создать категорию",
+                  "fontFamily": "$font-body",
+                  "fontSize": 16,
+                  "fontWeight": "600"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "q0zjfU",
+              "name": "Cancel Button",
+              "width": "fill_container",
+              "height": 52,
+              "fill": "$surface-muted",
+              "cornerRadius": 26,
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "Hu3qX",
+                  "name": "Cancel",
+                  "fill": "$text-primary",
+                  "content": "Отмена",
+                  "fontFamily": "$font-body",
+                  "fontSize": 16,
+                  "fontWeight": "600"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "nu55h",
+      "x": 4153,
+      "y": 827,
+      "name": "Create Category Sheet",
+      "width": "fill_container(390)",
+      "fill": "$surface",
+      "cornerRadius": [
+        24,
+        24,
+        0,
+        0
+      ],
+      "layout": "vertical",
+      "gap": 12,
+      "padding": [
+        12,
+        20,
+        34,
+        20
+      ],
+      "children": [
+        {
+          "type": "frame",
+          "id": "Qyggq",
+          "name": "Handle Row",
+          "width": "fill_container",
+          "padding": [
+            4,
+            0
+          ],
+          "justifyContent": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "FM4R4",
+              "name": "Handle",
+              "width": 36,
+              "height": 4,
+              "fill": "$border",
+              "cornerRadius": 2
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "vCloz",
+          "name": "Sheet Title",
+          "fill": "$text-primary",
+          "content": "Новая категория",
+          "textAlign": "center",
+          "fontFamily": "$font-heading",
+          "fontSize": 17,
+          "fontWeight": "700"
+        },
+        {
+          "type": "text",
+          "id": "OeLeI",
+          "name": "Sheet Subtitle",
+          "fill": "$text-secondary",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "content": "Иконка и название помогут быстрее находить продукты",
+          "textAlign": "center",
+          "fontFamily": "$font-body",
+          "fontSize": 13,
+          "fontWeight": "normal"
+        },
+        {
+          "type": "frame",
+          "id": "xwPlh",
+          "name": "Input Row",
+          "width": "fill_container",
+          "gap": 8,
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "H6MBV",
+              "name": "Emoji Picker",
+              "width": 44,
+              "height": 44,
+              "fill": "$icon-bg",
+              "cornerRadius": 12,
+              "stroke": "$primary",
+              "strokeWidth": 1.5,
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon",
+                  "id": "vnWfs",
+                  "name": "Category Icon",
+                  "width": 20,
+                  "height": 20,
+                  "icon": "tag",
+                  "library": "lucide",
+                  "fill": "$primary"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "m7ReF1",
+              "name": "Name Input",
+              "width": "fill_container",
+              "height": 44,
+              "fill": "$surface",
+              "cornerRadius": 12,
+              "stroke": "$border",
+              "strokeWidth": 1,
+              "padding": [
+                12,
+                14
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "bPV5P",
+                  "name": "Placeholder",
+                  "fill": "$text-secondary",
+                  "content": "Название",
+                  "fontFamily": "Inter",
+                  "fontSize": 15,
+                  "fontWeight": "normal"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "jqLxp",
+          "name": "Actions Row",
+          "width": "fill_container",
+          "gap": 8,
+          "justifyContent": "end",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "V6nXX",
+              "name": "Cancel Button",
+              "cornerRadius": 20,
+              "padding": [
+                10,
+                14
+              ],
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "xpIGO",
+                  "name": "Label",
+                  "fill": "$text-secondary",
+                  "content": "Отмена",
+                  "fontFamily": "$font-body",
+                  "fontSize": 14,
+                  "fontWeight": "600"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "W7Qm0",
+              "name": "Add Button",
+              "fill": "$primary",
+              "cornerRadius": 20,
+              "gap": 6,
+              "padding": [
+                10,
+                16
+              ],
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon",
+                  "id": "n6UoJ",
+                  "name": "Check",
+                  "width": 16,
+                  "height": 16,
+                  "icon": "check",
+                  "library": "lucide",
+                  "fill": "$on-primary"
+                },
+                {
+                  "type": "text",
+                  "id": "H0rJ90",
+                  "name": "Label",
+                  "fill": "$on-primary",
+                  "content": "Добавить",
+                  "fontFamily": "$font-body",
+                  "fontSize": 14,
+                  "fontWeight": "600"
+                }
+              ]
+            }
+          ]
         }
       ]
     }

@@ -42,4 +42,10 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get select => 'Выбрать';
+
+  @override
+  String get category => 'Категория';
+
+  @override
+  String get createCategory => 'Создать категорию';
 }

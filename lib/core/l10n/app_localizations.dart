@@ -159,6 +159,18 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'Выбрать'**
   String get select;
+
+  /// Название поля для выбора категории
+  ///
+  /// In ru, this message translates to:
+  /// **'Категория'**
+  String get category;
+
+  /// Название кнопки для создания категории
+  ///
+  /// In ru, this message translates to:
+  /// **'Создать категорию'**
+  String get createCategory;
 }
 
 class _AppLocalizationsDelegate

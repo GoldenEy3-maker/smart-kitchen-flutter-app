@@ -7,6 +7,7 @@ import "package:smart_kitchen_flutter_app/core/widgets/button/button.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/button/button_rounder.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/button/button_size.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/button/button_style.dart";
+import "package:smart_kitchen_flutter_app/core/widgets/form_item/form_item.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/input/input.dart";
 import "package:smart_kitchen_flutter_app/features/products/domain/entities/entities.dart";
 
@@ -51,6 +52,8 @@ class _ProductFormViewState extends State<ProductFormView> {
       child: Form(
         key: _formKey,
         child: Column(
+          spacing: AppSpacing.medium,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               spacing: AppSpacing.small,
@@ -77,6 +80,30 @@ class _ProductFormViewState extends State<ProductFormView> {
                   ),
                 ),
               ],
+            ),
+            FormItem(
+              label: Text(l10n.category),
+              child: Column(
+                children: [
+                  SizedBox(
+                    width: double.infinity,
+                    child: Button(
+                      style: ButtonStyles.ghost,
+                      size: ButtonSizes.sm,
+                      rounder: ButtonRounders.rectangularSm,
+                      onPressed: () {},
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        spacing: AppSpacing.small,
+                        children: [
+                          Icon(LucideIcons.plus, size: 20),
+                          Text(l10n.createCategory),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ],
         ),

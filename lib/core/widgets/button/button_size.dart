@@ -45,6 +45,17 @@ abstract final class ButtonSizes {
     ),
   );
 
+  static final ButtonSize sm = ButtonSize(
+    minHeight: 36,
+    minWidth: 0,
+    maxHeight: double.infinity,
+    maxWidth: double.infinity,
+    padding: EdgeInsets.symmetric(
+      horizontal: AppSpacing.small,
+      vertical: AppSpacing.medium,
+    ),
+  );
+
   static final ButtonSize icon = ButtonSize(
     minHeight: 48,
     minWidth: 48,
