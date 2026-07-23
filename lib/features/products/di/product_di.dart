@@ -14,9 +14,6 @@ void registerProductDI() {
       localDataSource: getIt.get<ProductLocalDataSource>(),
     ),
   );
-  getIt.registerLazySingleton<GetCategories>(
-    () => GetCategories(repository: getIt.get<ProductRepository>()),
-  );
   getIt.registerLazySingleton<GetProducts>(
     () => GetProducts(repository: getIt.get<ProductRepository>()),
   );

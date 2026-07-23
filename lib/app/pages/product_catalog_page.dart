@@ -6,6 +6,7 @@ import "package:smart_kitchen_flutter_app/features/products/navigation/navigatio
 import "package:smart_kitchen_flutter_app/features/products/domain/usecases/usecases.dart";
 import "package:smart_kitchen_flutter_app/features/products/presentation/catalog/bloc/bloc.dart";
 import "package:smart_kitchen_flutter_app/features/products/presentation/catalog/views/views.dart";
+import "package:smart_kitchen_flutter_app/shared/categories/domain/usecases/usecases.dart";
 
 @RoutePage()
 class ProductCatalogPage extends StatelessWidget {

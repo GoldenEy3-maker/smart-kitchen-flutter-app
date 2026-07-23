@@ -3,7 +3,7 @@ import "package:skeletonizer/skeletonizer.dart";
 import "package:smart_kitchen_flutter_app/core/icons/icons.dart";
 import "package:smart_kitchen_flutter_app/core/l10n/app_localizations.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/selectable_chip/selectable_chip.dart";
-import "package:smart_kitchen_flutter_app/features/products/domain/entities/entities.dart";
+import "package:smart_kitchen_flutter_app/shared/categories/domain/entities/entities.dart";
 
 class CategoryChipsHeaderDelegate extends SliverPersistentHeaderDelegate {
   final List<Category> categories;

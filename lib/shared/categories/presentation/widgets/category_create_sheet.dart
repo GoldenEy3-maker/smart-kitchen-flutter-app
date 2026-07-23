@@ -9,23 +9,37 @@ import "package:smart_kitchen_flutter_app/core/widgets/button/button_size.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/button/button_style.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/input/input.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/resizable_sheet/show_resizable_sheet.dart";
+import "package:smart_kitchen_flutter_app/shared/categories/domain/entities/entities.dart";
 
-Future<void> showCategoryCreateSheet(BuildContext context) {
+typedef CategoryCreateSheetOnCreateCallback =
+    void Function(String label, String iconKey);
+Future<void> showCategoryCreateSheet({
+  required BuildContext context,
+  required CategoryCreateSheetOnCreateCallback onCreate,
+}) {
   return showResizableSheet(
     context: context,
     initialSize: 0.27,
     maxSize: 0.27,
     snap: true,
     builder: (context, scrollController, sheetController) {
-      return CategoryCreateSheetView(scrollController: scrollController);
+      return CategoryCreateSheetView(
+        scrollController: scrollController,
+        onCreate: onCreate,
+      );
     },
   );
 }
 
 class CategoryCreateSheetView extends StatefulWidget {
-  const CategoryCreateSheetView({super.key, required this.scrollController});
+  const CategoryCreateSheetView({
+    super.key,
+    required this.scrollController,
+    required this.onCreate,
+  });
 
   final ScrollController scrollController;
+  final CategoryCreateSheetOnCreateCallback onCreate;
 
   @override
   State<CategoryCreateSheetView> createState() =>
@@ -33,8 +47,6 @@ class CategoryCreateSheetView extends StatefulWidget {
 }
 
 class _CategoryCreateSheetViewState extends State<CategoryCreateSheetView> {
-  final _formKey = GlobalKey<FormState>();
-  final TextEditingController _nameController = TextEditingController();
   CatalogIcon? _selectedIcon;
 
   void _onIconSelected(CatalogIcon? icon) {
@@ -43,12 +55,6 @@ class _CategoryCreateSheetViewState extends State<CategoryCreateSheetView> {
 
       _selectedIcon = icon;
     });
-  }
-
-  @override
-  void dispose() {
-    _nameController.dispose();
-    super.dispose();
   }
 
   @override
@@ -80,38 +86,34 @@ class _CategoryCreateSheetViewState extends State<CategoryCreateSheetView> {
               controller: widget.scrollController,
               slivers: [
                 SliverToBoxAdapter(
-                  child: Form(
-                    key: _formKey,
-                    child: Row(
-                      spacing: AppSpacing.small,
-                      children: [
-                        Button(
-                          style: ButtonStyles.secondary,
-                          size: ButtonSizes.icon,
-                          rounder: ButtonRounders.rectangular.copyWith(
-                            borderRadius:
-                                AppInputDecoration().shape.borderRadius,
-                          ),
-                          onPressed: () {
-                            showCatalogIconsPickerSheet(
-                              context: context,
-                              initialSelectedIconKey: _selectedIcon,
-                            ).then(_onIconSelected);
-                          },
-                          child: _selectedIcon != null
-                              ? Icon(_selectedIcon!.icon, size: 20)
-                              : Icon(LucideIcons.tag, size: 20),
+                  child: Row(
+                    spacing: AppSpacing.small,
+                    children: [
+                      Button(
+                        style: ButtonStyles.secondary,
+                        size: ButtonSizes.icon,
+                        rounder: ButtonRounders.rectangular.copyWith(
+                          borderRadius: AppInputDecoration().shape.borderRadius,
                         ),
-                        Expanded(
-                          child: TextFormField(
-                            autofocus: true,
-                            decoration: AppInputDecoration(
-                              hintText: l10n.name,
-                            ).toInputDecoration(),
-                          ),
+                        onPressed: () {
+                          showCatalogIconsPickerSheet(
+                            context: context,
+                            initialSelectedIconKey: _selectedIcon,
+                          ).then(_onIconSelected);
+                        },
+                        child: _selectedIcon != null
+                            ? Icon(_selectedIcon!.icon, size: 20)
+                            : Icon(LucideIcons.tag, size: 20),
+                      ),
+                      Expanded(
+                        child: TextField(
+                          autofocus: true,
+                          decoration: AppInputDecoration(
+                            hintText: l10n.name,
+                          ).toInputDecoration(),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
                 SliverToBoxAdapter(
@@ -119,7 +121,12 @@ class _CategoryCreateSheetViewState extends State<CategoryCreateSheetView> {
                 ),
                 SliverToBoxAdapter(
                   child: Button(
-                    onPressed: () {},
+                    onPressed: () {
+                      widget.onCreate(
+                        _selectedIcon?.name ?? "",
+                        _selectedIcon?.name ?? "",
+                      );
+                    },
                     child: Row(
                       mainAxisAlignment: .center,
                       spacing: AppSpacing.xSmall,

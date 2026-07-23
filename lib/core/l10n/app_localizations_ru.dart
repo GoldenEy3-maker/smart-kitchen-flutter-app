@@ -71,4 +71,8 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get emptyPlaceholderSearchProductsDescription =>
       'Попробуйте другое название или создайте новый продукт';
+
+  @override
+  String get productFormAttention =>
+      'Продукт попадёт в общий каталог. Количество и срок годности указываются при добавлении в холодильник.';
 }

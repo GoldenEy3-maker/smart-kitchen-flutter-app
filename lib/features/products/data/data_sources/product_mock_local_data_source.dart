@@ -3,6 +3,7 @@ import "package:smart_kitchen_flutter_app/core/icons/catalog_icons.dart";
 
 import "package:smart_kitchen_flutter_app/core/utils/either.dart";
 import "package:smart_kitchen_flutter_app/features/products/data/models/models.dart";
+import "package:smart_kitchen_flutter_app/shared/categories/data/models/models.dart";
 
 import "product_local_data_source.dart";
 
@@ -141,40 +142,5 @@ class ProductMockLocalDataSource implements ProductLocalDataSource {
         categoryId: "dairy",
       ),
     ]);
-  }
-
-  @override
-  Future<Either<Failure, CategoryModel>> createCategory(
-    CreateCategoryModel category,
-  ) {
-    return Future.value(
-      Right(
-        CategoryModel(
-          id: "14",
-          label: category.label,
-          iconKey: category.iconKey,
-        ),
-      ),
-    );
-  }
-
-  @override
-  Future<Either<Failure, CategoryModel>> updateCategory(
-    UpdateCategoryModel category,
-  ) {
-    return Future.value(
-      Right(
-        CategoryModel(
-          id: category.id,
-          label: category.label ?? "",
-          iconKey: category.iconKey ?? "",
-        ),
-      ),
-    );
-  }
-
-  @override
-  Future<Either<Failure, bool>> deleteCategory(String id) {
-    return Future.value(Right(true));
   }
 }

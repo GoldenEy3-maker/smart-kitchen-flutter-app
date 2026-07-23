@@ -1,5 +1,5 @@
 import "package:json_annotation/json_annotation.dart";
-import "package:smart_kitchen_flutter_app/features/products/domain/entities/entities.dart";
+import "package:smart_kitchen_flutter_app/shared/categories/domain/entities/entities.dart";
 
 part "category_model.g.dart";
 

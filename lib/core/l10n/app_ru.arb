@@ -86,5 +86,9 @@
   "emptyPlaceholderSearchProductsDescription": "Попробуйте другое название или создайте новый продукт",
   "@emptyPlaceholderSearchProductsDescription": {
     "description": "Описание пустого места для поиска продуктов"
+  },
+  "productFormAttention": "Продукт попадёт в общий каталог. Количество и срок годности указываются при добавлении в холодильник.",
+  "@productFormAttention": {
+    "description": "Текст с вниманием для формы добавления продукта"
   }
 }

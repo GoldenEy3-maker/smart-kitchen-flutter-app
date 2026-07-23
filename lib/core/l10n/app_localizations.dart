@@ -213,6 +213,12 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'Попробуйте другое название или создайте новый продукт'**
   String get emptyPlaceholderSearchProductsDescription;
+
+  /// Текст с вниманием для формы добавления продукта
+  ///
+  /// In ru, this message translates to:
+  /// **'Продукт попадёт в общий каталог. Количество и срок годности указываются при добавлении в холодильник.'**
+  String get productFormAttention;
 }
 
 class _AppLocalizationsDelegate

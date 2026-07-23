@@ -5,6 +5,8 @@ import "package:smart_kitchen_flutter_app/core/error/error.dart";
 import "package:smart_kitchen_flutter_app/core/usecase/usecase.dart";
 import "package:smart_kitchen_flutter_app/features/products/domain/entities/entities.dart";
 import "package:smart_kitchen_flutter_app/features/products/domain/usecases/usecases.dart";
+import "package:smart_kitchen_flutter_app/shared/categories/domain/entities/entities.dart";
+import "package:smart_kitchen_flutter_app/shared/categories/domain/usecases/usecases.dart";
 
 part "product_catalog_event.dart";
 part "product_catalog_state.dart";

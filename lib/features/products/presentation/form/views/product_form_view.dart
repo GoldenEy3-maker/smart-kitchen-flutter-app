@@ -10,7 +10,7 @@ import "package:smart_kitchen_flutter_app/core/widgets/button/button_style.dart"
 import "package:smart_kitchen_flutter_app/core/widgets/form_item/form_item.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/input/input.dart";
 import "package:smart_kitchen_flutter_app/features/products/domain/entities/entities.dart";
-import "package:smart_kitchen_flutter_app/features/products/presentation/form/widgets/widgets.dart";
+import "package:smart_kitchen_flutter_app/shared/categories/presentation/widgets/widgets.dart";
 
 class ProductFormView extends StatefulWidget {
   final Product? product;
@@ -53,7 +53,7 @@ class _ProductFormViewState extends State<ProductFormView> {
       child: Form(
         key: _formKey,
         child: Column(
-          spacing: AppSpacing.medium,
+          spacing: AppSpacing.xLarge,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
@@ -93,7 +93,12 @@ class _ProductFormViewState extends State<ProductFormView> {
                       size: ButtonSizes.sm,
                       rounder: ButtonRounders.rectangular,
                       onPressed: () {
-                        showCategoryCreateSheet(context);
+                        showCategoryCreateSheet(
+                          context: context,
+                          onCreate: (label, iconKey) {
+                            // TODO: Implement category creation
+                          },
+                        );
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -106,6 +111,12 @@ class _ProductFormViewState extends State<ProductFormView> {
                     ),
                   ),
                 ],
+              ),
+            ),
+            Text(
+              l10n.productFormAttention,
+              style: AppTypography.textTheme.bodySmall!.copyWith(
+                color: AppColors.textSecondary,
               ),
             ),
           ],

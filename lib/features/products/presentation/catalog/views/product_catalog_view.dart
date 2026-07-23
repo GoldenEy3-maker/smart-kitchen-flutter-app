@@ -11,6 +11,7 @@ import "package:smart_kitchen_flutter_app/features/products/domain/entities/enti
 import "package:smart_kitchen_flutter_app/features/products/presentation/catalog/bloc/bloc.dart";
 import "package:smart_kitchen_flutter_app/features/products/presentation/catalog/widgets/widgets.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
+import "package:smart_kitchen_flutter_app/shared/categories/presentation/widgets/widgets.dart";
 
 class ProductCatalogViewConfig {
   static const double verticalGap = AppSpacing.standard;
