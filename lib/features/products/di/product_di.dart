@@ -6,7 +6,8 @@ import "package:smart_kitchen_flutter_app/features/products/domain/usecases/usec
 
 void registerProductDI() {
   getIt.registerLazySingleton<ProductLocalDataSource>(
-    () => ProductMockLocalDataSource(),
+    // () => ProductMockLocalDataSource(),
+    () => ProductLocalDataSourceImpl(),
   );
   getIt.registerLazySingleton<ProductRepository>(
     () => ProductRepositoryImpl(

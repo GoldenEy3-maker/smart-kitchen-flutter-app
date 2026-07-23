@@ -7,6 +7,7 @@ final class ButtonSize {
   final double maxHeight;
   final double maxWidth;
   final EdgeInsets padding;
+  final double fontSize;
 
   ButtonSize({
     required this.minHeight,
@@ -14,6 +15,7 @@ final class ButtonSize {
     required this.maxHeight,
     required this.maxWidth,
     required this.padding,
+    this.fontSize = 16,
   });
 
   ButtonSize copyWith({
@@ -22,6 +24,7 @@ final class ButtonSize {
     double? maxHeight,
     double? maxWidth,
     EdgeInsets? padding,
+    double? fontSize,
   }) {
     return ButtonSize(
       minHeight: minHeight ?? this.minHeight,
@@ -29,6 +32,7 @@ final class ButtonSize {
       maxHeight: maxHeight ?? this.maxHeight,
       maxWidth: maxWidth ?? this.maxWidth,
       padding: padding ?? this.padding,
+      fontSize: fontSize ?? this.fontSize,
     );
   }
 }
@@ -51,9 +55,10 @@ abstract final class ButtonSizes {
     maxHeight: double.infinity,
     maxWidth: double.infinity,
     padding: EdgeInsets.symmetric(
-      horizontal: AppSpacing.small,
-      vertical: AppSpacing.medium,
+      horizontal: AppSpacing.medium,
+      vertical: AppSpacing.small,
     ),
+    fontSize: 14,
   );
 
   static final ButtonSize icon = ButtonSize(

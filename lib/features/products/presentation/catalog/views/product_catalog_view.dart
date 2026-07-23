@@ -1,6 +1,9 @@
 import "package:flutter/material.dart";
+import "package:lucide_icons_flutter/lucide_icons.dart";
 import "package:skeletonizer/skeletonizer.dart";
+import "package:smart_kitchen_flutter_app/core/l10n/app_localizations.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/button/button_size.dart";
+import "package:smart_kitchen_flutter_app/core/widgets/empty_placeholder/empty_placeholder.dart";
 import "package:smart_kitchen_flutter_app/features/products/navigation/navigation.dart";
 import "package:smart_kitchen_flutter_app/core/theme/theme.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/scroll/scroll.dart";
@@ -27,6 +30,7 @@ class ProductCatalogView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ProductCatalogBloc, ProductCatalogState>(
       builder: (context, state) {
+        final l10n = AppLocalizations.of(context)!;
         final categoryProducts = state.isLoading
             ? [
                 CategoryProduct.loading,
@@ -34,90 +38,137 @@ class ProductCatalogView extends StatelessWidget {
                 CategoryProduct.loading,
               ]
             : state.categoryProducts;
+        final isEmpty = state.categories.isEmpty || state.products.isEmpty;
+        final isSearchQueryApplied = state.searchQuery.isNotEmpty;
 
-        return SafeArea(
-          child: CustomScrollView(
-            physics: const NoImplicitScrollPhysics(
-              parent: AlwaysScrollableScrollPhysics(),
-            ),
-            slivers: [
-              SliverPersistentHeader(
-                floating: true,
-                delegate: SearchHeaderDelegate(
-                  onChanged: (value) => context.read<ProductCatalogBloc>().add(
-                    SearchQueryChanged(query: value),
+        if (!state.isLoading && isEmpty) {
+          return ProductCatalogScaffold(
+            body: SafeArea(
+              minimum: EdgeInsets.symmetric(
+                horizontal: AppSpacing.containerHorizontal,
+              ),
+              child: Column(
+                mainAxisAlignment: .center,
+                children: [
+                  EmptyPlaceholder(
+                    icon: isSearchQueryApplied
+                        ? Icon(
+                            LucideIcons.searchX,
+                            size: 40,
+                            color: AppColors.textSecondary,
+                          )
+                        : null,
+                    title: isSearchQueryApplied
+                        ? l10n.emptyPlaceholderSearchTitle
+                        : l10n.emptyPlaceholderProductTitle,
+                    description: isSearchQueryApplied
+                        ? l10n.emptyPlaceholderSearchProductsDescription
+                        : l10n.emptyPlaceholderProductDescription,
+                    action: Row(
+                      mainAxisAlignment: .center,
+                      children: [
+                        CreateProductButton(
+                          onPressed: () => navigator.openProductForm(),
+                        ),
+                      ],
+                    ),
                   ),
-                  height: ProductCatalogViewConfig.searchBarHeight,
-                  paddingHorizontal: AppSpacing.containerHorizontal,
-                ),
+                ],
               ),
-              SliverPersistentHeader(
-                pinned: true,
-                delegate: CategoryChipsHeaderDelegate(
-                  height: ProductCatalogViewConfig.categoryChipsHeight,
-                  paddingVertical: ProductCatalogViewConfig.verticalGap,
-                  paddingHorizontal: AppSpacing.containerHorizontal,
-                  isLoading: state.isLoading,
-                  categories: state.categories,
-                  selectedCategory: state.selectedCategory,
-                  onCategorySelected: (category) => context
-                      .read<ProductCatalogBloc>()
-                      .add(SelectedCategoryChanged(category: category)),
-                ),
+            ),
+          );
+        }
+
+        return ProductCatalogScaffold(
+          floatingActionButton: CreateProductButton(
+            onPressed: () => navigator.openProductForm(),
+          ),
+          body: SafeArea(
+            child: CustomScrollView(
+              physics: const NoImplicitScrollPhysics(
+                parent: AlwaysScrollableScrollPhysics(),
               ),
-              for (var i = 0; i < categoryProducts.length; i++) ...[
-                if (i > 0)
+              slivers: [
+                SliverPersistentHeader(
+                  floating: true,
+                  delegate: SearchHeaderDelegate(
+                    onChanged: (value) => context
+                        .read<ProductCatalogBloc>()
+                        .add(SearchQueryChanged(query: value)),
+                    height: ProductCatalogViewConfig.searchBarHeight,
+                    paddingHorizontal: AppSpacing.containerHorizontal,
+                  ),
+                ),
+                SliverPersistentHeader(
+                  pinned: true,
+                  delegate: CategoryChipsHeaderDelegate(
+                    height: ProductCatalogViewConfig.categoryChipsHeight,
+                    paddingVertical: ProductCatalogViewConfig.verticalGap,
+                    paddingHorizontal: AppSpacing.containerHorizontal,
+                    isLoading: state.isLoading,
+                    categories: state.categories,
+                    selectedCategory: state.selectedCategory,
+                    onCategorySelected: (category) => context
+                        .read<ProductCatalogBloc>()
+                        .add(SelectedCategoryChanged(category: category)),
+                  ),
+                ),
+                for (var i = 0; i < categoryProducts.length; i++) ...[
+                  if (i > 0)
+                    const SliverToBoxAdapter(
+                      child: SizedBox(
+                        height: ProductCatalogViewConfig.verticalGap,
+                      ),
+                    ),
+                  SliverPadding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: AppSpacing.containerHorizontal,
+                    ),
+                    sliver: SliverToBoxAdapter(
+                      child: Skeletonizer(
+                        enabled: state.isLoading,
+                        child: Text(
+                          categoryProducts[i].category.label.toUpperCase(),
+                          style: AppTypography.textTheme.titleSmall,
+                        ),
+                      ),
+                    ),
+                  ),
                   const SliverToBoxAdapter(
                     child: SizedBox(
                       height: ProductCatalogViewConfig.verticalGap,
                     ),
                   ),
-                SliverPadding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: AppSpacing.containerHorizontal,
-                  ),
-                  sliver: SliverToBoxAdapter(
-                    child: Skeletonizer(
-                      enabled: state.isLoading,
-                      child: Text(
-                        categoryProducts[i].category.label.toUpperCase(),
-                        style: AppTypography.textTheme.titleSmall,
-                      ),
+                  SliverPadding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: AppSpacing.containerHorizontal,
+                    ),
+                    sliver: SliverList.separated(
+                      itemCount: categoryProducts[i].products.length,
+                      separatorBuilder: (context, index) {
+                        return const SizedBox(
+                          height: ProductCatalogViewConfig.verticalGap,
+                        );
+                      },
+                      itemBuilder: (context, index) {
+                        return Skeletonizer(
+                          enabled: state.isLoading,
+                          child: ProductTile(
+                            navigator: navigator,
+                            product: categoryProducts[i].products[index],
+                          ),
+                        );
+                      },
                     ),
                   ),
-                ),
-                const SliverToBoxAdapter(
-                  child: SizedBox(height: ProductCatalogViewConfig.verticalGap),
-                ),
-                SliverPadding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: AppSpacing.containerHorizontal,
-                  ),
-                  sliver: SliverList.separated(
-                    itemCount: categoryProducts[i].products.length,
-                    separatorBuilder: (context, index) {
-                      return const SizedBox(
-                        height: ProductCatalogViewConfig.verticalGap,
-                      );
-                    },
-                    itemBuilder: (context, index) {
-                      return Skeletonizer(
-                        enabled: state.isLoading,
-                        child: ProductTile(
-                          navigator: navigator,
-                          product: categoryProducts[i].products[index],
-                        ),
-                      );
-                    },
+                ],
+                SliverToBoxAdapter(
+                  child: SizedBox(
+                    height: ProductCatalogViewConfig.safeFooterHeight,
                   ),
                 ),
               ],
-              SliverToBoxAdapter(
-                child: SizedBox(
-                  height: ProductCatalogViewConfig.safeFooterHeight,
-                ),
-              ),
-            ],
+            ),
           ),
         );
       },

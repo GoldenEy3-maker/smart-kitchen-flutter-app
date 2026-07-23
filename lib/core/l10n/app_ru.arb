@@ -58,5 +58,33 @@
   "createCategory": "Создать категорию",
   "@createCategory": {
     "description": "Название кнопки для создания категории"
+  },
+  "newCategory": "Новая категория",
+  "@newCategory": {
+    "description": "Название страницы для создания новой категории"
+  },
+  "cancel": "Отмена",
+  "@cancel": {
+    "description": "Название кнопки для отмены"
+  },
+  "add": "Добавить",
+  "@add": {
+    "description": "Название кнопки для добавления"
+  },
+  "emptyPlaceholderProductTitle": "У вас пока нет продуктов",
+  "@emptyPlaceholderProductTitle": {
+    "description": "Заголовок пустого места для продуктов"
+  },
+  "emptyPlaceholderProductDescription": "Создайте свой первый продукт",
+  "@emptyPlaceholderProductDescription": {
+    "description": "Описание пустого места для продуктов"
+  },
+  "emptyPlaceholderSearchTitle": "Ничего не найдено",
+  "@emptyPlaceholderSearchTitle": {
+    "description": "Заголовок пустого места для поиска"
+  },
+  "emptyPlaceholderSearchProductsDescription": "Попробуйте другое название или создайте новый продукт",
+  "@emptyPlaceholderSearchProductsDescription": {
+    "description": "Описание пустого места для поиска продуктов"
   }
 }

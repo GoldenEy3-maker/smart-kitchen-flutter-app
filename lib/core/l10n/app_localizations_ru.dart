@@ -48,4 +48,27 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get createCategory => 'Создать категорию';
+
+  @override
+  String get newCategory => 'Новая категория';
+
+  @override
+  String get cancel => 'Отмена';
+
+  @override
+  String get add => 'Добавить';
+
+  @override
+  String get emptyPlaceholderProductTitle => 'У вас пока нет продуктов';
+
+  @override
+  String get emptyPlaceholderProductDescription =>
+      'Создайте свой первый продукт';
+
+  @override
+  String get emptyPlaceholderSearchTitle => 'Ничего не найдено';
+
+  @override
+  String get emptyPlaceholderSearchProductsDescription =>
+      'Попробуйте другое название или создайте новый продукт';
 }

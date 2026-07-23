@@ -27,12 +27,10 @@ class Button extends StatelessWidget {
     final resolvedStyle = style ?? button_styles.ButtonStyles.primary;
     final resolvedSize = size ?? ButtonSizes.primary;
     final resolvedRounder = rounder ?? ButtonRounders.rectangular;
-    final resolvedTextStyle =
-        resolvedStyle.textStyle ??
-        AppTypography.textTheme.labelMedium!.copyWith(
-          color: resolvedStyle.foregroundColor,
-          fontSize: 16,
-        );
+    final textStyle = AppTypography.textTheme.labelMedium!.copyWith(
+      color: resolvedStyle.foregroundColor,
+      fontSize: resolvedSize.fontSize,
+    );
     final resolvedShape = resolvedRounder.shape ?? BoxShape.rectangle;
     final isCircle = resolvedShape == BoxShape.circle;
     final materialShape = _materialShape(
@@ -52,7 +50,7 @@ class Button extends StatelessWidget {
       padding: resolvedSize.padding,
       child: IconTheme.merge(
         data: IconThemeData(color: resolvedStyle.foregroundColor),
-        child: DefaultTextStyle(style: resolvedTextStyle, child: child),
+        child: DefaultTextStyle(style: textStyle, child: child),
       ),
     );
 

@@ -6,6 +6,7 @@ import "package:smart_kitchen_flutter_app/features/products/data/models/models.d
 
 import "product_local_data_source.dart";
 
+// TODO: can be deleted in the future
 class ProductMockLocalDataSource implements ProductLocalDataSource {
   @override
   Future<Either<Failure, List<CategoryModel>>> getCategories() async {
@@ -140,5 +141,40 @@ class ProductMockLocalDataSource implements ProductLocalDataSource {
         categoryId: "dairy",
       ),
     ]);
+  }
+
+  @override
+  Future<Either<Failure, CategoryModel>> createCategory(
+    CreateCategoryModel category,
+  ) {
+    return Future.value(
+      Right(
+        CategoryModel(
+          id: "14",
+          label: category.label,
+          iconKey: category.iconKey,
+        ),
+      ),
+    );
+  }
+
+  @override
+  Future<Either<Failure, CategoryModel>> updateCategory(
+    UpdateCategoryModel category,
+  ) {
+    return Future.value(
+      Right(
+        CategoryModel(
+          id: category.id,
+          label: category.label ?? "",
+          iconKey: category.iconKey ?? "",
+        ),
+      ),
+    );
+  }
+
+  @override
+  Future<Either<Failure, bool>> deleteCategory(String id) {
+    return Future.value(Right(true));
   }
 }

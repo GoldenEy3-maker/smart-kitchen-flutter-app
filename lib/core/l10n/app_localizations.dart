@@ -171,6 +171,48 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'Создать категорию'**
   String get createCategory;
+
+  /// Название страницы для создания новой категории
+  ///
+  /// In ru, this message translates to:
+  /// **'Новая категория'**
+  String get newCategory;
+
+  /// Название кнопки для отмены
+  ///
+  /// In ru, this message translates to:
+  /// **'Отмена'**
+  String get cancel;
+
+  /// Название кнопки для добавления
+  ///
+  /// In ru, this message translates to:
+  /// **'Добавить'**
+  String get add;
+
+  /// Заголовок пустого места для продуктов
+  ///
+  /// In ru, this message translates to:
+  /// **'У вас пока нет продуктов'**
+  String get emptyPlaceholderProductTitle;
+
+  /// Описание пустого места для продуктов
+  ///
+  /// In ru, this message translates to:
+  /// **'Создайте свой первый продукт'**
+  String get emptyPlaceholderProductDescription;
+
+  /// Заголовок пустого места для поиска
+  ///
+  /// In ru, this message translates to:
+  /// **'Ничего не найдено'**
+  String get emptyPlaceholderSearchTitle;
+
+  /// Описание пустого места для поиска продуктов
+  ///
+  /// In ru, this message translates to:
+  /// **'Попробуйте другое название или создайте новый продукт'**
+  String get emptyPlaceholderSearchProductsDescription;
 }
 
 class _AppLocalizationsDelegate

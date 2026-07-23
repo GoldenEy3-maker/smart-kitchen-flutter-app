@@ -6,3 +6,10 @@ sealed class Failure {
   @override
   String toString() => message;
 }
+
+class CacheFailure extends Failure {
+  const CacheFailure({String? message}) : super(message ?? "Cache failure");
+
+  @override
+  String toString() => "CacheFailure: $message";
+}
