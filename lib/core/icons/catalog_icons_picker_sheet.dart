@@ -20,7 +20,6 @@ Future<CatalogIcon?> showCatalogIconsPickerSheet({
     context: context,
     initialSize: _initialSheetSize,
     maxSize: _maxSheetSize,
-    snap: true,
     fitMaxSizeToContent: true,
     builder: (context, scrollController, sheetController) =>
         CatalogIconsPickerSheetView(

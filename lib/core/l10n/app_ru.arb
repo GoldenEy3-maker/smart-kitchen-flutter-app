@@ -90,5 +90,24 @@
   "productFormAttention": "Продукт попадёт в общий каталог. Количество и срок годности указываются при добавлении в холодильник.",
   "@productFormAttention": {
     "description": "Текст с вниманием для формы добавления продукта"
+  },
+  "selectOrCreate": "Выберите или создайте",
+  "@selectOrCreate": {
+    "description": "Текст для выбора или создания чего-либо"
+  },
+  "productsCount": "{count} {count, plural, zero {продуктов} one {продукт} other {продуктов}}",
+  "@productsCount": {
+    "description": "Текст с количеством продуктов",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "description": "Количество продуктов",
+        "example": "10"
+      }
+    }
+  },
+  "selectCategory": "Выберите категорию",
+  "@selectCategory": {
+    "description": "Заголовок для выбора категории"
   }
 }

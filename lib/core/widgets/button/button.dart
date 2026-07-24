@@ -12,6 +12,7 @@ class Button extends StatelessWidget {
   final button_styles.ButtonStyle? style;
   final ButtonSize? size;
   final ButtonRounder? rounder;
+  final bool disabled;
 
   const Button({
     super.key,
@@ -20,6 +21,7 @@ class Button extends StatelessWidget {
     this.style,
     this.size,
     this.rounder,
+    this.disabled = false,
   });
 
   @override
@@ -27,8 +29,17 @@ class Button extends StatelessWidget {
     final resolvedStyle = style ?? button_styles.ButtonStyles.primary;
     final resolvedSize = size ?? ButtonSizes.primary;
     final resolvedRounder = rounder ?? ButtonRounders.rectangular;
+    final resolvedForegroundColor = disabled
+        ? resolvedStyle.disabled?.foregroundColor ??
+              resolvedStyle.foregroundColor
+        : resolvedStyle.foregroundColor;
+    final resolvedBackgroundColor = disabled
+        ? resolvedStyle.disabled?.backgroundColor ??
+              resolvedStyle.backgroundColor
+        : resolvedStyle.backgroundColor;
+
     final textStyle = AppTypography.textTheme.labelMedium!.copyWith(
-      color: resolvedStyle.foregroundColor,
+      color: resolvedForegroundColor,
       fontSize: resolvedSize.fontSize,
     );
     final resolvedShape = resolvedRounder.shape ?? BoxShape.rectangle;
@@ -49,7 +60,7 @@ class Button extends StatelessWidget {
     final content = Padding(
       padding: resolvedSize.padding,
       child: IconTheme.merge(
-        data: IconThemeData(color: resolvedStyle.foregroundColor),
+        data: IconThemeData(color: resolvedForegroundColor),
         child: DefaultTextStyle(style: textStyle, child: child),
       ),
     );
@@ -62,14 +73,15 @@ class Button extends StatelessWidget {
         maxWidth: resolvedSize.maxWidth,
       ),
       child: Material(
-        color: resolvedStyle.backgroundColor,
+        color: resolvedBackgroundColor,
         elevation: resolvedStyle.elevation,
         shadowColor: resolvedStyle.shadowColor,
         surfaceTintColor: Colors.transparent,
         shape: materialShape,
         clipBehavior: Clip.antiAlias,
         child: InkWell(
-          onTap: onPressed,
+          enableFeedback: !disabled,
+          onTap: disabled ? null : onPressed,
           customBorder: inkBorder,
           child: content,
         ),

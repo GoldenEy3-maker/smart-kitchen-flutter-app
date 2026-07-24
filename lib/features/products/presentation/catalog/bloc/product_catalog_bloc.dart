@@ -21,7 +21,7 @@ class ProductCatalogBloc
         const ProductCatalogState(
           categories: [],
           products: [],
-          isLoading: false,
+          isLoading: true,
           error: null,
           selectedCategory: null,
           searchQuery: "",

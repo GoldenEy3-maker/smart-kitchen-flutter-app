@@ -9,10 +9,11 @@ import "package:smart_kitchen_flutter_app/core/widgets/button/button_size.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/button/button_style.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/input/input.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/resizable_sheet/show_resizable_sheet.dart";
-import "package:smart_kitchen_flutter_app/shared/categories/domain/entities/entities.dart";
 
+/// Returns `true` to close the sheet, `false` to keep it open (e.g. on error).
 typedef CategoryCreateSheetOnCreateCallback =
-    void Function(String label, String iconKey);
+    Future<bool> Function(String label, String iconKey);
+
 Future<void> showCategoryCreateSheet({
   required BuildContext context,
   required CategoryCreateSheetOnCreateCallback onCreate,
@@ -21,7 +22,6 @@ Future<void> showCategoryCreateSheet({
     context: context,
     initialSize: 0.27,
     maxSize: 0.27,
-    snap: true,
     builder: (context, scrollController, sheetController) {
       return CategoryCreateSheetView(
         scrollController: scrollController,
@@ -47,14 +47,40 @@ class CategoryCreateSheetView extends StatefulWidget {
 }
 
 class _CategoryCreateSheetViewState extends State<CategoryCreateSheetView> {
-  CatalogIcon? _selectedIcon;
+  final ValueNotifier<CatalogIcon?> _selectedIcon = ValueNotifier(null);
+  final ValueNotifier<bool> _isPending = ValueNotifier(false);
+  final TextEditingController _labelController = TextEditingController();
 
   void _onIconSelected(CatalogIcon? icon) {
-    setState(() {
-      if (icon == null) return;
+    if (icon == null) return;
+    _selectedIcon.value = icon;
+  }
 
-      _selectedIcon = icon;
-    });
+  Future<void> _onCreatePressed() async {
+    if (_isPending.value) return;
+
+    _isPending.value = true;
+    try {
+      final shouldClose = await widget.onCreate(
+        _labelController.text,
+        _selectedIcon.value?.name ?? "",
+      );
+      if (shouldClose && mounted) {
+        Navigator.of(context).pop();
+      }
+    } finally {
+      if (mounted) {
+        _isPending.value = false;
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    _labelController.dispose();
+    _selectedIcon.dispose();
+    _isPending.dispose();
+    super.dispose();
   }
 
   @override
@@ -89,24 +115,29 @@ class _CategoryCreateSheetViewState extends State<CategoryCreateSheetView> {
                   child: Row(
                     spacing: AppSpacing.small,
                     children: [
-                      Button(
-                        style: ButtonStyles.secondary,
-                        size: ButtonSizes.icon,
-                        rounder: ButtonRounders.rectangular.copyWith(
-                          borderRadius: AppInputDecoration().shape.borderRadius,
+                      ValueListenableBuilder(
+                        valueListenable: _selectedIcon,
+                        builder: (context, icon, _) => Button(
+                          style: ButtonStyles.secondary,
+                          size: ButtonSizes.icon,
+                          rounder: ButtonRounders.rectangular.copyWith(
+                            borderRadius:
+                                AppInputDecoration().shape.borderRadius,
+                          ),
+                          onPressed: () {
+                            showCatalogIconsPickerSheet(
+                              context: context,
+                              initialSelectedIconKey: icon,
+                            ).then(_onIconSelected);
+                          },
+                          child: icon != null
+                              ? Icon(icon.icon, size: 20)
+                              : Icon(LucideIcons.tag, size: 20),
                         ),
-                        onPressed: () {
-                          showCatalogIconsPickerSheet(
-                            context: context,
-                            initialSelectedIconKey: _selectedIcon,
-                          ).then(_onIconSelected);
-                        },
-                        child: _selectedIcon != null
-                            ? Icon(_selectedIcon!.icon, size: 20)
-                            : Icon(LucideIcons.tag, size: 20),
                       ),
                       Expanded(
                         child: TextField(
+                          controller: _labelController,
                           autofocus: true,
                           decoration: AppInputDecoration(
                             hintText: l10n.name,
@@ -120,17 +151,23 @@ class _CategoryCreateSheetViewState extends State<CategoryCreateSheetView> {
                   child: SizedBox(height: AppSpacing.standard),
                 ),
                 SliverToBoxAdapter(
-                  child: Button(
-                    onPressed: () {
-                      widget.onCreate(
-                        _selectedIcon?.name ?? "",
-                        _selectedIcon?.name ?? "",
-                      );
-                    },
-                    child: Row(
-                      mainAxisAlignment: .center,
-                      spacing: AppSpacing.xSmall,
-                      children: [Text(l10n.add)],
+                  child: ListenableBuilder(
+                    listenable: Listenable.merge([
+                      _selectedIcon,
+                      _labelController,
+                      _isPending,
+                    ]),
+                    builder: (context, _) => Button(
+                      disabled:
+                          _selectedIcon.value == null ||
+                          _labelController.text.isEmpty ||
+                          _isPending.value,
+                      onPressed: _onCreatePressed,
+                      child: Row(
+                        mainAxisAlignment: .center,
+                        spacing: AppSpacing.xSmall,
+                        children: [Text(l10n.add)],
+                      ),
                     ),
                   ),
                 ),

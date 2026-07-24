@@ -1,4 +1,4 @@
-import "package:hive/hive.dart";
+import "package:hive_ce/hive.dart";
 import "package:smart_kitchen_flutter_app/core/error/error.dart";
 import "package:smart_kitchen_flutter_app/core/utils/utils.dart";
 import "package:smart_kitchen_flutter_app/features/products/data/models/models.dart";
@@ -15,12 +15,16 @@ class ProductLocalDataSourceImpl implements ProductLocalDataSource {
     try {
       final productsBox = await _openProductsBox();
       final products = productsBox.values.toList();
-      return Right(products);
+      return Right(products.map((p) => ProductModel.fromJson(p)).toList());
     } catch (e) {
       return Left(CacheFailure(message: e.toString()));
     }
   }
 
-  Future<Box<ProductModel>> _openProductsBox() =>
-      Hive.openBox<ProductModel>(ProductLocalDataSourceBoxName.products.name);
+  Future<Box<dynamic>> _openProductsBox() async {
+    if (Hive.isBoxOpen(ProductLocalDataSourceBoxName.products.name)) {
+      return Hive.box(ProductLocalDataSourceBoxName.products.name);
+    }
+    return Hive.openBox(ProductLocalDataSourceBoxName.products.name);
+  }
 }

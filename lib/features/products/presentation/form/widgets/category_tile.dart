@@ -1,0 +1,100 @@
+import "package:flutter/material.dart";
+import "package:lucide_icons_flutter/lucide_icons.dart";
+import "package:smart_kitchen_flutter_app/core/icons/icons.dart";
+import "package:smart_kitchen_flutter_app/core/l10n/app_localizations.dart";
+import "package:smart_kitchen_flutter_app/core/theme/theme.dart";
+import "package:smart_kitchen_flutter_app/core/widgets/button/button.dart";
+import "package:smart_kitchen_flutter_app/core/widgets/button/button_size.dart";
+import "package:smart_kitchen_flutter_app/core/widgets/button/button_style.dart";
+import "package:smart_kitchen_flutter_app/features/products/domain/entities/entities.dart";
+
+class CategoryTile extends StatelessWidget {
+  const CategoryTile({
+    super.key,
+    required this.category,
+    this.selected = false,
+    required this.onPressed,
+  });
+
+  final CategoryWithProductsCount category;
+  final bool selected;
+  final VoidCallback onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final backgroundColor = selected
+        ? AppColors.primarySoft
+        : Colors.transparent;
+
+    return Material(
+      color: backgroundColor,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(AppRadius.xSmall),
+      ),
+      child: InkWell(
+        onTap: onPressed,
+        customBorder: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(AppRadius.xSmall),
+        ),
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: AppSpacing.small,
+            vertical: AppSpacing.medium,
+          ),
+          child: Row(
+            spacing: AppSpacing.medium,
+            children: [
+              Container(
+                width: 36,
+                height: 36,
+                decoration: BoxDecoration(
+                  color: AppColors.iconBg,
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(
+                  CatalogIcon.fromName(category.iconKey).icon,
+                  color: AppColors.textSecondary,
+                  size: 18,
+                ),
+              ),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      category.label,
+                      style: AppTypography.textTheme.titleMedium!.copyWith(
+                        color: AppColors.textPrimary,
+                      ),
+                    ),
+                    Text(
+                      l10n.productsCount(category.productsCount),
+                      style: AppTypography.textTheme.bodySmall!.copyWith(
+                        color: AppColors.textSecondary,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Row(
+                children: [
+                  Button(
+                    style: ButtonStyles.text,
+                    size: ButtonSizes.iconSmall,
+                    onPressed: () {},
+                    child: Icon(
+                      LucideIcons.pencil,
+                      size: 18,
+                      color: AppColors.textSecondary,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

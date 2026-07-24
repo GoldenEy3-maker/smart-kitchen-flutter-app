@@ -1,4 +1,4 @@
-import "package:hive/hive.dart";
+import "package:hive_ce/hive.dart";
 import "package:smart_kitchen_flutter_app/core/error/error.dart";
 import "package:smart_kitchen_flutter_app/core/utils/utils.dart";
 import "package:smart_kitchen_flutter_app/shared/categories/data/models/models.dart";
@@ -23,7 +23,11 @@ class CategoriesLocalDataSourceImpl implements CategoriesLocalDataSource {
     try {
       final categoriesBox = await _openCategoriesBox();
       final categories = categoriesBox.values.toList();
-      return Right(categories);
+      return Right(
+        categories
+            .map((c) => CategoryModel.fromJson(Map<String, dynamic>.from(c)))
+            .toList(),
+      );
     } catch (e) {
       return Left(CacheFailure(message: e.toString()));
     }
@@ -40,7 +44,7 @@ class CategoriesLocalDataSourceImpl implements CategoriesLocalDataSource {
         label: params.label,
         iconKey: params.iconKey,
       );
-      await categoriesBox.add(newCategory);
+      await categoriesBox.put(newCategory.id, newCategory.toJson());
       return Right(newCategory);
     } catch (e) {
       return Left(CacheFailure(message: e.toString()));
@@ -53,15 +57,16 @@ class CategoriesLocalDataSourceImpl implements CategoriesLocalDataSource {
   ) async {
     try {
       final categoriesBox = await _openCategoriesBox();
-      final existsCategory = categoriesBox.values.firstWhere(
-        (c) => c.id == params.id,
-      );
+      final existsCategory = categoriesBox.values
+          .map((c) => CategoryModel.fromJson(c))
+          .firstWhere((category) => category.id == params.id);
+
       final newCategory = CategoryModel(
         id: existsCategory.id,
         label: params.label ?? existsCategory.label,
         iconKey: params.iconKey ?? existsCategory.iconKey,
       );
-      await categoriesBox.put(newCategory.id, newCategory);
+      await categoriesBox.put(newCategory.id, newCategory.toJson());
       return Right(newCategory);
     } catch (e) {
       return Left(CacheFailure(message: e.toString()));
@@ -81,9 +86,11 @@ class CategoriesLocalDataSourceImpl implements CategoriesLocalDataSource {
     }
   }
 
-  Future<Box<CategoryModel>> _openCategoriesBox() {
-    return Hive.openBox<CategoryModel>(
-      CategoriesLocalDataSourceBoxName.categories.name,
-    );
+  Future<Box<dynamic>> _openCategoriesBox() async {
+    if (Hive.isBoxOpen(CategoriesLocalDataSourceBoxName.categories.name)) {
+      return Hive.box(CategoriesLocalDataSourceBoxName.categories.name);
+    }
+
+    return Hive.openBox(CategoriesLocalDataSourceBoxName.categories.name);
   }
 }

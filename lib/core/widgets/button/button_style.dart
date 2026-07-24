@@ -1,5 +1,4 @@
 import "package:flutter/material.dart";
-import "package:flutter/widgets.dart";
 import "package:smart_kitchen_flutter_app/core/theme/theme.dart";
 
 final class ButtonStyle {
@@ -9,6 +8,7 @@ final class ButtonStyle {
   final BoxBorder? border;
   final double elevation;
   final Color? shadowColor;
+  final ButtonStyle? disabled;
 
   ButtonStyle({
     required this.backgroundColor,
@@ -16,16 +16,16 @@ final class ButtonStyle {
     this.border,
     this.elevation = 0,
     this.shadowColor,
+    this.disabled,
   });
 
   ButtonStyle copyWith({
     Color? backgroundColor,
     Color? foregroundColor,
-
     Border? border,
-    TextStyle? textStyle,
     double? elevation,
     Color? shadowColor,
+    ButtonStyle? disabled,
   }) {
     return ButtonStyle(
       backgroundColor: backgroundColor ?? this.backgroundColor,
@@ -33,6 +33,7 @@ final class ButtonStyle {
       border: border ?? this.border,
       elevation: elevation ?? this.elevation,
       shadowColor: shadowColor ?? this.shadowColor,
+      disabled: disabled ?? this.disabled,
     );
   }
 }
@@ -41,6 +42,10 @@ abstract final class ButtonStyles {
   static final ButtonStyle primary = ButtonStyle(
     backgroundColor: AppColors.primary,
     foregroundColor: AppColors.onPrimary,
+    disabled: ButtonStyle(
+      backgroundColor: AppColors.primary.withValues(alpha: 0.3),
+      foregroundColor: AppColors.onPrimary,
+    ),
   );
 
   static final ButtonStyle secondary = ButtonStyle(

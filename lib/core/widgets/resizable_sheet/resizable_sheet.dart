@@ -13,7 +13,7 @@ class ResizableSheet extends StatefulWidget {
     super.key,
     required this.initialSize,
     required this.maxSize,
-    required this.snap,
+    this.snap = true,
     required this.builder,
     this.fitMaxSizeToContent = false,
   });

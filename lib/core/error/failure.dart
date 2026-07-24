@@ -13,3 +13,10 @@ class CacheFailure extends Failure {
   @override
   String toString() => "CacheFailure: $message";
 }
+
+class UnknownFailure extends Failure {
+  const UnknownFailure({String? message}) : super(message ?? "Unknown failure");
+
+  @override
+  String toString() => "UnknownFailure: $message";
+}

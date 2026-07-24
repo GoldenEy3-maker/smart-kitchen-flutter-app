@@ -219,6 +219,24 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'Продукт попадёт в общий каталог. Количество и срок годности указываются при добавлении в холодильник.'**
   String get productFormAttention;
+
+  /// Текст для выбора или создания чего-либо
+  ///
+  /// In ru, this message translates to:
+  /// **'Выберите или создайте'**
+  String get selectOrCreate;
+
+  /// Текст с количеством продуктов
+  ///
+  /// In ru, this message translates to:
+  /// **'{count} {count, plural, zero {продуктов} one {продукт} other {продуктов}}'**
+  String productsCount(int count);
+
+  /// Заголовок для выбора категории
+  ///
+  /// In ru, this message translates to:
+  /// **'Выберите категорию'**
+  String get selectCategory;
 }
 
 class _AppLocalizationsDelegate

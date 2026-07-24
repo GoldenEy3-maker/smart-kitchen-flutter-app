@@ -75,4 +75,22 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get productFormAttention =>
       'Продукт попадёт в общий каталог. Количество и срок годности указываются при добавлении в холодильник.';
+
+  @override
+  String get selectOrCreate => 'Выберите или создайте';
+
+  @override
+  String productsCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'продуктов',
+      one: 'продукт',
+      zero: 'продуктов',
+    );
+    return '$count $_temp0';
+  }
+
+  @override
+  String get selectCategory => 'Выберите категорию';
 }

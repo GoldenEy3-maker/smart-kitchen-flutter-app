@@ -6,7 +6,7 @@ Future<T?> showResizableSheet<T>({
   required BuildContext context,
   required double initialSize,
   required double maxSize,
-  required bool snap,
+  bool snap = true,
   required ResizableSheetBuilder builder,
   bool fitMaxSizeToContent = false,
 }) async {
