@@ -109,5 +109,21 @@
   "selectCategory": "Выберите категорию",
   "@selectCategory": {
     "description": "Заголовок для выбора категории"
+  },
+  "deleteCategory": "Удаление категории",
+  "@deleteCategory": {
+    "description": "Заголовок для удаления категории"
+  },
+  "deleteCategoryDescription": "Вы уверены, что хотите удалить категорию?",
+  "@deleteCategoryDescription": {
+    "description": "Описание для удаления категории"
+  },
+  "delete": "Удалить",
+  "@delete": {
+    "description": "Название кнопки для удаления"
+  },
+  "deleteCategoryWithProductsBoundedDescription": "Удаление категории с привязанными продуктами невозможно. Сначала отвяжите все продукты от этой категории.",
+  "@deleteCategoryWithProductsBoundedDescription": {
+    "description": "Описание для удаления категории с привязанными продуктами"
   }
 }

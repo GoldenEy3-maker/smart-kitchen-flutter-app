@@ -20,8 +20,8 @@ Future<void> showCategoryCreateSheet({
 }) {
   return showResizableSheet(
     context: context,
-    initialSize: 0.27,
-    maxSize: 0.27,
+    maxSize: 0.9,
+    fitToContent: true,
     builder: (context, scrollController, sheetController) {
       return CategoryCreateSheetView(
         scrollController: scrollController,
@@ -87,94 +87,84 @@ class _CategoryCreateSheetViewState extends State<CategoryCreateSheetView> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppSpacing.containerHorizontal,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            color: AppColors.surface,
-            padding: const EdgeInsets.only(
-              top: AppSpacing.xLarge,
-              bottom: AppSpacing.large,
-            ),
-            child: Text(
-              l10n.newCategory,
-              style: AppTypography.textTheme.titleLarge!.copyWith(
-                fontFamily: AppFonts.manrope,
+    return SingleChildScrollView(
+      controller: widget.scrollController,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: AppSpacing.containerHorizontal,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              color: AppColors.surface,
+              padding: const EdgeInsets.only(
+                top: AppSpacing.xLarge,
+                bottom: AppSpacing.large,
+              ),
+              child: Text(
+                l10n.newCategory,
+                style: AppTypography.textTheme.titleLarge!.copyWith(
+                  fontFamily: AppFonts.manrope,
+                ),
               ),
             ),
-          ),
-          Expanded(
-            child: CustomScrollView(
-              controller: widget.scrollController,
-              slivers: [
-                SliverToBoxAdapter(
-                  child: Row(
-                    spacing: AppSpacing.small,
-                    children: [
-                      ValueListenableBuilder(
-                        valueListenable: _selectedIcon,
-                        builder: (context, icon, _) => Button(
-                          style: ButtonStyles.secondary,
-                          size: ButtonSizes.icon,
-                          rounder: ButtonRounders.rectangular.copyWith(
-                            borderRadius:
-                                AppInputDecoration().shape.borderRadius,
-                          ),
-                          onPressed: () {
-                            showCatalogIconsPickerSheet(
-                              context: context,
-                              initialSelectedIconKey: icon,
-                            ).then(_onIconSelected);
-                          },
-                          child: icon != null
-                              ? Icon(icon.icon, size: 20)
-                              : Icon(LucideIcons.tag, size: 20),
-                        ),
-                      ),
-                      Expanded(
-                        child: TextField(
-                          controller: _labelController,
-                          autofocus: true,
-                          decoration: AppInputDecoration(
-                            hintText: l10n.name,
-                          ).toInputDecoration(),
-                        ),
-                      ),
-                    ],
+
+            Row(
+              spacing: AppSpacing.small,
+              children: [
+                ValueListenableBuilder(
+                  valueListenable: _selectedIcon,
+                  builder: (context, icon, _) => Button(
+                    style: ButtonStyles.secondary,
+                    size: ButtonSizes.icon,
+                    rounder: ButtonRounders.rectangular.copyWith(
+                      borderRadius: AppInputDecoration().shape.borderRadius,
+                    ),
+                    onPressed: () {
+                      showCatalogIconsPickerSheet(
+                        context: context,
+                        initialSelectedIconKey: icon,
+                      ).then(_onIconSelected);
+                    },
+                    child: icon != null
+                        ? Icon(icon.icon, size: 20)
+                        : Icon(LucideIcons.tag, size: 20),
                   ),
                 ),
-                SliverToBoxAdapter(
-                  child: SizedBox(height: AppSpacing.standard),
-                ),
-                SliverToBoxAdapter(
-                  child: ListenableBuilder(
-                    listenable: Listenable.merge([
-                      _selectedIcon,
-                      _labelController,
-                      _isPending,
-                    ]),
-                    builder: (context, _) => Button(
-                      disabled:
-                          _selectedIcon.value == null ||
-                          _labelController.text.isEmpty ||
-                          _isPending.value,
-                      onPressed: _onCreatePressed,
-                      child: Row(
-                        mainAxisAlignment: .center,
-                        spacing: AppSpacing.xSmall,
-                        children: [Text(l10n.add)],
-                      ),
-                    ),
+                Expanded(
+                  child: TextField(
+                    controller: _labelController,
+                    autofocus: true,
+                    decoration: AppInputDecoration(
+                      hintText: l10n.name,
+                    ).toInputDecoration(),
                   ),
                 ),
               ],
             ),
-          ),
-        ],
+            SizedBox(height: AppSpacing.standard),
+            ListenableBuilder(
+              listenable: Listenable.merge([
+                _selectedIcon,
+                _labelController,
+                _isPending,
+              ]),
+              builder: (context, _) => Button(
+                disabled:
+                    _selectedIcon.value == null ||
+                    _labelController.text.isEmpty ||
+                    _isPending.value,
+                onPressed: _onCreatePressed,
+                child: Row(
+                  mainAxisAlignment: .center,
+                  spacing: AppSpacing.xSmall,
+                  children: [Text(l10n.add)],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

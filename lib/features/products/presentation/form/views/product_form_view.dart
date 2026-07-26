@@ -126,7 +126,13 @@ class _ProductFormViewState extends State<ProductFormView> {
                             showCategoryPickerSheet(
                               context: context,
                               categories: state.categories,
-                            );
+                              initialSelectedCategory: state.selectedCategory,
+                            ).then((category) {
+                              if (category == null) return;
+                              context.read<ProductFormBloc>().add(
+                                ProductFormCategorySelected(category: category),
+                              );
+                            });
                           },
                         ),
                         SizedBox(

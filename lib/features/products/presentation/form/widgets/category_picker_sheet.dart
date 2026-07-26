@@ -6,19 +6,26 @@ import "package:smart_kitchen_flutter_app/core/widgets/resizable_sheet/show_resi
 import "package:smart_kitchen_flutter_app/features/products/domain/entities/category_with_products_count.dart";
 import "package:smart_kitchen_flutter_app/features/products/presentation/form/widgets/widgets.dart";
 
+const _maxSheetSize = 0.9;
+const _initialSheetSize = 0.46;
+
 Future<CategoryWithProductsCount?> showCategoryPickerSheet({
   required BuildContext context,
   required List<CategoryWithProductsCount> categories,
+  CategoryWithProductsCount? initialSelectedCategory,
 }) async {
   return showResizableSheet(
     context: context,
-    initialSize: 0.45,
-    maxSize: 0.9,
+    initialSize: _initialSheetSize,
+    maxSize: _maxSheetSize,
     fitMaxSizeToContent: true,
-    builder: (context, scrollController, _) => CategoryPickerSheetView(
-      categories: categories,
-      scrollController: scrollController,
-    ),
+    builder: (context, scrollController, sheetController) =>
+        CategoryPickerSheetView(
+          categories: categories,
+          scrollController: scrollController,
+          sheetController: sheetController,
+          initialSelectedCategory: initialSelectedCategory,
+        ),
   );
 }
 
@@ -27,10 +34,14 @@ class CategoryPickerSheetView extends StatefulWidget {
     super.key,
     required this.categories,
     required this.scrollController,
+    required this.sheetController,
+    required this.initialSelectedCategory,
   });
 
   final List<CategoryWithProductsCount> categories;
   final ScrollController scrollController;
+  final DraggableScrollableController sheetController;
+  final CategoryWithProductsCount? initialSelectedCategory;
 
   @override
   State<CategoryPickerSheetView> createState() =>
@@ -38,20 +49,90 @@ class CategoryPickerSheetView extends StatefulWidget {
 }
 
 class _CategoryPickerSheetViewState extends State<CategoryPickerSheetView> {
-  final ValueNotifier<CategoryWithProductsCount?> selectedCategory =
-      ValueNotifier(null);
+  late final ValueNotifier<CategoryWithProductsCount?> _selectedCategory =
+      ValueNotifier(widget.initialSelectedCategory);
+  final _initialSelectedCategoryKey = GlobalKey();
 
   void _onCategorySelected(CategoryWithProductsCount category) {
-    selectedCategory.value = category;
+    _selectedCategory.value = category;
   }
 
   void _onSelectPressed() {
-    Navigator.pop(context, selectedCategory.value);
+    Navigator.pop(context, _selectedCategory.value);
+  }
+
+  void _onEditPressed(CategoryWithProductsCount category) {
+    print('onEditPressed: $category');
+  }
+
+  void _onDeletePressed(CategoryWithProductsCount category) {
+    showCategoryDeleteSheet(
+      context: context,
+      category: category,
+      onDelete: () async {
+        await Future.delayed(const Duration(seconds: 1));
+        return false;
+      },
+    );
+  }
+
+  Future<void> _scrollToSelectedCategory() async {
+    final selectedCategory = _selectedCategory.value;
+
+    if (!mounted ||
+        selectedCategory == null ||
+        !widget.scrollController.hasClients) {
+      return;
+    }
+
+    final selectedItemIndex = widget.categories.indexOf(selectedCategory);
+    final selectedItemHeight =
+        _initialSelectedCategoryKey.currentContext?.size?.height ?? 0;
+    final offsetTop = selectedItemIndex * selectedItemHeight;
+    final offsetBottom = offsetTop + selectedItemHeight;
+    final scrollPosition = widget.scrollController.position;
+
+    // Already fully visible - nothing to do.
+    if (offsetBottom <= scrollPosition.viewportDimension) {
+      return;
+    }
+
+    if (widget.sheetController.isAttached) {
+      await widget.sheetController.animateTo(
+        _maxSheetSize,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+    }
+
+    // Already fully visible - nothing to do.
+    if (offsetBottom <= scrollPosition.viewportDimension) {
+      return;
+    }
+
+    final target =
+        (offsetTop -
+                (scrollPosition.viewportDimension - selectedItemHeight) / 2)
+            .clamp(0.0, scrollPosition.maxScrollExtent);
+
+    await widget.scrollController.animateTo(
+      target,
+      duration: const Duration(microseconds: 300),
+      curve: Curves.easeInOut,
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _scrollToSelectedCategory();
+    });
   }
 
   @override
   void dispose() {
-    selectedCategory.dispose();
+    _selectedCategory.dispose();
     super.dispose();
   }
 
@@ -83,15 +164,35 @@ class _CategoryPickerSheetViewState extends State<CategoryPickerSheetView> {
             child: CustomScrollView(
               controller: widget.scrollController,
               slivers: [
-                SliverList.builder(
-                  itemCount: widget.categories.length,
-                  itemBuilder: (context, index) {
-                    final category = widget.categories[index];
+                ValueListenableBuilder(
+                  valueListenable: _selectedCategory,
+                  builder: (context, value, child) {
+                    return SliverList.builder(
+                      itemCount: widget.categories.length,
+                      itemBuilder: (context, index) {
+                        final category = widget.categories[index];
+                        final isSelected = value?.id == category.id;
+                        final isInitialSelected =
+                            category.id == widget.initialSelectedCategory?.id;
 
-                    return CategoryTile(
-                      selected: selectedCategory.value?.id == category.id,
-                      category: category,
-                      onPressed: () => _onCategorySelected(category),
+                        final tile = CategoryTile(
+                          key: ValueKey(category.id),
+                          selected: isSelected,
+                          category: category,
+                          onPressed: () => _onCategorySelected(category),
+                          onEditPressed: () => _onEditPressed(category),
+                          onDeletePressed: () => _onDeletePressed(category),
+                        );
+
+                        if (isInitialSelected) {
+                          return KeyedSubtree(
+                            key: _initialSelectedCategoryKey,
+                            child: tile,
+                          );
+                        }
+
+                        return tile;
+                      },
                     );
                   },
                 ),

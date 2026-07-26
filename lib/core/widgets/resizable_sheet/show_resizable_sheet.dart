@@ -4,11 +4,12 @@ import "package:smart_kitchen_flutter_app/core/widgets/resizable_sheet/resizable
 
 Future<T?> showResizableSheet<T>({
   required BuildContext context,
-  required double initialSize,
+  double? initialSize,
   required double maxSize,
   bool snap = true,
   required ResizableSheetBuilder builder,
   bool fitMaxSizeToContent = false,
+  bool fitToContent = false,
 }) async {
   return showModalBottomSheet<T>(
     context: context,
@@ -28,6 +29,7 @@ Future<T?> showResizableSheet<T>({
       snap: snap,
       builder: builder,
       fitMaxSizeToContent: fitMaxSizeToContent,
+      fitToContent: fitToContent,
     ),
   );
 }

@@ -237,6 +237,30 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'Выберите категорию'**
   String get selectCategory;
+
+  /// Заголовок для удаления категории
+  ///
+  /// In ru, this message translates to:
+  /// **'Удаление категории'**
+  String get deleteCategory;
+
+  /// Описание для удаления категории
+  ///
+  /// In ru, this message translates to:
+  /// **'Вы уверены, что хотите удалить категорию?'**
+  String get deleteCategoryDescription;
+
+  /// Название кнопки для удаления
+  ///
+  /// In ru, this message translates to:
+  /// **'Удалить'**
+  String get delete;
+
+  /// Описание для удаления категории с привязанными продуктами
+  ///
+  /// In ru, this message translates to:
+  /// **'Удаление категории с привязанными продуктами невозможно. Сначала отвяжите все продукты от этой категории.'**
+  String get deleteCategoryWithProductsBoundedDescription;
 }
 
 class _AppLocalizationsDelegate

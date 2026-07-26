@@ -69,4 +69,22 @@ abstract final class ButtonStyles {
     backgroundColor: Colors.transparent,
     foregroundColor: AppColors.textPrimary,
   );
+
+  static final ButtonStyle destructive = ButtonStyle(
+    backgroundColor: AppColors.danger,
+    foregroundColor: AppColors.onDanger,
+    disabled: ButtonStyle(
+      backgroundColor: AppColors.danger.withValues(alpha: 0.3),
+      foregroundColor: AppColors.onDanger,
+    ),
+  );
+
+  static final ButtonStyle destructiveGhost = ButtonStyle(
+    backgroundColor: AppColors.dangerSoft,
+    foregroundColor: AppColors.dangerText,
+    disabled: ButtonStyle(
+      backgroundColor: AppColors.dangerSoft.withValues(alpha: 0.4),
+      foregroundColor: AppColors.dangerText.withValues(alpha: 0.4),
+    ),
+  );
 }

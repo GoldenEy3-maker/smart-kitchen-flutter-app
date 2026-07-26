@@ -36,6 +36,7 @@ abstract final class AppColors {
   static const Color danger = Color(0xFFE05B4E);
   static const Color dangerSoft = Color(0xFFFBE7E4);
   static const Color dangerText = Color(0xFFC64537);
+  static const Color onDanger = Color(0xFFFFFFFF);
 
   static const Color availabilityPartial = Color(0xFFC77E2B);
   static const Color iconBg = Color(0xFFF3EDE2);

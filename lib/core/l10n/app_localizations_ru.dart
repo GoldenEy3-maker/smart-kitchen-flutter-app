@@ -93,4 +93,18 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get selectCategory => 'Выберите категорию';
+
+  @override
+  String get deleteCategory => 'Удаление категории';
+
+  @override
+  String get deleteCategoryDescription =>
+      'Вы уверены, что хотите удалить категорию?';
+
+  @override
+  String get delete => 'Удалить';
+
+  @override
+  String get deleteCategoryWithProductsBoundedDescription =>
+      'Удаление категории с привязанными продуктами невозможно. Сначала отвяжите все продукты от этой категории.';
 }
