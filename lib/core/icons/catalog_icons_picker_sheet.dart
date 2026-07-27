@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:smart_kitchen_flutter_app/core/l10n/app_localizations.dart";
 import "package:smart_kitchen_flutter_app/core/theme/theme.dart";
+import "package:smart_kitchen_flutter_app/core/units/scroll_sheet_to_item.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/button/button.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/button/button_rounder.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/button/button_size.dart";
@@ -12,11 +13,11 @@ import "catalog_icons.dart";
 const double _initialSheetSize = 0.53;
 const double _maxSheetSize = 0.9;
 
-Future<CatalogIcon?> showCatalogIconsPickerSheet({
+Future<CatalogIcons?> showCatalogIconsPickerSheet({
   required BuildContext context,
-  CatalogIcon? initialSelectedIconKey,
+  CatalogIcons? initialSelectedCatalogIcon,
 }) async {
-  return showResizableSheet<CatalogIcon?>(
+  return showResizableSheet<CatalogIcons?>(
     context: context,
     initialSize: _initialSheetSize,
     maxSize: _maxSheetSize,
@@ -25,7 +26,7 @@ Future<CatalogIcon?> showCatalogIconsPickerSheet({
         CatalogIconsPickerSheetView(
           scrollController: scrollController,
           sheetController: sheetController,
-          initialSelectedIconKey: initialSelectedIconKey,
+          initialSelectedCatalogIcon: initialSelectedCatalogIcon,
         ),
   );
 }
@@ -35,14 +36,14 @@ class CatalogIconsPickerSheetView extends StatefulWidget {
     super.key,
     required this.scrollController,
     required this.sheetController,
-    this.initialSelectedIconKey,
+    this.initialSelectedCatalogIcon,
   });
 
   final ScrollController scrollController;
 
   final DraggableScrollableController sheetController;
 
-  final CatalogIcon? initialSelectedIconKey;
+  final CatalogIcons? initialSelectedCatalogIcon;
 
   @override
   State<CatalogIconsPickerSheetView> createState() =>
@@ -52,88 +53,58 @@ class CatalogIconsPickerSheetView extends StatefulWidget {
 class _CatalogIconsPickerSheetViewState
     extends State<CatalogIconsPickerSheetView> {
   static const int _crossAxisCount = 5;
+  late final ValueNotifier<CatalogIcons?> _selectedCatalogIcon = ValueNotifier(
+    widget.initialSelectedCatalogIcon,
+  );
 
-  late CatalogIcon? _selectedIconKey = widget.initialSelectedIconKey;
+  /// Makes the initially selected icon visible when the sheet opens: expands
+  /// the sheet to its max snap position and scrolls the grid to the icon.
+  Future<void> _scrollToInitialSelectedCatalogIcon() async {
+    final selectedCatalogIcon = _selectedCatalogIcon.value;
+    if (selectedCatalogIcon == null) {
+      return;
+    }
+
+    final crossAxisExtent = scrollableCrossAxisExtent(widget.scrollController);
+    if (crossAxisExtent == null) {
+      return;
+    }
+
+    await scrollSheetToItem(
+      scrollController: widget.scrollController,
+      sheetController: widget.sheetController,
+      index: CatalogIcons.values.indexOf(selectedCatalogIcon),
+      itemExtent: gridItemExtent(
+        crossAxisExtent: crossAxisExtent,
+        crossAxisCount: _crossAxisCount,
+        crossAxisSpacing: AppSpacing.medium,
+      ),
+      maxSheetSize: _maxSheetSize,
+      crossAxisCount: _crossAxisCount,
+      mainAxisSpacing: AppSpacing.medium,
+    );
+  }
+
+  void _onSelectedCatalogIcon(CatalogIcons? catalogIcon) {
+    _selectedCatalogIcon.value = catalogIcon;
+  }
+
+  void _onClose(BuildContext context) {
+    Navigator.pop(context, _selectedCatalogIcon.value);
+  }
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _scrollToSelectedIcon();
+      _scrollToInitialSelectedCatalogIcon();
     });
   }
 
-  /// Makes the initially selected icon visible when the sheet opens: expands
-  /// the sheet to its max snap position and scrolls the grid to the icon.
-  Future<void> _scrollToSelectedIcon() async {
-    final selectedIconKey = _selectedIconKey;
-    if (!mounted ||
-        selectedIconKey == null ||
-        !widget.scrollController.hasClients) {
-      return;
-    }
-
-    final gridWidth =
-        (context.size?.width ?? 0) - AppSpacing.containerHorizontal * 2;
-    if (gridWidth <= 0) {
-      return;
-    }
-
-    final cellExtent =
-        (gridWidth - AppSpacing.medium * (_crossAxisCount - 1)) /
-        _crossAxisCount;
-    final row = CatalogIcon.values.indexOf(selectedIconKey) ~/ _crossAxisCount;
-    final rowTop = row * (cellExtent + AppSpacing.medium);
-    final rowBottom = rowTop + cellExtent;
-
-    // Already fully visible - nothing to do.
-    if (rowBottom <= widget.scrollController.position.viewportDimension) {
-      return;
-    }
-
-    // Expand the sheet to its max snap position first: once the inner list
-    // is scrolled away from the top, dragging can no longer expand the
-    // sheet, so it must not be left at the initial snap.
-    if (widget.sheetController.isAttached) {
-      await widget.sheetController.animateTo(
-        _maxSheetSize,
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeInOut,
-      );
-    }
-
-    if (!mounted || !widget.scrollController.hasClients) {
-      return;
-    }
-
-    final position = widget.scrollController.position;
-    if (rowBottom <= position.viewportDimension) {
-      // Expanding the sheet alone made the row visible.
-      return;
-    }
-
-    // Center the selected row.
-    final visibleHeight = position.viewportDimension;
-    final target = (rowTop - (visibleHeight - cellExtent) / 2).clamp(
-      0.0,
-      position.maxScrollExtent,
-    );
-
-    await widget.scrollController.animateTo(
-      target,
-      duration: const Duration(milliseconds: 300),
-      curve: Curves.easeInOut,
-    );
-  }
-
-  void _onSelectedIconKey(CatalogIcon? iconKey) {
-    setState(() {
-      _selectedIconKey = iconKey;
-    });
-  }
-
-  void _onClose(BuildContext context) {
-    Navigator.pop(context, _selectedIconKey);
+  @override
+  void dispose() {
+    _selectedCatalogIcon.dispose();
+    super.dispose();
   }
 
   @override
@@ -164,31 +135,42 @@ class _CatalogIconsPickerSheetViewState
             child: CustomScrollView(
               controller: widget.scrollController,
               slivers: [
-                SliverGrid.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: _crossAxisCount,
-                    mainAxisSpacing: AppSpacing.medium,
-                    crossAxisSpacing: AppSpacing.medium,
-                  ),
-                  itemBuilder: (context, index) {
-                    final key = CatalogIcon.values[index];
-                    final isSelected = key == _selectedIconKey;
+                ValueListenableBuilder(
+                  valueListenable: _selectedCatalogIcon,
+                  builder: (context, selectedCatalogIcon, child) {
+                    return SliverGrid.builder(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: _crossAxisCount,
+                            mainAxisSpacing: AppSpacing.medium,
+                            crossAxisSpacing: AppSpacing.medium,
+                          ),
+                      itemBuilder: (context, index) {
+                        final catalogIcon = CatalogIcons.values[index];
+                        final isSelected = catalogIcon == selectedCatalogIcon;
 
-                    return Button(
-                      size: ButtonSizes.icon,
-                      style: isSelected
-                          ? ButtonStyles.secondarySelected
-                          : ButtonStyles.secondary,
-                      rounder: ButtonRounders.rectangular.copyWith(
-                        borderRadius: BorderRadius.circular(AppRadius.smallX),
-                      ),
-                      onPressed: () {
-                        _onSelectedIconKey(key);
+                        return Button(
+                          size: ButtonSizes.icon,
+                          style: isSelected
+                              ? ButtonStyles.secondarySelected
+                              : ButtonStyles.secondary,
+                          rounder: ButtonRounders.rectangular.copyWith(
+                            borderRadius: BorderRadius.circular(
+                              AppRadius.smallX,
+                            ),
+                          ),
+                          onPressed: () {
+                            _onSelectedCatalogIcon(catalogIcon);
+                          },
+                          child: Icon(
+                            CatalogIcons.values[index].icon,
+                            size: 22,
+                          ),
+                        );
                       },
-                      child: Icon(CatalogIcon.values[index].icon, size: 22),
+                      itemCount: CatalogIcons.values.length,
                     );
                   },
-                  itemCount: CatalogIcon.values.length,
                 ),
               ],
             ),

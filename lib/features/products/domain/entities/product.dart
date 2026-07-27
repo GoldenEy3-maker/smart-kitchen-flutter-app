@@ -19,7 +19,7 @@ class Product extends Equatable {
   static Product get loading => Product(
     id: "loading",
     name: "Loading Name",
-    iconKey: CatalogIcon.fallback.name,
+    iconKey: CatalogIcons.fallback.name,
     unit: "",
     categoryId: "loading",
   );

@@ -17,7 +17,7 @@ class CategoryWithProductsCount extends Equatable {
   static CategoryWithProductsCount get loading => CategoryWithProductsCount(
     id: "loading",
     label: "Loading Title...",
-    iconKey: CatalogIcon.fallback.name,
+    iconKey: CatalogIcons.fallback.name,
     productsCount: 0,
   );
 

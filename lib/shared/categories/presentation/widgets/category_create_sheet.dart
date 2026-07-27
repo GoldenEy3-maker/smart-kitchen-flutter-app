@@ -47,11 +47,11 @@ class CategoryCreateSheetView extends StatefulWidget {
 }
 
 class _CategoryCreateSheetViewState extends State<CategoryCreateSheetView> {
-  final ValueNotifier<CatalogIcon?> _selectedIcon = ValueNotifier(null);
+  final ValueNotifier<CatalogIcons?> _selectedIcon = ValueNotifier(null);
   final ValueNotifier<bool> _isPending = ValueNotifier(false);
   final TextEditingController _labelController = TextEditingController();
 
-  void _onIconSelected(CatalogIcon? icon) {
+  void _onIconSelected(CatalogIcons? icon) {
     if (icon == null) return;
     _selectedIcon.value = icon;
   }
@@ -116,7 +116,9 @@ class _CategoryCreateSheetViewState extends State<CategoryCreateSheetView> {
                 ValueListenableBuilder(
                   valueListenable: _selectedIcon,
                   builder: (context, icon, _) => Button(
-                    style: ButtonStyles.secondary,
+                    style: icon != null
+                        ? ButtonStyles.secondarySelected
+                        : ButtonStyles.secondary,
                     size: ButtonSizes.icon,
                     rounder: ButtonRounders.rectangular.copyWith(
                       borderRadius: AppInputDecoration().shape.borderRadius,
@@ -124,7 +126,7 @@ class _CategoryCreateSheetViewState extends State<CategoryCreateSheetView> {
                     onPressed: () {
                       showCatalogIconsPickerSheet(
                         context: context,
-                        initialSelectedIconKey: icon,
+                        initialSelectedCatalogIcon: icon,
                       ).then(_onIconSelected);
                     },
                     child: icon != null

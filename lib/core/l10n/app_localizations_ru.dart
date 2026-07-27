@@ -119,4 +119,31 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get save => 'Сохранить';
+
+  @override
+  String get selectUnit => 'Выберите единицу измерения';
+
+  @override
+  String get unit_fullPiece => 'Штук';
+
+  @override
+  String get unit_fullGram => 'Граммы';
+
+  @override
+  String get unit_fullMilliliter => 'Миллилитры';
+
+  @override
+  String get unit_fullOther => 'Другое';
+
+  @override
+  String get unit_shortPiece => 'шт.';
+
+  @override
+  String get unit_shortGram => 'г.';
+
+  @override
+  String get unit_shortMilliliter => 'мл.';
+
+  @override
+  String get unit_shortOther => 'др.';
 }

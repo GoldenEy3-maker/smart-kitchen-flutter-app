@@ -87,4 +87,14 @@ abstract final class ButtonStyles {
       foregroundColor: AppColors.dangerText.withValues(alpha: 0.4),
     ),
   );
+
+  static final ButtonStyle surface = ButtonStyle(
+    backgroundColor: AppColors.surface,
+    foregroundColor: AppColors.textPrimary,
+  );
+
+  static final ButtonStyle surfaceSelected = ButtonStyle(
+    backgroundColor: AppColors.primarySoft,
+    foregroundColor: AppColors.textPrimary,
+  );
 }

@@ -141,5 +141,41 @@
   "save": "Сохранить",
   "@save": {
     "description": "Название кнопки для сохранения"
+  },
+  "selectUnit": "Выберите единицу измерения",
+  "@selectUnit": {
+    "description": "Заголовок для выбора единицы измерения"
+  },
+  "unit_fullPiece": "Штук",
+  "@unit_fullPiece": {
+    "description": "Полное название единицы измерения: Штук"
+  },
+  "unit_fullGram": "Граммы",
+  "@unit_fullGram": {
+    "description": "Полное название единицы измерения: Граммы"
+  },
+  "unit_fullMilliliter": "Миллилитры",
+  "@unit_fullMilliliter": {
+    "description": "Полное название единицы измерения: Миллилитры"
+  },
+  "unit_fullOther": "Другое",
+  "@unit_fullOther": {
+    "description": "Полное название единицы измерения: Другое"
+  },
+  "unit_shortPiece": "шт.",
+  "@unit_shortPiece": {
+    "description": "Короткое название единицы измерения: Штук"
+  },
+  "unit_shortGram": "г.",
+  "@unit_shortGram": {
+    "description": "Короткое название единицы измерения: Граммы"
+  },
+  "unit_shortMilliliter": "мл.",
+  "@unit_shortMilliliter": {
+    "description": "Короткое название единицы измерения: Миллилитры"
+  },
+  "unit_shortOther": "др.",
+  "@unit_shortOther": {
+    "description": "Короткое название единицы измерения: Другое"
   }
 }

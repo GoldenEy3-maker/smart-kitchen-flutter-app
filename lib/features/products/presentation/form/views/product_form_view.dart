@@ -4,6 +4,7 @@ import "package:lucide_icons_flutter/lucide_icons.dart";
 import "package:smart_kitchen_flutter_app/core/icons/icons.dart";
 import "package:smart_kitchen_flutter_app/core/l10n/app_localizations.dart";
 import "package:smart_kitchen_flutter_app/core/theme/theme.dart";
+import "package:smart_kitchen_flutter_app/core/units/units.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/button/button.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/button/button_rounder.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/button/button_size.dart";
@@ -31,23 +32,24 @@ class ProductFormView extends StatefulWidget {
 
 class _ProductFormViewState extends State<ProductFormView> {
   final _formKey = GlobalKey<FormState>();
-  late CatalogIcon? _selectedIconKey = widget.product?.iconKey != null
-      ? CatalogIcon.fromName(widget.product!.iconKey)
-      : null;
-
-  void _onSelectedIconKey(CatalogIcon? iconKey) {
-    setState(() {
-      _selectedIconKey = iconKey;
-    });
-  }
+  late final ValueNotifier<CatalogIcons?> _selectedCatalogIcon = ValueNotifier(
+    widget.product?.iconKey != null
+        ? CatalogIcons.fromName(widget.product!.iconKey)
+        : null,
+  );
+  late final ValueNotifier<CatalogUnits?> _selectedCatalogUnit = ValueNotifier(
+    widget.product?.unit != null
+        ? CatalogUnits.fromName(widget.product!.unit)
+        : null,
+  );
 
   void _onCatalogIconsPickerSheetOpened(BuildContext context) {
     showCatalogIconsPickerSheet(
       context: context,
-      initialSelectedIconKey: _selectedIconKey,
-    ).then((newIconKey) {
-      if (newIconKey != null) {
-        _onSelectedIconKey(newIconKey);
+      initialSelectedCatalogIcon: _selectedCatalogIcon.value,
+    ).then((newCatalogIcon) {
+      if (newCatalogIcon != null) {
+        _selectedCatalogIcon.value = newCatalogIcon;
       }
     });
   }
@@ -69,6 +71,42 @@ class _ProductFormViewState extends State<ProductFormView> {
         ProductFormCategorySelected(category: category),
       );
     });
+  }
+
+  void _onCategoryCreateSheetOpened(BuildContext context) {
+    final bloc = context.read<ProductFormBloc>();
+
+    showCategoryCreateSheet(
+      context: context,
+      onCreate: (label, iconKey) async {
+        final done = bloc.stream.firstWhere(
+          (state) => !state.isCreateCategoryPending,
+        );
+        bloc.add(
+          ProductFormCategoryCreateRequested(label: label, iconKey: iconKey),
+        );
+        final state = await done;
+        // TODO: add error handling
+        return state.error == null;
+      },
+    );
+  }
+
+  void _onCatalogUnitsPickerSheetOpened(BuildContext context) {
+    showCatalogUnitsPickerSheet(
+      context: context,
+      initialSelectedUnit: _selectedCatalogUnit.value,
+    ).then((newCatalogUnit) {
+      if (newCatalogUnit != null) {
+        _selectedCatalogUnit.value = newCatalogUnit;
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _selectedCatalogIcon.dispose();
+    super.dispose();
   }
 
   @override
@@ -96,131 +134,146 @@ class _ProductFormViewState extends State<ProductFormView> {
           ),
         ),
       ),
-      body: BlocBuilder<ProductFormBloc, ProductFormState>(
-        builder: (context, state) {
-          return SafeArea(
-            minimum: EdgeInsets.symmetric(
-              horizontal: AppSpacing.containerHorizontal,
-            ),
-            child: Form(
-              key: _formKey,
-              child: Column(
-                spacing: AppSpacing.xLarge,
-                crossAxisAlignment: CrossAxisAlignment.start,
+      body: SafeArea(
+        minimum: EdgeInsets.symmetric(
+          horizontal: AppSpacing.containerHorizontal,
+        ),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            spacing: AppSpacing.xLarge,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                spacing: AppSpacing.small,
                 children: [
-                  Row(
-                    spacing: AppSpacing.small,
-                    children: [
-                      Button(
-                        style: ButtonStyles.secondary,
+                  ValueListenableBuilder(
+                    valueListenable: _selectedCatalogIcon,
+                    builder: (context, selectedCatalogIcon, child) {
+                      return Button(
+                        style: selectedCatalogIcon != null
+                            ? ButtonStyles.secondarySelected
+                            : ButtonStyles.secondary,
                         size: ButtonSizes.icon,
                         rounder: ButtonRounders.rectangular.copyWith(
                           borderRadius: AppInputDecoration().shape.borderRadius,
                         ),
-                        child: _selectedIconKey != null
-                            ? Icon(_selectedIconKey!.icon, size: 20)
+                        child: selectedCatalogIcon != null
+                            ? Icon(selectedCatalogIcon.icon, size: 20)
                             : Icon(LucideIcons.tag, size: 20),
                         onPressed: () {
                           _onCatalogIconsPickerSheetOpened(context);
                         },
-                      ),
-                      Expanded(
-                        child: TextFormField(
-                          initialValue: widget.product?.name,
-                          decoration: AppInputDecoration(
-                            hintText: l10n.name,
-                          ).toInputDecoration(),
-                        ),
-                      ),
-                    ],
+                      );
+                    },
                   ),
-                  FormItem(
-                    label: Text(l10n.category),
-                    child: Column(
-                      spacing: AppSpacing.small,
-                      children: [
-                        if (state.categories.isNotEmpty || state.isLoading)
-                          SelectedCategoryCard(
-                            category: state.selectedCategory,
-                            isLoading: state.isLoading,
-                            onPressed: () {
-                              _onCategoryManagerSheetOpened(
-                                context: context,
-                                categories: state.categories,
-                                initialSelectedCategory: state.selectedCategory,
-                              );
-                            },
-                          ),
-                        SizedBox(
-                          width: double.infinity,
-                          child: Button(
-                            style: ButtonStyles.ghost,
-                            size: ButtonSizes.sm,
-                            rounder: ButtonRounders.rectangular,
-                            onPressed: () {
-                              final bloc = context.read<ProductFormBloc>();
-
-                              showCategoryCreateSheet(
-                                context: context,
-                                onCreate: (label, iconKey) async {
-                                  final done = bloc.stream.firstWhere(
-                                    (state) => !state.isCreateCategoryPending,
-                                  );
-                                  bloc.add(
-                                    ProductFormCategoryCreateRequested(
-                                      label: label,
-                                      iconKey: iconKey,
-                                    ),
-                                  );
-                                  final state = await done;
-                                  // TODO: add error handling
-                                  return state.error == null;
-                                },
-                              );
-                            },
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              spacing: AppSpacing.small,
-                              children: [
-                                Icon(LucideIcons.plus, size: 20),
-                                Text(l10n.createCategory),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Text(
-                    l10n.productFormAttention,
-                    style: AppTypography.textTheme.bodySmall!.copyWith(
-                      color: AppColors.textSecondary,
-                    ),
-                  ),
-                  FormItem(
-                    label: Text(l10n.unitLabel),
+                  Expanded(
                     child: TextFormField(
-                      decoration: AppInputDecoration().toInputDecoration(),
-                    ),
-                  ),
-                  SizedBox(
-                    width: double.infinity,
-                    child: Button(
-                      onPressed: () {
-                        // TODO: implement save
-                      },
-                      style: ButtonStyles.primary.copyWith(
-                        elevation: 6,
-                        shadowColor: AppColors.primary.withValues(alpha: 0.25),
-                      ),
-                      child: Text(l10n.save, textAlign: .center),
+                      initialValue: widget.product?.name,
+                      decoration: AppInputDecoration(
+                        hintText: l10n.name,
+                      ).toInputDecoration(),
                     ),
                   ),
                 ],
               ),
-            ),
-          );
-        },
+              FormItem(
+                label: Text(l10n.category),
+                child: Column(
+                  spacing: AppSpacing.small,
+                  children: [
+                    BlocSelector<
+                      ProductFormBloc,
+                      ProductFormState,
+                      ({
+                        CategoryWithProductsCount? selectedCategory,
+                        List<CategoryWithProductsCount> categories,
+                        bool isLoading,
+                      })
+                    >(
+                      selector: (state) => (
+                        selectedCategory: state.selectedCategory,
+                        categories: state.categories,
+                        isLoading: state.isLoading,
+                      ),
+                      builder: (context, slice) {
+                        if (slice.isLoading || slice.categories.isNotEmpty) {
+                          return SelectedCategoryCard(
+                            category: slice.selectedCategory,
+                            isLoading: slice.isLoading,
+                            onPressed: () {
+                              _onCategoryManagerSheetOpened(
+                                context: context,
+                                categories: slice.categories,
+                                initialSelectedCategory: slice.selectedCategory,
+                              );
+                            },
+                          );
+                        }
+                        return SizedBox.shrink();
+                      },
+                    ),
+                    SizedBox(
+                      width: double.infinity,
+                      child: Button(
+                        style: ButtonStyles.ghost,
+                        size: ButtonSizes.sm,
+                        rounder: ButtonRounders.rectangular,
+                        onPressed: () => _onCategoryCreateSheetOpened(context),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          spacing: AppSpacing.small,
+                          children: [
+                            Icon(LucideIcons.plus, size: 20),
+                            Text(l10n.createCategory),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Text(
+                l10n.productFormAttention,
+                style: AppTypography.textTheme.bodySmall!.copyWith(
+                  color: AppColors.textSecondary,
+                ),
+              ),
+              FormItem(
+                label: Text(l10n.unitLabel),
+                child: ValueListenableBuilder(
+                  valueListenable: _selectedCatalogUnit,
+                  builder: (context, selectedCatalogUnit, child) {
+                    return InputButton(
+                      onPressed: () =>
+                          _onCatalogUnitsPickerSheetOpened(context),
+                      hintText: l10n.selectUnit,
+                      value: selectedCatalogUnit != null
+                          ? CatalogUnits.resolveLabels(
+                              context: context,
+                              unit: selectedCatalogUnit,
+                            ).full
+                          : null,
+                    );
+                  },
+                ),
+              ),
+              SizedBox(
+                width: double.infinity,
+                child: Button(
+                  onPressed: () {
+                    // TODO: implement save
+                  },
+                  style: ButtonStyles.primary.copyWith(
+                    elevation: 6,
+                    shadowColor: AppColors.primary.withValues(alpha: 0.25),
+                  ),
+                  child: Text(l10n.save, textAlign: .center),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

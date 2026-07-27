@@ -18,6 +18,8 @@ class CategoryTile extends StatelessWidget {
     required this.onDeletePressed,
   });
 
+  static const double height = 68;
+
   final CategoryWithProductsCount category;
   final bool selected;
   final VoidCallback onPressed;
@@ -34,6 +36,7 @@ class CategoryTile extends StatelessWidget {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 300),
       curve: Curves.easeInOut,
+      height: height,
       decoration: BoxDecoration(
         color: backgroundColor,
         shape: BoxShape.rectangle,
@@ -65,7 +68,7 @@ class CategoryTile extends StatelessWidget {
                     shape: BoxShape.circle,
                   ),
                   child: Icon(
-                    CatalogIcon.fromName(category.iconKey).icon,
+                    CatalogIcons.fromName(category.iconKey).icon,
                     color: AppColors.textSecondary,
                     size: 18,
                   ),
@@ -79,12 +82,16 @@ class CategoryTile extends StatelessWidget {
                         style: AppTypography.textTheme.titleMedium!.copyWith(
                           color: AppColors.textPrimary,
                         ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                       ),
                       Text(
                         l10n.productsCount(category.productsCount),
                         style: AppTypography.textTheme.bodySmall!.copyWith(
                           color: AppColors.textSecondary,
                         ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ],
                   ),

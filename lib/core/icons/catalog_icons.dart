@@ -1,7 +1,7 @@
 import "package:flutter/widgets.dart";
 import "package:lucide_icons_flutter/lucide_icons.dart";
 
-enum CatalogIcon {
+enum CatalogIcons {
   broccoli(LucideIcons.broccoli),
   carrot(LucideIcons.carrot),
   apple(LucideIcons.apple),
@@ -65,12 +65,12 @@ enum CatalogIcon {
   vegan(LucideIcons.vegan),
   package(LucideIcons.package);
 
-  const CatalogIcon(this.icon);
+  const CatalogIcons(this.icon);
 
-  static const CatalogIcon fallback = CatalogIcon.package;
+  static const CatalogIcons fallback = CatalogIcons.package;
 
   final IconData icon;
 
-  static CatalogIcon fromName(String? name) =>
+  static CatalogIcons fromName(String? name) =>
       values.asNameMap()[name] ?? fallback;
 }

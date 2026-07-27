@@ -26,47 +26,19 @@ class SelectedCategoryCard extends StatelessWidget {
         ? CategoryWithProductsCount.loading
         : category;
     final hasCategory = resolvedCategory != null;
-    final backgroundColor = hasCategory
-        ? AppColors.primarySoft
-        : AppColors.surface;
-    final borderColor = hasCategory ? AppColors.primary : AppColors.border;
-    final double borderWidth = hasCategory ? 1.5 : 1;
-    final EdgeInsets contentPadding = hasCategory
-        ? EdgeInsets.all(AppSpacing.medium)
-        : AppInputDecoration().shape.contentPadding;
-    final iconColor = hasCategory ? AppColors.primary : AppColors.textSecondary;
-    final List<Widget> content = hasCategory
-        ? [
-            Text(
-              resolvedCategory.label,
-              style: AppTypography.textTheme.titleMedium!.copyWith(
-                color: AppColors.textPrimary,
-              ),
-            ),
-            Text(
-              l10n.productsCount(resolvedCategory.productsCount),
-              style: AppTypography.textTheme.bodySmall!.copyWith(
-                color: AppColors.textSecondary,
-              ),
-            ),
-          ]
-        : [
-            Text(
-              l10n.selectOrCreate,
-              style: AppTypography.textTheme.bodyLarge!.copyWith(
-                color: AppColors.textSecondary,
-              ),
-            ),
-          ];
+
+    if (!hasCategory) {
+      return InputButton(onPressed: onPressed, hintText: l10n.selectOrCreate);
+    }
 
     return Skeletonizer(
       enabled: isLoading,
       child: Skeleton.leaf(
         child: Material(
-          color: backgroundColor,
+          color: AppColors.primarySoft,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(AppRadius.small),
-            side: BorderSide(color: borderColor, width: borderWidth),
+            side: BorderSide(color: AppColors.primary, width: 1.5),
           ),
           child: InkWell(
             onTap: onPressed,
@@ -74,7 +46,7 @@ class SelectedCategoryCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(AppRadius.small),
             ),
             child: Padding(
-              padding: contentPadding,
+              padding: const EdgeInsets.all(AppSpacing.medium),
               child: Row(
                 spacing: AppSpacing.medium,
                 children: [
@@ -87,7 +59,7 @@ class SelectedCategoryCard extends StatelessWidget {
                         shape: BoxShape.circle,
                       ),
                       child: Icon(
-                        CatalogIcon.fromName(resolvedCategory.iconKey).icon,
+                        CatalogIcons.fromName(resolvedCategory.iconKey).icon,
                         color: AppColors.primary,
                         size: 22,
                       ),
@@ -95,10 +67,27 @@ class SelectedCategoryCard extends StatelessWidget {
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: content,
+                      children: [
+                        Text(
+                          resolvedCategory.label,
+                          style: AppTypography.textTheme.titleMedium!.copyWith(
+                            color: AppColors.textPrimary,
+                          ),
+                        ),
+                        Text(
+                          l10n.productsCount(resolvedCategory.productsCount),
+                          style: AppTypography.textTheme.bodySmall!.copyWith(
+                            color: AppColors.textSecondary,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  Icon(LucideIcons.chevronDown, color: iconColor, size: 18),
+                  Icon(
+                    LucideIcons.chevronDown,
+                    color: AppColors.primary,
+                    size: 18,
+                  ),
                 ],
               ),
             ),

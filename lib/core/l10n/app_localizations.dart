@@ -285,6 +285,60 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'Сохранить'**
   String get save;
+
+  /// Заголовок для выбора единицы измерения
+  ///
+  /// In ru, this message translates to:
+  /// **'Выберите единицу измерения'**
+  String get selectUnit;
+
+  /// Полное название единицы измерения: Штук
+  ///
+  /// In ru, this message translates to:
+  /// **'Штук'**
+  String get unit_fullPiece;
+
+  /// Полное название единицы измерения: Граммы
+  ///
+  /// In ru, this message translates to:
+  /// **'Граммы'**
+  String get unit_fullGram;
+
+  /// Полное название единицы измерения: Миллилитры
+  ///
+  /// In ru, this message translates to:
+  /// **'Миллилитры'**
+  String get unit_fullMilliliter;
+
+  /// Полное название единицы измерения: Другое
+  ///
+  /// In ru, this message translates to:
+  /// **'Другое'**
+  String get unit_fullOther;
+
+  /// Короткое название единицы измерения: Штук
+  ///
+  /// In ru, this message translates to:
+  /// **'шт.'**
+  String get unit_shortPiece;
+
+  /// Короткое название единицы измерения: Граммы
+  ///
+  /// In ru, this message translates to:
+  /// **'г.'**
+  String get unit_shortGram;
+
+  /// Короткое название единицы измерения: Миллилитры
+  ///
+  /// In ru, this message translates to:
+  /// **'мл.'**
+  String get unit_shortMilliliter;
+
+  /// Короткое название единицы измерения: Другое
+  ///
+  /// In ru, this message translates to:
+  /// **'др.'**
+  String get unit_shortOther;
 }
 
 class _AppLocalizationsDelegate

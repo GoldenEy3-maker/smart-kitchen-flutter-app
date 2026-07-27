@@ -37,6 +37,8 @@ abstract final class AppInputStyles {
     borderColor: AppColors.border,
     focusedBorderColor: AppColors.primary,
     prefixIconColor: AppColors.textSecondary,
-    hintStyle: TextStyle(color: AppColors.textSecondary, fontSize: 16),
+    hintStyle: AppTypography.textTheme.bodyLarge!.copyWith(
+      color: AppColors.textSecondary,
+    ),
   );
 }

@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
 import "package:smart_kitchen_flutter_app/core/l10n/app_localizations.dart";
 import "package:smart_kitchen_flutter_app/core/theme/theme.dart";
+import "package:smart_kitchen_flutter_app/core/units/scroll_sheet_to_item.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/button/button.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/resizable_sheet/show_resizable_sheet.dart";
 import "package:smart_kitchen_flutter_app/features/products/domain/entities/category_with_products_count.dart";
@@ -55,7 +56,6 @@ class CategoryManagerSheetView extends StatefulWidget {
 class _CategoryManagerSheetViewState extends State<CategoryManagerSheetView> {
   late final ValueNotifier<CategoryWithProductsCount?> _selectedCategory =
       ValueNotifier(widget.initialSelectedCategory);
-  final _initialSelectedCategoryKey = GlobalKey();
 
   void _onCategorySelected(CategoryWithProductsCount category) {
     _selectedCategory.value = category;
@@ -116,50 +116,16 @@ class _CategoryManagerSheetViewState extends State<CategoryManagerSheetView> {
     }
   }
 
-  Future<void> _scrollToSelectedCategory() async {
+  Future<void> _scrollToInitialSelectedCategory() async {
     final bloc = context.read<ProductFormBloc>();
-    final selectedCategory = _selectedCategory.value;
+    if (widget.initialSelectedCategory == null) return;
 
-    if (!mounted ||
-        selectedCategory == null ||
-        !widget.scrollController.hasClients) {
-      return;
-    }
-
-    final selectedItemIndex = bloc.state.categories.indexOf(selectedCategory);
-    final selectedItemHeight =
-        _initialSelectedCategoryKey.currentContext?.size?.height ?? 0;
-    final offsetTop = selectedItemIndex * selectedItemHeight;
-    final offsetBottom = offsetTop + selectedItemHeight;
-    final scrollPosition = widget.scrollController.position;
-
-    // Already fully visible - nothing to do.
-    if (offsetBottom <= scrollPosition.viewportDimension) {
-      return;
-    }
-
-    if (widget.sheetController.isAttached) {
-      await widget.sheetController.animateTo(
-        _maxSheetSize,
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeInOut,
-      );
-    }
-
-    // Already fully visible - nothing to do.
-    if (offsetBottom <= scrollPosition.viewportDimension) {
-      return;
-    }
-
-    final target =
-        (offsetTop -
-                (scrollPosition.viewportDimension - selectedItemHeight) / 2)
-            .clamp(0.0, scrollPosition.maxScrollExtent);
-
-    await widget.scrollController.animateTo(
-      target,
-      duration: const Duration(microseconds: 300),
-      curve: Curves.easeInOut,
+    await scrollSheetToItem(
+      scrollController: widget.scrollController,
+      sheetController: widget.sheetController,
+      index: bloc.state.categories.indexOf(widget.initialSelectedCategory!),
+      itemExtent: CategoryTile.height,
+      maxSheetSize: _maxSheetSize,
     );
   }
 
@@ -167,7 +133,7 @@ class _CategoryManagerSheetViewState extends State<CategoryManagerSheetView> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _scrollToSelectedCategory();
+      _scrollToInitialSelectedCategory();
     });
   }
 
@@ -220,11 +186,8 @@ class _CategoryManagerSheetViewState extends State<CategoryManagerSheetView> {
                           itemBuilder: (context, index) {
                             final category = categories[index];
                             final isSelected = value?.id == category.id;
-                            final isInitialSelected =
-                                category.id ==
-                                widget.initialSelectedCategory?.id;
 
-                            final tile = CategoryTile(
+                            return CategoryTile(
                               key: ValueKey(category.id),
                               selected: isSelected,
                               category: category,
@@ -232,15 +195,6 @@ class _CategoryManagerSheetViewState extends State<CategoryManagerSheetView> {
                               onEditPressed: () => _onEditPressed(category),
                               onDeletePressed: () => _onDeletePressed(category),
                             );
-
-                            if (isInitialSelected) {
-                              return KeyedSubtree(
-                                key: _initialSelectedCategoryKey,
-                                child: tile,
-                              );
-                            }
-
-                            return tile;
                           },
                         );
                       },

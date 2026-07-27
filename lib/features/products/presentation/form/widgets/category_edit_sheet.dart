@@ -51,15 +51,15 @@ class CategoryEditSheetView extends StatefulWidget {
 }
 
 class _CategoryEditSheetViewState extends State<CategoryEditSheetView> {
-  late final ValueNotifier<CatalogIcon?> _selectedIcon = ValueNotifier(
-    CatalogIcon.values.byName(widget.category.iconKey),
+  late final ValueNotifier<CatalogIcons?> _selectedIcon = ValueNotifier(
+    CatalogIcons.values.byName(widget.category.iconKey),
   );
   final ValueNotifier<bool> _isPending = ValueNotifier(false);
   late final TextEditingController _labelController = TextEditingController(
     text: widget.category.label,
   );
 
-  void _onIconSelected(CatalogIcon? icon) {
+  void _onIconSelected(CatalogIcons? icon) {
     if (icon == null) return;
     _selectedIcon.value = icon;
   }
@@ -128,7 +128,9 @@ class _CategoryEditSheetViewState extends State<CategoryEditSheetView> {
                 ValueListenableBuilder(
                   valueListenable: _selectedIcon,
                   builder: (context, icon, _) => Button(
-                    style: ButtonStyles.secondary,
+                    style: icon != null
+                        ? ButtonStyles.secondarySelected
+                        : ButtonStyles.secondary,
                     size: ButtonSizes.icon,
                     rounder: ButtonRounders.rectangular.copyWith(
                       borderRadius: AppInputDecoration().shape.borderRadius,
@@ -136,7 +138,7 @@ class _CategoryEditSheetViewState extends State<CategoryEditSheetView> {
                     onPressed: () {
                       showCatalogIconsPickerSheet(
                         context: context,
-                        initialSelectedIconKey: icon,
+                        initialSelectedCatalogIcon: icon,
                       ).then(_onIconSelected);
                     },
                     child: icon != null
