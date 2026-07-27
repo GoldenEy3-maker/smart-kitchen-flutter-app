@@ -139,9 +139,10 @@ class _ProductFormViewState extends State<ProductFormView> {
                     child: Column(
                       spacing: AppSpacing.small,
                       children: [
-                        if (state.categories.isNotEmpty)
+                        if (state.categories.isNotEmpty || state.isLoading)
                           SelectedCategoryCard(
                             category: state.selectedCategory,
+                            isLoading: state.isLoading,
                             onPressed: () {
                               _onCategoryManagerSheetOpened(
                                 context: context,
@@ -194,6 +195,25 @@ class _ProductFormViewState extends State<ProductFormView> {
                     l10n.productFormAttention,
                     style: AppTypography.textTheme.bodySmall!.copyWith(
                       color: AppColors.textSecondary,
+                    ),
+                  ),
+                  FormItem(
+                    label: Text(l10n.unitLabel),
+                    child: TextFormField(
+                      decoration: AppInputDecoration().toInputDecoration(),
+                    ),
+                  ),
+                  SizedBox(
+                    width: double.infinity,
+                    child: Button(
+                      onPressed: () {
+                        // TODO: implement save
+                      },
+                      style: ButtonStyles.primary.copyWith(
+                        elevation: 6,
+                        shadowColor: AppColors.primary.withValues(alpha: 0.25),
+                      ),
+                      child: Text(l10n.save, textAlign: .center),
                     ),
                   ),
                 ],

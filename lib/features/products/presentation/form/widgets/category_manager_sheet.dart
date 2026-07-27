@@ -253,7 +253,7 @@ class _CategoryManagerSheetViewState extends State<CategoryManagerSheetView> {
           Container(
             width: double.infinity,
             color: AppColors.surface,
-            padding: const EdgeInsets.symmetric(vertical: AppSpacing.medium),
+            padding: const EdgeInsets.only(top: AppSpacing.medium),
             child: Button(
               onPressed: _onSelectPressed,
               child: Text(l10n.select, textAlign: .center),

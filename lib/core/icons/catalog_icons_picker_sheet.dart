@@ -195,10 +195,7 @@ class _CatalogIconsPickerSheetViewState
           ),
           Container(
             color: AppColors.surface,
-            padding: const EdgeInsets.only(
-              top: AppSpacing.medium,
-              bottom: AppSpacing.medium,
-            ),
+            padding: const EdgeInsets.only(top: AppSpacing.medium),
             child: Button(
               onPressed: () {
                 _onClose(context);

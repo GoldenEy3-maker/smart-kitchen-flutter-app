@@ -196,7 +196,10 @@ class _ResizableSheetState extends State<ResizableSheet> {
           // showModalBottomSheet(useSafeArea: true) zeroes MediaQuery.padding,
           // so a plain SafeArea would skip the home indicator. Keep viewPadding.
           final content = SafeArea(
-            maintainBottomViewPadding: true,
+            maintainBottomViewPadding: false,
+            minimum: EdgeInsets.only(
+              bottom: MediaQuery.of(context).viewInsets.bottom + 24,
+            ),
             child: widget.builder(context, scrollController, _controller),
           );
 

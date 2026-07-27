@@ -11,7 +11,7 @@ class AppInputDecoration {
 
   AppInputDecoration({
     this.prefixIcon,
-    this.hintText,
+    this.hintText = "",
     AppInputStyle? style,
     AppInputShape? shape,
   }) : style = style ?? AppInputStyles.outlined,

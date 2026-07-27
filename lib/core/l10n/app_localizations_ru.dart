@@ -113,4 +113,10 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get edit => 'Редактировать';
+
+  @override
+  String get unitLabel => 'Единица измерения';
+
+  @override
+  String get save => 'Сохранить';
 }

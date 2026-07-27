@@ -273,6 +273,18 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'Редактировать'**
   String get edit;
+
+  /// Название поля для ввода единицы измерения
+  ///
+  /// In ru, this message translates to:
+  /// **'Единица измерения'**
+  String get unitLabel;
+
+  /// Название кнопки для сохранения
+  ///
+  /// In ru, this message translates to:
+  /// **'Сохранить'**
+  String get save;
 }
 
 class _AppLocalizationsDelegate
