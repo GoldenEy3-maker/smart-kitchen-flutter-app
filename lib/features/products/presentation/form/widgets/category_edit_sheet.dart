@@ -9,64 +9,76 @@ import "package:smart_kitchen_flutter_app/core/widgets/button/button_size.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/button/button_style.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/input/input.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/resizable_sheet/show_resizable_sheet.dart";
+import "package:smart_kitchen_flutter_app/features/products/domain/entities/entities.dart";
 
 /// Returns `true` to close the sheet, `false` to keep it open (e.g. on error).
-typedef CategoryCreateSheetOnCreateCallback =
-    Future<bool> Function(String label, String iconKey);
+typedef CategoryEditSheetOnEditCallback =
+    Future<bool> Function(CategoryWithProductsCount updatedCategory);
 
-Future<void> showCategoryCreateSheet({
+Future<void> showCategoryEditSheet({
   required BuildContext context,
-  required CategoryCreateSheetOnCreateCallback onCreate,
+  required CategoryEditSheetOnEditCallback onEdit,
+  required CategoryWithProductsCount category,
 }) {
   return showResizableSheet<void>(
     context: context,
     maxSize: 0.9,
     fitToContent: true,
     builder: (context, scrollController, sheetController) {
-      return CategoryCreateSheetView(
+      return CategoryEditSheetView(
         scrollController: scrollController,
-        onCreate: onCreate,
+        onEdit: onEdit,
+        category: category,
       );
     },
   );
 }
 
-class CategoryCreateSheetView extends StatefulWidget {
-  const CategoryCreateSheetView({
+class CategoryEditSheetView extends StatefulWidget {
+  const CategoryEditSheetView({
     super.key,
     required this.scrollController,
-    required this.onCreate,
+    required this.onEdit,
+    required this.category,
   });
 
   final ScrollController scrollController;
-  final CategoryCreateSheetOnCreateCallback onCreate;
+  final CategoryEditSheetOnEditCallback onEdit;
+  final CategoryWithProductsCount category;
 
   @override
-  State<CategoryCreateSheetView> createState() =>
-      _CategoryCreateSheetViewState();
+  State<CategoryEditSheetView> createState() => _CategoryEditSheetViewState();
 }
 
-class _CategoryCreateSheetViewState extends State<CategoryCreateSheetView> {
-  final ValueNotifier<CatalogIcon?> _selectedIcon = ValueNotifier(null);
+class _CategoryEditSheetViewState extends State<CategoryEditSheetView> {
+  late final ValueNotifier<CatalogIcon?> _selectedIcon = ValueNotifier(
+    CatalogIcon.values.byName(widget.category.iconKey),
+  );
   final ValueNotifier<bool> _isPending = ValueNotifier(false);
-  final TextEditingController _labelController = TextEditingController();
+  late final TextEditingController _labelController = TextEditingController(
+    text: widget.category.label,
+  );
 
   void _onIconSelected(CatalogIcon? icon) {
     if (icon == null) return;
     _selectedIcon.value = icon;
   }
 
-  Future<void> _onCreatePressed() async {
+  Future<void> _onEditPressed() async {
     if (_isPending.value) return;
 
     _isPending.value = true;
     try {
-      final shouldClose = await widget.onCreate(
-        _labelController.text,
-        _selectedIcon.value?.name ?? "",
+      final shouldClose = await widget.onEdit(
+        CategoryWithProductsCount(
+          id: widget.category.id,
+          label: _labelController.text,
+          iconKey: _selectedIcon.value!.name,
+          productsCount: widget.category.productsCount,
+        ),
       );
       if (shouldClose && mounted) {
-        Navigator.of(context).pop();
+        Navigator.pop(context);
       }
     } finally {
       if (mounted) {
@@ -103,7 +115,7 @@ class _CategoryCreateSheetViewState extends State<CategoryCreateSheetView> {
                 bottom: AppSpacing.large,
               ),
               child: Text(
-                l10n.newCategory,
+                l10n.editCategory,
                 style: AppTypography.textTheme.titleLarge!.copyWith(
                   fontFamily: AppFonts.manrope,
                 ),
@@ -150,18 +162,26 @@ class _CategoryCreateSheetViewState extends State<CategoryCreateSheetView> {
                 _labelController,
                 _isPending,
               ]),
-              builder: (context, _) => Button(
-                disabled:
-                    _selectedIcon.value == null ||
+              builder: (context, _) {
+                final isPending = _isPending.value;
+                final isEmpty =
                     _labelController.text.isEmpty ||
-                    _isPending.value,
-                onPressed: _onCreatePressed,
-                child: Row(
-                  mainAxisAlignment: .center,
-                  spacing: AppSpacing.xSmall,
-                  children: [Text(l10n.add)],
-                ),
-              ),
+                    _selectedIcon.value == null;
+                final isSameAsOriginal =
+                    _labelController.text == widget.category.label &&
+                    _selectedIcon.value!.name == widget.category.iconKey;
+                final isDisabled = isPending || isEmpty || isSameAsOriginal;
+
+                return Button(
+                  disabled: isDisabled,
+                  onPressed: _onEditPressed,
+                  child: Row(
+                    mainAxisAlignment: .center,
+                    spacing: AppSpacing.xSmall,
+                    children: [Text(l10n.edit)],
+                  ),
+                );
+              },
             ),
           ],
         ),

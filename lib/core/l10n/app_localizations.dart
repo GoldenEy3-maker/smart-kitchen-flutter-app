@@ -261,6 +261,18 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'Удаление категории с привязанными продуктами невозможно. Сначала отвяжите все продукты от этой категории.'**
   String get deleteCategoryWithProductsBoundedDescription;
+
+  /// Название страницы для редактирования категории
+  ///
+  /// In ru, this message translates to:
+  /// **'Редактировать категорию'**
+  String get editCategory;
+
+  /// Название кнопки для редактирования
+  ///
+  /// In ru, this message translates to:
+  /// **'Редактировать'**
+  String get edit;
 }
 
 class _AppLocalizationsDelegate

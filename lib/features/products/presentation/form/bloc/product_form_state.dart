@@ -7,6 +7,7 @@ class ProductFormState extends Equatable {
     this.isLoading = false,
     this.isCreateCategoryPending = false,
     this.isDeleteCategoryPending = false,
+    this.isEditCategoryPending = false,
     this.error,
   });
 
@@ -15,6 +16,7 @@ class ProductFormState extends Equatable {
   final bool isLoading;
   final bool isCreateCategoryPending;
   final bool isDeleteCategoryPending;
+  final bool isEditCategoryPending;
   final Failure? error;
 
   ProductFormState copyWith({
@@ -23,6 +25,7 @@ class ProductFormState extends Equatable {
     bool? isLoading,
     bool? isCreateCategoryPending,
     bool? isDeleteCategoryPending,
+    bool? isEditCategoryPending,
     ValueGetter<Failure?>? error,
   }) {
     return ProductFormState(
@@ -35,6 +38,8 @@ class ProductFormState extends Equatable {
           isCreateCategoryPending ?? this.isCreateCategoryPending,
       isDeleteCategoryPending:
           isDeleteCategoryPending ?? this.isDeleteCategoryPending,
+      isEditCategoryPending:
+          isEditCategoryPending ?? this.isEditCategoryPending,
       error: error != null ? error() : this.error,
     );
   }

@@ -58,7 +58,7 @@ class CategoriesLocalDataSourceImpl implements CategoriesLocalDataSource {
     try {
       final categoriesBox = await _openCategoriesBox();
       final existsCategory = categoriesBox.values
-          .map((c) => CategoryModel.fromJson(c))
+          .map((c) => CategoryModel.fromJson(Map<String, dynamic>.from(c)))
           .firstWhere((category) => category.id == params.id);
 
       final newCategory = CategoryModel(

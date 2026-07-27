@@ -66,10 +66,30 @@ class _CategoryManagerSheetViewState extends State<CategoryManagerSheetView> {
   }
 
   void _onEditPressed(CategoryWithProductsCount category) {
-    print('onEditPressed: $category');
+    final bloc = context.read<ProductFormBloc>();
+    showCategoryEditSheet(
+      context: context,
+      category: category,
+      onEdit: (updatedCategory) async {
+        final done = bloc.stream.firstWhere(
+          (state) => !state.isEditCategoryPending,
+        );
+        bloc.add(ProductFormCategoryEditRequested(category: updatedCategory));
+        final state = await done;
+        final isSuccess = state.error == null;
+        final isSelectedCategory =
+            updatedCategory.id == _selectedCategory.value?.id;
+
+        if (isSuccess && isSelectedCategory && mounted) {
+          _selectedCategory.value = updatedCategory;
+        }
+
+        return isSuccess;
+      },
+    );
   }
 
-  void _onDeletePressed(CategoryWithProductsCount category) async {
+  Future<void> _onDeletePressed(CategoryWithProductsCount category) async {
     final bloc = context.read<ProductFormBloc>();
     final result = await showCategoryDeleteSheet(
       context: context,
@@ -89,6 +109,10 @@ class _CategoryManagerSheetViewState extends State<CategoryManagerSheetView> {
 
     if (_selectedCategory.value?.id == category.id) {
       _selectedCategory.value = null;
+    }
+
+    if (bloc.state.categories.isEmpty) {
+      Navigator.pop(context);
     }
   }
 

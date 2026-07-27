@@ -107,4 +107,10 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get deleteCategoryWithProductsBoundedDescription =>
       'Удаление категории с привязанными продуктами невозможно. Сначала отвяжите все продукты от этой категории.';
+
+  @override
+  String get editCategory => 'Редактировать категорию';
+
+  @override
+  String get edit => 'Редактировать';
 }

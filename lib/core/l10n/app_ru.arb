@@ -125,5 +125,13 @@
   "deleteCategoryWithProductsBoundedDescription": "Удаление категории с привязанными продуктами невозможно. Сначала отвяжите все продукты от этой категории.",
   "@deleteCategoryWithProductsBoundedDescription": {
     "description": "Описание для удаления категории с привязанными продуктами"
+  },
+  "editCategory": "Редактировать категорию",
+  "@editCategory": {
+    "description": "Название страницы для редактирования категории"
+  },
+  "edit": "Редактировать",
+  "@edit": {
+    "description": "Название кнопки для редактирования"
   }
 }

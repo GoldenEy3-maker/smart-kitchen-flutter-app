@@ -1,6 +1,6 @@
 import "package:bloc/bloc.dart";
 import "package:equatable/equatable.dart";
-import "package:flutter/material.dart";
+import "package:flutter/widgets.dart";
 import "package:smart_kitchen_flutter_app/core/error/error.dart";
 import "package:smart_kitchen_flutter_app/core/usecase/usecase.dart";
 import "package:smart_kitchen_flutter_app/features/products/domain/entities/entities.dart";
@@ -17,6 +17,7 @@ class ProductFormBloc extends Bloc<ProductFormEvent, ProductFormState> {
     required this._getCategoriesWithProductsCount,
     required this._createCategory,
     required this._deleteCategory,
+    required this._updateCategory,
   }) : super(
          ProductFormState(
            categories: [],
@@ -30,11 +31,13 @@ class ProductFormBloc extends Bloc<ProductFormEvent, ProductFormState> {
     on<ProductFormCategorySelected>(_onCategorySelected);
     on<ProductFormCategoryCreateRequested>(_onCategoryCreateRequested);
     on<ProductFormCategoryDeleteRequested>(_onCategoryDeleteRequested);
+    on<ProductFormCategoryEditRequested>(_onCategoryEditRequested);
   }
 
   final GetCategoriesWithProductsCount _getCategoriesWithProductsCount;
   final CreateCategory _createCategory;
   final DeleteCategory _deleteCategory;
+  final UpdateCategory _updateCategory;
 
   Future<void> _onCategoriesRequested(
     ProductFormCategoriesRequested event,
@@ -136,6 +139,55 @@ class ProductFormBloc extends Bloc<ProductFormEvent, ProductFormState> {
             error: () => null,
             categories: newCategories,
             selectedCategory: isSelectedCategory ? () => null : null,
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> _onCategoryEditRequested(
+    ProductFormCategoryEditRequested event,
+    Emitter<ProductFormState> emit,
+  ) async {
+    emit(state.copyWith(isEditCategoryPending: true, error: () => null));
+
+    final result = await _updateCategory(
+      UpdateCategoryParams(
+        id: event.category.id,
+        label: event.category.label,
+        iconKey: event.category.iconKey,
+      ),
+    );
+
+    result.fold(
+      (failure) => emit(
+        state.copyWith(isEditCategoryPending: false, error: () => failure),
+      ),
+      (updatedCategory) {
+        final updatedCategoryWithProductsCount = CategoryWithProductsCount(
+          id: updatedCategory.id,
+          label: updatedCategory.label,
+          iconKey: updatedCategory.iconKey,
+          productsCount: event.category.productsCount,
+        );
+
+        final newCategories = state.categories.map((category) {
+          if (category.id == updatedCategory.id) {
+            return updatedCategoryWithProductsCount;
+          }
+          return category;
+        }).toList();
+        final isSelectedCategory =
+            state.selectedCategory?.id == updatedCategory.id;
+
+        emit(
+          state.copyWith(
+            isEditCategoryPending: false,
+            error: () => null,
+            categories: newCategories,
+            selectedCategory: isSelectedCategory
+                ? () => updatedCategoryWithProductsCount
+                : null,
           ),
         );
       },

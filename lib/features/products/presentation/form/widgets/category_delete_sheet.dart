@@ -15,7 +15,7 @@ Future<bool?> showCategoryDeleteSheet({
 }) async {
   final isCategoryHasLinkedProducts = category.productsCount > 0;
 
-  return showResizableSheet(
+  return showResizableSheet<bool>(
     context: context,
     maxSize: _maxSheetSize,
     fitToContent: true,

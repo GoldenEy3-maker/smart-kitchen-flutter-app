@@ -44,3 +44,12 @@ class ProductFormCategoryDeleteRequested extends ProductFormEvent {
   @override
   List<Object> get props => [category];
 }
+
+class ProductFormCategoryEditRequested extends ProductFormEvent {
+  const ProductFormCategoryEditRequested({required this.category});
+
+  final CategoryWithProductsCount category;
+
+  @override
+  List<Object> get props => [category];
+}
