@@ -66,7 +66,7 @@ class _CategoryDeleteSheetViewState extends State<CategoryDeleteSheetView> {
   }
 
   void _onCancelPressed() {
-    Navigator.pop(context, false);
+    Navigator.pop(context);
   }
 
   @override

@@ -52,6 +52,25 @@ class _ProductFormViewState extends State<ProductFormView> {
     });
   }
 
+  void _onCategoryManagerSheetOpened({
+    required BuildContext context,
+    required List<CategoryWithProductsCount> categories,
+    required CategoryWithProductsCount? initialSelectedCategory,
+  }) {
+    final bloc = context.read<ProductFormBloc>();
+
+    showCategoryManagerSheet(
+      context: context,
+      bloc: bloc,
+      initialSelectedCategory: initialSelectedCategory,
+    ).then((category) {
+      if (category == null) return;
+      context.read<ProductFormBloc>().add(
+        ProductFormCategorySelected(category: category),
+      );
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
@@ -120,21 +139,17 @@ class _ProductFormViewState extends State<ProductFormView> {
                     child: Column(
                       spacing: AppSpacing.small,
                       children: [
-                        SelectedCategoryCard(
-                          category: state.selectedCategory,
-                          onPressed: () {
-                            showCategoryPickerSheet(
-                              context: context,
-                              categories: state.categories,
-                              initialSelectedCategory: state.selectedCategory,
-                            ).then((category) {
-                              if (category == null) return;
-                              context.read<ProductFormBloc>().add(
-                                ProductFormCategorySelected(category: category),
+                        if (state.categories.isNotEmpty)
+                          SelectedCategoryCard(
+                            category: state.selectedCategory,
+                            onPressed: () {
+                              _onCategoryManagerSheetOpened(
+                                context: context,
+                                categories: state.categories,
+                                initialSelectedCategory: state.selectedCategory,
                               );
-                            });
-                          },
-                        ),
+                            },
+                          ),
                         SizedBox(
                           width: double.infinity,
                           child: Button(

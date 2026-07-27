@@ -24,6 +24,7 @@ class ProductFormPage extends StatelessWidget {
         getCategoriesWithProductsCount: getIt
             .get<GetCategoriesWithProductsCount>(),
         createCategory: getIt.get<CreateCategory>(),
+        deleteCategory: getIt.get<DeleteCategory>(),
       )..add(ProductFormCategoriesRequested(product: product)),
       child: Scaffold(
         body: ProductFormView(

@@ -1,5 +1,6 @@
 import "package:bloc/bloc.dart";
 import "package:equatable/equatable.dart";
+import "package:flutter/material.dart";
 import "package:smart_kitchen_flutter_app/core/error/error.dart";
 import "package:smart_kitchen_flutter_app/core/usecase/usecase.dart";
 import "package:smart_kitchen_flutter_app/features/products/domain/entities/entities.dart";
@@ -15,6 +16,7 @@ class ProductFormBloc extends Bloc<ProductFormEvent, ProductFormState> {
   ProductFormBloc({
     required this._getCategoriesWithProductsCount,
     required this._createCategory,
+    required this._deleteCategory,
   }) : super(
          ProductFormState(
            categories: [],
@@ -27,28 +29,36 @@ class ProductFormBloc extends Bloc<ProductFormEvent, ProductFormState> {
     on<ProductFormCategoriesRequested>(_onCategoriesRequested);
     on<ProductFormCategorySelected>(_onCategorySelected);
     on<ProductFormCategoryCreateRequested>(_onCategoryCreateRequested);
+    on<ProductFormCategoryDeleteRequested>(_onCategoryDeleteRequested);
   }
 
   final GetCategoriesWithProductsCount _getCategoriesWithProductsCount;
   final CreateCategory _createCategory;
+  final DeleteCategory _deleteCategory;
 
   Future<void> _onCategoriesRequested(
     ProductFormCategoriesRequested event,
     Emitter<ProductFormState> emit,
   ) async {
-    emit(state.copyWith(isLoading: true));
+    emit(state.copyWith(isLoading: true, error: () => null));
     final result = await _getCategoriesWithProductsCount(NoParams());
     result.fold(
-      (failure) => emit(state.copyWith(isLoading: false, error: failure)),
+      (failure) => emit(state.copyWith(isLoading: false, error: () => failure)),
       (categories) {
-        emit(state.copyWith(isLoading: false, categories: categories));
+        emit(
+          state.copyWith(
+            isLoading: false,
+            categories: categories,
+            error: () => null,
+          ),
+        );
 
         if (event.product != null) {
           final selectedCategory = categories.firstWhere(
             (category) => category.id == event.product?.categoryId,
           );
 
-          emit(state.copyWith(selectedCategory: selectedCategory));
+          emit(state.copyWith(selectedCategory: () => selectedCategory));
         }
       },
     );
@@ -58,22 +68,23 @@ class ProductFormBloc extends Bloc<ProductFormEvent, ProductFormState> {
     ProductFormCategorySelected event,
     Emitter<ProductFormState> emit,
   ) {
-    emit(state.copyWith(selectedCategory: event.category));
+    emit(state.copyWith(selectedCategory: () => event.category));
   }
 
   Future<void> _onCategoryCreateRequested(
     ProductFormCategoryCreateRequested event,
     Emitter<ProductFormState> emit,
   ) async {
-    emit(state.copyWith(isCreateCategoryPending: true, clearError: true));
+    emit(state.copyWith(isCreateCategoryPending: true, error: () => null));
 
     final result = await _createCategory(
       CreateCategoryParams(label: event.label, iconKey: event.iconKey),
     );
 
     result.fold(
-      (failure) =>
-          emit(state.copyWith(isCreateCategoryPending: false, error: failure)),
+      (failure) => emit(
+        state.copyWith(isCreateCategoryPending: false, error: () => failure),
+      ),
       (category) {
         final newCategoryWithProductsCount = CategoryWithProductsCount(
           id: category.id,
@@ -89,9 +100,42 @@ class ProductFormBloc extends Bloc<ProductFormEvent, ProductFormState> {
         emit(
           state.copyWith(
             isCreateCategoryPending: false,
-            selectedCategory: newCategoryWithProductsCount,
+            selectedCategory: () => newCategoryWithProductsCount,
             categories: newCategories,
-            clearError: true,
+            error: () => null,
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> _onCategoryDeleteRequested(
+    ProductFormCategoryDeleteRequested event,
+    Emitter<ProductFormState> emit,
+  ) async {
+    emit(state.copyWith(isDeleteCategoryPending: true, error: () => null));
+
+    final result = await _deleteCategory(
+      DeleteCategoryParams(id: event.category.id),
+    );
+
+    result.fold(
+      (failure) => emit(
+        state.copyWith(isDeleteCategoryPending: false, error: () => failure),
+      ),
+      (_) {
+        final isSelectedCategory =
+            state.selectedCategory?.id == event.category.id;
+        final newCategories = state.categories
+            .where((category) => category.id != event.category.id)
+            .toList();
+
+        emit(
+          state.copyWith(
+            isDeleteCategoryPending: false,
+            error: () => null,
+            categories: newCategories,
+            selectedCategory: isSelectedCategory ? () => null : null,
           ),
         );
       },
