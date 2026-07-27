@@ -35,10 +35,9 @@ class GetCategoriesWithProductsCount
                 id: category.id,
                 label: category.label,
                 iconKey: category.iconKey,
-                // productsCount: products
-                //     .where((product) => product.categoryId == category.id)
-                //     .length,
-                productsCount: 0,
+                productsCount: products
+                    .where((product) => product.categoryId == category.id)
+                    .length,
               ),
             )
             .toList(),
