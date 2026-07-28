@@ -4,28 +4,34 @@ class ProductFormState extends Equatable {
   const ProductFormState({
     required this.categories,
     this.selectedCategory,
-    this.isLoading = false,
+    this.isCategoriesLoading = false,
     this.isCreateCategoryPending = false,
     this.isDeleteCategoryPending = false,
     this.isEditCategoryPending = false,
+    this.selectedCatalogIcon,
+    this.selectedCatalogUnit,
     this.error,
   });
 
   final List<CategoryWithProductsCount> categories;
   final CategoryWithProductsCount? selectedCategory;
-  final bool isLoading;
+  final bool isCategoriesLoading;
   final bool isCreateCategoryPending;
   final bool isDeleteCategoryPending;
   final bool isEditCategoryPending;
+  final CatalogIcons? selectedCatalogIcon;
+  final CatalogUnits? selectedCatalogUnit;
   final Failure? error;
 
   ProductFormState copyWith({
     List<CategoryWithProductsCount>? categories,
     ValueGetter<CategoryWithProductsCount?>? selectedCategory,
-    bool? isLoading,
+    bool? isCategoriesLoading,
     bool? isCreateCategoryPending,
     bool? isDeleteCategoryPending,
     bool? isEditCategoryPending,
+    CatalogIcons? selectedCatalogIcon,
+    CatalogUnits? selectedCatalogUnit,
     ValueGetter<Failure?>? error,
   }) {
     return ProductFormState(
@@ -33,13 +39,15 @@ class ProductFormState extends Equatable {
       selectedCategory: selectedCategory != null
           ? selectedCategory()
           : this.selectedCategory,
-      isLoading: isLoading ?? this.isLoading,
+      isCategoriesLoading: isCategoriesLoading ?? this.isCategoriesLoading,
       isCreateCategoryPending:
           isCreateCategoryPending ?? this.isCreateCategoryPending,
       isDeleteCategoryPending:
           isDeleteCategoryPending ?? this.isDeleteCategoryPending,
       isEditCategoryPending:
           isEditCategoryPending ?? this.isEditCategoryPending,
+      selectedCatalogIcon: selectedCatalogIcon ?? this.selectedCatalogIcon,
+      selectedCatalogUnit: selectedCatalogUnit ?? this.selectedCatalogUnit,
       error: error != null ? error() : this.error,
     );
   }
@@ -48,9 +56,12 @@ class ProductFormState extends Equatable {
   List<Object?> get props => [
     categories,
     selectedCategory,
-    isLoading,
+    isCategoriesLoading,
     isCreateCategoryPending,
     isDeleteCategoryPending,
+    isEditCategoryPending,
+    selectedCatalogIcon,
+    selectedCatalogUnit,
     error,
   ];
 }

@@ -2,6 +2,8 @@ import "package:bloc/bloc.dart";
 import "package:equatable/equatable.dart";
 import "package:flutter/widgets.dart";
 import "package:smart_kitchen_flutter_app/core/error/error.dart";
+import "package:smart_kitchen_flutter_app/core/icons/catalog_icons.dart";
+import "package:smart_kitchen_flutter_app/core/units/catalog_units.dart";
 import "package:smart_kitchen_flutter_app/core/usecase/usecase.dart";
 import "package:smart_kitchen_flutter_app/features/products/domain/entities/entities.dart";
 import "package:smart_kitchen_flutter_app/features/products/domain/usecases/usecases.dart";
@@ -22,7 +24,7 @@ class ProductFormBloc extends Bloc<ProductFormEvent, ProductFormState> {
          ProductFormState(
            categories: [],
            error: null,
-           isLoading: false,
+           isCategoriesLoading: false,
            isCreateCategoryPending: false,
            selectedCategory: null,
          ),
@@ -32,6 +34,8 @@ class ProductFormBloc extends Bloc<ProductFormEvent, ProductFormState> {
     on<ProductFormCategoryCreateRequested>(_onCategoryCreateRequested);
     on<ProductFormCategoryDeleteRequested>(_onCategoryDeleteRequested);
     on<ProductFormCategoryEditRequested>(_onCategoryEditRequested);
+    on<ProductFormCatalogIconSelected>(_onCatalogIconSelected);
+    on<ProductFormCatalogUnitSelected>(_onCatalogUnitSelected);
   }
 
   final GetCategoriesWithProductsCount _getCategoriesWithProductsCount;
@@ -43,14 +47,16 @@ class ProductFormBloc extends Bloc<ProductFormEvent, ProductFormState> {
     ProductFormCategoriesRequested event,
     Emitter<ProductFormState> emit,
   ) async {
-    emit(state.copyWith(isLoading: true, error: () => null));
+    emit(state.copyWith(isCategoriesLoading: true, error: () => null));
     final result = await _getCategoriesWithProductsCount(NoParams());
     result.fold(
-      (failure) => emit(state.copyWith(isLoading: false, error: () => failure)),
+      (failure) => emit(
+        state.copyWith(isCategoriesLoading: false, error: () => failure),
+      ),
       (categories) {
         emit(
           state.copyWith(
-            isLoading: false,
+            isCategoriesLoading: false,
             categories: categories,
             error: () => null,
           ),
@@ -192,5 +198,19 @@ class ProductFormBloc extends Bloc<ProductFormEvent, ProductFormState> {
         );
       },
     );
+  }
+
+  void _onCatalogIconSelected(
+    ProductFormCatalogIconSelected event,
+    Emitter<ProductFormState> emit,
+  ) {
+    emit(state.copyWith(selectedCatalogIcon: event.catalogIcon));
+  }
+
+  void _onCatalogUnitSelected(
+    ProductFormCatalogUnitSelected event,
+    Emitter<ProductFormState> emit,
+  ) {
+    emit(state.copyWith(selectedCatalogUnit: event.catalogUnit));
   }
 }

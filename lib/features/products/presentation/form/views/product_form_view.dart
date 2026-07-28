@@ -33,24 +33,19 @@ class ProductFormView extends StatefulWidget {
 
 class _ProductFormViewState extends State<ProductFormView> {
   final _formKey = GlobalKey<FormState>();
-  late final ValueNotifier<CatalogIcons?> _selectedCatalogIcon = ValueNotifier(
-    widget.product?.iconKey != null
-        ? CatalogIcons.fromName(widget.product!.iconKey)
-        : null,
-  );
-  late final ValueNotifier<CatalogUnits?> _selectedCatalogUnit = ValueNotifier(
-    widget.product?.unit != null
-        ? CatalogUnits.fromName(widget.product!.unit)
-        : null,
-  );
 
-  void _onCatalogIconsPickerSheetOpened(BuildContext context) {
+  void _onCatalogIconsPickerSheetOpened(
+    BuildContext context,
+    CatalogIcons? initialSelectedCatalogIcon,
+  ) {
     showCatalogIconsPickerSheet(
       context: context,
-      initialSelectedCatalogIcon: _selectedCatalogIcon.value,
+      initialSelectedCatalogIcon: initialSelectedCatalogIcon,
     ).then((newCatalogIcon) {
       if (newCatalogIcon != null) {
-        _selectedCatalogIcon.value = newCatalogIcon;
+        context.read<ProductFormBloc>().add(
+          ProductFormCatalogIconSelected(catalogIcon: newCatalogIcon),
+        );
       }
     });
   }
@@ -100,21 +95,20 @@ class _ProductFormViewState extends State<ProductFormView> {
     );
   }
 
-  void _onCatalogUnitsPickerSheetOpened(BuildContext context) {
+  void _onCatalogUnitsPickerSheetOpened(
+    BuildContext context,
+    CatalogUnits? initialSelectedCatalogUnit,
+  ) {
     showCatalogUnitsPickerSheet(
       context: context,
-      initialSelectedUnit: _selectedCatalogUnit.value,
+      initialSelectedUnit: initialSelectedCatalogUnit,
     ).then((newCatalogUnit) {
       if (newCatalogUnit != null) {
-        _selectedCatalogUnit.value = newCatalogUnit;
+        context.read<ProductFormBloc>().add(
+          ProductFormCatalogUnitSelected(catalogUnit: newCatalogUnit),
+        );
       }
     });
-  }
-
-  @override
-  void dispose() {
-    _selectedCatalogIcon.dispose();
-    super.dispose();
   }
 
   @override
@@ -155,9 +149,13 @@ class _ProductFormViewState extends State<ProductFormView> {
               Row(
                 spacing: AppSpacing.small,
                 children: [
-                  ValueListenableBuilder(
-                    valueListenable: _selectedCatalogIcon,
-                    builder: (context, selectedCatalogIcon, child) {
+                  BlocSelector<
+                    ProductFormBloc,
+                    ProductFormState,
+                    CatalogIcons?
+                  >(
+                    selector: (state) => state.selectedCatalogIcon,
+                    builder: (context, selectedCatalogIcon) {
                       return Button(
                         style: selectedCatalogIcon != null
                             ? ButtonStyles.secondarySelected
@@ -170,7 +168,10 @@ class _ProductFormViewState extends State<ProductFormView> {
                             ? Icon(selectedCatalogIcon.icon, size: 20)
                             : Icon(LucideIcons.tag, size: 20),
                         onPressed: () {
-                          _onCatalogIconsPickerSheetOpened(context);
+                          _onCatalogIconsPickerSheetOpened(
+                            context,
+                            selectedCatalogIcon,
+                          );
                         },
                       );
                     },
@@ -196,19 +197,20 @@ class _ProductFormViewState extends State<ProductFormView> {
                       ({
                         CategoryWithProductsCount? selectedCategory,
                         List<CategoryWithProductsCount> categories,
-                        bool isLoading,
+                        bool isCategoriesLoading,
                       })
                     >(
                       selector: (state) => (
                         selectedCategory: state.selectedCategory,
                         categories: state.categories,
-                        isLoading: state.isLoading,
+                        isCategoriesLoading: state.isCategoriesLoading,
                       ),
                       builder: (context, slice) {
-                        if (slice.isLoading || slice.categories.isNotEmpty) {
+                        if (slice.isCategoriesLoading ||
+                            slice.categories.isNotEmpty) {
                           return SelectedCategoryCard(
                             category: slice.selectedCategory,
-                            isLoading: slice.isLoading,
+                            isLoading: slice.isCategoriesLoading,
                             onPressed: () {
                               _onCategoryManagerSheetOpened(
                                 context: context,
@@ -249,22 +251,29 @@ class _ProductFormViewState extends State<ProductFormView> {
               ),
               FormItem(
                 label: Text(l10n.unitLabel),
-                child: ValueListenableBuilder(
-                  valueListenable: _selectedCatalogUnit,
-                  builder: (context, selectedCatalogUnit, child) {
-                    return InputButton(
-                      onPressed: () =>
-                          _onCatalogUnitsPickerSheetOpened(context),
-                      hintText: l10n.selectUnit,
-                      value: selectedCatalogUnit != null
-                          ? CatalogUnits.resolveLabels(
-                              context: context,
-                              unit: selectedCatalogUnit,
-                            ).full
-                          : null,
-                    );
-                  },
-                ),
+                child:
+                    BlocSelector<
+                      ProductFormBloc,
+                      ProductFormState,
+                      CatalogUnits?
+                    >(
+                      selector: (state) => state.selectedCatalogUnit,
+                      builder: (context, selectedCatalogUnit) {
+                        return InputButton(
+                          onPressed: () => _onCatalogUnitsPickerSheetOpened(
+                            context,
+                            selectedCatalogUnit,
+                          ),
+                          hintText: l10n.selectUnit,
+                          value: selectedCatalogUnit != null
+                              ? CatalogUnits.resolveLabels(
+                                  context: context,
+                                  unit: selectedCatalogUnit,
+                                ).full
+                              : null,
+                        );
+                      },
+                    ),
               ),
               SizedBox(
                 width: double.infinity,

@@ -53,3 +53,21 @@ class ProductFormCategoryEditRequested extends ProductFormEvent {
   @override
   List<Object> get props => [category];
 }
+
+class ProductFormCatalogIconSelected extends ProductFormEvent {
+  const ProductFormCatalogIconSelected({required this.catalogIcon});
+
+  final CatalogIcons catalogIcon;
+
+  @override
+  List<Object> get props => [catalogIcon];
+}
+
+class ProductFormCatalogUnitSelected extends ProductFormEvent {
+  const ProductFormCatalogUnitSelected({required this.catalogUnit});
+
+  final CatalogUnits catalogUnit;
+
+  @override
+  List<Object> get props => [catalogUnit];
+}
