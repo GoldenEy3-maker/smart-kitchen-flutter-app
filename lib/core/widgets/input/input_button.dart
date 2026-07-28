@@ -9,23 +9,26 @@ class InputButton extends StatelessWidget {
     required this.onPressed,
     this.hintText = "",
     this.value,
+    this.invalid = false,
   });
 
   final VoidCallback onPressed;
   final String hintText;
   final String? value;
+  final bool invalid;
 
   @override
   Widget build(BuildContext context) {
-    final inputDecoration = AppInputDecoration(hintText: hintText);
+    final inputDecoration = AppInputDecoration(
+      hintText: hintText,
+      invalid: invalid,
+    );
 
     return Material(
       color: inputDecoration.style.fillColor,
       shape: RoundedRectangleBorder(
         borderRadius: inputDecoration.shape.borderRadius,
-        side: BorderSide(
-          color: inputDecoration.style.borderColor ?? Colors.transparent,
-        ),
+        side: BorderSide(color: inputDecoration.borderColor),
       ),
       child: InkWell(
         onTap: onPressed,

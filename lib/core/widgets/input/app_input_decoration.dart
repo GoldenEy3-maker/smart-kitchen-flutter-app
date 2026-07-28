@@ -6,12 +6,14 @@ import "app_input_style.dart";
 class AppInputDecoration {
   final Widget? prefixIcon;
   final String? hintText;
+  final bool invalid;
   final AppInputStyle style;
   final AppInputShape shape;
 
   AppInputDecoration({
     this.prefixIcon,
     this.hintText = "",
+    this.invalid = false,
     AppInputStyle? style,
     AppInputShape? shape,
   }) : style = style ?? AppInputStyles.outlined,
@@ -20,27 +22,39 @@ class AppInputDecoration {
   AppInputDecoration copyWith({
     Widget? prefixIcon,
     String? hintText,
+    bool? invalid,
     AppInputStyle? style,
     AppInputShape? shape,
   }) {
     return AppInputDecoration(
       prefixIcon: prefixIcon ?? this.prefixIcon,
       hintText: hintText ?? this.hintText,
+      invalid: invalid ?? this.invalid,
       style: style ?? this.style,
       shape: shape ?? this.shape,
     );
   }
 
+  Color get errorBorderColor => style.errorBorderColor ?? Colors.transparent;
+
+  Color get borderColor =>
+      invalid ? errorBorderColor : style.borderColor ?? Colors.transparent;
+
   InputDecoration toInputDecoration() {
-    final borderColor = style.borderColor ?? Colors.transparent;
-    final focusedBorderColor = style.focusedBorderColor ?? Colors.transparent;
+    final focusedBorderColor = invalid
+        ? errorBorderColor
+        : style.focusedBorderColor ?? Colors.transparent;
     final border = OutlineInputBorder(
       borderRadius: shape.borderRadius,
       borderSide: BorderSide(color: borderColor),
     );
     final focusedBorder = OutlineInputBorder(
       borderRadius: shape.borderRadius,
-      borderSide: BorderSide(color: focusedBorderColor),
+      borderSide: BorderSide(color: focusedBorderColor, width: 1.5),
+    );
+    final errorBorder = OutlineInputBorder(
+      borderRadius: shape.borderRadius,
+      borderSide: BorderSide(color: errorBorderColor),
     );
 
     return InputDecoration(
@@ -56,6 +70,7 @@ class AppInputDecoration {
       border: border,
       enabledBorder: border,
       focusedBorder: focusedBorder,
+      errorBorder: errorBorder,
       contentPadding: shape.contentPadding,
       constraints: BoxConstraints(
         minHeight: shape.height,

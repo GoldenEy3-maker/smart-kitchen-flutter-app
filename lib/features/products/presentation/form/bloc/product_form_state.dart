@@ -8,6 +8,8 @@ class ProductFormState extends Equatable {
     this.isCreateCategoryPending = false,
     this.isDeleteCategoryPending = false,
     this.isEditCategoryPending = false,
+    this.isSaveProductPending = false,
+    this.isDeleteProductPending = false,
     this.selectedCatalogIcon,
     this.selectedCatalogUnit,
     this.error,
@@ -19,6 +21,8 @@ class ProductFormState extends Equatable {
   final bool isCreateCategoryPending;
   final bool isDeleteCategoryPending;
   final bool isEditCategoryPending;
+  final bool isSaveProductPending;
+  final bool isDeleteProductPending;
   final CatalogIcons? selectedCatalogIcon;
   final CatalogUnits? selectedCatalogUnit;
   final Failure? error;
@@ -30,6 +34,8 @@ class ProductFormState extends Equatable {
     bool? isCreateCategoryPending,
     bool? isDeleteCategoryPending,
     bool? isEditCategoryPending,
+    bool? isSaveProductPending,
+    bool? isDeleteProductPending,
     CatalogIcons? selectedCatalogIcon,
     CatalogUnits? selectedCatalogUnit,
     ValueGetter<Failure?>? error,
@@ -46,6 +52,9 @@ class ProductFormState extends Equatable {
           isDeleteCategoryPending ?? this.isDeleteCategoryPending,
       isEditCategoryPending:
           isEditCategoryPending ?? this.isEditCategoryPending,
+      isSaveProductPending: isSaveProductPending ?? this.isSaveProductPending,
+      isDeleteProductPending:
+          isDeleteProductPending ?? this.isDeleteProductPending,
       selectedCatalogIcon: selectedCatalogIcon ?? this.selectedCatalogIcon,
       selectedCatalogUnit: selectedCatalogUnit ?? this.selectedCatalogUnit,
       error: error != null ? error() : this.error,
@@ -60,6 +69,8 @@ class ProductFormState extends Equatable {
     isCreateCategoryPending,
     isDeleteCategoryPending,
     isEditCategoryPending,
+    isSaveProductPending,
+    isDeleteProductPending,
     selectedCatalogIcon,
     selectedCatalogUnit,
     error,

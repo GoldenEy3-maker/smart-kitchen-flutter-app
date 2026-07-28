@@ -60,6 +60,12 @@ abstract final class ButtonStyles {
     border: Border.all(color: AppColors.primary, width: 1.5),
   );
 
+  static final ButtonStyle secondaryDanger = ButtonStyle(
+    backgroundColor: AppColors.surface,
+    foregroundColor: AppColors.dangerText,
+    border: Border.all(color: AppColors.danger, width: 1.5),
+  );
+
   static final ButtonStyle ghost = ButtonStyle(
     backgroundColor: AppColors.primarySoft,
     foregroundColor: AppColors.primaryText,

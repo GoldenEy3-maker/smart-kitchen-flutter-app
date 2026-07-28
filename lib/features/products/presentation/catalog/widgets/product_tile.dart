@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:skeletonizer/skeletonizer.dart";
 import "package:smart_kitchen_flutter_app/core/icons/catalog_icons.dart";
 import "package:smart_kitchen_flutter_app/core/l10n/app_localizations.dart";
+import "package:smart_kitchen_flutter_app/core/units/units.dart";
 import "package:smart_kitchen_flutter_app/features/products/navigation/navigation.dart";
 import "package:smart_kitchen_flutter_app/core/theme/theme.dart";
 import "package:smart_kitchen_flutter_app/features/products/domain/entities/entities.dart";
@@ -63,7 +64,12 @@ class ProductTile extends StatelessWidget {
                 children: [
                   Text(product.name, style: theme.textTheme.titleMedium),
                   Text(
-                    l10n.productCatalogProductUnit(product.unit),
+                    l10n.productCatalogProductUnit(
+                      CatalogUnits.resolveLabels(
+                        context: context,
+                        unit: CatalogUnits.fromName(product.unit),
+                      ).short,
+                    ),
                     style: theme.textTheme.bodySmall,
                   ),
                 ],

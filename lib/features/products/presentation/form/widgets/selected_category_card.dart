@@ -13,11 +13,13 @@ class SelectedCategoryCard extends StatelessWidget {
     this.category,
     required this.onPressed,
     this.isLoading = false,
+    this.invalid = false,
   });
 
   final CategoryWithProductsCount? category;
   final VoidCallback onPressed;
   final bool isLoading;
+  final bool invalid;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +30,11 @@ class SelectedCategoryCard extends StatelessWidget {
     final hasCategory = resolvedCategory != null;
 
     if (!hasCategory) {
-      return InputButton(onPressed: onPressed, hintText: l10n.selectOrCreate);
+      return InputButton(
+        onPressed: onPressed,
+        hintText: l10n.selectOrCreate,
+        invalid: invalid,
+      );
     }
 
     return Skeletonizer(

@@ -217,5 +217,45 @@
   "productsReadCacheFailure": "Ошибка чтения кэша продуктов. Попробуйте перезапустить приложение и попробовать снова.",
   "@productsReadCacheFailure": {
     "description": "Ошибка чтения кэша продуктов"
+  },
+  "productsCreateCacheFailure": "Ошибка создания кэша продуктов. Попробуйте перезапустить приложение и попробовать снова.",
+  "@productsCreateCacheFailure": {
+    "description": "Ошибка создания кэша продуктов"
+  },
+  "productsUpdateCacheFailure": "Ошибка обновления кэша продуктов. Попробуйте перезапустить приложение и попробовать снова.",
+  "@productsUpdateCacheFailure": {
+    "description": "Ошибка обновления кэша продуктов"
+  },
+  "productsNotFoundFailure": "Продукт не найден.",
+  "@productsNotFoundFailure": {
+    "description": "Ошибка продукта не найденного"
+  },
+  "productsDeleteCacheFailure": "Ошибка удаления кэша продуктов. Попробуйте перезапустить приложение и попробовать снова.",
+  "@productsDeleteCacheFailure": {
+    "description": "Ошибка удаления кэша продуктов"
+  },
+  "iconIsRequired": "Иконка обязательна",
+  "@iconIsRequired": {
+    "description": "Ошибка иконки обязательной"
+  },
+  "categoryIsRequired": "Категория обязательна",
+  "@categoryIsRequired": {
+    "description": "Ошибка категории обязательной"
+  },
+  "unitIsRequired": "Единица измерения обязательна",
+  "@unitIsRequired": {
+    "description": "Ошибка единицы измерения обязательной"
+  },
+  "nameIsRequired": "Название обязательно",
+  "@nameIsRequired": {
+    "description": "Ошибка названия обязательной"
+  },
+  "productConfirmDeleteSheetTitle": "Удаление продукта",
+  "@productConfirmDeleteSheetTitle": {
+    "description": "Заголовок для удаления продукта"
+  },
+  "productConfirmDeleteSheetDescription": "Вы уверены, что хотите удалить этот продукт?",
+  "@productConfirmDeleteSheetDescription": {
+    "description": "Описание для удаления продукта"
   }
 }

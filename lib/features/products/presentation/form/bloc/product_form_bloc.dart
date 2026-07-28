@@ -7,6 +7,7 @@ import "package:smart_kitchen_flutter_app/core/units/catalog_units.dart";
 import "package:smart_kitchen_flutter_app/core/usecase/usecase.dart";
 import "package:smart_kitchen_flutter_app/features/products/domain/entities/entities.dart";
 import "package:smart_kitchen_flutter_app/features/products/domain/usecases/usecases.dart";
+import "package:smart_kitchen_flutter_app/features/products/params/params.dart";
 import "package:smart_kitchen_flutter_app/shared/categories/domain/entities/entities.dart";
 import "package:smart_kitchen_flutter_app/shared/categories/domain/usecases/usecases.dart";
 import "package:smart_kitchen_flutter_app/shared/categories/params/params.dart";
@@ -16,17 +17,23 @@ part "product_form_state.dart";
 
 class ProductFormBloc extends Bloc<ProductFormEvent, ProductFormState> {
   ProductFormBloc({
+    this._product,
     required this._getCategoriesWithProductsCount,
     required this._createCategory,
     required this._deleteCategory,
     required this._updateCategory,
+    required this._createProduct,
+    required this._updateProduct,
+    required this._deleteProduct,
   }) : super(
          ProductFormState(
            categories: [],
-           error: null,
-           isCategoriesLoading: false,
-           isCreateCategoryPending: false,
-           selectedCategory: null,
+           selectedCatalogUnit: _product != null
+               ? CatalogUnits.fromName(_product.unit)
+               : null,
+           selectedCatalogIcon: _product != null
+               ? CatalogIcons.fromName(_product.iconKey)
+               : null,
          ),
        ) {
     on<ProductFormCategoriesRequested>(_onCategoriesRequested);
@@ -36,12 +43,20 @@ class ProductFormBloc extends Bloc<ProductFormEvent, ProductFormState> {
     on<ProductFormCategoryEditRequested>(_onCategoryEditRequested);
     on<ProductFormCatalogIconSelected>(_onCatalogIconSelected);
     on<ProductFormCatalogUnitSelected>(_onCatalogUnitSelected);
+    on<ProductFormCreateRequested>(_onProductCreateRequested);
+    on<ProductFormUpdateRequested>(_onProductUpdateRequested);
+    on<ProductFormDeleteRequested>(_onProductDeleteRequested);
   }
 
+  // ignore: unused_field
+  final Product? _product;
   final GetCategoriesWithProductsCount _getCategoriesWithProductsCount;
   final CreateCategory _createCategory;
   final DeleteCategory _deleteCategory;
   final UpdateCategory _updateCategory;
+  final CreateProduct _createProduct;
+  final UpdateProduct _updateProduct;
+  final DeleteProduct _deleteProduct;
 
   Future<void> _onCategoriesRequested(
     ProductFormCategoriesRequested event,
@@ -212,5 +227,54 @@ class ProductFormBloc extends Bloc<ProductFormEvent, ProductFormState> {
     Emitter<ProductFormState> emit,
   ) {
     emit(state.copyWith(selectedCatalogUnit: event.catalogUnit));
+  }
+
+  void _onProductCreateRequested(
+    ProductFormCreateRequested event,
+    Emitter<ProductFormState> emit,
+  ) async {
+    emit(state.copyWith(isSaveProductPending: true, error: () => null));
+
+    final result = await _createProduct(event.params);
+    result.fold(
+      (failure) => emit(
+        state.copyWith(isSaveProductPending: false, error: () => failure),
+      ),
+      (product) =>
+          emit(state.copyWith(isSaveProductPending: false, error: () => null)),
+    );
+  }
+
+  void _onProductUpdateRequested(
+    ProductFormUpdateRequested event,
+    Emitter<ProductFormState> emit,
+  ) async {
+    emit(state.copyWith(isSaveProductPending: true, error: () => null));
+
+    final result = await _updateProduct(event.params);
+    result.fold(
+      (failure) => emit(
+        state.copyWith(isSaveProductPending: false, error: () => failure),
+      ),
+      (product) =>
+          emit(state.copyWith(isSaveProductPending: false, error: () => null)),
+    );
+  }
+
+  void _onProductDeleteRequested(
+    ProductFormDeleteRequested event,
+    Emitter<ProductFormState> emit,
+  ) async {
+    emit(state.copyWith(isDeleteProductPending: true, error: () => null));
+
+    final result = await _deleteProduct(event.params);
+    result.fold(
+      (failure) => emit(
+        state.copyWith(isDeleteProductPending: false, error: () => failure),
+      ),
+      (_) => emit(
+        state.copyWith(isDeleteProductPending: false, error: () => null),
+      ),
+    );
   }
 }

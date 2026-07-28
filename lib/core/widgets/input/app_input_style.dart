@@ -5,6 +5,7 @@ final class AppInputStyle {
   final Color? fillColor;
   final Color? borderColor;
   final Color? focusedBorderColor;
+  final Color? errorBorderColor;
   final TextStyle? hintStyle;
   final Color? prefixIconColor;
 
@@ -12,6 +13,7 @@ final class AppInputStyle {
     this.fillColor,
     this.borderColor,
     this.focusedBorderColor,
+    this.errorBorderColor,
     this.hintStyle,
     this.prefixIconColor,
   });
@@ -20,12 +22,14 @@ final class AppInputStyle {
     Color? fillColor,
     Color? borderColor,
     Color? focusedBorderColor,
+    Color? errorBorderColor,
     TextStyle? hintStyle,
     Color? prefixIconColor,
   }) => AppInputStyle(
     fillColor: fillColor ?? this.fillColor,
     borderColor: borderColor ?? this.borderColor,
     focusedBorderColor: focusedBorderColor ?? this.focusedBorderColor,
+    errorBorderColor: errorBorderColor ?? this.errorBorderColor,
     hintStyle: hintStyle ?? this.hintStyle,
     prefixIconColor: prefixIconColor ?? this.prefixIconColor,
   );
@@ -36,6 +40,7 @@ abstract final class AppInputStyles {
     fillColor: AppColors.surface,
     borderColor: AppColors.border,
     focusedBorderColor: AppColors.primary,
+    errorBorderColor: AppColors.danger,
     prefixIconColor: AppColors.textSecondary,
     hintStyle: AppTypography.textTheme.bodyLarge!.copyWith(
       color: AppColors.textSecondary,

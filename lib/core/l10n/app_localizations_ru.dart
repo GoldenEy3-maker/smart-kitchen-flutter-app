@@ -183,4 +183,38 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get productsReadCacheFailure =>
       'Ошибка чтения кэша продуктов. Попробуйте перезапустить приложение и попробовать снова.';
+
+  @override
+  String get productsCreateCacheFailure =>
+      'Ошибка создания кэша продуктов. Попробуйте перезапустить приложение и попробовать снова.';
+
+  @override
+  String get productsUpdateCacheFailure =>
+      'Ошибка обновления кэша продуктов. Попробуйте перезапустить приложение и попробовать снова.';
+
+  @override
+  String get productsNotFoundFailure => 'Продукт не найден.';
+
+  @override
+  String get productsDeleteCacheFailure =>
+      'Ошибка удаления кэша продуктов. Попробуйте перезапустить приложение и попробовать снова.';
+
+  @override
+  String get iconIsRequired => 'Иконка обязательна';
+
+  @override
+  String get categoryIsRequired => 'Категория обязательна';
+
+  @override
+  String get unitIsRequired => 'Единица измерения обязательна';
+
+  @override
+  String get nameIsRequired => 'Название обязательно';
+
+  @override
+  String get productConfirmDeleteSheetTitle => 'Удаление продукта';
+
+  @override
+  String get productConfirmDeleteSheetDescription =>
+      'Вы уверены, что хотите удалить этот продукт?';
 }

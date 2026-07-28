@@ -71,3 +71,30 @@ class ProductFormCatalogUnitSelected extends ProductFormEvent {
   @override
   List<Object> get props => [catalogUnit];
 }
+
+class ProductFormCreateRequested extends ProductFormEvent {
+  const ProductFormCreateRequested({required this.params});
+
+  final CreateProductParams params;
+
+  @override
+  List<Object> get props => [params];
+}
+
+class ProductFormUpdateRequested extends ProductFormEvent {
+  const ProductFormUpdateRequested({required this.params});
+
+  final UpdateProductParams params;
+
+  @override
+  List<Object> get props => [params];
+}
+
+class ProductFormDeleteRequested extends ProductFormEvent {
+  const ProductFormDeleteRequested({required this.params});
+
+  final DeleteProductParams params;
+
+  @override
+  List<Object> get props => [params];
+}

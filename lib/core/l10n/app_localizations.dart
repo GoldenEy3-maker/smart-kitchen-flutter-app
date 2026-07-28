@@ -399,6 +399,66 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'Ошибка чтения кэша продуктов. Попробуйте перезапустить приложение и попробовать снова.'**
   String get productsReadCacheFailure;
+
+  /// Ошибка создания кэша продуктов
+  ///
+  /// In ru, this message translates to:
+  /// **'Ошибка создания кэша продуктов. Попробуйте перезапустить приложение и попробовать снова.'**
+  String get productsCreateCacheFailure;
+
+  /// Ошибка обновления кэша продуктов
+  ///
+  /// In ru, this message translates to:
+  /// **'Ошибка обновления кэша продуктов. Попробуйте перезапустить приложение и попробовать снова.'**
+  String get productsUpdateCacheFailure;
+
+  /// Ошибка продукта не найденного
+  ///
+  /// In ru, this message translates to:
+  /// **'Продукт не найден.'**
+  String get productsNotFoundFailure;
+
+  /// Ошибка удаления кэша продуктов
+  ///
+  /// In ru, this message translates to:
+  /// **'Ошибка удаления кэша продуктов. Попробуйте перезапустить приложение и попробовать снова.'**
+  String get productsDeleteCacheFailure;
+
+  /// Ошибка иконки обязательной
+  ///
+  /// In ru, this message translates to:
+  /// **'Иконка обязательна'**
+  String get iconIsRequired;
+
+  /// Ошибка категории обязательной
+  ///
+  /// In ru, this message translates to:
+  /// **'Категория обязательна'**
+  String get categoryIsRequired;
+
+  /// Ошибка единицы измерения обязательной
+  ///
+  /// In ru, this message translates to:
+  /// **'Единица измерения обязательна'**
+  String get unitIsRequired;
+
+  /// Ошибка названия обязательной
+  ///
+  /// In ru, this message translates to:
+  /// **'Название обязательно'**
+  String get nameIsRequired;
+
+  /// Заголовок для удаления продукта
+  ///
+  /// In ru, this message translates to:
+  /// **'Удаление продукта'**
+  String get productConfirmDeleteSheetTitle;
+
+  /// Описание для удаления продукта
+  ///
+  /// In ru, this message translates to:
+  /// **'Вы уверены, что хотите удалить этот продукт?'**
+  String get productConfirmDeleteSheetDescription;
 }
 
 class _AppLocalizationsDelegate

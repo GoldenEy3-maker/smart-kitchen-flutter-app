@@ -3,6 +3,7 @@ import "package:smart_kitchen_flutter_app/core/utils/either.dart";
 import "package:smart_kitchen_flutter_app/features/products/data/data_sources/data_sources.dart";
 import "package:smart_kitchen_flutter_app/features/products/domain/entities/product.dart";
 import "package:smart_kitchen_flutter_app/features/products/domain/repositories/repositories.dart";
+import "package:smart_kitchen_flutter_app/features/products/params/params.dart";
 
 class ProductRepositoryImpl implements ProductRepository {
   final ProductLocalDataSource _localDataSource;
@@ -17,5 +18,26 @@ class ProductRepositoryImpl implements ProductRepository {
       (products) =>
           Right(products.map((product) => product.toEntity()).toList()),
     );
+  }
+
+  @override
+  Future<Either<Failure, Product>> createProduct(
+    CreateProductParams params,
+  ) async {
+    final result = await _localDataSource.createProduct(params);
+    return result.fold(Left, (product) => Right(product.toEntity()));
+  }
+
+  @override
+  Future<Either<Failure, Product>> updateProduct(
+    UpdateProductParams params,
+  ) async {
+    final result = await _localDataSource.updateProduct(params);
+    return result.fold(Left, (product) => Right(product.toEntity()));
+  }
+
+  @override
+  Future<Either<Failure, void>> deleteProduct(DeleteProductParams params) {
+    return _localDataSource.deleteProduct(params);
   }
 }

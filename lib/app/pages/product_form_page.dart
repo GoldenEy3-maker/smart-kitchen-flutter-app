@@ -21,11 +21,15 @@ class ProductFormPage extends StatelessWidget {
 
     return BlocProvider(
       create: (_) => ProductFormBloc(
+        product: product,
         getCategoriesWithProductsCount: getIt
             .get<GetCategoriesWithProductsCount>(),
         createCategory: getIt.get<CreateCategory>(),
         deleteCategory: getIt.get<DeleteCategory>(),
         updateCategory: getIt.get<UpdateCategory>(),
+        createProduct: getIt.get<CreateProduct>(),
+        updateProduct: getIt.get<UpdateProduct>(),
+        deleteProduct: getIt.get<DeleteProduct>(),
       )..add(ProductFormCategoriesRequested(product: product)),
       child: Scaffold(
         body: ProductFormView(

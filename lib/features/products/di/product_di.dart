@@ -26,4 +26,16 @@ void registerProductDI() {
       getCategories: getIt.get<GetCategories>(),
     ),
   );
+
+  getIt.registerLazySingleton<CreateProduct>(
+    () => CreateProduct(repository: getIt.get<ProductRepository>()),
+  );
+
+  getIt.registerLazySingleton<UpdateProduct>(
+    () => UpdateProduct(repository: getIt.get<ProductRepository>()),
+  );
+
+  getIt.registerLazySingleton<DeleteProduct>(
+    () => DeleteProduct(repository: getIt.get<ProductRepository>()),
+  );
 }
