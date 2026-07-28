@@ -158,10 +158,6 @@
   "@unit_fullMilliliter": {
     "description": "Полное название единицы измерения: Миллилитры"
   },
-  "unit_fullOther": "Другое",
-  "@unit_fullOther": {
-    "description": "Полное название единицы измерения: Другое"
-  },
   "unit_shortPiece": "шт.",
   "@unit_shortPiece": {
     "description": "Короткое название единицы измерения: Штук"
@@ -174,8 +170,52 @@
   "@unit_shortMilliliter": {
     "description": "Короткое название единицы измерения: Миллилитры"
   },
-  "unit_shortOther": "др.",
-  "@unit_shortOther": {
-    "description": "Короткое название единицы измерения: Другое"
+  "unit_fullKilogram": "Килограммы",
+  "@unit_fullKilogram": {
+    "description": "Полное название единицы измерения: Килограммы"
+  },
+  "unit_shortKilogram": "кг.",
+  "@unit_shortKilogram": {
+    "description": "Короткое название единицы измерения: Килограммы"
+  },
+  "unit_fullLiter": "Литры",
+  "@unit_fullLiter": {
+    "description": "Полное название единицы измерения: Литры"
+  },
+  "unit_shortLiter": "л.",
+  "@unit_shortLiter": {
+    "description": "Короткое название единицы измерения: Литры"
+  },
+  "cacheFailure": "Ошибка чтения/записи кэша. Попробуйте перезапустить приложение и попробовать снова.",
+  "@cacheFailure": {
+    "description": "Ошибка чтения/записи кэша"
+  },
+  "unknownFailure": "Произошла неизвестная ошибка. Попробуйте позже.",
+  "@unknownFailure": {
+    "description": "Ошибка неизвестная ошибка"
+  },
+  "categoriesNotFoundFailure": "Категория не найдена.",
+  "@categoriesNotFoundFailure": {
+    "description": "Ошибка категории не найденной"
+  },
+  "categoriesReadCacheFailure": "Ошибка чтения кэша категорий. Попробуйте перезапустить приложение и попробовать снова.",
+  "@categoriesReadCacheFailure": {
+    "description": "Ошибка чтения кэша категорий"
+  },
+  "categoriesCreateFailure": "Ошибка создания категории. Попробуйте позже.",
+  "@categoriesCreateFailure": {
+    "description": "Ошибка создания категории"
+  },
+  "categoriesUpdateFailure": "Ошибка обновления категории. Попробуйте позже.",
+  "@categoriesUpdateFailure": {
+    "description": "Ошибка обновления категории"
+  },
+  "categoriesDeleteFailure": "Ошибка удаления категории. Попробуйте позже.",
+  "@categoriesDeleteFailure": {
+    "description": "Ошибка удаления категории"
+  },
+  "productsReadCacheFailure": "Ошибка чтения кэша продуктов. Попробуйте перезапустить приложение и попробовать снова.",
+  "@productsReadCacheFailure": {
+    "description": "Ошибка чтения кэша продуктов"
   }
 }

@@ -3,10 +3,11 @@ import "package:smart_kitchen_flutter_app/shared/categories/data/data_sources/da
 import "package:smart_kitchen_flutter_app/shared/categories/data/repositories/repositories.dart";
 import "package:smart_kitchen_flutter_app/shared/categories/domain/repositories/repositories.dart";
 import "package:smart_kitchen_flutter_app/shared/categories/domain/usecases/usecases.dart";
+import "package:talker_flutter/talker_flutter.dart";
 
 void registerCategoriesDI() {
   getIt.registerLazySingleton<CategoriesLocalDataSource>(
-    () => CategoriesLocalDataSourceImpl(),
+    () => CategoriesLocalDataSourceImpl(talker: getIt.get<Talker>()),
   );
   getIt.registerLazySingleton<CategoriesRepository>(
     () => CategoriesRepositoryImpl(

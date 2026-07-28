@@ -310,12 +310,6 @@ abstract class AppLocalizations {
   /// **'Миллилитры'**
   String get unit_fullMilliliter;
 
-  /// Полное название единицы измерения: Другое
-  ///
-  /// In ru, this message translates to:
-  /// **'Другое'**
-  String get unit_fullOther;
-
   /// Короткое название единицы измерения: Штук
   ///
   /// In ru, this message translates to:
@@ -334,11 +328,77 @@ abstract class AppLocalizations {
   /// **'мл.'**
   String get unit_shortMilliliter;
 
-  /// Короткое название единицы измерения: Другое
+  /// Полное название единицы измерения: Килограммы
   ///
   /// In ru, this message translates to:
-  /// **'др.'**
-  String get unit_shortOther;
+  /// **'Килограммы'**
+  String get unit_fullKilogram;
+
+  /// Короткое название единицы измерения: Килограммы
+  ///
+  /// In ru, this message translates to:
+  /// **'кг.'**
+  String get unit_shortKilogram;
+
+  /// Полное название единицы измерения: Литры
+  ///
+  /// In ru, this message translates to:
+  /// **'Литры'**
+  String get unit_fullLiter;
+
+  /// Короткое название единицы измерения: Литры
+  ///
+  /// In ru, this message translates to:
+  /// **'л.'**
+  String get unit_shortLiter;
+
+  /// Ошибка чтения/записи кэша
+  ///
+  /// In ru, this message translates to:
+  /// **'Ошибка чтения/записи кэша. Попробуйте перезапустить приложение и попробовать снова.'**
+  String get cacheFailure;
+
+  /// Ошибка неизвестная ошибка
+  ///
+  /// In ru, this message translates to:
+  /// **'Произошла неизвестная ошибка. Попробуйте позже.'**
+  String get unknownFailure;
+
+  /// Ошибка категории не найденной
+  ///
+  /// In ru, this message translates to:
+  /// **'Категория не найдена.'**
+  String get categoriesNotFoundFailure;
+
+  /// Ошибка чтения кэша категорий
+  ///
+  /// In ru, this message translates to:
+  /// **'Ошибка чтения кэша категорий. Попробуйте перезапустить приложение и попробовать снова.'**
+  String get categoriesReadCacheFailure;
+
+  /// Ошибка создания категории
+  ///
+  /// In ru, this message translates to:
+  /// **'Ошибка создания категории. Попробуйте позже.'**
+  String get categoriesCreateFailure;
+
+  /// Ошибка обновления категории
+  ///
+  /// In ru, this message translates to:
+  /// **'Ошибка обновления категории. Попробуйте позже.'**
+  String get categoriesUpdateFailure;
+
+  /// Ошибка удаления категории
+  ///
+  /// In ru, this message translates to:
+  /// **'Ошибка удаления категории. Попробуйте позже.'**
+  String get categoriesDeleteFailure;
+
+  /// Ошибка чтения кэша продуктов
+  ///
+  /// In ru, this message translates to:
+  /// **'Ошибка чтения кэша продуктов. Попробуйте перезапустить приложение и попробовать снова.'**
+  String get productsReadCacheFailure;
 }
 
 class _AppLocalizationsDelegate

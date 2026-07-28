@@ -4,11 +4,12 @@ import "package:smart_kitchen_flutter_app/features/products/data/repositories/re
 import "package:smart_kitchen_flutter_app/features/products/domain/repositories/repositories.dart";
 import "package:smart_kitchen_flutter_app/features/products/domain/usecases/usecases.dart";
 import "package:smart_kitchen_flutter_app/shared/categories/domain/usecases/usecases.dart";
+import "package:talker_flutter/talker_flutter.dart";
 
 void registerProductDI() {
   getIt.registerLazySingleton<ProductLocalDataSource>(
     // () => ProductMockLocalDataSource(),
-    () => ProductLocalDataSourceImpl(),
+    () => ProductLocalDataSourceImpl(talker: getIt.get<Talker>()),
   );
   getIt.registerLazySingleton<ProductRepository>(
     () => ProductRepositoryImpl(

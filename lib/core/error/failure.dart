@@ -1,22 +1,25 @@
-sealed class Failure {
-  final String message;
+import "package:smart_kitchen_flutter_app/core/l10n/app_localizations.dart";
 
-  const Failure(this.message);
+abstract class Failure {
+  const Failure();
 
-  @override
-  String toString() => message;
+  String localizedMessage(AppLocalizations l10n) => l10n.unknownFailure;
 }
 
 class CacheFailure extends Failure {
-  const CacheFailure({String? message}) : super(message ?? "Cache failure");
+  const CacheFailure();
 
   @override
-  String toString() => "CacheFailure: $message";
+  String localizedMessage(AppLocalizations l10n) {
+    return l10n.cacheFailure;
+  }
 }
 
 class UnknownFailure extends Failure {
-  const UnknownFailure({String? message}) : super(message ?? "Unknown failure");
+  const UnknownFailure();
 
   @override
-  String toString() => "UnknownFailure: $message";
+  String localizedMessage(AppLocalizations l10n) {
+    return l10n.unknownFailure;
+  }
 }

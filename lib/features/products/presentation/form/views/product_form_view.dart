@@ -11,6 +11,7 @@ import "package:smart_kitchen_flutter_app/core/widgets/button/button_size.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/button/button_style.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/form_item/form_item.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/input/input.dart";
+import "package:smart_kitchen_flutter_app/core/widgets/toast/app_toast.dart";
 import "package:smart_kitchen_flutter_app/features/products/domain/entities/entities.dart";
 import "package:smart_kitchen_flutter_app/features/products/presentation/form/bloc/bloc.dart";
 import "package:smart_kitchen_flutter_app/features/products/presentation/form/widgets/widgets.dart";
@@ -74,6 +75,7 @@ class _ProductFormViewState extends State<ProductFormView> {
   }
 
   void _onCategoryCreateSheetOpened(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final bloc = context.read<ProductFormBloc>();
 
     showCategoryCreateSheet(
@@ -86,8 +88,14 @@ class _ProductFormViewState extends State<ProductFormView> {
           ProductFormCategoryCreateRequested(label: label, iconKey: iconKey),
         );
         final state = await done;
-        // TODO: add error handling
-        return state.error == null;
+
+        final isSuccess = state.error == null;
+
+        if (!isSuccess && mounted) {
+          AppToast.showError(context, state.error!.localizedMessage(l10n));
+        }
+
+        return isSuccess;
       },
     );
   }

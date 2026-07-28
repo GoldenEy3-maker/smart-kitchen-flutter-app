@@ -133,9 +133,6 @@ class AppLocalizationsRu extends AppLocalizations {
   String get unit_fullMilliliter => 'Миллилитры';
 
   @override
-  String get unit_fullOther => 'Другое';
-
-  @override
   String get unit_shortPiece => 'шт.';
 
   @override
@@ -145,5 +142,45 @@ class AppLocalizationsRu extends AppLocalizations {
   String get unit_shortMilliliter => 'мл.';
 
   @override
-  String get unit_shortOther => 'др.';
+  String get unit_fullKilogram => 'Килограммы';
+
+  @override
+  String get unit_shortKilogram => 'кг.';
+
+  @override
+  String get unit_fullLiter => 'Литры';
+
+  @override
+  String get unit_shortLiter => 'л.';
+
+  @override
+  String get cacheFailure =>
+      'Ошибка чтения/записи кэша. Попробуйте перезапустить приложение и попробовать снова.';
+
+  @override
+  String get unknownFailure =>
+      'Произошла неизвестная ошибка. Попробуйте позже.';
+
+  @override
+  String get categoriesNotFoundFailure => 'Категория не найдена.';
+
+  @override
+  String get categoriesReadCacheFailure =>
+      'Ошибка чтения кэша категорий. Попробуйте перезапустить приложение и попробовать снова.';
+
+  @override
+  String get categoriesCreateFailure =>
+      'Ошибка создания категории. Попробуйте позже.';
+
+  @override
+  String get categoriesUpdateFailure =>
+      'Ошибка обновления категории. Попробуйте позже.';
+
+  @override
+  String get categoriesDeleteFailure =>
+      'Ошибка удаления категории. Попробуйте позже.';
+
+  @override
+  String get productsReadCacheFailure =>
+      'Ошибка чтения кэша продуктов. Попробуйте перезапустить приложение и попробовать снова.';
 }

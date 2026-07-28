@@ -11,10 +11,11 @@ class CatalogUnitsLabels {
 enum CatalogUnits {
   piece,
   gram,
+  kilogram,
   milliliter,
-  other;
+  liter;
 
-  static const fallback = CatalogUnits.other;
+  static const fallback = CatalogUnits.piece;
 
   static CatalogUnitsLabels resolveLabels({
     required BuildContext context,
@@ -31,13 +32,17 @@ enum CatalogUnits {
         full: l10n.unit_fullGram,
         short: l10n.unit_shortGram,
       ),
+      CatalogUnits.kilogram => CatalogUnitsLabels(
+        full: l10n.unit_fullKilogram,
+        short: l10n.unit_shortKilogram,
+      ),
       CatalogUnits.milliliter => CatalogUnitsLabels(
         full: l10n.unit_fullMilliliter,
         short: l10n.unit_shortMilliliter,
       ),
-      CatalogUnits.other => CatalogUnitsLabels(
-        full: l10n.unit_fullOther,
-        short: l10n.unit_shortOther,
+      CatalogUnits.liter => CatalogUnitsLabels(
+        full: l10n.unit_fullLiter,
+        short: l10n.unit_shortLiter,
       ),
     };
   }

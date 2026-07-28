@@ -2,7 +2,9 @@ import "package:hive_ce/hive.dart";
 import "package:smart_kitchen_flutter_app/core/error/error.dart";
 import "package:smart_kitchen_flutter_app/core/utils/utils.dart";
 import "package:smart_kitchen_flutter_app/shared/categories/data/models/models.dart";
+import "package:smart_kitchen_flutter_app/shared/categories/error/error.dart";
 import "package:smart_kitchen_flutter_app/shared/categories/params/params.dart";
+import "package:talker_flutter/talker_flutter.dart";
 
 abstract interface class CategoriesLocalDataSource {
   Future<Either<Failure, List<CategoryModel>>> getCategories();
@@ -18,6 +20,10 @@ abstract interface class CategoriesLocalDataSource {
 enum CategoriesLocalDataSourceBoxName { categories }
 
 class CategoriesLocalDataSourceImpl implements CategoriesLocalDataSource {
+  CategoriesLocalDataSourceImpl({required this._talker});
+
+  final Talker _talker;
+
   @override
   Future<Either<Failure, List<CategoryModel>>> getCategories() async {
     try {
@@ -28,8 +34,13 @@ class CategoriesLocalDataSourceImpl implements CategoriesLocalDataSource {
             .map((c) => CategoryModel.fromJson(Map<String, dynamic>.from(c)))
             .toList(),
       );
-    } catch (e) {
-      return Left(CacheFailure(message: e.toString()));
+    } catch (e, st) {
+      _talker.error(
+        "CategoriesLocalDataSourceImpl.getCategories failed",
+        e,
+        st,
+      );
+      return Left(CategoriesReadCacheFailure());
     }
   }
 
@@ -46,8 +57,13 @@ class CategoriesLocalDataSourceImpl implements CategoriesLocalDataSource {
       );
       await categoriesBox.put(newCategory.id, newCategory.toJson());
       return Right(newCategory);
-    } catch (e) {
-      return Left(CacheFailure(message: e.toString()));
+    } catch (e, st) {
+      _talker.error(
+        "CategoriesLocalDataSourceImpl.createCategory failed",
+        e,
+        st,
+      );
+      return Left(CategoriesCreateFailure());
     }
   }
 
@@ -68,8 +84,20 @@ class CategoriesLocalDataSourceImpl implements CategoriesLocalDataSource {
       );
       await categoriesBox.put(newCategory.id, newCategory.toJson());
       return Right(newCategory);
-    } catch (e) {
-      return Left(CacheFailure(message: e.toString()));
+    } on StateError catch (e, st) {
+      _talker.error(
+        "CategoriesLocalDataSourceImpl.updateCategory failed",
+        e,
+        st,
+      );
+      return Left(CategoriesNotFoundFailure());
+    } catch (e, st) {
+      _talker.error(
+        "CategoriesLocalDataSourceImpl.updateCategory failed",
+        e,
+        st,
+      );
+      return Left(CategoriesUpdateFailure());
     }
   }
 
@@ -81,8 +109,13 @@ class CategoriesLocalDataSourceImpl implements CategoriesLocalDataSource {
       final categoriesBox = await _openCategoriesBox();
       await categoriesBox.delete(params.id);
       return Right(null);
-    } catch (e) {
-      return Left(CacheFailure(message: e.toString()));
+    } catch (e, st) {
+      _talker.error(
+        "CategoriesLocalDataSourceImpl.deleteCategory failed",
+        e,
+        st,
+      );
+      return Left(CategoriesDeleteFailure());
     }
   }
 

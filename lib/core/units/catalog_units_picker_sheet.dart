@@ -9,7 +9,7 @@ import "package:smart_kitchen_flutter_app/core/widgets/button/button_size.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/button/button_style.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/resizable_sheet/show_resizable_sheet.dart";
 
-const _initialSheetSize = 0.44;
+const _initialSheetSize = 0.52;
 const _maxSheetSize = 0.9;
 
 Future<CatalogUnits?> showCatalogUnitsPickerSheet({
