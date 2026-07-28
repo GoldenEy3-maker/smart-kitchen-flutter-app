@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
+import "package:lucide_icons_flutter/lucide_icons.dart";
 import "package:smart_kitchen_flutter_app/core/l10n/app_localizations.dart";
 import "package:smart_kitchen_flutter_app/core/theme/theme.dart";
 import "package:smart_kitchen_flutter_app/core/units/scroll_sheet_to_item.dart";
@@ -8,6 +9,7 @@ import "package:smart_kitchen_flutter_app/core/widgets/resizable_sheet/show_resi
 import "package:smart_kitchen_flutter_app/features/products/domain/entities/category_with_products_count.dart";
 import "package:smart_kitchen_flutter_app/features/products/presentation/form/bloc/bloc.dart";
 import "package:smart_kitchen_flutter_app/features/products/presentation/form/widgets/widgets.dart";
+import 'package:fluttertoast/fluttertoast.dart';
 
 const _maxSheetSize = 0.9;
 const _initialSheetSize = 0.46;
@@ -54,6 +56,7 @@ class CategoryManagerSheetView extends StatefulWidget {
 }
 
 class _CategoryManagerSheetViewState extends State<CategoryManagerSheetView> {
+  late FToast fToast;
   late final ValueNotifier<CategoryWithProductsCount?> _selectedCategory =
       ValueNotifier(widget.initialSelectedCategory);
 
@@ -67,6 +70,7 @@ class _CategoryManagerSheetViewState extends State<CategoryManagerSheetView> {
 
   void _onEditPressed(CategoryWithProductsCount category) {
     final bloc = context.read<ProductFormBloc>();
+    final l10n = AppLocalizations.of(context)!;
     showCategoryEditSheet(
       context: context,
       category: category,
@@ -82,6 +86,47 @@ class _CategoryManagerSheetViewState extends State<CategoryManagerSheetView> {
 
         if (isSuccess && isSelectedCategory && mounted) {
           _selectedCategory.value = updatedCategory;
+        }
+
+        if (!isSuccess && mounted) {
+          fToast.showToast(
+            child: Container(
+              constraints: BoxConstraints(
+                maxWidth: MediaQuery.of(context).size.width * 0.8,
+              ),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 24.0,
+                vertical: 12.0,
+              ),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(25.0),
+                color: AppColors.dangerSoft,
+                boxShadow: [
+                  BoxShadow(
+                    blurRadius: 16,
+                    color: AppColors.danger.withValues(alpha: 0.25),
+                    offset: Offset(0, 6),
+                  ),
+                ],
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                spacing: AppSpacing.small,
+                children: [
+                  Icon(LucideIcons.circleX, color: AppColors.dangerText),
+                  Expanded(
+                    child: Text(
+                      state.error!.message,
+                      style: AppTypography.textTheme.bodyLarge,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            gravity: ToastGravity.BOTTOM,
+            toastDuration: const Duration(seconds: 5),
+            isDismissible: true,
+          );
         }
 
         return isSuccess;
@@ -132,6 +177,8 @@ class _CategoryManagerSheetViewState extends State<CategoryManagerSheetView> {
   @override
   void initState() {
     super.initState();
+    fToast = FToast();
+    fToast.init(context);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _scrollToInitialSelectedCategory();
     });

@@ -73,6 +73,8 @@ class SelectedCategoryCard extends StatelessWidget {
                           style: AppTypography.textTheme.titleMedium!.copyWith(
                             color: AppColors.textPrimary,
                           ),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
                         ),
                         Text(
                           l10n.productsCount(resolvedCategory.productsCount),

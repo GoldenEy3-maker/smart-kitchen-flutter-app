@@ -36,7 +36,7 @@ class CategoryTile extends StatelessWidget {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 300),
       curve: Curves.easeInOut,
-      height: height,
+      constraints: BoxConstraints(minHeight: height),
       decoration: BoxDecoration(
         color: backgroundColor,
         shape: BoxShape.rectangle,
@@ -82,7 +82,7 @@ class CategoryTile extends StatelessWidget {
                         style: AppTypography.textTheme.titleMedium!.copyWith(
                           color: AppColors.textPrimary,
                         ),
-                        maxLines: 1,
+                        maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                       ),
                       Text(
@@ -90,8 +90,6 @@ class CategoryTile extends StatelessWidget {
                         style: AppTypography.textTheme.bodySmall!.copyWith(
                           color: AppColors.textSecondary,
                         ),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
                       ),
                     ],
                   ),

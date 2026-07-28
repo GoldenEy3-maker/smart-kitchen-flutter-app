@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:fluttertoast/fluttertoast.dart";
 import "package:smart_kitchen_flutter_app/app/router/app_router.dart";
 import "package:smart_kitchen_flutter_app/core/di/di.dart";
 import "package:smart_kitchen_flutter_app/core/l10n/app_localizations.dart";
@@ -18,6 +19,7 @@ class SmartKitchenApp extends StatelessWidget {
       locale: const Locale("ru"),
       routerConfig: _appRouter.config(),
       theme: _appTheme.lightTheme,
+      builder: FToastBuilder(),
     );
   }
 }
