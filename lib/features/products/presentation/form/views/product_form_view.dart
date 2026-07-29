@@ -13,20 +13,22 @@ import "package:smart_kitchen_flutter_app/core/widgets/form_item/form_item.dart"
 import "package:smart_kitchen_flutter_app/core/widgets/input/input.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/toast/app_toast.dart";
 import "package:smart_kitchen_flutter_app/features/products/domain/entities/entities.dart";
+import "package:smart_kitchen_flutter_app/features/products/navigation/navigation.dart";
 import "package:smart_kitchen_flutter_app/features/products/params/params.dart";
 import "package:smart_kitchen_flutter_app/features/products/presentation/form/bloc/bloc.dart";
 import "package:smart_kitchen_flutter_app/features/products/presentation/form/widgets/widgets.dart";
+import "package:smart_kitchen_flutter_app/shared/categories/domain/entities/entities.dart";
 import "package:smart_kitchen_flutter_app/shared/categories/presentation/widgets/widgets.dart";
 
 class ProductFormView extends StatefulWidget {
   const ProductFormView({
     super.key,
     this.product,
-    required this.onGoBackPressed,
+    required this.onGoBackRequested,
   });
 
   final Product? product;
-  final VoidCallback onGoBackPressed;
+  final void Function(OpenProductFormResultEvent event) onGoBackRequested;
 
   @override
   State<ProductFormView> createState() => _ProductFormViewState();
@@ -161,40 +163,48 @@ class _ProductFormViewState extends State<ProductFormView> {
       final done = bloc.stream.firstWhere(
         (state) => !state.isSaveProductPending,
       );
-      if (widget.product != null) {
-        bloc.add(
-          ProductFormUpdateRequested(
-            params: UpdateProductParams(
-              id: widget.product!.id,
-              name: _nameController.text,
-              iconKey: bloc.state.selectedCatalogIcon!.name,
-              categoryId: bloc.state.selectedCategory!.id,
-              unit: bloc.state.selectedCatalogUnit!.name,
-            ),
-          ),
-        );
-      } else {
-        bloc.add(
-          ProductFormCreateRequested(
-            params: CreateProductParams(
-              name: _nameController.text,
-              iconKey: bloc.state.selectedCatalogIcon!.name,
-              categoryId: bloc.state.selectedCategory!.id,
-              unit: bloc.state.selectedCatalogUnit!.name,
-            ),
-          ),
-        );
-      }
+      final shouldUseUpdate = widget.product != null;
+      final blocEvent = shouldUseUpdate
+          ? ProductFormUpdateRequested(
+              params: UpdateProductParams(
+                id: widget.product!.id,
+                name: _nameController.text,
+                iconKey: bloc.state.selectedCatalogIcon!.name,
+                categoryId: bloc.state.selectedCategory!.id,
+                unit: bloc.state.selectedCatalogUnit!.name,
+              ),
+            )
+          : ProductFormCreateRequested(
+              params: CreateProductParams(
+                name: _nameController.text,
+                iconKey: bloc.state.selectedCatalogIcon!.name,
+                categoryId: bloc.state.selectedCategory!.id,
+                unit: bloc.state.selectedCatalogUnit!.name,
+              ),
+            );
+
+      bloc.add(blocEvent);
 
       final state = await done;
-      final isSuccess = state.error == null;
+      final isSuccess = state.error == null && state.savedProduct != null;
 
       if (!isSuccess && mounted) {
         AppToast.showError(context, state.error!.localizedMessage(l10n));
       }
 
       if (isSuccess && mounted) {
-        widget.onGoBackPressed();
+        final product = state.savedProduct!;
+        widget.onGoBackRequested(
+          shouldUseUpdate
+              ? OpenProductFormResultEventUpdated(
+                  categories: state.categories.toCategories(),
+                  product: product,
+                )
+              : OpenProductFormResultEventCreated(
+                  categories: state.categories.toCategories(),
+                  product: product,
+                ),
+        );
       }
     }
   }
@@ -223,7 +233,12 @@ class _ProductFormViewState extends State<ProductFormView> {
 
         if (isSuccess && mounted) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
-            widget.onGoBackPressed();
+            widget.onGoBackRequested(
+              OpenProductFormResultEventDeleted(
+                product: widget.product!,
+                categories: bloc.state.categories.toCategories(),
+              ),
+            );
           });
         }
 
@@ -262,7 +277,15 @@ class _ProductFormViewState extends State<ProductFormView> {
             style: ButtonStyles.secondary,
             size: ButtonSizes.iconSmall,
             rounder: ButtonRounders.circle,
-            onPressed: widget.onGoBackPressed,
+            onPressed: () => widget.onGoBackRequested(
+              OpenProductFormResultEventReturned(
+                categories: context
+                    .read<ProductFormBloc>()
+                    .state
+                    .categories
+                    .toCategories(),
+              ),
+            ),
             child: const Icon(LucideIcons.chevronLeft, size: 22),
           ),
         ),

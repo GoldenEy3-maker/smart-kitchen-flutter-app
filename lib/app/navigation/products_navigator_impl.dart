@@ -8,7 +8,9 @@ class ProductsNavigatorImpl implements ProductsNavigator {
   final AppRouter _router;
 
   @override
-  void openProductForm({Product? product}) {
-    _router.push(ProductFormRoute(product: product));
+  Future<OpenProductFormResultEvent?> openProductForm({
+    Product? product,
+  }) async {
+    return _router.push(ProductFormRoute(product: product));
   }
 }

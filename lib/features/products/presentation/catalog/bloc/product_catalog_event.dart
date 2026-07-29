@@ -26,3 +26,42 @@ class SearchQueryChanged extends ProductCatalogEvent {
   @override
   List<Object?> get props => [...super.props, query];
 }
+
+class ProductDeleted extends ProductCatalogEvent {
+  const ProductDeleted({required this.product, required this.categories});
+
+  final Product product;
+  final List<Category> categories;
+
+  @override
+  List<Object?> get props => [...super.props, product, categories];
+}
+
+class ProductCreated extends ProductCatalogEvent {
+  const ProductCreated({required this.product, required this.categories});
+
+  final Product product;
+  final List<Category> categories;
+
+  @override
+  List<Object?> get props => [...super.props, product, categories];
+}
+
+class ProductUpdated extends ProductCatalogEvent {
+  const ProductUpdated({required this.product, required this.categories});
+
+  final Product product;
+  final List<Category> categories;
+
+  @override
+  List<Object?> get props => [...super.props, product, categories];
+}
+
+class ProductCategoriesUpdated extends ProductCatalogEvent {
+  const ProductCategoriesUpdated({required this.categories});
+
+  final List<Category> categories;
+
+  @override
+  List<Object?> get props => [...super.props, categories];
+}

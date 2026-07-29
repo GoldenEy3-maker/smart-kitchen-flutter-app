@@ -34,7 +34,7 @@ class ProductFormPage extends StatelessWidget {
       child: Scaffold(
         body: ProductFormView(
           product: product,
-          onGoBackPressed: () => router.maybePop(),
+          onGoBackRequested: (event) => router.maybePop(event),
         ),
       ),
     );

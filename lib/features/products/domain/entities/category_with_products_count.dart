@@ -1,5 +1,6 @@
 import "package:equatable/equatable.dart";
 import "package:smart_kitchen_flutter_app/core/icons/catalog_icons.dart";
+import "package:smart_kitchen_flutter_app/shared/categories/domain/entities/entities.dart";
 
 class CategoryWithProductsCount extends Equatable {
   const CategoryWithProductsCount({
@@ -21,6 +22,14 @@ class CategoryWithProductsCount extends Equatable {
     productsCount: 0,
   );
 
+  Category toCategory() => Category(id: id, label: label, iconKey: iconKey);
+
   @override
   List<Object?> get props => [id, label, iconKey, productsCount];
+}
+
+extension CategoryWithProductsCountListExtension
+    on List<CategoryWithProductsCount> {
+  List<Category> toCategories() =>
+      map((category) => category.toCategory()).toList();
 }

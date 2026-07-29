@@ -30,6 +30,10 @@ class ProductCatalogBloc
     on<LoadProductCatalogRequested>(_onLoadProductCatalogRequested);
     on<SelectedCategoryChanged>(_onSelectedCategoryChanged);
     on<SearchQueryChanged>(_onSearchQueryChanged);
+    on<ProductDeleted>(_onProductDeleted);
+    on<ProductCreated>(_onProductCreated);
+    on<ProductUpdated>(_onProductUpdated);
+    on<ProductCategoriesUpdated>(_onProductCategoriesUpdated);
   }
 
   Future<void> _onLoadProductCatalogRequested(
@@ -64,5 +68,55 @@ class ProductCatalogBloc
     Emitter<ProductCatalogState> emit,
   ) {
     emit(state.copyWith(searchQuery: event.query));
+  }
+
+  void _onProductDeleted(
+    ProductDeleted event,
+    Emitter<ProductCatalogState> emit,
+  ) {
+    emit(
+      state.copyWith(
+        products: state.products
+            .where((product) => product.id != event.product.id)
+            .toList(),
+        categories: event.categories,
+      ),
+    );
+  }
+
+  void _onProductCreated(
+    ProductCreated event,
+    Emitter<ProductCatalogState> emit,
+  ) {
+    emit(
+      state.copyWith(
+        products: [...state.products, event.product],
+        categories: event.categories,
+      ),
+    );
+  }
+
+  void _onProductUpdated(
+    ProductUpdated event,
+    Emitter<ProductCatalogState> emit,
+  ) {
+    emit(
+      state.copyWith(
+        products: state.products
+            .map(
+              (product) =>
+                  product.id == event.product.id ? event.product : product,
+            )
+            .toList(),
+        categories: event.categories,
+      ),
+    );
+  }
+
+  void _onProductCategoriesUpdated(
+    ProductCategoriesUpdated event,
+    Emitter<ProductCatalogState> emit,
+  ) {
+    emit(state.copyWith(categories: event.categories));
   }
 }

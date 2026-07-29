@@ -10,6 +10,7 @@ class ProductFormState extends Equatable {
     this.isEditCategoryPending = false,
     this.isSaveProductPending = false,
     this.isDeleteProductPending = false,
+    this.savedProduct,
     this.selectedCatalogIcon,
     this.selectedCatalogUnit,
     this.error,
@@ -25,6 +26,7 @@ class ProductFormState extends Equatable {
   final bool isDeleteProductPending;
   final CatalogIcons? selectedCatalogIcon;
   final CatalogUnits? selectedCatalogUnit;
+  final Product? savedProduct;
   final Failure? error;
 
   ProductFormState copyWith({
@@ -38,6 +40,7 @@ class ProductFormState extends Equatable {
     bool? isDeleteProductPending,
     CatalogIcons? selectedCatalogIcon,
     CatalogUnits? selectedCatalogUnit,
+    ValueGetter<Product?>? savedProduct,
     ValueGetter<Failure?>? error,
   }) {
     return ProductFormState(
@@ -57,6 +60,7 @@ class ProductFormState extends Equatable {
           isDeleteProductPending ?? this.isDeleteProductPending,
       selectedCatalogIcon: selectedCatalogIcon ?? this.selectedCatalogIcon,
       selectedCatalogUnit: selectedCatalogUnit ?? this.selectedCatalogUnit,
+      savedProduct: savedProduct != null ? savedProduct() : this.savedProduct,
       error: error != null ? error() : this.error,
     );
   }
@@ -73,6 +77,7 @@ class ProductFormState extends Equatable {
     isDeleteProductPending,
     selectedCatalogIcon,
     selectedCatalogUnit,
+    savedProduct,
     error,
   ];
 }

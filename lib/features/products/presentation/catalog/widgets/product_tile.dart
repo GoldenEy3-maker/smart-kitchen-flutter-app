@@ -9,14 +9,14 @@ import "package:smart_kitchen_flutter_app/features/products/domain/entities/enti
 import "package:lucide_icons_flutter/lucide_icons.dart";
 
 class ProductTile extends StatelessWidget {
-  final Product product;
-  final ProductsNavigator navigator;
-
   const ProductTile({
     super.key,
     required this.product,
-    required this.navigator,
+    required this.onPressed,
   });
+
+  final Product product;
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class ProductTile extends StatelessWidget {
         side: Border.all(color: AppColors.border).top,
       ),
       child: InkWell(
-        onTap: () => navigator.openProductForm(product: product),
+        onTap: onPressed,
         borderRadius: BorderRadius.all(Radius.circular(AppRadius.small)),
         customBorder: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(AppRadius.small)),

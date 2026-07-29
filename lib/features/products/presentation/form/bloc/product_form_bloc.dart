@@ -233,15 +233,26 @@ class ProductFormBloc extends Bloc<ProductFormEvent, ProductFormState> {
     ProductFormCreateRequested event,
     Emitter<ProductFormState> emit,
   ) async {
-    emit(state.copyWith(isSaveProductPending: true, error: () => null));
+    emit(
+      state.copyWith(
+        isSaveProductPending: true,
+        error: () => null,
+        savedProduct: () => null,
+      ),
+    );
 
     final result = await _createProduct(event.params);
     result.fold(
       (failure) => emit(
         state.copyWith(isSaveProductPending: false, error: () => failure),
       ),
-      (product) =>
-          emit(state.copyWith(isSaveProductPending: false, error: () => null)),
+      (product) => emit(
+        state.copyWith(
+          isSaveProductPending: false,
+          error: () => null,
+          savedProduct: () => product,
+        ),
+      ),
     );
   }
 
@@ -249,15 +260,26 @@ class ProductFormBloc extends Bloc<ProductFormEvent, ProductFormState> {
     ProductFormUpdateRequested event,
     Emitter<ProductFormState> emit,
   ) async {
-    emit(state.copyWith(isSaveProductPending: true, error: () => null));
+    emit(
+      state.copyWith(
+        isSaveProductPending: true,
+        error: () => null,
+        savedProduct: () => null,
+      ),
+    );
 
     final result = await _updateProduct(event.params);
     result.fold(
       (failure) => emit(
         state.copyWith(isSaveProductPending: false, error: () => failure),
       ),
-      (product) =>
-          emit(state.copyWith(isSaveProductPending: false, error: () => null)),
+      (product) => emit(
+        state.copyWith(
+          isSaveProductPending: false,
+          error: () => null,
+          savedProduct: () => product,
+        ),
+      ),
     );
   }
 

@@ -8,10 +8,10 @@ import "package:smart_kitchen_flutter_app/features/products/domain/entities/enti
 
 const _maxSheetSize = 0.9;
 
-Future<bool?> showCategoryDeleteSheet({
+Future<bool?> showCategoryConfirmDeleteSheet({
   required BuildContext context,
   required CategoryWithProductsCount category,
-  required Future<bool> Function() onDelete,
+  required Future<bool> Function() onConfirm,
 }) async {
   final isCategoryHasLinkedProducts = category.productsCount > 0;
 
@@ -20,41 +20,42 @@ Future<bool?> showCategoryDeleteSheet({
     maxSize: _maxSheetSize,
     fitToContent: true,
     builder: (context, scrollController, sheetController) =>
-        CategoryDeleteSheetView(
+        CategoryConfirmDeleteSheetView(
           category: category,
-          onDelete: onDelete,
+          onConfirm: onConfirm,
           isCategoryHasLinkedProducts: isCategoryHasLinkedProducts,
           scrollController: scrollController,
         ),
   );
 }
 
-class CategoryDeleteSheetView extends StatefulWidget {
-  const CategoryDeleteSheetView({
+class CategoryConfirmDeleteSheetView extends StatefulWidget {
+  const CategoryConfirmDeleteSheetView({
     super.key,
     required this.category,
-    required this.onDelete,
+    required this.onConfirm,
     required this.isCategoryHasLinkedProducts,
     required this.scrollController,
   });
 
   final CategoryWithProductsCount category;
-  final Future<bool> Function() onDelete;
+  final Future<bool> Function() onConfirm;
   final bool isCategoryHasLinkedProducts;
   final ScrollController scrollController;
 
   @override
-  State<CategoryDeleteSheetView> createState() =>
-      _CategoryDeleteSheetViewState();
+  State<CategoryConfirmDeleteSheetView> createState() =>
+      _CategoryConfirmDeleteSheetViewState();
 }
 
-class _CategoryDeleteSheetViewState extends State<CategoryDeleteSheetView> {
+class _CategoryConfirmDeleteSheetViewState
+    extends State<CategoryConfirmDeleteSheetView> {
   final ValueNotifier<bool> _isPending = ValueNotifier(false);
 
-  Future<void> _onDeletePressed() async {
+  Future<void> _onConfirmPressed() async {
     _isPending.value = true;
     try {
-      final result = await widget.onDelete();
+      final result = await widget.onConfirm();
       if (result && mounted) {
         Navigator.pop(context, true);
       }
@@ -125,19 +126,20 @@ class _CategoryDeleteSheetViewState extends State<CategoryDeleteSheetView> {
                     child: Text(l10n.cancel, textAlign: .center),
                   ),
                 ),
-                ValueListenableBuilder(
-                  valueListenable: _isPending,
-                  builder: (context, value, child) {
-                    return Expanded(
-                      child: Button(
-                        style: ButtonStyles.destructiveGhost,
-                        disabled: value || widget.isCategoryHasLinkedProducts,
-                        onPressed: _onDeletePressed,
-                        child: Text(l10n.delete, textAlign: .center),
-                      ),
-                    );
-                  },
-                ),
+                if (!widget.isCategoryHasLinkedProducts)
+                  ValueListenableBuilder(
+                    valueListenable: _isPending,
+                    builder: (context, value, child) {
+                      return Expanded(
+                        child: Button(
+                          style: ButtonStyles.destructiveGhost,
+                          disabled: value || widget.isCategoryHasLinkedProducts,
+                          onPressed: _onConfirmPressed,
+                          child: Text(l10n.delete, textAlign: .center),
+                        ),
+                      );
+                    },
+                  ),
               ],
             ),
           ],

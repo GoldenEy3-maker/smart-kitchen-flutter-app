@@ -24,8 +24,44 @@ class ProductCatalogViewConfig {
 }
 
 class ProductCatalogView extends StatelessWidget {
-  final ProductsNavigator navigator;
   const ProductCatalogView({super.key, required this.navigator});
+
+  final ProductsNavigator navigator;
+
+  void _onProductFormOpened(BuildContext context, Product? product) async {
+    final bloc = context.read<ProductCatalogBloc>();
+    final event = await navigator.openProductForm(product: product);
+    if (event != null) {
+      switch (event) {
+        case OpenProductFormResultEventDeleted():
+          bloc.add(
+            ProductDeleted(
+              product: event.product,
+              categories: event.categories,
+            ),
+          );
+          break;
+        case OpenProductFormResultEventCreated():
+          bloc.add(
+            ProductCreated(
+              product: event.product,
+              categories: event.categories,
+            ),
+          );
+          break;
+        case OpenProductFormResultEventUpdated():
+          bloc.add(
+            ProductUpdated(
+              product: event.product,
+              categories: event.categories,
+            ),
+          );
+          break;
+        case OpenProductFormResultEventReturned():
+          bloc.add(ProductCategoriesUpdated(categories: event.categories));
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +105,7 @@ class ProductCatalogView extends StatelessWidget {
                       mainAxisAlignment: .center,
                       children: [
                         CreateProductButton(
-                          onPressed: () => navigator.openProductForm(),
+                          onPressed: () => _onProductFormOpened(context, null),
                         ),
                       ],
                     ),
@@ -82,7 +118,7 @@ class ProductCatalogView extends StatelessWidget {
 
         return ProductCatalogScaffold(
           floatingActionButton: CreateProductButton(
-            onPressed: () => navigator.openProductForm(),
+            onPressed: () => _onProductFormOpened(context, null),
           ),
           body: SafeArea(
             child: CustomScrollView(
@@ -152,11 +188,13 @@ class ProductCatalogView extends StatelessWidget {
                         );
                       },
                       itemBuilder: (context, index) {
+                        final product = categoryProducts[i].products[index];
                         return Skeletonizer(
                           enabled: state.isLoading,
                           child: ProductTile(
-                            navigator: navigator,
-                            product: categoryProducts[i].products[index],
+                            onPressed: () =>
+                                _onProductFormOpened(context, product),
+                            product: product,
                           ),
                         );
                       },

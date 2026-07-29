@@ -100,10 +100,10 @@ class _CategoryManagerSheetViewState extends State<CategoryManagerSheetView> {
   Future<void> _onDeletePressed(CategoryWithProductsCount category) async {
     final l10n = AppLocalizations.of(context)!;
     final bloc = context.read<ProductFormBloc>();
-    final result = await showCategoryDeleteSheet(
+    final result = await showCategoryConfirmDeleteSheet(
       context: context,
       category: category,
-      onDelete: () async {
+      onConfirm: () async {
         final done = bloc.stream.firstWhere(
           (state) => !state.isDeleteCategoryPending,
         );
