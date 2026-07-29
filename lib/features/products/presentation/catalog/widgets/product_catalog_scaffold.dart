@@ -19,6 +19,7 @@ class ProductCatalogScaffold extends StatelessWidget {
       appBar: AppBar(centerTitle: true, title: Text(l10n.productCatalogTitle)),
       body: body,
       floatingActionButton: floatingActionButton,
+      floatingActionButtonAnimator: FloatingActionButtonAnimator.noAnimation,
     );
   }
 }

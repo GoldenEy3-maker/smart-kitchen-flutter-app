@@ -35,11 +35,7 @@ class CategoriesLocalDataSourceImpl implements CategoriesLocalDataSource {
             .toList(),
       );
     } catch (e, st) {
-      _talker.error(
-        "CategoriesLocalDataSourceImpl.getCategories failed",
-        e,
-        st,
-      );
+      _talker.error("getCategories failed", e, st);
       return Left(CategoriesReadCacheFailure());
     }
   }
@@ -58,11 +54,7 @@ class CategoriesLocalDataSourceImpl implements CategoriesLocalDataSource {
       await categoriesBox.put(newCategory.id, newCategory.toJson());
       return Right(newCategory);
     } catch (e, st) {
-      _talker.error(
-        "CategoriesLocalDataSourceImpl.createCategory failed",
-        e,
-        st,
-      );
+      _talker.error("createCategory failed", e, st);
       return Left(CategoriesCreateFailure());
     }
   }
@@ -85,18 +77,10 @@ class CategoriesLocalDataSourceImpl implements CategoriesLocalDataSource {
       await categoriesBox.put(newCategory.id, newCategory.toJson());
       return Right(newCategory);
     } on StateError catch (e, st) {
-      _talker.error(
-        "CategoriesLocalDataSourceImpl.updateCategory failed",
-        e,
-        st,
-      );
+      _talker.error("updateCategory failed", e, st);
       return Left(CategoriesNotFoundFailure());
     } catch (e, st) {
-      _talker.error(
-        "CategoriesLocalDataSourceImpl.updateCategory failed",
-        e,
-        st,
-      );
+      _talker.error("updateCategory failed", e, st);
       return Left(CategoriesUpdateFailure());
     }
   }
@@ -110,11 +94,7 @@ class CategoriesLocalDataSourceImpl implements CategoriesLocalDataSource {
       await categoriesBox.delete(params.id);
       return Right(null);
     } catch (e, st) {
-      _talker.error(
-        "CategoriesLocalDataSourceImpl.deleteCategory failed",
-        e,
-        st,
-      );
+      _talker.error("deleteCategory failed", e, st);
       return Left(CategoriesDeleteFailure());
     }
   }

@@ -35,7 +35,7 @@ class ProductLocalDataSourceImpl implements ProductLocalDataSource {
             .toList(),
       );
     } catch (e, st) {
-      _talker.error("ProductLocalDataSourceImpl.getProducts failed", e, st);
+      _talker.error("getProducts failed", e, st);
       return Left(ProductsReadCacheFailure());
     }
   }
@@ -63,7 +63,7 @@ class ProductLocalDataSourceImpl implements ProductLocalDataSource {
       await productsBox.put(newProduct.id, newProduct.toJson());
       return Right(newProduct);
     } catch (e, st) {
-      _talker.error("ProductLocalDataSourceImpl.createProduct failed", e, st);
+      _talker.error("createProduct failed", e, st);
       return Left(ProductsCreateCacheFailure());
     }
   }
@@ -87,10 +87,10 @@ class ProductLocalDataSourceImpl implements ProductLocalDataSource {
       await productsBox.put(newProduct.id, newProduct.toJson());
       return Right(newProduct);
     } on StateError catch (e, st) {
-      _talker.error("ProductLocalDataSourceImpl.updateProduct failed", e, st);
+      _talker.error("updateProduct failed", e, st);
       return Left(ProductsNotFoundFailure());
     } catch (e, st) {
-      _talker.error("ProductLocalDataSourceImpl.updateProduct failed", e, st);
+      _talker.error("updateProduct failed", e, st);
       return Left(ProductsUpdateCacheFailure());
     }
   }
@@ -104,7 +104,7 @@ class ProductLocalDataSourceImpl implements ProductLocalDataSource {
       await productsBox.delete(params.id);
       return Right(null);
     } catch (e, st) {
-      _talker.error("ProductLocalDataSourceImpl.deleteProduct failed", e, st);
+      _talker.error("deleteProduct failed", e, st);
       return Left(ProductsDeleteCacheFailure());
     }
   }

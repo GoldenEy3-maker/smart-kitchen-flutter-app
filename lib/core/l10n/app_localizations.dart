@@ -459,6 +459,18 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'Вы уверены, что хотите удалить этот продукт?'**
   String get productConfirmDeleteSheetDescription;
+
+  /// Заголовок ошибки
+  ///
+  /// In ru, this message translates to:
+  /// **'Произошла ошибка'**
+  String get error;
+
+  /// Название кнопки для повторного действия
+  ///
+  /// In ru, this message translates to:
+  /// **'Попробовать снова'**
+  String get tryAgain;
 }
 
 class _AppLocalizationsDelegate

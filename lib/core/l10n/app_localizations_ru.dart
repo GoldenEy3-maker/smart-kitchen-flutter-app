@@ -217,4 +217,10 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get productConfirmDeleteSheetDescription =>
       'Вы уверены, что хотите удалить этот продукт?';
+
+  @override
+  String get error => 'Произошла ошибка';
+
+  @override
+  String get tryAgain => 'Попробовать снова';
 }

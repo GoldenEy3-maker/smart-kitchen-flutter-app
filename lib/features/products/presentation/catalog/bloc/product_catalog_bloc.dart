@@ -41,7 +41,6 @@ class ProductCatalogBloc
     Emitter<ProductCatalogState> emit,
   ) async {
     emit(state.copyWith(isLoading: true));
-    await Future.delayed(const Duration(seconds: 2));
     final (categoriesResult, productsResult) = await (
       _getCategories(NoParams()),
       _getProducts(NoParams()),

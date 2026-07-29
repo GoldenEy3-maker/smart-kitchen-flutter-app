@@ -257,5 +257,13 @@
   "productConfirmDeleteSheetDescription": "Вы уверены, что хотите удалить этот продукт?",
   "@productConfirmDeleteSheetDescription": {
     "description": "Описание для удаления продукта"
+  },
+  "error": "Произошла ошибка",
+  "@error": {
+    "description": "Заголовок ошибки"
+  },
+  "tryAgain": "Попробовать снова",
+  "@tryAgain": {
+    "description": "Название кнопки для повторного действия"
   }
 }
