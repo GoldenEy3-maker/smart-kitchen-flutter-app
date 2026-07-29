@@ -34,3 +34,8 @@ class CategoryProduct extends Equatable {
   @override
   List<Object?> get props => [category, products];
 }
+
+extension ListCategoryProductExtension on List<CategoryProduct> {
+  List<Category> toCategories() =>
+      map((categoryProduct) => categoryProduct.category).toList();
+}

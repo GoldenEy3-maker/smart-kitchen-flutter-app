@@ -75,7 +75,7 @@ class ProductCatalogView extends StatelessWidget {
                 CategoryProduct.loading,
               ]
             : state.categoryProducts;
-        final isEmpty = state.categories.isEmpty || state.products.isEmpty;
+        final isEmpty = state.categoryProducts.isEmpty;
         final isSearchQueryApplied = state.searchQuery.isNotEmpty;
 
         if (!state.isLoading && isEmpty) {
@@ -143,7 +143,7 @@ class ProductCatalogView extends StatelessWidget {
                     paddingVertical: ProductCatalogViewConfig.verticalGap,
                     paddingHorizontal: AppSpacing.containerHorizontal,
                     isLoading: state.isLoading,
-                    categories: state.categories,
+                    categories: state.categoryProducts.toCategories(),
                     selectedCategory: state.selectedCategory,
                     onCategorySelected: (category) => context
                         .read<ProductCatalogBloc>()
