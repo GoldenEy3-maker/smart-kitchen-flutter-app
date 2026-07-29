@@ -41,6 +41,7 @@ class ProductCatalogBloc
     Emitter<ProductCatalogState> emit,
   ) async {
     emit(state.copyWith(isLoading: true));
+    await Future.delayed(const Duration(seconds: 2));
     final (categoriesResult, productsResult) = await (
       _getCategories(NoParams()),
       _getProducts(NoParams()),
@@ -79,21 +80,17 @@ class ProductCatalogBloc
         products: state.products
             .where((product) => product.id != event.product.id)
             .toList(),
-        categories: event.categories,
       ),
     );
+    _syncCategories(event.categories, emit);
   }
 
   void _onProductCreated(
     ProductCreated event,
     Emitter<ProductCatalogState> emit,
   ) {
-    emit(
-      state.copyWith(
-        products: [...state.products, event.product],
-        categories: event.categories,
-      ),
-    );
+    emit(state.copyWith(products: [event.product, ...state.products]));
+    _syncCategories(event.categories, emit);
   }
 
   void _onProductUpdated(
@@ -108,15 +105,36 @@ class ProductCatalogBloc
                   product.id == event.product.id ? event.product : product,
             )
             .toList(),
-        categories: event.categories,
       ),
     );
+    _syncCategories(event.categories, emit);
   }
 
   void _onProductCategoriesUpdated(
     ProductCategoriesUpdated event,
     Emitter<ProductCatalogState> emit,
   ) {
-    emit(state.copyWith(categories: event.categories));
+    _syncCategories(event.categories, emit);
+  }
+
+  void _syncCategories(
+    List<Category> categories,
+    Emitter<ProductCatalogState> emit,
+  ) {
+    final hasSelectedCategory = state.selectedCategory != null
+        ? categories.any(
+                (category) => category.id == state.selectedCategory?.id,
+              ) &&
+              state.filteredCategoryProducts.any(
+                (categoryProduct) =>
+                    categoryProduct.category.id == state.selectedCategory?.id,
+              )
+        : false;
+    emit(
+      state.copyWith(
+        categories: categories,
+        selectedCategory: hasSelectedCategory ? null : () => null,
+      ),
+    );
   }
 }

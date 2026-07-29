@@ -74,138 +74,138 @@ class ProductCatalogView extends StatelessWidget {
                 CategoryProduct.loading,
                 CategoryProduct.loading,
               ]
-            : state.categoryProducts;
-        final isEmpty = state.categoryProducts.isEmpty;
+            : state.filteredCategoryProducts;
+        final isEmpty = state.filteredCategoryProducts.isEmpty;
         final isSearchQueryApplied = state.searchQuery.isNotEmpty;
-
-        if (!state.isLoading && isEmpty) {
-          return ProductCatalogScaffold(
-            body: SafeArea(
-              minimum: EdgeInsets.symmetric(
-                horizontal: AppSpacing.containerHorizontal,
+        final shouldShowFilters =
+            !isEmpty || state.isLoading || isSearchQueryApplied;
+        final placeholder = EmptyPlaceholder(
+          icon: isSearchQueryApplied
+              ? Icon(
+                  LucideIcons.searchX,
+                  size: 40,
+                  color: AppColors.textSecondary,
+                )
+              : null,
+          title: isSearchQueryApplied
+              ? l10n.emptyPlaceholderSearchTitle
+              : l10n.emptyPlaceholderProductTitle,
+          description: isSearchQueryApplied
+              ? l10n.emptyPlaceholderSearchProductsDescription
+              : l10n.emptyPlaceholderProductDescription,
+          action: Row(
+            mainAxisAlignment: .center,
+            children: [
+              CreateProductButton(
+                onPressed: () => _onProductFormOpened(context, null),
               ),
-              child: Column(
-                mainAxisAlignment: .center,
-                children: [
-                  EmptyPlaceholder(
-                    icon: isSearchQueryApplied
-                        ? Icon(
-                            LucideIcons.searchX,
-                            size: 40,
-                            color: AppColors.textSecondary,
-                          )
-                        : null,
-                    title: isSearchQueryApplied
-                        ? l10n.emptyPlaceholderSearchTitle
-                        : l10n.emptyPlaceholderProductTitle,
-                    description: isSearchQueryApplied
-                        ? l10n.emptyPlaceholderSearchProductsDescription
-                        : l10n.emptyPlaceholderProductDescription,
-                    action: Row(
-                      mainAxisAlignment: .center,
-                      children: [
-                        CreateProductButton(
-                          onPressed: () => _onProductFormOpened(context, null),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          );
-        }
+            ],
+          ),
+        );
 
         return ProductCatalogScaffold(
-          floatingActionButton: CreateProductButton(
-            onPressed: () => _onProductFormOpened(context, null),
-          ),
+          floatingActionButton: isEmpty
+              ? null
+              : CreateProductButton(
+                  onPressed: () => _onProductFormOpened(context, null),
+                ),
           body: SafeArea(
             child: CustomScrollView(
               physics: const NoImplicitScrollPhysics(
                 parent: AlwaysScrollableScrollPhysics(),
               ),
               slivers: [
-                SliverPersistentHeader(
-                  floating: true,
-                  delegate: SearchHeaderDelegate(
-                    onChanged: (value) => context
-                        .read<ProductCatalogBloc>()
-                        .add(SearchQueryChanged(query: value)),
-                    height: ProductCatalogViewConfig.searchBarHeight,
-                    paddingHorizontal: AppSpacing.containerHorizontal,
+                if (shouldShowFilters)
+                  SliverPersistentHeader(
+                    floating: true,
+                    delegate: SearchHeaderDelegate(
+                      onChanged: (value) => context
+                          .read<ProductCatalogBloc>()
+                          .add(SearchQueryChanged(query: value)),
+                      height: ProductCatalogViewConfig.searchBarHeight,
+                      paddingHorizontal: AppSpacing.containerHorizontal,
+                    ),
                   ),
-                ),
-                SliverPersistentHeader(
-                  pinned: true,
-                  delegate: CategoryChipsHeaderDelegate(
-                    height: ProductCatalogViewConfig.categoryChipsHeight,
-                    paddingVertical: ProductCatalogViewConfig.verticalGap,
-                    paddingHorizontal: AppSpacing.containerHorizontal,
-                    isLoading: state.isLoading,
-                    categories: state.categoryProducts.toCategories(),
-                    selectedCategory: state.selectedCategory,
-                    onCategorySelected: (category) => context
-                        .read<ProductCatalogBloc>()
-                        .add(SelectedCategoryChanged(category: category)),
+                if (shouldShowFilters)
+                  SliverPersistentHeader(
+                    pinned: true,
+                    delegate: CategoryChipsHeaderDelegate(
+                      height: ProductCatalogViewConfig.categoryChipsHeight,
+                      paddingVertical: ProductCatalogViewConfig.verticalGap,
+                      paddingHorizontal: AppSpacing.containerHorizontal,
+                      isLoading: state.isLoading,
+                      categories: state.categoryProducts.toCategories(),
+                      selectedCategory: state.selectedCategory,
+                      onCategorySelected: (category) => context
+                          .read<ProductCatalogBloc>()
+                          .add(SelectedCategoryChanged(category: category)),
+                    ),
                   ),
-                ),
-                for (var i = 0; i < categoryProducts.length; i++) ...[
-                  if (i > 0)
+                if (!isEmpty || state.isLoading) ...[
+                  for (var i = 0; i < categoryProducts.length; i++) ...[
+                    if (i > 0)
+                      const SliverToBoxAdapter(
+                        child: SizedBox(
+                          height: ProductCatalogViewConfig.verticalGap,
+                        ),
+                      ),
+                    SliverPadding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: AppSpacing.containerHorizontal,
+                      ),
+                      sliver: SliverToBoxAdapter(
+                        child: Skeletonizer(
+                          enabled: state.isLoading,
+                          child: Text(
+                            categoryProducts[i].category.label.toUpperCase(),
+                            style: AppTypography.textTheme.titleSmall,
+                          ),
+                        ),
+                      ),
+                    ),
                     const SliverToBoxAdapter(
                       child: SizedBox(
                         height: ProductCatalogViewConfig.verticalGap,
                       ),
                     ),
-                  SliverPadding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: AppSpacing.containerHorizontal,
-                    ),
-                    sliver: SliverToBoxAdapter(
-                      child: Skeletonizer(
-                        enabled: state.isLoading,
-                        child: Text(
-                          categoryProducts[i].category.label.toUpperCase(),
-                          style: AppTypography.textTheme.titleSmall,
-                        ),
+                    SliverPadding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: AppSpacing.containerHorizontal,
+                      ),
+                      sliver: SliverList.separated(
+                        itemCount: categoryProducts[i].products.length,
+                        separatorBuilder: (context, index) {
+                          return const SizedBox(
+                            height: ProductCatalogViewConfig.verticalGap,
+                          );
+                        },
+                        itemBuilder: (context, index) {
+                          final product = categoryProducts[i].products[index];
+                          return Skeletonizer(
+                            enabled: state.isLoading,
+                            child: ProductTile(
+                              onPressed: () =>
+                                  _onProductFormOpened(context, product),
+                              product: product,
+                            ),
+                          );
+                        },
                       ),
                     ),
-                  ),
-                  const SliverToBoxAdapter(
+                  ],
+                  SliverToBoxAdapter(
                     child: SizedBox(
-                      height: ProductCatalogViewConfig.verticalGap,
+                      height: ProductCatalogViewConfig.safeFooterHeight,
                     ),
                   ),
-                  SliverPadding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: AppSpacing.containerHorizontal,
-                    ),
-                    sliver: SliverList.separated(
-                      itemCount: categoryProducts[i].products.length,
-                      separatorBuilder: (context, index) {
-                        return const SizedBox(
-                          height: ProductCatalogViewConfig.verticalGap,
-                        );
-                      },
-                      itemBuilder: (context, index) {
-                        final product = categoryProducts[i].products[index];
-                        return Skeletonizer(
-                          enabled: state.isLoading,
-                          child: ProductTile(
-                            onPressed: () =>
-                                _onProductFormOpened(context, product),
-                            product: product,
-                          ),
-                        );
-                      },
+                ] else
+                  SliverFillRemaining(
+                    hasScrollBody: false,
+                    child: Column(
+                      mainAxisAlignment: .center,
+                      children: [placeholder],
                     ),
                   ),
-                ],
-                SliverToBoxAdapter(
-                  child: SizedBox(
-                    height: ProductCatalogViewConfig.safeFooterHeight,
-                  ),
-                ),
               ],
             ),
           ),

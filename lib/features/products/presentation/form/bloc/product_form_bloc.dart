@@ -117,8 +117,8 @@ class ProductFormBloc extends Bloc<ProductFormEvent, ProductFormState> {
           productsCount: 0,
         );
         final newCategories = [
-          ...state.categories,
           newCategoryWithProductsCount,
+          ...state.categories,
         ];
 
         emit(

@@ -28,7 +28,7 @@ class ProductLocalDataSourceImpl implements ProductLocalDataSource {
   Future<Either<Failure, List<ProductModel>>> getProducts() async {
     try {
       final productsBox = await _openProductsBox();
-      final products = productsBox.values.toList();
+      final products = productsBox.values.toList().reversed.toList();
       return Right(
         products
             .map((p) => ProductModel.fromJson(Map<String, dynamic>.from(p)))

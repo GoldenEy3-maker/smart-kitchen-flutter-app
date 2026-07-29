@@ -28,7 +28,7 @@ class CategoriesLocalDataSourceImpl implements CategoriesLocalDataSource {
   Future<Either<Failure, List<CategoryModel>>> getCategories() async {
     try {
       final categoriesBox = await _openCategoriesBox();
-      final categories = categoriesBox.values.toList();
+      final categories = categoriesBox.values.toList().reversed.toList();
       return Right(
         categories
             .map((c) => CategoryModel.fromJson(Map<String, dynamic>.from(c)))

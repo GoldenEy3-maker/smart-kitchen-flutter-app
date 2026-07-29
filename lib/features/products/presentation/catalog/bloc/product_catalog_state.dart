@@ -59,6 +59,9 @@ class ProductCatalogState extends Equatable {
         .toList();
   }
 
-  List<CategoryProduct> get categoryProducts =>
+  List<CategoryProduct> get filteredCategoryProducts =>
       CategoryProduct.groupByCategories(categories, filteredProducts);
+
+  List<CategoryProduct> get categoryProducts =>
+      CategoryProduct.groupByCategories(categories, products);
 }
