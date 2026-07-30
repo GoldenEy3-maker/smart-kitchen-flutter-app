@@ -4,8 +4,8 @@
   "@helloWorld": {
     "description": "The conventional newborn programmer greeting"
   },
-  "productCatalogTitle": "Каталог продуктов",
-  "@productCatalogTitle": {
+  "productsCatalogTitle": "Каталог продуктов",
+  "@productsCatalogTitle": {
     "description": "Заголовок страницы каталога продуктов"
   },
   "productCatalogAllCategory": "Все",

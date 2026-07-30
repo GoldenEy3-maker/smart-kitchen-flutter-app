@@ -12,7 +12,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get helloWorld => 'Привет, мир!';
 
   @override
-  String get productCatalogTitle => 'Каталог продуктов';
+  String get productsCatalogTitle => 'Каталог продуктов';
 
   @override
   String get productCatalogAllCategory => 'Все';

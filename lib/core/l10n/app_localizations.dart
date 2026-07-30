@@ -104,7 +104,7 @@ abstract class AppLocalizations {
   ///
   /// In ru, this message translates to:
   /// **'Каталог продуктов'**
-  String get productCatalogTitle;
+  String get productsCatalogTitle;
 
   /// Название категории всех продуктов
   ///
