@@ -42,7 +42,7 @@ abstract final class AppInputStyles {
     focusedBorderColor: AppColors.primary,
     errorBorderColor: AppColors.danger,
     prefixIconColor: AppColors.textSecondary,
-    hintStyle: AppTypography.textTheme.bodyLarge!.copyWith(
+    hintStyle: AppTypography.textTheme.bodyMedium!.copyWith(
       color: AppColors.textSecondary,
     ),
   );

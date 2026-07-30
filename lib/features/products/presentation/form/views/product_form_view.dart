@@ -291,234 +291,241 @@ class _ProductFormViewState extends State<ProductFormView> {
         ),
       ),
       body: SafeArea(
-        minimum: EdgeInsets.symmetric(
-          horizontal: AppSpacing.containerHorizontal,
-        ),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            spacing: AppSpacing.xLarge,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ListenableBuilder(
-                listenable: Listenable.merge([_nameErrorText, _iconErrorText]),
-                builder: (context, _) {
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
+        child: SingleChildScrollView(
+          padding: EdgeInsets.only(
+            bottom: AppSpacing.large,
+            left: AppSpacing.containerHorizontal,
+            right: AppSpacing.containerHorizontal,
+          ),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              spacing: AppSpacing.xLarge,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ListenableBuilder(
+                  listenable: Listenable.merge([
+                    _nameErrorText,
+                    _iconErrorText,
+                  ]),
+                  builder: (context, _) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          spacing: AppSpacing.small,
+                          children: [
+                            BlocSelector<
+                              ProductFormBloc,
+                              ProductFormState,
+                              CatalogIcons?
+                            >(
+                              selector: (state) => state.selectedCatalogIcon,
+                              builder: (context, selectedCatalogIcon) {
+                                return Button(
+                                  style: selectedCatalogIcon != null
+                                      ? ButtonStyles.secondarySelected
+                                      : _iconErrorText.value != null
+                                      ? ButtonStyles.secondaryDanger
+                                      : ButtonStyles.secondary,
+                                  size: ButtonSizes.icon,
+                                  rounder: ButtonRounders.rectangular.copyWith(
+                                    borderRadius:
+                                        AppInputDecoration().shape.borderRadius,
+                                  ),
+                                  child: selectedCatalogIcon != null
+                                      ? Icon(selectedCatalogIcon.icon, size: 20)
+                                      : Icon(LucideIcons.tag, size: 20),
+                                  onPressed: () {
+                                    _onCatalogIconsPickerSheetOpened(
+                                      context,
+                                      selectedCatalogIcon,
+                                    );
+                                  },
+                                );
+                              },
+                            ),
+                            Expanded(
+                              child: TextFormField(
+                                controller: _nameController,
+                                onChanged: (value) {
+                                  _nameErrorText.value = value.isEmpty
+                                      ? l10n.nameIsRequired
+                                      : null;
+                                },
+                                decoration: AppInputDecoration(
+                                  hintText: l10n.name,
+                                  invalid: _nameErrorText.value != null,
+                                ).toInputDecoration(),
+                              ),
+                            ),
+                          ],
+                        ),
+                        if (_nameErrorText.value != null ||
+                            _iconErrorText.value != null)
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              top: AppSpacing.xSmall,
+                            ),
+                            child: Text(
+                              [_iconErrorText.value, _nameErrorText.value]
+                                  .where((errorText) => errorText != null)
+                                  .join(", "),
+                              style: AppTypography.textTheme.labelSmall!
+                                  .copyWith(color: AppColors.dangerText),
+                            ),
+                          ),
+                      ],
+                    );
+                  },
+                ),
+                ValueListenableBuilder(
+                  valueListenable: _categoryErrorText,
+                  builder: (context, categoryErrorText, child) {
+                    return FormItem(
+                      label: Text(l10n.category),
+                      errorMessage: categoryErrorText != null
+                          ? Text(categoryErrorText)
+                          : null,
+                      child: Column(
                         spacing: AppSpacing.small,
                         children: [
                           BlocSelector<
                             ProductFormBloc,
                             ProductFormState,
-                            CatalogIcons?
+                            ({
+                              CategoryWithProductsCount? selectedCategory,
+                              List<CategoryWithProductsCount> categories,
+                              bool isCategoriesLoading,
+                            })
                           >(
-                            selector: (state) => state.selectedCatalogIcon,
-                            builder: (context, selectedCatalogIcon) {
-                              return Button(
-                                style: selectedCatalogIcon != null
-                                    ? ButtonStyles.secondarySelected
-                                    : _iconErrorText.value != null
-                                    ? ButtonStyles.secondaryDanger
-                                    : ButtonStyles.secondary,
-                                size: ButtonSizes.icon,
-                                rounder: ButtonRounders.rectangular.copyWith(
-                                  borderRadius:
-                                      AppInputDecoration().shape.borderRadius,
-                                ),
-                                child: selectedCatalogIcon != null
-                                    ? Icon(selectedCatalogIcon.icon, size: 20)
-                                    : Icon(LucideIcons.tag, size: 20),
-                                onPressed: () {
-                                  _onCatalogIconsPickerSheetOpened(
-                                    context,
-                                    selectedCatalogIcon,
-                                  );
-                                },
-                              );
+                            selector: (state) => (
+                              selectedCategory: state.selectedCategory,
+                              categories: state.categories,
+                              isCategoriesLoading: state.isCategoriesLoading,
+                            ),
+                            builder: (context, slice) {
+                              if (slice.isCategoriesLoading ||
+                                  slice.categories.isNotEmpty) {
+                                return SelectedCategoryCard(
+                                  category: slice.selectedCategory,
+                                  isLoading: slice.isCategoriesLoading,
+                                  invalid: categoryErrorText != null,
+                                  onPressed: () {
+                                    _onCategoryManagerSheetOpened(
+                                      context: context,
+                                      categories: slice.categories,
+                                      initialSelectedCategory:
+                                          slice.selectedCategory,
+                                    );
+                                  },
+                                );
+                              }
+                              return SizedBox.shrink();
                             },
                           ),
-                          Expanded(
-                            child: TextFormField(
-                              controller: _nameController,
-                              onChanged: (value) {
-                                _nameErrorText.value = value.isEmpty
-                                    ? l10n.nameIsRequired
-                                    : null;
-                              },
-                              decoration: AppInputDecoration(
-                                hintText: l10n.name,
-                                invalid: _nameErrorText.value != null,
-                              ).toInputDecoration(),
+                          SizedBox(
+                            width: double.infinity,
+                            child: Button(
+                              style: ButtonStyles.ghost,
+                              size: ButtonSizes.sm,
+                              rounder: ButtonRounders.rectangular,
+                              onPressed: () =>
+                                  _onCategoryCreateSheetOpened(context),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                spacing: AppSpacing.small,
+                                children: [
+                                  Icon(LucideIcons.plus, size: 20),
+                                  Text(l10n.createCategory),
+                                ],
+                              ),
                             ),
                           ),
                         ],
                       ),
-                      if (_nameErrorText.value != null ||
-                          _iconErrorText.value != null)
-                        Padding(
-                          padding: const EdgeInsets.only(
-                            top: AppSpacing.xSmall,
-                          ),
-                          child: Text(
-                            [_iconErrorText.value, _nameErrorText.value]
-                                .where((errorText) => errorText != null)
-                                .join(", "),
-                            style: AppTypography.textTheme.labelSmall!.copyWith(
-                              color: AppColors.dangerText,
-                            ),
-                          ),
-                        ),
-                    ],
-                  );
-                },
-              ),
-              ValueListenableBuilder(
-                valueListenable: _categoryErrorText,
-                builder: (context, categoryErrorText, child) {
-                  return FormItem(
-                    label: Text(l10n.category),
-                    errorMessage: categoryErrorText != null
-                        ? Text(categoryErrorText)
-                        : null,
-                    child: Column(
-                      spacing: AppSpacing.small,
-                      children: [
-                        BlocSelector<
-                          ProductFormBloc,
-                          ProductFormState,
-                          ({
-                            CategoryWithProductsCount? selectedCategory,
-                            List<CategoryWithProductsCount> categories,
-                            bool isCategoriesLoading,
-                          })
-                        >(
-                          selector: (state) => (
-                            selectedCategory: state.selectedCategory,
-                            categories: state.categories,
-                            isCategoriesLoading: state.isCategoriesLoading,
-                          ),
-                          builder: (context, slice) {
-                            if (slice.isCategoriesLoading ||
-                                slice.categories.isNotEmpty) {
-                              return SelectedCategoryCard(
-                                category: slice.selectedCategory,
-                                isLoading: slice.isCategoriesLoading,
-                                invalid: categoryErrorText != null,
-                                onPressed: () {
-                                  _onCategoryManagerSheetOpened(
-                                    context: context,
-                                    categories: slice.categories,
-                                    initialSelectedCategory:
-                                        slice.selectedCategory,
-                                  );
-                                },
+                    );
+                  },
+                ),
+                Text(
+                  l10n.productFormAttention,
+                  style: AppTypography.textTheme.bodySmall!.copyWith(
+                    color: AppColors.textSecondary,
+                  ),
+                ),
+                ValueListenableBuilder(
+                  valueListenable: _unitErrorText,
+                  builder: (context, unitErrorText, child) {
+                    return FormItem(
+                      label: Text(l10n.unitLabel),
+                      errorMessage: unitErrorText != null
+                          ? Text(unitErrorText)
+                          : null,
+                      child:
+                          BlocSelector<
+                            ProductFormBloc,
+                            ProductFormState,
+                            CatalogUnits?
+                          >(
+                            selector: (state) => state.selectedCatalogUnit,
+                            builder: (context, selectedCatalogUnit) {
+                              return InputButton(
+                                invalid: unitErrorText != null,
+                                onPressed: () =>
+                                    _onCatalogUnitsPickerSheetOpened(
+                                      context,
+                                      selectedCatalogUnit,
+                                    ),
+                                hintText: l10n.selectUnit,
+                                value: selectedCatalogUnit != null
+                                    ? CatalogUnits.resolveLabels(
+                                        context: context,
+                                        unit: selectedCatalogUnit,
+                                      ).full
+                                    : null,
                               );
-                            }
-                            return SizedBox.shrink();
-                          },
-                        ),
-                        SizedBox(
+                            },
+                          ),
+                    );
+                  },
+                ),
+                Column(
+                  spacing: AppSpacing.small,
+                  children: [
+                    BlocSelector<ProductFormBloc, ProductFormState, bool>(
+                      selector: (state) {
+                        return state.isSaveProductPending;
+                      },
+                      builder: (context, isSaveProductPending) {
+                        return SizedBox(
                           width: double.infinity,
                           child: Button(
-                            style: ButtonStyles.ghost,
-                            size: ButtonSizes.sm,
-                            rounder: ButtonRounders.rectangular,
-                            onPressed: () =>
-                                _onCategoryCreateSheetOpened(context),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              spacing: AppSpacing.small,
-                              children: [
-                                Icon(LucideIcons.plus, size: 20),
-                                Text(l10n.createCategory),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                },
-              ),
-              Text(
-                l10n.productFormAttention,
-                style: AppTypography.textTheme.bodySmall!.copyWith(
-                  color: AppColors.textSecondary,
-                ),
-              ),
-              ValueListenableBuilder(
-                valueListenable: _unitErrorText,
-                builder: (context, unitErrorText, child) {
-                  return FormItem(
-                    label: Text(l10n.unitLabel),
-                    errorMessage: unitErrorText != null
-                        ? Text(unitErrorText)
-                        : null,
-                    child:
-                        BlocSelector<
-                          ProductFormBloc,
-                          ProductFormState,
-                          CatalogUnits?
-                        >(
-                          selector: (state) => state.selectedCatalogUnit,
-                          builder: (context, selectedCatalogUnit) {
-                            return InputButton(
-                              invalid: unitErrorText != null,
-                              onPressed: () => _onCatalogUnitsPickerSheetOpened(
-                                context,
-                                selectedCatalogUnit,
+                            disabled: isSaveProductPending,
+                            onPressed: () => _onSavePressed(context),
+                            style: ButtonStyles.primary.copyWith(
+                              elevation: 6,
+                              shadowColor: AppColors.primary.withValues(
+                                alpha: 0.25,
                               ),
-                              hintText: l10n.selectUnit,
-                              value: selectedCatalogUnit != null
-                                  ? CatalogUnits.resolveLabels(
-                                      context: context,
-                                      unit: selectedCatalogUnit,
-                                    ).full
-                                  : null,
-                            );
-                          },
-                        ),
-                  );
-                },
-              ),
-              Column(
-                spacing: AppSpacing.small,
-                children: [
-                  BlocSelector<ProductFormBloc, ProductFormState, bool>(
-                    selector: (state) {
-                      return state.isSaveProductPending;
-                    },
-                    builder: (context, isSaveProductPending) {
-                      return SizedBox(
+                            ),
+                            child: Text(l10n.save, textAlign: .center),
+                          ),
+                        );
+                      },
+                    ),
+                    if (widget.product != null)
+                      SizedBox(
                         width: double.infinity,
                         child: Button(
-                          disabled: isSaveProductPending,
-                          onPressed: () => _onSavePressed(context),
-                          style: ButtonStyles.primary.copyWith(
-                            elevation: 6,
-                            shadowColor: AppColors.primary.withValues(
-                              alpha: 0.25,
-                            ),
-                          ),
-                          child: Text(l10n.save, textAlign: .center),
+                          onPressed: () => _onDeletePressed(context),
+                          style: ButtonStyles.destructiveGhost,
+                          child: Text(l10n.delete, textAlign: TextAlign.center),
                         ),
-                      );
-                    },
-                  ),
-                  if (widget.product != null)
-                    SizedBox(
-                      width: double.infinity,
-                      child: Button(
-                        onPressed: () => _onDeletePressed(context),
-                        style: ButtonStyles.destructiveGhost,
-                        child: Text(l10n.delete, textAlign: TextAlign.center),
                       ),
-                    ),
-                ],
-              ),
-            ],
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

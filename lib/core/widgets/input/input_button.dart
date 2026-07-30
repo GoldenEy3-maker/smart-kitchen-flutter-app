@@ -36,7 +36,10 @@ class InputButton extends StatelessWidget {
           borderRadius: inputDecoration.shape.borderRadius,
         ),
         child: Padding(
-          padding: inputDecoration.shape.contentPadding,
+          padding: inputDecoration.shape.contentPadding.copyWith(
+            top: AppSpacing.medium,
+            bottom: AppSpacing.medium,
+          ),
           child: Row(
             spacing: AppSpacing.small,
             children: [
