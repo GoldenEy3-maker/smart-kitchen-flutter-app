@@ -353,6 +353,8 @@ class _ProductFormViewState extends State<ProductFormView> {
                                       ? l10n.nameIsRequired
                                       : null;
                                 },
+                                textCapitalization:
+                                    TextCapitalization.sentences,
                                 decoration: AppInputDecoration(
                                   hintText: l10n.name,
                                   invalid: _nameErrorText.value != null,
@@ -519,7 +521,14 @@ class _ProductFormViewState extends State<ProductFormView> {
                         child: Button(
                           onPressed: () => _onDeletePressed(context),
                           style: ButtonStyles.destructiveGhost,
-                          child: Text(l10n.delete, textAlign: TextAlign.center),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            spacing: AppSpacing.small,
+                            children: [
+                              Icon(LucideIcons.trash2, size: 20),
+                              Text(l10n.delete, textAlign: TextAlign.center),
+                            ],
+                          ),
                         ),
                       ),
                   ],

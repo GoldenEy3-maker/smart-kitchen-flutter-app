@@ -138,6 +138,7 @@ class _CategoryCreateSheetViewState extends State<CategoryCreateSheetView> {
                   child: TextField(
                     controller: _labelController,
                     autofocus: true,
+                    textCapitalization: TextCapitalization.sentences,
                     decoration: AppInputDecoration(
                       hintText: l10n.name,
                     ).toInputDecoration(),

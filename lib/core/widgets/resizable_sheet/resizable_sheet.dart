@@ -198,7 +198,7 @@ class _ResizableSheetState extends State<ResizableSheet> {
           final content = SafeArea(
             maintainBottomViewPadding: false,
             minimum: EdgeInsets.only(
-              bottom: MediaQuery.of(context).viewInsets.bottom + 32,
+              bottom: MediaQuery.of(context).viewInsets.bottom + 26,
             ),
             child: widget.builder(context, scrollController, _controller),
           );

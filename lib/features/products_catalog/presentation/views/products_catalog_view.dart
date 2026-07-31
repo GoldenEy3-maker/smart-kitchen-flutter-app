@@ -15,14 +15,17 @@ import "package:smart_kitchen_flutter_app/features/products_catalog/presentation
 import "package:flutter_bloc/flutter_bloc.dart";
 import "package:smart_kitchen_flutter_app/shared/categories/presentation/widgets/widgets.dart";
 
-class ProductsCatalogViewConfig {
+final class ProductsCatalogViewConfig {
+  ProductsCatalogViewConfig._();
+
   static const double verticalGap = AppSpacing.standard;
 
-  static double categoryChipsHeight =
+  static const double categoryChipsHeight =
       CategoryChipsHeaderDelegate.kHeight + verticalGap * 2;
-  static double searchBarHeight = SearchHeaderDelegate.kHeight;
-  static double safeFooterHeight =
+  static final double searchBarHeight = SearchHeaderDelegate.kHeight;
+  static final double safeFooterHeight =
       AppSpacing.large * 2 + ButtonSizes.primary.minHeight;
+  static const double productListVerticalGap = verticalGap - 6;
 }
 
 class ProductsCatalogView extends StatelessWidget {
@@ -184,7 +187,8 @@ class ProductsCatalogView extends StatelessWidget {
                       ),
                       const SliverToBoxAdapter(
                         child: SizedBox(
-                          height: ProductsCatalogViewConfig.verticalGap,
+                          height:
+                              ProductsCatalogViewConfig.productListVerticalGap,
                         ),
                       ),
                       SliverPadding(
@@ -195,7 +199,8 @@ class ProductsCatalogView extends StatelessWidget {
                           itemCount: categoryWithProducts[i].products.length,
                           separatorBuilder: (context, index) {
                             return const SizedBox(
-                              height: ProductsCatalogViewConfig.verticalGap,
+                              height: ProductsCatalogViewConfig
+                                  .productListVerticalGap,
                             );
                           },
                           itemBuilder: (context, index) {

@@ -43,6 +43,7 @@ class SearchHeaderDelegate extends SliverPersistentHeaderDelegate {
         right: paddingHorizontal,
       ),
       child: TextField(
+        textCapitalization: TextCapitalization.sentences,
         controller: controller,
         onChanged: onChanged,
         decoration: AppInputDecoration(
