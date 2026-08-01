@@ -11,17 +11,65 @@
 part of 'app_router.dart';
 
 /// generated route for
-/// [HomePage]
-class HomeRoute extends PageRouteInfo<void> {
-  const HomeRoute({List<PageRouteInfo>? children})
-    : super(HomeRoute.name, initialChildren: children);
+/// [BasketPage]
+class BasketRoute extends PageRouteInfo<void> {
+  const BasketRoute({List<PageRouteInfo>? children})
+    : super(BasketRoute.name, initialChildren: children);
 
-  static const String name = 'HomeRoute';
+  static const String name = 'BasketRoute';
 
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const HomePage();
+      return const BasketPage();
+    },
+  );
+}
+
+/// generated route for
+/// [FridgeCatalogPage]
+class FridgeCatalogRoute extends PageRouteInfo<void> {
+  const FridgeCatalogRoute({List<PageRouteInfo>? children})
+    : super(FridgeCatalogRoute.name, initialChildren: children);
+
+  static const String name = 'FridgeCatalogRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const FridgeCatalogPage();
+    },
+  );
+}
+
+/// generated route for
+/// [MainLayoutPage]
+class MainLayoutRoute extends PageRouteInfo<void> {
+  const MainLayoutRoute({List<PageRouteInfo>? children})
+    : super(MainLayoutRoute.name, initialChildren: children);
+
+  static const String name = 'MainLayoutRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const MainLayoutPage();
+    },
+  );
+}
+
+/// generated route for
+/// [MenuPage]
+class MenuRoute extends PageRouteInfo<void> {
+  const MenuRoute({List<PageRouteInfo>? children})
+    : super(MenuRoute.name, initialChildren: children);
+
+  static const String name = 'MenuRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const MenuPage();
     },
   );
 }
@@ -86,4 +134,20 @@ class ProductFormRouteArgs {
 
   @override
   int get hashCode => key.hashCode ^ product.hashCode;
+}
+
+/// generated route for
+/// [RecipesCatalogPage]
+class RecipesCatalogRoute extends PageRouteInfo<void> {
+  const RecipesCatalogRoute({List<PageRouteInfo>? children})
+    : super(RecipesCatalogRoute.name, initialChildren: children);
+
+  static const String name = 'RecipesCatalogRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const RecipesCatalogPage();
+    },
+  );
 }

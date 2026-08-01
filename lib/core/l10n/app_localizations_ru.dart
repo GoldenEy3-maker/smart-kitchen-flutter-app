@@ -223,4 +223,16 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get tryAgain => 'Попробовать снова';
+
+  @override
+  String get fridge => 'Холодильник';
+
+  @override
+  String get recipes => 'Рецепты';
+
+  @override
+  String get menu => 'Меню';
+
+  @override
+  String get basket => 'Корзина';
 }

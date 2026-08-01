@@ -471,6 +471,30 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'Попробовать снова'**
   String get tryAgain;
+
+  /// Название страницы для холодильника
+  ///
+  /// In ru, this message translates to:
+  /// **'Холодильник'**
+  String get fridge;
+
+  /// Название страницы для рецептов
+  ///
+  /// In ru, this message translates to:
+  /// **'Рецепты'**
+  String get recipes;
+
+  /// Название страницы для меню
+  ///
+  /// In ru, this message translates to:
+  /// **'Меню'**
+  String get menu;
+
+  /// Название страницы для корзины
+  ///
+  /// In ru, this message translates to:
+  /// **'Корзина'**
+  String get basket;
 }
 
 class _AppLocalizationsDelegate
