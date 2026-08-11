@@ -4,7 +4,7 @@ import "package:smart_kitchen_flutter_app/core/icons/catalog_icons.dart";
 import "package:smart_kitchen_flutter_app/core/l10n/app_localizations.dart";
 import "package:smart_kitchen_flutter_app/core/units/units.dart";
 import "package:smart_kitchen_flutter_app/core/theme/theme.dart";
-import "package:smart_kitchen_flutter_app/shared/products/domain/entities/entities.dart";
+import "package:smart_kitchen_flutter_app/domains/products/domain/entities/entities.dart";
 import "package:lucide_icons_flutter/lucide_icons.dart";
 
 class ProductTile extends StatelessWidget {

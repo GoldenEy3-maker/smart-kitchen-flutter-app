@@ -1,6 +1,6 @@
 import "package:equatable/equatable.dart";
-import "package:smart_kitchen_flutter_app/shared/categories/domain/entities/entities.dart";
-import "package:smart_kitchen_flutter_app/shared/products/domain/entities/entities.dart";
+import "package:smart_kitchen_flutter_app/domains/categories/domain/entities/entities.dart";
+import "package:smart_kitchen_flutter_app/domains/products/domain/entities/entities.dart";
 
 class CategoryWithProducts extends Equatable {
   final Category category;

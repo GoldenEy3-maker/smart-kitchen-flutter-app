@@ -235,4 +235,29 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get basket => 'Корзина';
+
+  @override
+  String get addFridgeProduct => 'В холодильник';
+
+  @override
+  String get fridgeFormPageAppBarTitle => 'Добавить в холодильник';
+
+  @override
+  String get fridgeReadProductsCacheFailure =>
+      'Ошибка чтения кэша продуктов холодильника. Попробуйте перезапустить приложение и попробовать снова.';
+
+  @override
+  String get fridgeProductNotFoundFailure =>
+      'Продукт не найден в холодильнике.';
+
+  @override
+  String get emptyPlaceholderFridgeProductsTitle =>
+      'У вас пока нет продуктов в холодильнике';
+
+  @override
+  String get emptyPlaceholderFridgeProductsDescription =>
+      'Добавьте продукты в холодильник из каталога продуктов';
+
+  @override
+  String get findProductsHint => 'Найти продукты...';
 }

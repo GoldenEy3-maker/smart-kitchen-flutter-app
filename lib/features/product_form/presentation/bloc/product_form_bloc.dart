@@ -7,12 +7,12 @@ import "package:smart_kitchen_flutter_app/core/units/catalog_units.dart";
 import "package:smart_kitchen_flutter_app/core/usecase/usecase.dart";
 import "package:smart_kitchen_flutter_app/features/product_form/domain/entities/entities.dart";
 import "package:smart_kitchen_flutter_app/features/product_form/domain/usecases/usecases.dart";
-import "package:smart_kitchen_flutter_app/shared/products/domain/entities/entities.dart";
-import "package:smart_kitchen_flutter_app/shared/products/domain/usecases/usecases.dart";
-import "package:smart_kitchen_flutter_app/shared/products/params/params.dart";
-import "package:smart_kitchen_flutter_app/shared/categories/domain/entities/entities.dart";
-import "package:smart_kitchen_flutter_app/shared/categories/domain/usecases/usecases.dart";
-import "package:smart_kitchen_flutter_app/shared/categories/params/params.dart";
+import "package:smart_kitchen_flutter_app/domains/products/domain/entities/entities.dart";
+import "package:smart_kitchen_flutter_app/domains/products/domain/usecases/usecases.dart";
+import "package:smart_kitchen_flutter_app/domains/products/params/params.dart";
+import "package:smart_kitchen_flutter_app/domains/categories/domain/entities/entities.dart";
+import "package:smart_kitchen_flutter_app/domains/categories/domain/usecases/usecases.dart";
+import "package:smart_kitchen_flutter_app/domains/categories/params/params.dart";
 
 part "product_form_event.dart";
 part "product_form_state.dart";

@@ -1,6 +1,12 @@
 import "package:auto_route/auto_route.dart";
 import "package:flutter/material.dart";
+import "package:flutter_bloc/flutter_bloc.dart";
+import "package:smart_kitchen_flutter_app/core/di/di.dart";
+import "package:smart_kitchen_flutter_app/domains/categories/domain/usecases/usecases.dart";
+import "package:smart_kitchen_flutter_app/features/fridge_catalog/domain/usecases/usecases.dart";
+import "package:smart_kitchen_flutter_app/features/fridge_catalog/presentation/bloc/bloc.dart";
 import "package:smart_kitchen_flutter_app/features/fridge_catalog/presentation/views/views.dart";
+import "package:smart_kitchen_flutter_app/domains/fridge/navigation/navigation.dart";
 
 @RoutePage()
 class FridgeCatalogPage extends StatelessWidget {
@@ -8,6 +14,12 @@ class FridgeCatalogPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const FridgeCatalogView();
+    return BlocProvider(
+      create: (_) => FridgeCatalogBloc(
+        getCategories: getIt.get<GetCategories>(),
+        getFridgeCatalogItems: getIt.get<GetFridgeCatalogItems>(),
+      )..add(const LoadFridgeCatalogRequested()),
+      child: FridgeCatalogView(fridgeNavigator: getIt.get<FridgeNavigator>()),
+    );
   }
 }

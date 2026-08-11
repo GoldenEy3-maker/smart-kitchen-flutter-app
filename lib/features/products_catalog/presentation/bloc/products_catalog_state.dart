@@ -48,15 +48,15 @@ class ProductsCatalogState extends Equatable {
   ];
 
   List<Product> get filteredProducts {
-    final query = searchQuery.toLowerCase();
-    return products
-        .where(
-          (product) =>
-              (selectedCategory == null ||
-                  product.categoryId == selectedCategory?.id) &&
-              product.name.toLowerCase().contains(query),
-        )
-        .toList();
+    final query = searchQuery.toLowerCase().trim();
+    return products.where((product) {
+      final isCategoryMatch =
+          selectedCategory == null ||
+          product.categoryId == selectedCategory?.id;
+      final isProductNameMatch = product.name.toLowerCase().contains(query);
+
+      return isCategoryMatch && isProductNameMatch;
+    }).toList();
   }
 
   List<CategoryWithProducts> get filteredCategoryWithProducts =>

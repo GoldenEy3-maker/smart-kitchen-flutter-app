@@ -4,9 +4,9 @@ import "package:flutter_bloc/flutter_bloc.dart";
 import "package:smart_kitchen_flutter_app/core/di/di.dart";
 import "package:smart_kitchen_flutter_app/features/products_catalog/presentation/bloc/bloc.dart";
 import "package:smart_kitchen_flutter_app/features/products_catalog/presentation/views/views.dart";
-import "package:smart_kitchen_flutter_app/shared/products/navigation/navigation.dart";
-import "package:smart_kitchen_flutter_app/shared/products/domain/usecases/usecases.dart";
-import "package:smart_kitchen_flutter_app/shared/categories/domain/usecases/usecases.dart";
+import "package:smart_kitchen_flutter_app/domains/products/navigation/navigation.dart";
+import "package:smart_kitchen_flutter_app/domains/products/domain/usecases/usecases.dart";
+import "package:smart_kitchen_flutter_app/domains/categories/domain/usecases/usecases.dart";
 
 @RoutePage()
 class ProductCatalogPage extends StatelessWidget {

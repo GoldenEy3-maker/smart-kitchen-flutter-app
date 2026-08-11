@@ -495,6 +495,48 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'Корзина'**
   String get basket;
+
+  /// Название кнопки для добавления продукта в холодильник
+  ///
+  /// In ru, this message translates to:
+  /// **'В холодильник'**
+  String get addFridgeProduct;
+
+  /// Заголовок страницы для добавления продукта в холодильник
+  ///
+  /// In ru, this message translates to:
+  /// **'Добавить в холодильник'**
+  String get fridgeFormPageAppBarTitle;
+
+  /// Ошибка чтения кэша продуктов холодильника
+  ///
+  /// In ru, this message translates to:
+  /// **'Ошибка чтения кэша продуктов холодильника. Попробуйте перезапустить приложение и попробовать снова.'**
+  String get fridgeReadProductsCacheFailure;
+
+  /// Ошибка продукта не найденного в холодильнике
+  ///
+  /// In ru, this message translates to:
+  /// **'Продукт не найден в холодильнике.'**
+  String get fridgeProductNotFoundFailure;
+
+  /// Заголовок пустого места для продуктов в холодильнике
+  ///
+  /// In ru, this message translates to:
+  /// **'У вас пока нет продуктов в холодильнике'**
+  String get emptyPlaceholderFridgeProductsTitle;
+
+  /// Описание пустого места для продуктов в холодильнике
+  ///
+  /// In ru, this message translates to:
+  /// **'Добавьте продукты в холодильник из каталога продуктов'**
+  String get emptyPlaceholderFridgeProductsDescription;
+
+  /// Подсказка для поиска продуктов
+  ///
+  /// In ru, this message translates to:
+  /// **'Найти продукты...'**
+  String get findProductsHint;
 }
 
 class _AppLocalizationsDelegate

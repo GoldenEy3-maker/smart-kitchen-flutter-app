@@ -281,5 +281,33 @@
   "basket": "Корзина",
   "@basket": {
     "description": "Название страницы для корзины"
+  },
+  "addFridgeProduct": "В холодильник",
+  "@addFridgeProduct": {
+    "description": "Название кнопки для добавления продукта в холодильник"
+  },
+  "fridgeFormPageAppBarTitle": "Добавить в холодильник",
+  "@fridgeFormPageAppBarTitle": {
+    "description": "Заголовок страницы для добавления продукта в холодильник"
+  },
+  "fridgeReadProductsCacheFailure": "Ошибка чтения кэша продуктов холодильника. Попробуйте перезапустить приложение и попробовать снова.",
+  "@fridgeReadProductsCacheFailure": {
+    "description": "Ошибка чтения кэша продуктов холодильника"
+  },
+  "fridgeProductNotFoundFailure": "Продукт не найден в холодильнике.",
+  "@fridgeProductNotFoundFailure": {
+    "description": "Ошибка продукта не найденного в холодильнике"
+  },
+  "emptyPlaceholderFridgeProductsTitle": "У вас пока нет продуктов в холодильнике",
+  "@emptyPlaceholderFridgeProductsTitle": {
+    "description": "Заголовок пустого места для продуктов в холодильнике"
+  },
+  "emptyPlaceholderFridgeProductsDescription": "Добавьте продукты в холодильник из каталога продуктов",
+  "@emptyPlaceholderFridgeProductsDescription": {
+    "description": "Описание пустого места для продуктов в холодильнике"
+  },
+  "findProductsHint": "Найти продукты...",
+  "@findProductsHint": {
+    "description": "Подсказка для поиска продуктов"
   }
 }

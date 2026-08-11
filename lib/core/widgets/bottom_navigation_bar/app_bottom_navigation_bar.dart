@@ -12,7 +12,7 @@ class AppBottomNavigationBar extends StatelessWidget {
   });
 
   static const _duration = Duration(milliseconds: 300);
-  static const _curve = Curves.easeInOut;
+  static const _curve = Curves.easeInOutExpo;
   static const _itemGap = 2.0;
   static const _indicatorRadius = 24.0;
 

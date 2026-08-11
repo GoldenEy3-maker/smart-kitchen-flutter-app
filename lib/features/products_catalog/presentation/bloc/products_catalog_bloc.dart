@@ -4,10 +4,10 @@ import "package:flutter/material.dart";
 import "package:smart_kitchen_flutter_app/core/error/error.dart";
 import "package:smart_kitchen_flutter_app/core/usecase/usecase.dart";
 import "package:smart_kitchen_flutter_app/features/products_catalog/domain/entities/entities.dart";
-import "package:smart_kitchen_flutter_app/shared/products/domain/entities/entities.dart";
-import "package:smart_kitchen_flutter_app/shared/products/domain/usecases/usecases.dart";
-import "package:smart_kitchen_flutter_app/shared/categories/domain/entities/entities.dart";
-import "package:smart_kitchen_flutter_app/shared/categories/domain/usecases/usecases.dart";
+import "package:smart_kitchen_flutter_app/domains/products/domain/entities/entities.dart";
+import "package:smart_kitchen_flutter_app/domains/products/domain/usecases/usecases.dart";
+import "package:smart_kitchen_flutter_app/domains/categories/domain/entities/entities.dart";
+import "package:smart_kitchen_flutter_app/domains/categories/domain/usecases/usecases.dart";
 
 part "products_catalog_event.dart";
 part "products_catalog_state.dart";

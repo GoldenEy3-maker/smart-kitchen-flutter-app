@@ -6,17 +6,17 @@ import "package:smart_kitchen_flutter_app/core/widgets/button/button_size.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/empty_placeholder/empty_placeholder.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/error_placeholder/error_placeholder.dart";
 import "package:smart_kitchen_flutter_app/features/products_catalog/domain/entities/entities.dart";
-import "package:smart_kitchen_flutter_app/shared/products/navigation/navigation.dart";
+import "package:smart_kitchen_flutter_app/domains/products/navigation/navigation.dart";
 import "package:smart_kitchen_flutter_app/core/theme/theme.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/scroll/scroll.dart";
-import "package:smart_kitchen_flutter_app/shared/products/domain/entities/entities.dart";
+import "package:smart_kitchen_flutter_app/domains/products/domain/entities/entities.dart";
 import "package:smart_kitchen_flutter_app/features/products_catalog/presentation/bloc/bloc.dart";
 import "package:smart_kitchen_flutter_app/features/products_catalog/presentation/widgets/widgets.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
-import "package:smart_kitchen_flutter_app/shared/categories/presentation/widgets/widgets.dart";
+import "package:smart_kitchen_flutter_app/domains/categories/presentation/widgets/widgets.dart";
 
-final class ProductsCatalogViewConfig {
-  ProductsCatalogViewConfig._();
+final class _ProductsCatalogViewConfig {
+  _ProductsCatalogViewConfig._();
 
   static const double verticalGap = AppSpacing.standard;
 
@@ -143,16 +143,17 @@ class ProductsCatalogView extends StatelessWidget {
                         onChanged: (value) => context
                             .read<ProductsCatalogBloc>()
                             .add(SearchQueryChanged(query: value)),
-                        height: ProductsCatalogViewConfig.searchBarHeight,
+                        height: _ProductsCatalogViewConfig.searchBarHeight,
                         paddingHorizontal: AppSpacing.containerHorizontal,
+                        hintText: l10n.productCatalogSearchHint,
                       ),
                     ),
                   if (shouldShowFilters)
                     SliverPersistentHeader(
                       pinned: true,
                       delegate: CategoryChipsHeaderDelegate(
-                        height: ProductsCatalogViewConfig.categoryChipsHeight,
-                        paddingVertical: ProductsCatalogViewConfig.verticalGap,
+                        height: _ProductsCatalogViewConfig.categoryChipsHeight,
+                        paddingVertical: _ProductsCatalogViewConfig.verticalGap,
                         paddingHorizontal: AppSpacing.containerHorizontal,
                         isLoading: state.isLoading,
                         categories: state.categoryWithProducts.toCategories(),
@@ -167,7 +168,7 @@ class ProductsCatalogView extends StatelessWidget {
                       if (i > 0)
                         const SliverToBoxAdapter(
                           child: SizedBox(
-                            height: ProductsCatalogViewConfig.verticalGap,
+                            height: _ProductsCatalogViewConfig.verticalGap,
                           ),
                         ),
                       SliverPadding(
@@ -188,7 +189,7 @@ class ProductsCatalogView extends StatelessWidget {
                       const SliverToBoxAdapter(
                         child: SizedBox(
                           height:
-                              ProductsCatalogViewConfig.productListVerticalGap,
+                              _ProductsCatalogViewConfig.productListVerticalGap,
                         ),
                       ),
                       SliverPadding(
@@ -199,7 +200,7 @@ class ProductsCatalogView extends StatelessWidget {
                           itemCount: categoryWithProducts[i].products.length,
                           separatorBuilder: (context, index) {
                             return const SizedBox(
-                              height: ProductsCatalogViewConfig
+                              height: _ProductsCatalogViewConfig
                                   .productListVerticalGap,
                             );
                           },
@@ -220,7 +221,7 @@ class ProductsCatalogView extends StatelessWidget {
                     ],
                     SliverToBoxAdapter(
                       child: SizedBox(
-                        height: ProductsCatalogViewConfig.safeFooterHeight,
+                        height: _ProductsCatalogViewConfig.safeFooterHeight,
                       ),
                     ),
                   ] else

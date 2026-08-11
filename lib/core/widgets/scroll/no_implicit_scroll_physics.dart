@@ -1,7 +1,9 @@
 import "package:flutter/widgets.dart";
 
-/// Prevents [TextField] focus from scrolling the viewport to top.
-/// See https://github.com/flutter/flutter/issues/25507
+/* 
+* Prevents [TextField] focus from scrolling the viewport to top.
+* See https://github.com/flutter/flutter/issues/25507 
+ */
 class NoImplicitScrollPhysics extends ScrollPhysics {
   const NoImplicitScrollPhysics({super.parent});
 

@@ -13,12 +13,12 @@ import "package:smart_kitchen_flutter_app/core/widgets/form_item/form_item.dart"
 import "package:smart_kitchen_flutter_app/core/widgets/input/input.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/toast/app_toast.dart";
 import "package:smart_kitchen_flutter_app/features/product_form/domain/entities/entities.dart";
-import "package:smart_kitchen_flutter_app/shared/products/domain/entities/entities.dart";
-import "package:smart_kitchen_flutter_app/shared/products/navigation/navigation.dart";
-import "package:smart_kitchen_flutter_app/shared/products/params/params.dart";
+import "package:smart_kitchen_flutter_app/domains/products/domain/entities/entities.dart";
+import "package:smart_kitchen_flutter_app/domains/products/navigation/navigation.dart";
+import "package:smart_kitchen_flutter_app/domains/products/params/params.dart";
 import "package:smart_kitchen_flutter_app/features/product_form/presentation/bloc/bloc.dart";
 import "package:smart_kitchen_flutter_app/features/product_form/presentation/widgets/widgets.dart";
-import "package:smart_kitchen_flutter_app/shared/categories/presentation/widgets/widgets.dart";
+import "package:smart_kitchen_flutter_app/domains/categories/presentation/widgets/widgets.dart";
 
 class ProductFormView extends StatefulWidget {
   const ProductFormView({

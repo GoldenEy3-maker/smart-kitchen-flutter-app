@@ -43,6 +43,22 @@ class FridgeCatalogRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [FridgeFormPage]
+class FridgeFormRoute extends PageRouteInfo<void> {
+  const FridgeFormRoute({List<PageRouteInfo>? children})
+    : super(FridgeFormRoute.name, initialChildren: children);
+
+  static const String name = 'FridgeFormRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const FridgeFormPage();
+    },
+  );
+}
+
+/// generated route for
 /// [MainLayoutPage]
 class MainLayoutRoute extends PageRouteInfo<void> {
   const MainLayoutRoute({List<PageRouteInfo>? children})
