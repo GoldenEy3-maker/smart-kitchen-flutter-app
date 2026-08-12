@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import "package:smart_kitchen_flutter_app/core/l10n/app_localizations.dart";
+import "package:smart_kitchen_flutter_app/core/context/context.dart";
 import "package:smart_kitchen_flutter_app/core/theme/theme.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/button/button.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/button/button_style.dart";
@@ -61,7 +61,9 @@ class _ProductConfirmDeleteSheetViewState
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = context.l10n;
+    final colors = context.theme.colors;
+    final buttonStyles = ButtonStyles.of(context);
 
     return SingleChildScrollView(
       controller: widget.scrollController,
@@ -86,7 +88,7 @@ class _ProductConfirmDeleteSheetViewState
                   Text(
                     l10n.productConfirmDeleteSheetDescription,
                     style: AppTypography.textTheme.bodyMedium!.copyWith(
-                      color: AppColors.textSecondary,
+                      color: colors.textSecondary,
                     ),
                   ),
                 ],
@@ -97,7 +99,7 @@ class _ProductConfirmDeleteSheetViewState
               children: [
                 Expanded(
                   child: Button(
-                    style: ButtonStyles.ghost,
+                    style: buttonStyles.ghost,
                     onPressed: _onCancelPressed,
                     child: Text(l10n.cancel, textAlign: TextAlign.center),
                   ),
@@ -107,7 +109,7 @@ class _ProductConfirmDeleteSheetViewState
                     valueListenable: _isPending,
                     builder: (context, isPending, child) {
                       return Button(
-                        style: ButtonStyles.destructiveGhost,
+                        style: buttonStyles.destructiveGhost,
                         disabled: isPending,
                         onPressed: _onConfirmPressed,
                         child: Text(l10n.delete, textAlign: TextAlign.center),

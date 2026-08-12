@@ -2,7 +2,7 @@ import "package:auto_route/auto_route.dart";
 import "package:flutter/material.dart";
 import "package:lucide_icons_flutter/lucide_icons.dart";
 import "package:smart_kitchen_flutter_app/app/router/app_router.dart";
-import "package:smart_kitchen_flutter_app/core/l10n/app_localizations.dart";
+import "package:smart_kitchen_flutter_app/core/context/context.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/bottom_navigation_bar/app_bottom_navigation_bar.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/bottom_navigation_bar/app_bottom_navigation_bar_item.dart";
 
@@ -12,7 +12,7 @@ class MainLayoutPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = context.l10n;
 
     return AutoTabsScaffold(
       routes: const [

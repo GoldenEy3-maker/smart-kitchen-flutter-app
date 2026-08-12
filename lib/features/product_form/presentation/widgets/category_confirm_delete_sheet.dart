@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import "package:smart_kitchen_flutter_app/core/l10n/app_localizations.dart";
+import "package:smart_kitchen_flutter_app/core/context/context.dart";
 import "package:smart_kitchen_flutter_app/core/theme/theme.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/button/button.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/button/button_style.dart";
@@ -78,10 +78,12 @@ class _CategoryConfirmDeleteSheetViewState
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = context.l10n;
+    final colors = context.theme.colors;
     final description = widget.isCategoryHasLinkedProducts
         ? l10n.deleteCategoryWithProductsBoundedDescription
         : l10n.deleteCategoryDescription;
+    final buttonStyles = ButtonStyles.of(context);
 
     return SingleChildScrollView(
       controller: widget.scrollController,
@@ -93,7 +95,7 @@ class _CategoryConfirmDeleteSheetViewState
           crossAxisAlignment: .start,
           children: [
             Container(
-              color: AppColors.surface,
+              color: colors.surface,
               padding: const EdgeInsets.only(
                 top: AppSpacing.xLarge,
                 bottom: AppSpacing.large,
@@ -110,7 +112,7 @@ class _CategoryConfirmDeleteSheetViewState
                   Text(
                     description,
                     style: AppTypography.textTheme.bodyMedium!.copyWith(
-                      color: AppColors.textSecondary,
+                      color: colors.textSecondary,
                     ),
                   ),
                 ],
@@ -121,7 +123,7 @@ class _CategoryConfirmDeleteSheetViewState
               children: [
                 Expanded(
                   child: Button(
-                    style: ButtonStyles.ghost,
+                    style: buttonStyles.ghost,
                     onPressed: _onCancelPressed,
                     child: Text(l10n.cancel, textAlign: .center),
                   ),
@@ -132,7 +134,7 @@ class _CategoryConfirmDeleteSheetViewState
                     builder: (context, value, child) {
                       return Expanded(
                         child: Button(
-                          style: ButtonStyles.destructiveGhost,
+                          style: buttonStyles.destructiveGhost,
                           disabled: value || widget.isCategoryHasLinkedProducts,
                           onPressed: _onConfirmPressed,
                           child: Text(l10n.delete, textAlign: .center),

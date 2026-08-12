@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import "package:smart_kitchen_flutter_app/core/l10n/app_localizations.dart";
+import "package:smart_kitchen_flutter_app/core/context/context.dart";
 
 class CatalogUnitsLabels {
   const CatalogUnitsLabels({required this.full, required this.short});
@@ -21,7 +21,7 @@ enum CatalogUnits {
     required BuildContext context,
     required CatalogUnits unit,
   }) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = context.l10n;
 
     return switch (unit) {
       CatalogUnits.piece => CatalogUnitsLabels(

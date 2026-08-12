@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import "package:smart_kitchen_flutter_app/core/l10n/app_localizations.dart";
+import "package:smart_kitchen_flutter_app/core/context/context.dart";
 import "package:smart_kitchen_flutter_app/core/theme/theme.dart";
 import "package:smart_kitchen_flutter_app/core/units/catalog_units.dart";
 import "package:smart_kitchen_flutter_app/core/units/scroll_sheet_to_item.dart";
@@ -88,7 +88,9 @@ class _CatalogUnitsPickerSheetViewState
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = context.l10n;
+    final colors = context.theme.colors;
+    final buttonStyles = ButtonStyles.of(context);
 
     return Padding(
       padding: const EdgeInsets.symmetric(
@@ -98,7 +100,7 @@ class _CatalogUnitsPickerSheetViewState
         crossAxisAlignment: .start,
         children: [
           Container(
-            color: AppColors.surface,
+            color: colors.surface,
             padding: const EdgeInsets.only(
               top: AppSpacing.xLarge,
               bottom: AppSpacing.large,
@@ -126,8 +128,8 @@ class _CatalogUnitsPickerSheetViewState
                         return Button(
                           onPressed: () => _onSelectedUnitChanged(unit),
                           style: isSelected
-                              ? ButtonStyles.surfaceSelected
-                              : ButtonStyles.surface,
+                              ? buttonStyles.surfaceSelected
+                              : buttonStyles.surface,
                           rounder: ButtonRounders.rectangularSm,
                           child: Text(
                             (CatalogUnits.resolveLabels(
@@ -145,7 +147,7 @@ class _CatalogUnitsPickerSheetViewState
           ),
           Container(
             width: double.infinity,
-            color: AppColors.surface,
+            color: colors.surface,
             padding: const EdgeInsets.only(top: AppSpacing.large),
             child: Button(
               onPressed: () {

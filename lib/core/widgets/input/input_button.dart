@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:lucide_icons_flutter/lucide_icons.dart";
+import "package:smart_kitchen_flutter_app/core/context/context.dart";
 import "package:smart_kitchen_flutter_app/core/theme/theme.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/input/input.dart";
 
@@ -19,7 +20,10 @@ class InputButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.theme.colors;
+
     final inputDecoration = AppInputDecoration(
+      context: context,
       hintText: hintText,
       invalid: invalid,
     );
@@ -48,7 +52,7 @@ class InputButton extends StatelessWidget {
                     ? Text(
                         value!,
                         style: AppTypography.textTheme.bodyLarge!.copyWith(
-                          color: AppColors.textPrimary,
+                          color: colors.textPrimary,
                         ),
                       )
                     : Text(hintText, style: inputDecoration.style.hintStyle),
@@ -56,7 +60,7 @@ class InputButton extends StatelessWidget {
               Icon(
                 LucideIcons.chevronDown,
                 size: 18,
-                color: AppColors.textSecondary,
+                color: colors.textSecondary,
               ),
             ],
           ),

@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:smart_kitchen_flutter_app/core/context/context.dart";
 import "package:smart_kitchen_flutter_app/core/theme/theme.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/resizable_sheet/resizable_sheet.dart";
 
@@ -11,11 +12,12 @@ Future<T?> showResizableSheet<T>({
   bool fitMaxSizeToContent = false,
   bool fitToContent = false,
 }) async {
+  final colors = context.theme.colors;
   return showModalBottomSheet<T>(
     context: context,
     isScrollControlled: true,
     useSafeArea: true,
-    backgroundColor: AppColors.surface,
+    backgroundColor: colors.surface,
     showDragHandle: false,
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.only(

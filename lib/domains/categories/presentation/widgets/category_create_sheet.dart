@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
 import "package:lucide_icons_flutter/lucide_icons.dart";
+import "package:smart_kitchen_flutter_app/core/context/context.dart";
 import "package:smart_kitchen_flutter_app/core/icons/icons.dart";
-import "package:smart_kitchen_flutter_app/core/l10n/app_localizations.dart";
 import "package:smart_kitchen_flutter_app/core/theme/theme.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/button/button.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/button/button_rounder.dart";
@@ -85,7 +85,13 @@ class _CategoryCreateSheetViewState extends State<CategoryCreateSheetView> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = context.l10n;
+    final colors = context.theme.colors;
+    final buttonStyles = ButtonStyles.of(context);
+    final inputDecoration = AppInputDecoration(
+      context: context,
+      hintText: l10n.name,
+    );
 
     return SingleChildScrollView(
       controller: widget.scrollController,
@@ -97,7 +103,7 @@ class _CategoryCreateSheetViewState extends State<CategoryCreateSheetView> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              color: AppColors.surface,
+              color: colors.surface,
               padding: const EdgeInsets.only(
                 top: AppSpacing.xLarge,
                 bottom: AppSpacing.large,
@@ -117,11 +123,11 @@ class _CategoryCreateSheetViewState extends State<CategoryCreateSheetView> {
                   valueListenable: _selectedIcon,
                   builder: (context, icon, _) => Button(
                     style: icon != null
-                        ? ButtonStyles.secondarySelected
-                        : ButtonStyles.secondary,
+                        ? buttonStyles.secondarySelected
+                        : buttonStyles.secondary,
                     size: ButtonSizes.icon,
                     rounder: ButtonRounders.rectangular.copyWith(
-                      borderRadius: AppInputDecoration().shape.borderRadius,
+                      borderRadius: inputDecoration.shape.borderRadius,
                     ),
                     onPressed: () {
                       showCatalogIconsPickerSheet(
@@ -139,9 +145,7 @@ class _CategoryCreateSheetViewState extends State<CategoryCreateSheetView> {
                     controller: _labelController,
                     autofocus: true,
                     textCapitalization: TextCapitalization.sentences,
-                    decoration: AppInputDecoration(
-                      hintText: l10n.name,
-                    ).toInputDecoration(),
+                    decoration: inputDecoration.toInputDecoration(),
                   ),
                 ),
               ],

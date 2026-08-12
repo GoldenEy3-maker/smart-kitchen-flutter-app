@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
 import "package:lucide_icons_flutter/lucide_icons.dart";
-import "package:smart_kitchen_flutter_app/core/l10n/app_localizations.dart";
+import "package:smart_kitchen_flutter_app/core/context/context.dart";
 import "package:smart_kitchen_flutter_app/core/theme/theme.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/button/button.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/button/button_style.dart";
@@ -12,12 +12,14 @@ class AddFridgeProductButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = context.l10n;
+    final colors = context.theme.colors;
+    final buttonStyles = ButtonStyles.of(context);
     return Button(
       onPressed: onPressed,
-      style: ButtonStyles.primary.copyWith(
+      style: buttonStyles.primary.copyWith(
         elevation: 6,
-        shadowColor: AppColors.primary.withValues(alpha: 0.35),
+        shadowColor: colors.primary.withValues(alpha: 0.35),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,

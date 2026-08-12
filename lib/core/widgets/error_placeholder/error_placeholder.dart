@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
 import "package:lucide_icons_flutter/lucide_icons.dart";
-import "package:smart_kitchen_flutter_app/core/l10n/app_localizations.dart";
+import "package:smart_kitchen_flutter_app/core/context/context.dart";
 import "package:smart_kitchen_flutter_app/core/theme/theme.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/button/button.dart";
 
@@ -29,11 +29,12 @@ class _ErrorPlaceholderState extends State<ErrorPlaceholder> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = context.l10n;
+    final colors = context.theme.colors;
     final resolvedIcon = Icon(
       LucideIcons.xCircle,
       size: 40,
-      color: AppColors.dangerText,
+      color: colors.dangerText,
     );
     return Column(
       spacing: AppSpacing.large,
@@ -43,7 +44,7 @@ class _ErrorPlaceholderState extends State<ErrorPlaceholder> {
           height: 96,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: AppColors.iconBg,
+            color: colors.iconBg,
           ),
           child: resolvedIcon,
         ),
@@ -51,7 +52,7 @@ class _ErrorPlaceholderState extends State<ErrorPlaceholder> {
           l10n.error,
           style: AppTypography.textTheme.titleLarge!.copyWith(
             fontFamily: AppFonts.manrope,
-            color: AppColors.textPrimary,
+            color: colors.textPrimary,
           ),
           textAlign: TextAlign.center,
         ),
@@ -60,7 +61,7 @@ class _ErrorPlaceholderState extends State<ErrorPlaceholder> {
           child: Text(
             widget.errorMessage,
             style: AppTypography.textTheme.bodyMedium!.copyWith(
-              color: AppColors.textSecondary,
+              color: colors.textSecondary,
             ),
             textAlign: TextAlign.center,
           ),

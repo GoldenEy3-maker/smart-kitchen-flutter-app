@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:flutter/rendering.dart";
+import "package:smart_kitchen_flutter_app/core/context/context.dart";
 import "package:smart_kitchen_flutter_app/core/theme/theme.dart";
 
 typedef ResizableSheetBuilder =
@@ -170,6 +171,8 @@ class _ResizableSheetState extends State<ResizableSheet> {
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.theme.colors;
+
     final initialSize = widget.fitToContent
         ? (_fittedSize ?? _resolvedInitialSize)
         : _resolvedInitialSize;
@@ -222,7 +225,7 @@ class _ResizableSheetState extends State<ResizableSheet> {
                   width: 60,
                   height: 7,
                   decoration: BoxDecoration(
-                    color: AppColors.surface,
+                    color: colors.surface,
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),

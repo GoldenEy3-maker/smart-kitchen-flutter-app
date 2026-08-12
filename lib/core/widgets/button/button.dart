@@ -26,7 +26,8 @@ class Button extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final resolvedStyle = style ?? button_styles.ButtonStyles.primary;
+    final resolvedStyle =
+        style ?? button_styles.ButtonStyles.of(context).primary;
     final resolvedSize = size ?? ButtonSizes.primary;
     final resolvedRounder = rounder ?? ButtonRounders.rectangular;
     final resolvedForegroundColor = disabled

@@ -1,15 +1,9 @@
 import "package:flutter/widgets.dart";
 import "package:smart_kitchen_flutter_app/core/theme/theme.dart";
 
-final class ButtonSize {
-  final double minHeight;
-  final double minWidth;
-  final double maxHeight;
-  final double maxWidth;
-  final EdgeInsets padding;
-  final double fontSize;
-
-  ButtonSize({
+@immutable
+class ButtonSize {
+  const ButtonSize({
     required this.minHeight,
     required this.minWidth,
     required this.maxHeight,
@@ -17,6 +11,13 @@ final class ButtonSize {
     required this.padding,
     this.fontSize = 16,
   });
+
+  final double minHeight;
+  final double minWidth;
+  final double maxHeight;
+  final double maxWidth;
+  final EdgeInsets padding;
+  final double fontSize;
 
   ButtonSize copyWith({
     double? minHeight,

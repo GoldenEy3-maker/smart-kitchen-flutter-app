@@ -1,11 +1,12 @@
 import "package:flutter/widgets.dart";
 import "package:smart_kitchen_flutter_app/core/theme/app_radius.dart";
 
-final class ButtonRounder {
+@immutable
+class ButtonRounder {
+  const ButtonRounder({this.borderRadius, this.shape});
+
   final BorderRadius? borderRadius;
   final BoxShape? shape;
-
-  ButtonRounder({this.borderRadius, this.shape});
 
   ButtonRounder copyWith({BorderRadius? borderRadius, BoxShape? shape}) {
     return ButtonRounder(
@@ -23,6 +24,6 @@ abstract final class ButtonRounders {
   );
   static final ButtonRounder rectangularSm = ButtonRounder(
     shape: BoxShape.rectangle,
-    borderRadius: BorderRadius.circular(AppRadius.xSmall),
+    borderRadius: BorderRadius.circular(AppRadius.small),
   );
 }

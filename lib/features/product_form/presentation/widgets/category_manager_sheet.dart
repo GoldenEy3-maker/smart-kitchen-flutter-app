@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
+import "package:smart_kitchen_flutter_app/core/context/context.dart";
 import "package:smart_kitchen_flutter_app/core/l10n/app_localizations.dart";
 import "package:smart_kitchen_flutter_app/core/theme/theme.dart";
 import "package:smart_kitchen_flutter_app/core/units/scroll_sheet_to_item.dart";
@@ -68,7 +69,7 @@ class _CategoryManagerSheetViewState extends State<CategoryManagerSheetView> {
 
   void _onEditPressed(CategoryWithProductsCount category) {
     final bloc = context.read<ProductFormBloc>();
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = context.l10n;
     showCategoryEditSheet(
       context: context,
       category: category,
@@ -98,7 +99,7 @@ class _CategoryManagerSheetViewState extends State<CategoryManagerSheetView> {
   }
 
   Future<void> _onDeletePressed(CategoryWithProductsCount category) async {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = context.l10n;
     final bloc = context.read<ProductFormBloc>();
     final result = await showCategoryConfirmDeleteSheet(
       context: context,
@@ -159,7 +160,8 @@ class _CategoryManagerSheetViewState extends State<CategoryManagerSheetView> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = context.l10n;
+    final colors = context.theme.colors;
 
     return Padding(
       padding: const EdgeInsets.symmetric(
@@ -169,7 +171,7 @@ class _CategoryManagerSheetViewState extends State<CategoryManagerSheetView> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            color: AppColors.surface,
+            color: colors.surface,
             padding: const EdgeInsets.only(
               top: AppSpacing.xLarge,
               bottom: AppSpacing.medium,
@@ -220,7 +222,7 @@ class _CategoryManagerSheetViewState extends State<CategoryManagerSheetView> {
           ),
           Container(
             width: double.infinity,
-            color: AppColors.surface,
+            color: colors.surface,
             padding: const EdgeInsets.only(top: AppSpacing.medium),
             child: Button(
               onPressed: _onSelectPressed,

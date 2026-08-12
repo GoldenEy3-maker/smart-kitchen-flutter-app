@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
 import "package:lucide_icons_flutter/lucide_icons.dart";
+import "package:smart_kitchen_flutter_app/core/context/context.dart";
 import "package:smart_kitchen_flutter_app/core/icons/icons.dart";
-import "package:smart_kitchen_flutter_app/core/l10n/app_localizations.dart";
 import "package:smart_kitchen_flutter_app/core/theme/theme.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/button/button.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/button/button_size.dart";
@@ -28,10 +28,10 @@ class CategoryTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
-    final backgroundColor = selected
-        ? AppColors.primarySoft
-        : AppColors.surface;
+    final l10n = context.l10n;
+    final colors = context.theme.colors;
+    final backgroundColor = selected ? colors.primarySoft : colors.surface;
+    final buttonStyles = ButtonStyles.of(context);
 
     return AnimatedContainer(
       duration: const Duration(milliseconds: 300),
@@ -40,17 +40,17 @@ class CategoryTile extends StatelessWidget {
       decoration: BoxDecoration(
         color: backgroundColor,
         shape: BoxShape.rectangle,
-        borderRadius: BorderRadius.circular(AppRadius.xSmall),
+        borderRadius: BorderRadius.circular(AppRadius.small),
       ),
       child: Material(
         color: Colors.transparent,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppRadius.xSmall),
+          borderRadius: BorderRadius.circular(AppRadius.small),
         ),
         child: InkWell(
           onTap: onPressed,
           customBorder: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(AppRadius.xSmall),
+            borderRadius: BorderRadius.circular(AppRadius.small),
           ),
           child: Padding(
             padding: EdgeInsets.symmetric(
@@ -64,12 +64,12 @@ class CategoryTile extends StatelessWidget {
                   width: 36,
                   height: 36,
                   decoration: BoxDecoration(
-                    color: AppColors.iconBg,
+                    color: colors.iconBg,
                     shape: BoxShape.circle,
                   ),
                   child: Icon(
                     CatalogIcons.fromName(category.iconKey).icon,
-                    color: AppColors.textSecondary,
+                    color: colors.textSecondary,
                     size: 18,
                   ),
                 ),
@@ -80,7 +80,7 @@ class CategoryTile extends StatelessWidget {
                       Text(
                         category.label,
                         style: AppTypography.textTheme.titleMedium!.copyWith(
-                          color: AppColors.textPrimary,
+                          color: colors.textPrimary,
                         ),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
@@ -88,7 +88,7 @@ class CategoryTile extends StatelessWidget {
                       Text(
                         l10n.productsCount(category.productsCount),
                         style: AppTypography.textTheme.bodySmall!.copyWith(
-                          color: AppColors.textSecondary,
+                          color: colors.textSecondary,
                         ),
                       ),
                     ],
@@ -97,23 +97,23 @@ class CategoryTile extends StatelessWidget {
                 Row(
                   children: [
                     Button(
-                      style: ButtonStyles.text,
+                      style: buttonStyles.text,
                       size: ButtonSizes.iconSmall,
                       onPressed: onEditPressed,
                       child: Icon(
                         LucideIcons.pencil,
                         size: 18,
-                        color: AppColors.textSecondary,
+                        color: colors.textSecondary,
                       ),
                     ),
                     Button(
-                      style: ButtonStyles.text,
+                      style: buttonStyles.text,
                       size: ButtonSizes.iconSmall,
                       onPressed: onDeletePressed,
                       child: Icon(
                         LucideIcons.trash2,
                         size: 18,
-                        color: AppColors.dangerText,
+                        color: colors.dangerText,
                       ),
                     ),
                   ],

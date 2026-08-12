@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
 import "package:lucide_icons_flutter/lucide_icons.dart";
 import "package:skeletonizer/skeletonizer.dart";
-import "package:smart_kitchen_flutter_app/core/l10n/app_localizations.dart";
+import "package:smart_kitchen_flutter_app/core/context/context.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/button/button_size.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/empty_placeholder/empty_placeholder.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/error_placeholder/error_placeholder.dart";
@@ -79,7 +79,8 @@ class ProductsCatalogView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ProductsCatalogBloc, ProductsCatalogState>(
       builder: (context, state) {
-        final l10n = AppLocalizations.of(context)!;
+        final l10n = context.l10n;
+        final colors = context.theme.colors;
         final categoryWithProducts = state.isLoading
             ? [
                 CategoryWithProducts.loading,
@@ -103,7 +104,7 @@ class ProductsCatalogView extends StatelessWidget {
                     ? Icon(
                         LucideIcons.searchX,
                         size: 40,
-                        color: AppColors.textSecondary,
+                        color: colors.textSecondary,
                       )
                     : null,
                 title: isSearchQueryApplied

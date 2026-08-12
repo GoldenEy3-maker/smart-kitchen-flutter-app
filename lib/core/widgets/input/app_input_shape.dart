@@ -1,18 +1,19 @@
 import "package:flutter/widgets.dart";
 import "package:smart_kitchen_flutter_app/core/theme/theme.dart";
 
-final class AppInputShape {
-  final double height;
-  final BorderRadius borderRadius;
-  final EdgeInsets contentPadding;
-  final EdgeInsets prefixIconPadding;
-
-  AppInputShape({
+@immutable
+class AppInputShape {
+  const AppInputShape({
     required this.height,
     required this.contentPadding,
     required this.prefixIconPadding,
     required this.borderRadius,
   });
+
+  final double height;
+  final BorderRadius borderRadius;
+  final EdgeInsets contentPadding;
+  final EdgeInsets prefixIconPadding;
 
   AppInputShape copyWith({
     double? height,
@@ -29,7 +30,7 @@ final class AppInputShape {
   }
 }
 
-abstract class AppInputShapes {
+abstract final class AppInputShapes {
   static final AppInputShape circular = AppInputShape(
     height: 42,
     contentPadding: EdgeInsets.symmetric(horizontal: AppSpacing.standard),
@@ -47,7 +48,7 @@ abstract class AppInputShapes {
       right: AppSpacing.xSmall,
       left: AppSpacing.large,
     ),
-    borderRadius: BorderRadius.circular(AppRadius.small),
+    borderRadius: BorderRadius.circular(AppRadius.medium),
   );
 
   static final AppInputShape rectangularSmall = AppInputShape(
@@ -57,6 +58,6 @@ abstract class AppInputShapes {
       right: AppSpacing.xSmall,
       left: AppSpacing.large,
     ),
-    borderRadius: BorderRadius.circular(AppRadius.xSmall),
+    borderRadius: BorderRadius.circular(AppRadius.small),
   );
 }

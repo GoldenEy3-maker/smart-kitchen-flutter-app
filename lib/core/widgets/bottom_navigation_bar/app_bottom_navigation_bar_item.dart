@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:smart_kitchen_flutter_app/core/context/context.dart";
 import "package:smart_kitchen_flutter_app/core/theme/theme.dart";
 
 class AppBottomNavigationBarItem extends StatelessWidget {
@@ -22,9 +23,10 @@ class AppBottomNavigationBarItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.theme.colors;
     final foregroundColor = isSelected
-        ? AppColors.primaryText
-        : AppColors.textPrimary;
+        ? colors.primaryText
+        : colors.textPrimary;
 
     return Material(
       color: Colors.transparent,

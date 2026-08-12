@@ -1,8 +1,8 @@
 import "package:flutter/material.dart";
 import "package:lucide_icons_flutter/lucide_icons.dart";
 import "package:skeletonizer/skeletonizer.dart";
+import "package:smart_kitchen_flutter_app/core/context/context.dart";
 import "package:smart_kitchen_flutter_app/core/icons/icons.dart";
-import "package:smart_kitchen_flutter_app/core/l10n/app_localizations.dart";
 import "package:smart_kitchen_flutter_app/core/theme/theme.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/input/input.dart";
 import "package:smart_kitchen_flutter_app/features/product_form/domain/entities/entities.dart";
@@ -23,7 +23,8 @@ class SelectedCategoryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = context.l10n;
+    final colors = context.theme.colors;
     final resolvedCategory = isLoading
         ? CategoryWithProductsCount.loading
         : category;
@@ -41,15 +42,15 @@ class SelectedCategoryCard extends StatelessWidget {
       enabled: isLoading,
       child: Skeleton.leaf(
         child: Material(
-          color: AppColors.primarySoft,
+          color: colors.primarySoft,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(AppRadius.small),
-            side: BorderSide(color: AppColors.primary, width: 1.5),
+            borderRadius: BorderRadius.circular(AppRadius.medium),
+            side: BorderSide(color: colors.primary, width: 1.5),
           ),
           child: InkWell(
             onTap: onPressed,
             customBorder: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(AppRadius.small),
+              borderRadius: BorderRadius.circular(AppRadius.medium),
             ),
             child: Padding(
               padding: const EdgeInsets.all(AppSpacing.medium),
@@ -61,12 +62,12 @@ class SelectedCategoryCard extends StatelessWidget {
                       width: 44,
                       height: 44,
                       decoration: BoxDecoration(
-                        color: AppColors.surfaceOverlay,
+                        color: colors.surfaceOverlay,
                         shape: BoxShape.circle,
                       ),
                       child: Icon(
                         CatalogIcons.fromName(resolvedCategory.iconKey).icon,
-                        color: AppColors.primary,
+                        color: colors.primary,
                         size: 22,
                       ),
                     ),
@@ -77,7 +78,7 @@ class SelectedCategoryCard extends StatelessWidget {
                         Text(
                           resolvedCategory.label,
                           style: AppTypography.textTheme.titleMedium!.copyWith(
-                            color: AppColors.textPrimary,
+                            color: colors.textPrimary,
                           ),
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
@@ -85,7 +86,7 @@ class SelectedCategoryCard extends StatelessWidget {
                         Text(
                           l10n.productsCount(resolvedCategory.productsCount),
                           style: AppTypography.textTheme.bodySmall!.copyWith(
-                            color: AppColors.textSecondary,
+                            color: colors.textSecondary,
                           ),
                         ),
                       ],
@@ -93,7 +94,7 @@ class SelectedCategoryCard extends StatelessWidget {
                   ),
                   Icon(
                     LucideIcons.chevronDown,
-                    color: AppColors.primary,
+                    color: colors.primary,
                     size: 18,
                   ),
                 ],

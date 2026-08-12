@@ -4,20 +4,26 @@ import "app_input_shape.dart";
 import "app_input_style.dart";
 
 class AppInputDecoration {
-  final Widget? prefixIcon;
-  final String? hintText;
-  final bool invalid;
-  final AppInputStyle style;
-  final AppInputShape shape;
-
   AppInputDecoration({
+    this.context,
     this.prefixIcon,
     this.hintText = "",
     this.invalid = false,
     AppInputStyle? style,
     AppInputShape? shape,
-  }) : style = style ?? AppInputStyles.outlined,
+  }) : assert(
+         style == null && context != null,
+         "Either style or context must be provided",
+       ),
+       style = style ?? AppInputStyles.of(context!).outlined,
        shape = shape ?? AppInputShapes.rectangular;
+
+  final BuildContext? context;
+  final Widget? prefixIcon;
+  final String? hintText;
+  final bool invalid;
+  final AppInputStyle style;
+  final AppInputShape shape;
 
   AppInputDecoration copyWith({
     Widget? prefixIcon,
@@ -27,6 +33,7 @@ class AppInputDecoration {
     AppInputShape? shape,
   }) {
     return AppInputDecoration(
+      context: context,
       prefixIcon: prefixIcon ?? this.prefixIcon,
       hintText: hintText ?? this.hintText,
       invalid: invalid ?? this.invalid,

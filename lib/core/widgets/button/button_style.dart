@@ -1,16 +1,10 @@
 import "package:flutter/material.dart";
+import "package:smart_kitchen_flutter_app/core/context/context.dart";
 import "package:smart_kitchen_flutter_app/core/theme/theme.dart";
 
-final class ButtonStyle {
-  final Color backgroundColor;
-  final Color foregroundColor;
-
-  final BoxBorder? border;
-  final double elevation;
-  final Color? shadowColor;
-  final ButtonStyle? disabled;
-
-  ButtonStyle({
+@immutable
+class ButtonStyle {
+  const ButtonStyle({
     required this.backgroundColor,
     required this.foregroundColor,
     this.border,
@@ -18,6 +12,14 @@ final class ButtonStyle {
     this.shadowColor,
     this.disabled,
   });
+
+  final Color backgroundColor;
+  final Color foregroundColor;
+
+  final BoxBorder? border;
+  final double elevation;
+  final Color? shadowColor;
+  final ButtonStyle? disabled;
 
   ButtonStyle copyWith({
     Color? backgroundColor,
@@ -38,69 +40,79 @@ final class ButtonStyle {
   }
 }
 
-abstract final class ButtonStyles {
-  static final ButtonStyle primary = ButtonStyle(
-    backgroundColor: AppColors.primary,
-    foregroundColor: AppColors.onPrimary,
+@immutable
+final class ButtonStyles {
+  const ButtonStyles({required this.context});
+
+  final BuildContext context;
+
+  factory ButtonStyles.of(BuildContext context) =>
+      ButtonStyles(context: context);
+
+  AppColorsExtension get _colors => context.theme.colors;
+
+  ButtonStyle get primary => ButtonStyle(
+    backgroundColor: _colors.primary,
+    foregroundColor: _colors.onPrimary,
     disabled: ButtonStyle(
-      backgroundColor: AppColors.primary.withValues(alpha: 0.3),
-      foregroundColor: AppColors.onPrimary,
+      backgroundColor: _colors.primary.withValues(alpha: 0.3),
+      foregroundColor: _colors.onPrimary,
     ),
   );
 
-  static final ButtonStyle secondary = ButtonStyle(
-    backgroundColor: AppColors.surface,
-    foregroundColor: AppColors.textPrimary,
-    border: Border.all(color: AppColors.border, width: 1),
+  ButtonStyle get secondary => ButtonStyle(
+    backgroundColor: _colors.surface,
+    foregroundColor: _colors.textPrimary,
+    border: Border.all(color: _colors.border, width: 1),
   );
 
-  static final ButtonStyle secondarySelected = ButtonStyle(
-    backgroundColor: AppColors.primarySoft,
-    foregroundColor: AppColors.primary,
-    border: Border.all(color: AppColors.primary, width: 1.5),
+  ButtonStyle get secondarySelected => ButtonStyle(
+    backgroundColor: _colors.primarySoft,
+    foregroundColor: _colors.primary,
+    border: Border.all(color: _colors.primary, width: 1.5),
   );
 
-  static final ButtonStyle secondaryDanger = ButtonStyle(
-    backgroundColor: AppColors.surface,
-    foregroundColor: AppColors.dangerText,
-    border: Border.all(color: AppColors.danger, width: 1.5),
+  ButtonStyle get secondaryDanger => ButtonStyle(
+    backgroundColor: _colors.surface,
+    foregroundColor: _colors.dangerText,
+    border: Border.all(color: _colors.danger, width: 1.5),
   );
 
-  static final ButtonStyle ghost = ButtonStyle(
-    backgroundColor: AppColors.primarySoft,
-    foregroundColor: AppColors.primaryText,
+  ButtonStyle get ghost => ButtonStyle(
+    backgroundColor: _colors.primarySoft,
+    foregroundColor: _colors.primaryText,
   );
 
-  static final ButtonStyle text = ButtonStyle(
+  ButtonStyle get text => ButtonStyle(
     backgroundColor: Colors.transparent,
-    foregroundColor: AppColors.textPrimary,
+    foregroundColor: _colors.textPrimary,
   );
 
-  static final ButtonStyle destructive = ButtonStyle(
-    backgroundColor: AppColors.danger,
-    foregroundColor: AppColors.onDanger,
+  ButtonStyle get destructive => ButtonStyle(
+    backgroundColor: _colors.danger,
+    foregroundColor: _colors.onDanger,
     disabled: ButtonStyle(
-      backgroundColor: AppColors.danger.withValues(alpha: 0.3),
-      foregroundColor: AppColors.onDanger,
+      backgroundColor: _colors.danger.withValues(alpha: 0.3),
+      foregroundColor: _colors.onDanger,
     ),
   );
 
-  static final ButtonStyle destructiveGhost = ButtonStyle(
-    backgroundColor: AppColors.dangerSoft,
-    foregroundColor: AppColors.dangerText,
+  ButtonStyle get destructiveGhost => ButtonStyle(
+    backgroundColor: _colors.dangerSoft,
+    foregroundColor: _colors.dangerText,
     disabled: ButtonStyle(
-      backgroundColor: AppColors.dangerSoft.withValues(alpha: 0.4),
-      foregroundColor: AppColors.dangerText.withValues(alpha: 0.4),
+      backgroundColor: _colors.dangerSoft.withValues(alpha: 0.4),
+      foregroundColor: _colors.dangerText.withValues(alpha: 0.4),
     ),
   );
 
-  static final ButtonStyle surface = ButtonStyle(
-    backgroundColor: AppColors.surface,
-    foregroundColor: AppColors.textPrimary,
+  ButtonStyle get surface => ButtonStyle(
+    backgroundColor: _colors.surface,
+    foregroundColor: _colors.textPrimary,
   );
 
-  static final ButtonStyle surfaceSelected = ButtonStyle(
-    backgroundColor: AppColors.primarySoft,
-    foregroundColor: AppColors.textPrimary,
+  ButtonStyle get surfaceSelected => ButtonStyle(
+    backgroundColor: _colors.primarySoft,
+    foregroundColor: _colors.textPrimary,
   );
 }

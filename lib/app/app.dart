@@ -7,7 +7,6 @@ import "package:smart_kitchen_flutter_app/core/theme/theme.dart";
 
 class SmartKitchenApp extends StatelessWidget {
   final AppRouter _appRouter = getIt.get<AppRouter>();
-  final AppTheme _appTheme = getIt.get<AppTheme>();
 
   SmartKitchenApp({super.key});
 
@@ -18,7 +17,9 @@ class SmartKitchenApp extends StatelessWidget {
       supportedLocales: AppLocalizations.supportedLocales,
       locale: const Locale("ru"),
       routerConfig: _appRouter.config(),
-      theme: _appTheme.lightTheme,
+      theme: AppTheme.light,
+      darkTheme: AppTheme.dark,
+      themeMode: ThemeMode.light,
       builder: FToastBuilder(),
     );
   }

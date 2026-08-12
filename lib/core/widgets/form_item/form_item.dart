@@ -1,4 +1,5 @@
 import "package:flutter/widgets.dart";
+import "package:smart_kitchen_flutter_app/core/context/context.dart";
 import "package:smart_kitchen_flutter_app/core/theme/theme.dart";
 
 class FormItem extends StatelessWidget {
@@ -15,13 +16,14 @@ class FormItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.theme.colors;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         if (label != null) ...[
           DefaultTextStyle(
             style: AppTypography.textTheme.labelMedium!.copyWith(
-              color: AppColors.textPrimary,
+              color: colors.textPrimary,
             ),
             child: label!,
           ),
@@ -32,7 +34,7 @@ class FormItem extends StatelessWidget {
           const SizedBox(height: AppSpacing.small),
           DefaultTextStyle(
             style: AppTypography.textTheme.labelSmall!.copyWith(
-              color: AppColors.dangerText,
+              color: colors.dangerText,
             ),
             child: errorMessage!,
           ),

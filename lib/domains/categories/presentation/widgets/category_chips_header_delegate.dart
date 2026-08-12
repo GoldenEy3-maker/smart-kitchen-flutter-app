@@ -1,7 +1,8 @@
 import "package:flutter/material.dart";
 import "package:skeletonizer/skeletonizer.dart";
+import "package:smart_kitchen_flutter_app/core/context/context.dart";
 import "package:smart_kitchen_flutter_app/core/icons/icons.dart";
-import "package:smart_kitchen_flutter_app/core/l10n/app_localizations.dart";
+import "package:smart_kitchen_flutter_app/core/theme/theme.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/selectable_chip/selectable_chip.dart";
 import "package:smart_kitchen_flutter_app/domains/categories/domain/entities/entities.dart";
 
@@ -40,14 +41,14 @@ class CategoryChipsHeaderDelegate extends SliverPersistentHeaderDelegate {
     double shrinkOffset,
     bool overlapsContent,
   ) {
-    final l10n = AppLocalizations.of(context)!;
-    final theme = Theme.of(context);
+    final l10n = context.l10n;
+    final colors = context.theme.colors;
     final categoriesToRender = isLoading
         ? [Category.loading, Category.loading, Category.loading]
         : categories;
 
     return Container(
-      color: theme.scaffoldBackgroundColor,
+      color: colors.bg,
       height: height,
       padding: EdgeInsets.symmetric(vertical: paddingVertical),
       child: Skeletonizer(

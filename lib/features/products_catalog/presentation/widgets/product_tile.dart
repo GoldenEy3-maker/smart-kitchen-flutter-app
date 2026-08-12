@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
 import "package:skeletonizer/skeletonizer.dart";
+import "package:smart_kitchen_flutter_app/core/context/context.dart";
 import "package:smart_kitchen_flutter_app/core/icons/catalog_icons.dart";
-import "package:smart_kitchen_flutter_app/core/l10n/app_localizations.dart";
 import "package:smart_kitchen_flutter_app/core/units/units.dart";
 import "package:smart_kitchen_flutter_app/core/theme/theme.dart";
 import "package:smart_kitchen_flutter_app/domains/products/domain/entities/entities.dart";
@@ -19,21 +19,22 @@ class ProductTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
-    final theme = Theme.of(context);
+    final l10n = context.l10n;
+    final theme = context.theme;
+    final colors = theme.colors;
 
     return Material(
-      color: AppColors.surface,
+      color: colors.surface,
       surfaceTintColor: Colors.transparent,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(AppRadius.small)),
-        side: Border.all(color: AppColors.border).top,
+        borderRadius: BorderRadius.all(Radius.circular(AppRadius.medium)),
+        side: Border.all(color: colors.border).top,
       ),
       child: InkWell(
         onTap: onPressed,
-        borderRadius: BorderRadius.all(Radius.circular(AppRadius.small)),
+        borderRadius: BorderRadius.all(Radius.circular(AppRadius.medium)),
         customBorder: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(AppRadius.small)),
+          borderRadius: BorderRadius.all(Radius.circular(AppRadius.medium)),
         ),
         child: Padding(
           padding: EdgeInsets.all(AppSpacing.medium),
@@ -44,7 +45,7 @@ class ProductTile extends StatelessWidget {
                   height: 44,
                   width: 44,
                   decoration: BoxDecoration(
-                    color: AppColors.iconBg,
+                    color: colors.iconBg,
                     border: Border.all(color: Colors.transparent),
                     shape: BoxShape.circle,
                   ),

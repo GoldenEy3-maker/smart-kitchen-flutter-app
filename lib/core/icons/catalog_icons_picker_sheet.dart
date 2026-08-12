@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import "package:smart_kitchen_flutter_app/core/l10n/app_localizations.dart";
+import "package:smart_kitchen_flutter_app/core/context/context.dart";
 import "package:smart_kitchen_flutter_app/core/theme/theme.dart";
 import "package:smart_kitchen_flutter_app/core/units/scroll_sheet_to_item.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/button/button.dart";
@@ -109,7 +109,9 @@ class _CatalogIconsPickerSheetViewState
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = context.l10n;
+    final colors = context.theme.colors;
+    final buttonStyles = ButtonStyles.of(context);
 
     return Padding(
       padding: const EdgeInsets.symmetric(
@@ -119,7 +121,7 @@ class _CatalogIconsPickerSheetViewState
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Container(
-            color: AppColors.surface,
+            color: colors.surface,
             padding: const EdgeInsets.only(
               top: AppSpacing.xLarge,
               bottom: AppSpacing.large,
@@ -152,8 +154,8 @@ class _CatalogIconsPickerSheetViewState
                         return Button(
                           size: ButtonSizes.icon,
                           style: isSelected
-                              ? ButtonStyles.secondarySelected
-                              : ButtonStyles.secondary,
+                              ? buttonStyles.secondarySelected
+                              : buttonStyles.secondary,
                           rounder: ButtonRounders.rectangular.copyWith(
                             borderRadius: BorderRadius.circular(
                               AppRadius.smallX,
@@ -176,7 +178,7 @@ class _CatalogIconsPickerSheetViewState
             ),
           ),
           Container(
-            color: AppColors.surface,
+            color: colors.surface,
             padding: const EdgeInsets.only(top: AppSpacing.medium),
             child: Button(
               onPressed: () {

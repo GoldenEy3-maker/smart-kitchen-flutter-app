@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:smart_kitchen_flutter_app/core/context/context.dart";
 import "package:smart_kitchen_flutter_app/core/theme/theme.dart";
 
 import "app_bottom_navigation_bar_item.dart";
@@ -22,6 +23,7 @@ class AppBottomNavigationBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.theme.colors;
     return Container(
       height: 64,
       padding: const EdgeInsets.all(4),
@@ -32,12 +34,12 @@ class AppBottomNavigationBar extends StatelessWidget {
       ),
       clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
-        color: AppColors.surfaceGlass,
+        color: colors.surfaceGlass,
         borderRadius: BorderRadius.circular(30),
         boxShadow: [
           BoxShadow(
             blurRadius: 24,
-            color: AppColors.shadowColor.withValues(alpha: 0.06),
+            color: colors.shadowColor.withValues(alpha: 0.06),
             offset: const Offset(0, 8),
           ),
         ],
@@ -60,7 +62,7 @@ class AppBottomNavigationBar extends StatelessWidget {
                 width: itemWidth,
                 child: DecoratedBox(
                   decoration: BoxDecoration(
-                    color: AppColors.primarySoft,
+                    color: colors.primarySoft,
                     borderRadius: BorderRadius.circular(_indicatorRadius),
                   ),
                 ),

@@ -47,6 +47,7 @@ class SearchHeaderDelegate extends SliverPersistentHeaderDelegate {
         controller: controller,
         onChanged: onChanged,
         decoration: AppInputDecoration(
+          context: context,
           hintText: hintText,
           prefixIcon: const Icon(LucideIcons.search, size: 20),
           shape: AppInputShapes.circular,

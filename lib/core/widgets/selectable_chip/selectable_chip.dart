@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:smart_kitchen_flutter_app/core/context/context.dart";
 import "package:smart_kitchen_flutter_app/core/theme/theme.dart";
 
 class SelectableChip extends StatelessWidget {
@@ -15,10 +16,12 @@ class SelectableChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.theme.colors;
+
     final bool isSelected = selected == true;
     final Color foregroundColor = isSelected
-        ? AppColors.onPrimary
-        : AppColors.textSecondary;
+        ? colors.onPrimary
+        : colors.textSecondary;
 
     return Material(
       color: Colors.transparent,
@@ -27,9 +30,9 @@ class SelectableChip extends StatelessWidget {
         borderRadius: BorderRadius.all(Radius.circular(AppRadius.medium)),
         child: Ink(
           decoration: BoxDecoration(
-            color: isSelected ? AppColors.primary : AppColors.surface,
+            color: isSelected ? colors.primary : colors.surface,
             border: Border.all(
-              color: isSelected ? Colors.transparent : AppColors.border,
+              color: isSelected ? Colors.transparent : colors.border,
             ),
             borderRadius: BorderRadius.all(Radius.circular(AppRadius.medium)),
           ),

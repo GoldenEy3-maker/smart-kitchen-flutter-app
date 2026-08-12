@@ -1,15 +1,10 @@
 import "package:flutter/widgets.dart";
+import "package:smart_kitchen_flutter_app/core/context/context.dart";
 import "package:smart_kitchen_flutter_app/core/theme/theme.dart";
 
-final class AppInputStyle {
-  final Color? fillColor;
-  final Color? borderColor;
-  final Color? focusedBorderColor;
-  final Color? errorBorderColor;
-  final TextStyle? hintStyle;
-  final Color? prefixIconColor;
-
-  AppInputStyle({
+@immutable
+class AppInputStyle {
+  const AppInputStyle({
     this.fillColor,
     this.borderColor,
     this.focusedBorderColor,
@@ -17,6 +12,13 @@ final class AppInputStyle {
     this.hintStyle,
     this.prefixIconColor,
   });
+
+  final Color? fillColor;
+  final Color? borderColor;
+  final Color? focusedBorderColor;
+  final Color? errorBorderColor;
+  final TextStyle? hintStyle;
+  final Color? prefixIconColor;
 
   AppInputStyle copyWith({
     Color? fillColor,
@@ -35,15 +37,25 @@ final class AppInputStyle {
   );
 }
 
-abstract final class AppInputStyles {
-  static final AppInputStyle outlined = AppInputStyle(
-    fillColor: AppColors.surface,
-    borderColor: AppColors.border,
-    focusedBorderColor: AppColors.primary,
-    errorBorderColor: AppColors.danger,
-    prefixIconColor: AppColors.textSecondary,
+@immutable
+final class AppInputStyles {
+  const AppInputStyles({required this.context});
+
+  final BuildContext context;
+
+  factory AppInputStyles.of(BuildContext context) =>
+      AppInputStyles(context: context);
+
+  AppColorsExtension get _colors => context.theme.colors;
+
+  AppInputStyle get outlined => AppInputStyle(
+    fillColor: _colors.surface,
+    borderColor: _colors.border,
+    focusedBorderColor: _colors.primary,
+    errorBorderColor: _colors.danger,
+    prefixIconColor: _colors.textSecondary,
     hintStyle: AppTypography.textTheme.bodyMedium!.copyWith(
-      color: AppColors.textSecondary,
+      color: _colors.textSecondary,
     ),
   );
 }

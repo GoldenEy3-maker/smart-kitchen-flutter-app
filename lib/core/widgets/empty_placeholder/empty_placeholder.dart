@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:lucide_icons_flutter/lucide_icons.dart";
+import "package:smart_kitchen_flutter_app/core/context/context.dart";
 import "package:smart_kitchen_flutter_app/core/theme/theme.dart";
 
 class EmptyPlaceholder extends StatelessWidget {
@@ -18,8 +19,9 @@ class EmptyPlaceholder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.theme.colors;
     final resolvedIcon =
-        icon ?? Icon(LucideIcons.bookOpen, size: 40, color: AppColors.primary);
+        icon ?? Icon(LucideIcons.bookOpen, size: 40, color: colors.primary);
     return Column(
       spacing: AppSpacing.large,
       children: [
@@ -28,7 +30,7 @@ class EmptyPlaceholder extends StatelessWidget {
           height: 96,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: AppColors.iconBg,
+            color: colors.iconBg,
           ),
           child: resolvedIcon,
         ),
@@ -36,7 +38,7 @@ class EmptyPlaceholder extends StatelessWidget {
           title,
           style: AppTypography.textTheme.titleLarge!.copyWith(
             fontFamily: AppFonts.manrope,
-            color: AppColors.textPrimary,
+            color: colors.textPrimary,
           ),
           textAlign: TextAlign.center,
         ),
@@ -46,7 +48,7 @@ class EmptyPlaceholder extends StatelessWidget {
             child: Text(
               description!,
               style: AppTypography.textTheme.bodyMedium!.copyWith(
-                color: AppColors.textSecondary,
+                color: colors.textSecondary,
               ),
               textAlign: TextAlign.center,
             ),

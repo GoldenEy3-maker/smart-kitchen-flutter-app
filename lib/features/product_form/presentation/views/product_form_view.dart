@@ -1,8 +1,8 @@
 import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
 import "package:lucide_icons_flutter/lucide_icons.dart";
+import "package:smart_kitchen_flutter_app/core/context/context.dart";
 import "package:smart_kitchen_flutter_app/core/icons/icons.dart";
-import "package:smart_kitchen_flutter_app/core/l10n/app_localizations.dart";
 import "package:smart_kitchen_flutter_app/core/theme/theme.dart";
 import "package:smart_kitchen_flutter_app/core/units/units.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/button/button.dart";
@@ -49,7 +49,7 @@ class _ProductFormViewState extends State<ProductFormView> {
     BuildContext context,
     CatalogIcons? initialSelectedCatalogIcon,
   ) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = context.l10n;
     final bloc = context.read<ProductFormBloc>();
     showCatalogIconsPickerSheet(
       context: context,
@@ -69,7 +69,7 @@ class _ProductFormViewState extends State<ProductFormView> {
     required List<CategoryWithProductsCount> categories,
     required CategoryWithProductsCount? initialSelectedCategory,
   }) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = context.l10n;
     final bloc = context.read<ProductFormBloc>();
 
     showCategoryManagerSheet(
@@ -87,7 +87,7 @@ class _ProductFormViewState extends State<ProductFormView> {
   }
 
   void _onCategoryCreateSheetOpened(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = context.l10n;
     final bloc = context.read<ProductFormBloc>();
 
     showCategoryCreateSheet(
@@ -120,7 +120,7 @@ class _ProductFormViewState extends State<ProductFormView> {
     BuildContext context,
     CatalogUnits? initialSelectedCatalogUnit,
   ) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = context.l10n;
     final bloc = context.read<ProductFormBloc>();
     showCatalogUnitsPickerSheet(
       context: context,
@@ -136,7 +136,7 @@ class _ProductFormViewState extends State<ProductFormView> {
   }
 
   void _onSavePressed(BuildContext context) async {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = context.l10n;
     final bloc = context.read<ProductFormBloc>();
 
     _nameErrorText.value = _nameController.text.isEmpty
@@ -210,7 +210,7 @@ class _ProductFormViewState extends State<ProductFormView> {
   }
 
   void _onDeletePressed(BuildContext context) async {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = context.l10n;
     final bloc = context.read<ProductFormBloc>();
 
     showProductConfirmDeleteSheet(
@@ -259,11 +259,14 @@ class _ProductFormViewState extends State<ProductFormView> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = context.l10n;
+    final colors = context.theme.colors;
 
     final appBarTitle = widget.product != null
         ? l10n.editProduct
         : l10n.newProduct;
+
+    final buttonStyles = ButtonStyles.of(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -274,7 +277,7 @@ class _ProductFormViewState extends State<ProductFormView> {
         leading: Padding(
           padding: const EdgeInsets.only(left: AppSpacing.containerHorizontal),
           child: Button(
-            style: ButtonStyles.secondary,
+            style: buttonStyles.secondary,
             size: ButtonSizes.iconSmall,
             rounder: ButtonRounders.circle,
             onPressed: () => widget.onGoBackRequested(
@@ -309,6 +312,12 @@ class _ProductFormViewState extends State<ProductFormView> {
                     _iconErrorText,
                   ]),
                   builder: (context, _) {
+                    final inputDecoration = AppInputDecoration(
+                      context: context,
+                      hintText: l10n.name,
+                      invalid: _nameErrorText.value != null,
+                    );
+
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -324,14 +333,14 @@ class _ProductFormViewState extends State<ProductFormView> {
                               builder: (context, selectedCatalogIcon) {
                                 return Button(
                                   style: selectedCatalogIcon != null
-                                      ? ButtonStyles.secondarySelected
+                                      ? buttonStyles.secondarySelected
                                       : _iconErrorText.value != null
-                                      ? ButtonStyles.secondaryDanger
-                                      : ButtonStyles.secondary,
+                                      ? buttonStyles.secondaryDanger
+                                      : buttonStyles.secondary,
                                   size: ButtonSizes.icon,
                                   rounder: ButtonRounders.rectangular.copyWith(
                                     borderRadius:
-                                        AppInputDecoration().shape.borderRadius,
+                                        inputDecoration.shape.borderRadius,
                                   ),
                                   child: selectedCatalogIcon != null
                                       ? Icon(selectedCatalogIcon.icon, size: 20)
@@ -355,10 +364,7 @@ class _ProductFormViewState extends State<ProductFormView> {
                                 },
                                 textCapitalization:
                                     TextCapitalization.sentences,
-                                decoration: AppInputDecoration(
-                                  hintText: l10n.name,
-                                  invalid: _nameErrorText.value != null,
-                                ).toInputDecoration(),
+                                decoration: inputDecoration.toInputDecoration(),
                               ),
                             ),
                           ],
@@ -374,7 +380,7 @@ class _ProductFormViewState extends State<ProductFormView> {
                                   .where((errorText) => errorText != null)
                                   .join(", "),
                               style: AppTypography.textTheme.labelSmall!
-                                  .copyWith(color: AppColors.dangerText),
+                                  .copyWith(color: colors.dangerText),
                             ),
                           ),
                       ],
@@ -429,7 +435,7 @@ class _ProductFormViewState extends State<ProductFormView> {
                           SizedBox(
                             width: double.infinity,
                             child: Button(
-                              style: ButtonStyles.ghost,
+                              style: buttonStyles.ghost,
                               size: ButtonSizes.sm,
                               rounder: ButtonRounders.rectangular,
                               onPressed: () =>
@@ -452,7 +458,7 @@ class _ProductFormViewState extends State<ProductFormView> {
                 Text(
                   l10n.productFormAttention,
                   style: AppTypography.textTheme.bodySmall!.copyWith(
-                    color: AppColors.textSecondary,
+                    color: colors.textSecondary,
                   ),
                 ),
                 ValueListenableBuilder(
@@ -504,9 +510,9 @@ class _ProductFormViewState extends State<ProductFormView> {
                           child: Button(
                             disabled: isSaveProductPending,
                             onPressed: () => _onSavePressed(context),
-                            style: ButtonStyles.primary.copyWith(
+                            style: buttonStyles.primary.copyWith(
                               elevation: 6,
-                              shadowColor: AppColors.primary.withValues(
+                              shadowColor: colors.primary.withValues(
                                 alpha: 0.25,
                               ),
                             ),
@@ -520,7 +526,7 @@ class _ProductFormViewState extends State<ProductFormView> {
                         width: double.infinity,
                         child: Button(
                           onPressed: () => _onDeletePressed(context),
-                          style: ButtonStyles.destructiveGhost,
+                          style: buttonStyles.destructiveGhost,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             spacing: AppSpacing.small,
