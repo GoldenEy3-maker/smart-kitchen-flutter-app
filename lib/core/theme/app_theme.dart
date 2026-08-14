@@ -4,21 +4,24 @@ import "package:smart_kitchen_flutter_app/core/theme/app_colors_extension.dart";
 import "app_fonts.dart";
 import "app_radius.dart";
 import "app_spacing.dart";
-import "app_typography.dart";
+import "app_text_extension.dart";
 
 class AppTheme {
   static final ThemeData light = _buildThemeData(
     brightness: Brightness.light,
     colors: AppColorsExtension.light,
+    text: AppTextExtension.base,
   );
 
   static final ThemeData dark = _buildThemeData(
     brightness: Brightness.dark,
     colors: AppColorsExtension.dark,
+    text: AppTextExtension.base,
   );
 
   static ThemeData _buildThemeData({
     required AppColorsExtension colors,
+    required AppTextExtension text,
     required Brightness brightness,
   }) {
     return ThemeData(
@@ -38,9 +41,8 @@ class AppTheme {
         onSurface: colors.textPrimary,
         outline: colors.border,
       ),
-      textTheme: AppTypography.textTheme.apply(
-        bodyColor: colors.textPrimary,
-        displayColor: colors.textPrimary,
+      textTheme: TextTheme(
+        bodyMedium: text.bodyMd.copyWith(color: colors.textPrimary),
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
@@ -68,15 +70,12 @@ class AppTheme {
         backgroundColor: colors.bg,
         foregroundColor: colors.textPrimary,
         surfaceTintColor: Colors.transparent,
-        titleTextStyle: AppTypography.textTheme.titleLarge!.copyWith(
-          fontFamily: AppFonts.manrope,
-          color: colors.textPrimary,
-        ),
+        titleTextStyle: text.headingLg.copyWith(color: colors.textPrimary),
       ),
       chipTheme: ChipThemeData(
         backgroundColor: colors.surface,
         selectedColor: colors.primary,
-        labelStyle: AppTypography.textTheme.labelMedium!.copyWith(
+        labelStyle: text.labelSm.copyWith(
           color: WidgetStateColor.resolveWith((states) {
             if (states.contains(WidgetState.selected)) {
               return colors.onPrimary;
@@ -96,7 +95,7 @@ class AppTheme {
           borderRadius: BorderRadius.circular(AppRadius.xLarge),
         ),
         foregroundColor: colors.onPrimary,
-        extendedTextStyle: AppTypography.textTheme.titleMedium,
+        extendedTextStyle: text.labelSm,
         extendedIconLabelSpacing: AppSpacing.small,
         sizeConstraints: const BoxConstraints(minHeight: 48),
         extendedPadding: EdgeInsets.symmetric(
@@ -114,7 +113,7 @@ class AppTheme {
         modalBarrierColor: colors.overlayScrim,
         surfaceTintColor: Colors.transparent,
       ),
-      extensions: [colors],
+      extensions: [colors, text],
     );
   }
 }
@@ -124,5 +123,11 @@ extension AppThemeExtension on ThemeData {
     final colorsExtension = extension<AppColorsExtension>();
     assert(colorsExtension != null, "AppColorsExtension is not registered");
     return extension<AppColorsExtension>()!;
+  }
+
+  AppTextExtension get text {
+    final textExtension = extension<AppTextExtension>();
+    assert(textExtension != null, "AppTextExtension is not registered");
+    return extension<AppTextExtension>()!;
   }
 }

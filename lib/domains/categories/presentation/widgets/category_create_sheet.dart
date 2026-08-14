@@ -87,6 +87,8 @@ class _CategoryCreateSheetViewState extends State<CategoryCreateSheetView> {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     final colors = context.theme.colors;
+    final text = context.theme.text;
+
     final buttonStyles = ButtonStyles.of(context);
     final inputDecoration = AppInputDecoration(
       context: context,
@@ -108,12 +110,7 @@ class _CategoryCreateSheetViewState extends State<CategoryCreateSheetView> {
                 top: AppSpacing.xLarge,
                 bottom: AppSpacing.large,
               ),
-              child: Text(
-                l10n.newCategory,
-                style: AppTypography.textTheme.titleLarge!.copyWith(
-                  fontFamily: AppFonts.manrope,
-                ),
-              ),
+              child: Text(l10n.newCategory, style: text.headingLg),
             ),
 
             Row(

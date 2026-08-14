@@ -309,5 +309,9 @@
   "findProductsHint": "Найти продукты...",
   "@findProductsHint": {
     "description": "Подсказка для поиска продуктов"
+  },
+  "catalog": "Каталог",
+  "@catalog": {
+    "description": "Название страницы для каталога"
   }
 }

@@ -31,6 +31,7 @@ class _ErrorPlaceholderState extends State<ErrorPlaceholder> {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     final colors = context.theme.colors;
+    final text = context.theme.text;
     final resolvedIcon = Icon(
       LucideIcons.xCircle,
       size: 40,
@@ -50,19 +51,14 @@ class _ErrorPlaceholderState extends State<ErrorPlaceholder> {
         ),
         Text(
           l10n.error,
-          style: AppTypography.textTheme.titleLarge!.copyWith(
-            fontFamily: AppFonts.manrope,
-            color: colors.textPrimary,
-          ),
+          style: text.headingLg.copyWith(color: colors.textPrimary),
           textAlign: TextAlign.center,
         ),
         ConstrainedBox(
           constraints: BoxConstraints(maxWidth: 280),
           child: Text(
             widget.errorMessage,
-            style: AppTypography.textTheme.bodyMedium!.copyWith(
-              color: colors.textSecondary,
-            ),
+            style: text.bodySm.copyWith(color: colors.textSecondary),
             textAlign: TextAlign.center,
           ),
         ),

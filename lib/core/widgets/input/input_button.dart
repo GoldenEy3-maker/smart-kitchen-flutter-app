@@ -21,6 +21,7 @@ class InputButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = context.theme.colors;
+    final text = context.theme.text;
 
     final inputDecoration = AppInputDecoration(
       context: context,
@@ -51,9 +52,7 @@ class InputButton extends StatelessWidget {
                 child: value != null
                     ? Text(
                         value!,
-                        style: AppTypography.textTheme.bodyLarge!.copyWith(
-                          color: colors.textPrimary,
-                        ),
+                        style: text.bodyMd.copyWith(color: colors.textPrimary),
                       )
                     : Text(hintText, style: inputDecoration.style.hintStyle),
               ),

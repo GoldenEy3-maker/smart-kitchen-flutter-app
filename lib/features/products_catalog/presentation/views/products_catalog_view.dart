@@ -81,6 +81,8 @@ class ProductsCatalogView extends StatelessWidget {
       builder: (context, state) {
         final l10n = context.l10n;
         final colors = context.theme.colors;
+        final text = context.theme.text;
+
         final categoryWithProducts = state.isLoading
             ? [
                 CategoryWithProducts.loading,
@@ -182,7 +184,7 @@ class ProductsCatalogView extends StatelessWidget {
                             child: Text(
                               categoryWithProducts[i].category.label
                                   .toUpperCase(),
-                              style: AppTypography.textTheme.titleSmall,
+                              style: text.labelXs,
                             ),
                           ),
                         ),

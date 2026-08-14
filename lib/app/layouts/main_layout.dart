@@ -20,6 +20,7 @@ class MainLayoutPage extends StatelessWidget {
         RecipesCatalogRoute(),
         MenuRoute(),
         BasketRoute(),
+        ProductCatalogRoute(),
       ],
       bottomNavigationBuilder: (context, tabsRouter) {
         return AppBottomNavigationBar(
@@ -41,6 +42,10 @@ class MainLayoutPage extends StatelessWidget {
             AppBottomNavigationBarItem(
               icon: Icon(LucideIcons.shoppingBasket),
               label: l10n.basket,
+            ),
+            AppBottomNavigationBarItem(
+              icon: Icon(LucideIcons.layoutGrid),
+              label: l10n.catalog,
             ),
           ],
         );

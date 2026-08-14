@@ -260,4 +260,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get findProductsHint => 'Найти продукты...';
+
+  @override
+  String get catalog => 'Каталог';
 }

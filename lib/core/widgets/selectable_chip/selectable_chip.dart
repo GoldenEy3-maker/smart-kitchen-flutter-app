@@ -17,6 +17,7 @@ class SelectableChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = context.theme.colors;
+    final text = context.theme.text;
 
     final bool isSelected = selected == true;
     final Color foregroundColor = isSelected
@@ -44,9 +45,7 @@ class SelectableChip extends StatelessWidget {
             child: IconTheme.merge(
               data: IconThemeData(color: foregroundColor),
               child: DefaultTextStyle.merge(
-                style: AppTypography.textTheme.labelMedium!.copyWith(
-                  color: foregroundColor,
-                ),
+                style: text.labelSm.copyWith(color: foregroundColor),
                 child: label,
               ),
             ),

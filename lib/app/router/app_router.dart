@@ -18,13 +18,13 @@ class AppRouter extends RootStackRouter {
       page: MainLayoutRoute.page,
       children: [
         AutoRoute(page: FridgeCatalogRoute.page, initial: true),
+        AutoRoute(page: ProductCatalogRoute.page),
         AutoRoute(page: BasketRoute.page),
         AutoRoute(page: MenuRoute.page),
         AutoRoute(page: RecipesCatalogRoute.page),
       ],
     ),
     AutoRoute(page: FridgeFormRoute.page),
-    AutoRoute(page: ProductCatalogRoute.page),
     AutoRoute(page: ProductFormRoute.page),
   ];
 

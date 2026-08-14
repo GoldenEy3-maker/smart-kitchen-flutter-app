@@ -30,6 +30,8 @@ class CategoryTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     final colors = context.theme.colors;
+    final text = context.theme.text;
+
     final backgroundColor = selected ? colors.primarySoft : colors.surface;
     final buttonStyles = ButtonStyles.of(context);
 
@@ -79,15 +81,13 @@ class CategoryTile extends StatelessWidget {
                     children: [
                       Text(
                         category.label,
-                        style: AppTypography.textTheme.titleMedium!.copyWith(
-                          color: colors.textPrimary,
-                        ),
+                        style: text.labelMd.copyWith(color: colors.textPrimary),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                       ),
                       Text(
                         l10n.productsCount(category.productsCount),
-                        style: AppTypography.textTheme.bodySmall!.copyWith(
+                        style: text.bodyXs.copyWith(
                           color: colors.textSecondary,
                         ),
                       ),

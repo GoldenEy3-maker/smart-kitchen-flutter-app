@@ -99,6 +99,8 @@ class _CategoryEditSheetViewState extends State<CategoryEditSheetView> {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     final colors = context.theme.colors;
+    final text = context.theme.text;
+
     final inputDecoration = AppInputDecoration(
       context: context,
       hintText: l10n.name,
@@ -120,12 +122,7 @@ class _CategoryEditSheetViewState extends State<CategoryEditSheetView> {
                 top: AppSpacing.xLarge,
                 bottom: AppSpacing.large,
               ),
-              child: Text(
-                l10n.editCategory,
-                style: AppTypography.textTheme.titleLarge!.copyWith(
-                  fontFamily: AppFonts.manrope,
-                ),
-              ),
+              child: Text(l10n.editCategory, style: text.headingLg),
             ),
 
             Row(

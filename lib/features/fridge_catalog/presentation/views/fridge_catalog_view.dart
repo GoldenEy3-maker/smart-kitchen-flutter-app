@@ -48,6 +48,8 @@ class FridgeCatalogView extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     final colors = context.theme.colors;
+    final text = context.theme.text;
+
     return BlocBuilder<FridgeCatalogBloc, FridgeCatalogState>(
       builder: (context, state) {
         final categoryWithFridgeProducts = state.isLoading
@@ -151,7 +153,7 @@ class FridgeCatalogView extends StatelessWidget {
                             child: Text(
                               categoryWithFridgeProducts[i].category.label
                                   .toUpperCase(),
-                              style: AppTypography.textTheme.titleSmall,
+                              style: text.headingLg,
                             ),
                           ),
                         ),

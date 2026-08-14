@@ -24,38 +24,78 @@ class AppBottomNavigationBarItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = context.theme.colors;
+    final text = context.theme.text;
     final foregroundColor = isSelected
         ? colors.primaryText
         : colors.textPrimary;
 
     return Material(
       color: Colors.transparent,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(22)),
       child: InkWell(
         onTap: () => onTap?.call(index),
         customBorder: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(24),
+          borderRadius: BorderRadius.circular(22),
         ),
         child: TweenAnimationBuilder<Color?>(
           duration: _duration,
           curve: _curve,
           tween: ColorTween(end: foregroundColor),
-          builder: (context, color, child) {
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                IconTheme.merge(
-                  data: IconThemeData(color: color),
-                  child: icon,
-                ),
-                Text(
-                  label,
-                  style: AppTypography.textTheme.labelSmall!.copyWith(
-                    color: color,
+          builder: (context, color, _) {
+            return AnimatedContainer(
+              duration: _duration,
+              curve: _curve,
+              constraints: const BoxConstraints(minHeight: 44, minWidth: 44),
+              padding: EdgeInsets.symmetric(
+                horizontal: isSelected ? AppSpacing.large : 0,
+              ),
+              decoration: BoxDecoration(color: Colors.transparent),
+              clipBehavior: Clip.antiAlias,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  IconTheme.merge(
+                    data: IconThemeData(color: color, size: 22),
+                    child: icon,
                   ),
-                ),
-              ],
+                  Flexible(
+                    child: AnimatedSwitcher(
+                      duration: _duration,
+                      switchInCurve: _curve,
+                      switchOutCurve: _curve,
+                      transitionBuilder: (child, animation) {
+                        return FadeTransition(
+                          opacity: animation,
+                          child: SizeTransition(
+                            sizeFactor: animation,
+                            axis: Axis.horizontal,
+                            alignment: Alignment.centerLeft,
+                            fixedCrossAxisSizeFactor: 1,
+                            child: child,
+                          ),
+                        );
+                      },
+                      child: isSelected
+                          ? Padding(
+                              key: const ValueKey("nav-label"),
+                              padding: const EdgeInsets.only(left: 6),
+                              child: Text(
+                                label,
+                                maxLines: 1,
+                                softWrap: false,
+                                overflow: TextOverflow.ellipsis,
+                                style: text.labelSm.copyWith(color: color),
+                              ),
+                            )
+                          : const SizedBox.shrink(
+                              key: ValueKey("nav-label-hidden"),
+                            ),
+                    ),
+                  ),
+                ],
+              ),
             );
           },
         ),

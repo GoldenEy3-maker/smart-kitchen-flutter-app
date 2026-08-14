@@ -162,6 +162,7 @@ class _CategoryManagerSheetViewState extends State<CategoryManagerSheetView> {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     final colors = context.theme.colors;
+    final text = context.theme.text;
 
     return Padding(
       padding: const EdgeInsets.symmetric(
@@ -176,12 +177,7 @@ class _CategoryManagerSheetViewState extends State<CategoryManagerSheetView> {
               top: AppSpacing.xLarge,
               bottom: AppSpacing.medium,
             ),
-            child: Text(
-              l10n.selectCategory,
-              style: AppTypography.textTheme.titleLarge!.copyWith(
-                fontFamily: AppFonts.manrope,
-              ),
-            ),
+            child: Text(l10n.selectCategory, style: text.headingLg),
           ),
           Expanded(
             child: CustomScrollView(

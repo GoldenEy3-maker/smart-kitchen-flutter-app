@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:smart_kitchen_flutter_app/core/context/context.dart";
 import "package:smart_kitchen_flutter_app/core/theme/theme.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/button/button_style.dart"
     as button_styles;
@@ -26,6 +27,7 @@ class Button extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final text = context.theme.text;
     final resolvedStyle =
         style ?? button_styles.ButtonStyles.of(context).primary;
     final resolvedSize = size ?? ButtonSizes.primary;
@@ -39,7 +41,7 @@ class Button extends StatelessWidget {
               resolvedStyle.backgroundColor
         : resolvedStyle.backgroundColor;
 
-    final textStyle = AppTypography.textTheme.labelMedium!.copyWith(
+    final textStyle = text.labelSm.copyWith(
       color: resolvedForegroundColor,
       fontSize: resolvedSize.fontSize,
     );

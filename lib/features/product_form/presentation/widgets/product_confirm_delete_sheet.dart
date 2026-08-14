@@ -63,6 +63,8 @@ class _ProductConfirmDeleteSheetViewState
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     final colors = context.theme.colors;
+    final text = context.theme.text;
+
     final buttonStyles = ButtonStyles.of(context);
 
     return SingleChildScrollView(
@@ -81,15 +83,11 @@ class _ProductConfirmDeleteSheetViewState
                 children: [
                   Text(
                     l10n.productConfirmDeleteSheetTitle,
-                    style: AppTypography.textTheme.titleLarge!.copyWith(
-                      fontFamily: AppFonts.manrope,
-                    ),
+                    style: text.headingLg,
                   ),
                   Text(
                     l10n.productConfirmDeleteSheetDescription,
-                    style: AppTypography.textTheme.bodyMedium!.copyWith(
-                      color: colors.textSecondary,
-                    ),
+                    style: text.bodySm.copyWith(color: colors.textSecondary),
                   ),
                 ],
               ),

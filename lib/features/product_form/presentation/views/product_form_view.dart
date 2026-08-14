@@ -261,6 +261,7 @@ class _ProductFormViewState extends State<ProductFormView> {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     final colors = context.theme.colors;
+    final text = context.theme.text;
 
     final appBarTitle = widget.product != null
         ? l10n.editProduct
@@ -379,8 +380,9 @@ class _ProductFormViewState extends State<ProductFormView> {
                               [_iconErrorText.value, _nameErrorText.value]
                                   .where((errorText) => errorText != null)
                                   .join(", "),
-                              style: AppTypography.textTheme.labelSmall!
-                                  .copyWith(color: colors.dangerText),
+                              style: text.labelXs.copyWith(
+                                color: colors.dangerText,
+                              ),
                             ),
                           ),
                       ],
@@ -457,9 +459,7 @@ class _ProductFormViewState extends State<ProductFormView> {
                 ),
                 Text(
                   l10n.productFormAttention,
-                  style: AppTypography.textTheme.bodySmall!.copyWith(
-                    color: colors.textSecondary,
-                  ),
+                  style: text.bodyXs.copyWith(color: colors.textSecondary),
                 ),
                 ValueListenableBuilder(
                   valueListenable: _unitErrorText,

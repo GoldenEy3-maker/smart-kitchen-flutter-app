@@ -20,8 +20,8 @@ class ProductTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-    final theme = context.theme;
-    final colors = theme.colors;
+    final colors = context.theme.colors;
+    final text = context.theme.text;
 
     return Material(
       color: colors.surface,
@@ -62,7 +62,7 @@ class ProductTile extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(product.name, style: theme.textTheme.titleMedium),
+                  Text(product.name, style: text.labelMd),
                   Text(
                     l10n.productCatalogProductUnit(
                       CatalogUnits.resolveLabels(
@@ -70,7 +70,7 @@ class ProductTile extends StatelessWidget {
                         unit: CatalogUnits.fromName(product.unit),
                       ).short,
                     ),
-                    style: theme.textTheme.bodySmall,
+                    style: text.bodyXs,
                   ),
                 ],
               ),

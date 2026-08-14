@@ -80,6 +80,7 @@ class _CategoryConfirmDeleteSheetViewState
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     final colors = context.theme.colors;
+    final text = context.theme.text;
     final description = widget.isCategoryHasLinkedProducts
         ? l10n.deleteCategoryWithProductsBoundedDescription
         : l10n.deleteCategoryDescription;
@@ -105,15 +106,13 @@ class _CategoryConfirmDeleteSheetViewState
                 children: [
                   Text(
                     l10n.deleteCategory,
-                    style: AppTypography.textTheme.titleLarge!.copyWith(
+                    style: text.headingLg.copyWith(
                       fontFamily: AppFonts.manrope,
                     ),
                   ),
                   Text(
                     description,
-                    style: AppTypography.textTheme.bodyMedium!.copyWith(
-                      color: colors.textSecondary,
-                    ),
+                    style: text.bodySm.copyWith(color: colors.textSecondary),
                   ),
                 ],
               ),

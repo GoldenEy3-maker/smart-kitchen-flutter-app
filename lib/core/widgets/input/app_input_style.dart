@@ -48,14 +48,14 @@ final class AppInputStyles {
 
   AppColorsExtension get _colors => context.theme.colors;
 
+  AppTextExtension get _text => context.theme.text;
+
   AppInputStyle get outlined => AppInputStyle(
     fillColor: _colors.surface,
     borderColor: _colors.border,
     focusedBorderColor: _colors.primary,
     errorBorderColor: _colors.danger,
     prefixIconColor: _colors.textSecondary,
-    hintStyle: AppTypography.textTheme.bodyMedium!.copyWith(
-      color: _colors.textSecondary,
-    ),
+    hintStyle: _text.bodySm.copyWith(color: _colors.textSecondary),
   );
 }

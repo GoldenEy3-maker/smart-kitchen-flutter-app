@@ -17,14 +17,14 @@ class FormItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = context.theme.colors;
+    final text = context.theme.text;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         if (label != null) ...[
           DefaultTextStyle(
-            style: AppTypography.textTheme.labelMedium!.copyWith(
-              color: colors.textPrimary,
-            ),
+            style: text.labelSm.copyWith(color: colors.textPrimary),
             child: label!,
           ),
           const SizedBox(height: AppSpacing.small),
@@ -33,9 +33,7 @@ class FormItem extends StatelessWidget {
         if (errorMessage != null) ...[
           const SizedBox(height: AppSpacing.small),
           DefaultTextStyle(
-            style: AppTypography.textTheme.labelSmall!.copyWith(
-              color: colors.dangerText,
-            ),
+            style: text.labelXs.copyWith(color: colors.dangerText),
             child: errorMessage!,
           ),
         ],

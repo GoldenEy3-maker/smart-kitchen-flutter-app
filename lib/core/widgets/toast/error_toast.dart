@@ -11,6 +11,8 @@ class ErrorToast extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = context.theme.colors;
+    final text = context.theme.text;
+
     return Container(
       constraints: BoxConstraints(
         maxWidth: MediaQuery.of(context).size.width * 0.8,
@@ -32,9 +34,7 @@ class ErrorToast extends StatelessWidget {
         spacing: AppSpacing.small,
         children: [
           Icon(LucideIcons.circleX, color: colors.dangerText),
-          Flexible(
-            child: Text(message, style: AppTypography.textTheme.bodyLarge),
-          ),
+          Flexible(child: Text(message, style: text.bodySm)),
         ],
       ),
     );

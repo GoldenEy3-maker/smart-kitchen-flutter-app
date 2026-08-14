@@ -25,6 +25,8 @@ class SelectedCategoryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     final colors = context.theme.colors;
+    final text = context.theme.text;
+
     final resolvedCategory = isLoading
         ? CategoryWithProductsCount.loading
         : category;
@@ -77,7 +79,7 @@ class SelectedCategoryCard extends StatelessWidget {
                       children: [
                         Text(
                           resolvedCategory.label,
-                          style: AppTypography.textTheme.titleMedium!.copyWith(
+                          style: text.labelMd.copyWith(
                             color: colors.textPrimary,
                           ),
                           maxLines: 2,
@@ -85,7 +87,7 @@ class SelectedCategoryCard extends StatelessWidget {
                         ),
                         Text(
                           l10n.productsCount(resolvedCategory.productsCount),
-                          style: AppTypography.textTheme.bodySmall!.copyWith(
+                          style: text.bodyXs.copyWith(
                             color: colors.textSecondary,
                           ),
                         ),

@@ -20,6 +20,7 @@ class EmptyPlaceholder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = context.theme.colors;
+    final text = context.theme.text;
     final resolvedIcon =
         icon ?? Icon(LucideIcons.bookOpen, size: 40, color: colors.primary);
     return Column(
@@ -36,10 +37,7 @@ class EmptyPlaceholder extends StatelessWidget {
         ),
         Text(
           title,
-          style: AppTypography.textTheme.titleLarge!.copyWith(
-            fontFamily: AppFonts.manrope,
-            color: colors.textPrimary,
-          ),
+          style: text.headingLg.copyWith(color: colors.textPrimary),
           textAlign: TextAlign.center,
         ),
         if (description != null)
@@ -47,9 +45,7 @@ class EmptyPlaceholder extends StatelessWidget {
             constraints: BoxConstraints(maxWidth: 280),
             child: Text(
               description!,
-              style: AppTypography.textTheme.bodyMedium!.copyWith(
-                color: colors.textSecondary,
-              ),
+              style: text.bodySm.copyWith(color: colors.textSecondary),
               textAlign: TextAlign.center,
             ),
           ),

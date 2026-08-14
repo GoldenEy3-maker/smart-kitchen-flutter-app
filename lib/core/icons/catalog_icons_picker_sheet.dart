@@ -111,6 +111,7 @@ class _CatalogIconsPickerSheetViewState
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     final colors = context.theme.colors;
+    final text = context.theme.text;
     final buttonStyles = ButtonStyles.of(context);
 
     return Padding(
@@ -126,12 +127,7 @@ class _CatalogIconsPickerSheetViewState
               top: AppSpacing.xLarge,
               bottom: AppSpacing.large,
             ),
-            child: Text(
-              l10n.selectProductIcon,
-              style: AppTypography.textTheme.titleLarge!.copyWith(
-                fontFamily: AppFonts.manrope,
-              ),
-            ),
+            child: Text(l10n.selectProductIcon, style: text.headingLg),
           ),
           Expanded(
             child: CustomScrollView(

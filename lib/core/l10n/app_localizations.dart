@@ -537,6 +537,12 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'Найти продукты...'**
   String get findProductsHint;
+
+  /// Название страницы для каталога
+  ///
+  /// In ru, this message translates to:
+  /// **'Каталог'**
+  String get catalog;
 }
 
 class _AppLocalizationsDelegate
