@@ -33,9 +33,9 @@ Future<void> showCategoryCreateSheet({
 
 class CategoryCreateSheetView extends StatefulWidget {
   const CategoryCreateSheetView({
-    super.key,
     required this.scrollController,
     required this.onCreate,
+    super.key,
   });
 
   final ScrollController scrollController;
@@ -51,7 +51,7 @@ class _CategoryCreateSheetViewState extends State<CategoryCreateSheetView> {
   final ValueNotifier<bool> _isPending = ValueNotifier(false);
   final TextEditingController _labelController = TextEditingController();
 
-  void _onIconSelected(CatalogIcons? icon) {
+  set _selectedIcon(CatalogIcons? icon) {
     if (icon == null) return;
     _selectedIcon.value = icon;
   }
@@ -126,15 +126,17 @@ class _CategoryCreateSheetViewState extends State<CategoryCreateSheetView> {
                     rounder: ButtonRounders.rectangular.copyWith(
                       borderRadius: inputDecoration.shape.borderRadius,
                     ),
-                    onPressed: () {
-                      showCatalogIconsPickerSheet(
+                    onPressed: () async {
+                      final newIcon = await showCatalogIconsPickerSheet(
                         context: context,
                         initialSelectedCatalogIcon: icon,
-                      ).then(_onIconSelected);
+                      );
+
+                      _selectedIcon = newIcon;
                     },
                     child: icon != null
                         ? Icon(icon.icon, size: 20)
-                        : Icon(LucideIcons.tag, size: 20),
+                        : const Icon(LucideIcons.tag, size: 20),
                   ),
                 ),
                 Expanded(
@@ -147,7 +149,7 @@ class _CategoryCreateSheetViewState extends State<CategoryCreateSheetView> {
                 ),
               ],
             ),
-            SizedBox(height: AppSpacing.standard),
+            const SizedBox(height: AppSpacing.standard),
             ListenableBuilder(
               listenable: Listenable.merge([
                 _selectedIcon,

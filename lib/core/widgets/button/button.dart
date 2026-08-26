@@ -1,29 +1,27 @@
 import "package:flutter/material.dart";
 import "package:smart_kitchen_flutter_app/core/context/context.dart";
 import "package:smart_kitchen_flutter_app/core/theme/theme.dart";
+import "package:smart_kitchen_flutter_app/core/widgets/button/button_rounder.dart";
+import "package:smart_kitchen_flutter_app/core/widgets/button/button_size.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/button/button_style.dart"
     as button_styles;
 
-import "button_rounder.dart";
-import "button_size.dart";
-
 class Button extends StatelessWidget {
+  const Button({
+    required this.child,
+    required this.onPressed,
+    super.key,
+    this.style,
+    this.size,
+    this.rounder,
+    this.disabled = false,
+  });
   final Widget child;
   final VoidCallback onPressed;
   final button_styles.ButtonStyle? style;
   final ButtonSize? size;
   final ButtonRounder? rounder;
   final bool disabled;
-
-  const Button({
-    super.key,
-    required this.child,
-    required this.onPressed,
-    this.style,
-    this.size,
-    this.rounder,
-    this.disabled = false,
-  });
 
   @override
   Widget build(BuildContext context) {

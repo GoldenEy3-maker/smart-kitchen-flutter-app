@@ -9,9 +9,9 @@ import "package:smart_kitchen_flutter_app/features/product_form/domain/entities/
 
 class SelectedCategoryCard extends StatelessWidget {
   const SelectedCategoryCard({
+    required this.onPressed,
     super.key,
     this.category,
-    required this.onPressed,
     this.isLoading = false,
     this.invalid = false,
   });
@@ -28,7 +28,7 @@ class SelectedCategoryCard extends StatelessWidget {
     final text = context.theme.text;
 
     final resolvedCategory = isLoading
-        ? CategoryWithProductsCount.loading
+        ? CategoryWithProductsCount.loading()
         : category;
     final hasCategory = resolvedCategory != null;
 

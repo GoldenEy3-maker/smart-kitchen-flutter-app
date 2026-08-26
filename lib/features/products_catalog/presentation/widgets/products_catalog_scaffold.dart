@@ -3,8 +3,8 @@ import "package:smart_kitchen_flutter_app/core/context/context.dart";
 
 class ProductsCatalogScaffold extends StatelessWidget {
   const ProductsCatalogScaffold({
-    super.key,
     required this.body,
+    super.key,
     this.floatingActionButton,
   });
 

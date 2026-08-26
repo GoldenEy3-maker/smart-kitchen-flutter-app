@@ -7,7 +7,7 @@ class FridgeNavigatorImpl implements FridgeNavigator {
   final AppRouter _router;
 
   @override
-  void openFridgeForm() {
-    _router.push(FridgeFormRoute());
+  Future<void> openFridgeForm() async {
+    await _router.push(const FridgeFormRoute());
   }
 }

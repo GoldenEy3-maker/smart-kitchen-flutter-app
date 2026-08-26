@@ -6,7 +6,7 @@ import "package:smart_kitchen_flutter_app/core/widgets/button/button.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/button/button_style.dart";
 
 class AddFridgeProductButton extends StatelessWidget {
-  const AddFridgeProductButton({super.key, required this.onPressed});
+  const AddFridgeProductButton({required this.onPressed, super.key});
 
   final VoidCallback onPressed;
 
@@ -24,7 +24,7 @@ class AddFridgeProductButton extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         spacing: AppSpacing.small,
-        children: [Icon(LucideIcons.plus), Text(l10n.addFridgeProduct)],
+        children: [const Icon(LucideIcons.plus), Text(l10n.addFridgeProduct)],
       ),
     );
   }

@@ -3,10 +3,16 @@ import "package:smart_kitchen_flutter_app/domains/categories/domain/entities/ent
 import "package:smart_kitchen_flutter_app/domains/products/domain/entities/entities.dart";
 
 class CategoryWithProducts extends Equatable {
+  const CategoryWithProducts({required this.category, required this.products});
+
+  CategoryWithProducts.loading()
+    : this(
+        category: Category.loading(),
+        products: [Product.loading(), Product.loading(), Product.loading()],
+      );
+
   final Category category;
   final List<Product> products;
-
-  const CategoryWithProducts({required this.category, required this.products});
 
   static List<CategoryWithProducts> groupByCategories(
     List<Category> categories,
@@ -24,11 +30,6 @@ class CategoryWithProducts extends Equatable {
         .where((categoryProduct) => categoryProduct.products.isNotEmpty)
         .toList();
   }
-
-  static CategoryWithProducts get loading => CategoryWithProducts(
-    category: Category.loading,
-    products: [Product.loading, Product.loading, Product.loading],
-  );
 
   @override
   List<Object?> get props => [category, products];

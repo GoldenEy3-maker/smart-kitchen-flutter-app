@@ -10,12 +10,12 @@ import "package:smart_kitchen_flutter_app/features/product_form/domain/entities/
 
 class CategoryTile extends StatelessWidget {
   const CategoryTile({
-    super.key,
     required this.category,
-    this.selected = false,
     required this.onPressed,
     required this.onEditPressed,
     required this.onDeletePressed,
+    super.key,
+    this.selected = false,
   });
 
   static const double height = 68;
@@ -36,12 +36,11 @@ class CategoryTile extends StatelessWidget {
     final buttonStyles = ButtonStyles.of(context);
 
     return AnimatedContainer(
-      duration: const Duration(milliseconds: 300),
+      duration: AppDuration.main,
       curve: Curves.easeInOut,
-      constraints: BoxConstraints(minHeight: height),
+      constraints: const BoxConstraints(minHeight: height),
       decoration: BoxDecoration(
         color: backgroundColor,
-        shape: BoxShape.rectangle,
         borderRadius: BorderRadius.circular(AppRadius.small),
       ),
       child: Material(
@@ -55,7 +54,7 @@ class CategoryTile extends StatelessWidget {
             borderRadius: BorderRadius.circular(AppRadius.small),
           ),
           child: Padding(
-            padding: EdgeInsets.symmetric(
+            padding: const EdgeInsets.symmetric(
               horizontal: AppSpacing.small,
               vertical: AppSpacing.medium,
             ),

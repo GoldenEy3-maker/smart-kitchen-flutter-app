@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
 
-import "app_fonts.dart";
+import "package:smart_kitchen_flutter_app/core/theme/app_fonts.dart";
 
 class AppTextExtension extends ThemeExtension<AppTextExtension> {
   AppTextExtension({
@@ -16,6 +16,70 @@ class AppTextExtension extends ThemeExtension<AppTextExtension> {
     required this.overline,
   });
 
+  AppTextExtension.base()
+    : this(
+        heading2xl: const TextStyle(
+          fontFamily: AppFonts.manrope,
+          fontSize: 28,
+          fontWeight: FontWeight.w700,
+        ),
+
+        headingXl: const TextStyle(
+          fontFamily: AppFonts.manrope,
+          fontSize: 24,
+          fontWeight: FontWeight.w700,
+        ),
+
+        headingLg: const TextStyle(
+          fontFamily: AppFonts.manrope,
+          fontSize: 18,
+          fontWeight: FontWeight.w700,
+        ),
+
+        bodyMd: const TextStyle(
+          fontFamily: AppFonts.inter,
+          fontSize: 16,
+          fontWeight: FontWeight.w400,
+        ),
+
+        bodySm: const TextStyle(
+          fontFamily: AppFonts.inter,
+          fontSize: 14,
+          fontWeight: FontWeight.w400,
+        ),
+
+        bodyXs: const TextStyle(
+          fontFamily: AppFonts.inter,
+          fontSize: 12,
+          fontWeight: FontWeight.w400,
+        ),
+
+        labelMd: const TextStyle(
+          fontFamily: AppFonts.inter,
+          fontSize: 16,
+          fontWeight: FontWeight.w600,
+        ),
+
+        labelSm: const TextStyle(
+          fontFamily: AppFonts.inter,
+          fontSize: 14,
+          fontWeight: FontWeight.w600,
+        ),
+
+        labelXs: const TextStyle(
+          fontFamily: AppFonts.inter,
+          fontSize: 12,
+          fontWeight: FontWeight.w600,
+        ),
+
+        overline: const TextStyle(
+          fontFamily: AppFonts.inter,
+          fontSize: 12,
+          fontWeight: FontWeight.w700,
+          letterSpacing: 0.8,
+        ),
+      );
+
   final TextStyle heading2xl;
   final TextStyle headingXl;
   final TextStyle headingLg;
@@ -26,69 +90,6 @@ class AppTextExtension extends ThemeExtension<AppTextExtension> {
   final TextStyle labelSm;
   final TextStyle labelXs;
   final TextStyle overline;
-
-  static AppTextExtension get base => AppTextExtension(
-    heading2xl: TextStyle(
-      fontFamily: AppFonts.manrope,
-      fontSize: 28,
-      fontWeight: FontWeight.w700,
-    ),
-
-    headingXl: TextStyle(
-      fontFamily: AppFonts.manrope,
-      fontSize: 24,
-      fontWeight: FontWeight.w700,
-    ),
-
-    headingLg: TextStyle(
-      fontFamily: AppFonts.manrope,
-      fontSize: 18,
-      fontWeight: FontWeight.w700,
-    ),
-
-    bodyMd: TextStyle(
-      fontFamily: AppFonts.inter,
-      fontSize: 16,
-      fontWeight: FontWeight.w400,
-    ),
-
-    bodySm: TextStyle(
-      fontFamily: AppFonts.inter,
-      fontSize: 14,
-      fontWeight: FontWeight.w400,
-    ),
-
-    bodyXs: TextStyle(
-      fontFamily: AppFonts.inter,
-      fontSize: 12,
-      fontWeight: FontWeight.w400,
-    ),
-
-    labelMd: TextStyle(
-      fontFamily: AppFonts.inter,
-      fontSize: 16,
-      fontWeight: FontWeight.w600,
-    ),
-
-    labelSm: TextStyle(
-      fontFamily: AppFonts.inter,
-      fontSize: 14,
-      fontWeight: FontWeight.w600,
-    ),
-
-    labelXs: TextStyle(
-      fontFamily: AppFonts.inter,
-      fontSize: 12,
-      fontWeight: FontWeight.w600,
-    ),
-
-    overline: TextStyle(
-      fontFamily: AppFonts.inter,
-      fontSize: 12,
-      fontWeight: FontWeight.w700,
-      letterSpacing: 0.8,
-    ),
-  );
 
   @override
   AppTextExtension copyWith({

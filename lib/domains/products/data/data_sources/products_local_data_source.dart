@@ -28,15 +28,20 @@ class ProductsLocalDataSourceImpl implements ProductsLocalDataSource {
   Future<Either<Failure, List<ProductModel>>> getProducts() async {
     try {
       final productsBox = await _openProductsBox();
-      final products = productsBox.values.toList().reversed.toList();
+      final products = productsBox.values
+          .cast<Map<dynamic, dynamic>>()
+          .toList()
+          .reversed
+          .toList();
       return Right(
         products
             .map((p) => ProductModel.fromJson(Map<String, dynamic>.from(p)))
             .toList(),
       );
+      // ignore: avoid_catches_without_on_clauses - we want to catch all errors and just log them cuz for interface it does not matter what error is thrown
     } catch (e, st) {
       _talker.error("getProducts failed", e, st);
-      return Left(ProductsReadCacheFailure());
+      return Left(const ProductsReadCacheFailure());
     }
   }
 
@@ -62,9 +67,10 @@ class ProductsLocalDataSourceImpl implements ProductsLocalDataSource {
       );
       await productsBox.put(newProduct.id, newProduct.toJson());
       return Right(newProduct);
+      // ignore: avoid_catches_without_on_clauses - we want to catch all errors and just log them cuz for interface it does not matter what error is thrown
     } catch (e, st) {
       _talker.error("createProduct failed", e, st);
-      return Left(ProductsCreateCacheFailure());
+      return Left(const ProductsCreateCacheFailure());
     }
   }
 
@@ -75,6 +81,7 @@ class ProductsLocalDataSourceImpl implements ProductsLocalDataSource {
     try {
       final productsBox = await _openProductsBox();
       final existsProduct = productsBox.values
+          .cast<Map<dynamic, dynamic>>()
           .map((p) => ProductModel.fromJson(Map<String, dynamic>.from(p)))
           .firstWhere((p) => p.id == params.id);
       final newProduct = ProductModel(
@@ -86,12 +93,13 @@ class ProductsLocalDataSourceImpl implements ProductsLocalDataSource {
       );
       await productsBox.put(newProduct.id, newProduct.toJson());
       return Right(newProduct);
-    } on StateError catch (e, st) {
+    } on Exception catch (e, st) {
       _talker.error("updateProduct failed", e, st);
-      return Left(ProductsNotFoundFailure());
+      return Left(const ProductsNotFoundFailure());
+      // ignore: avoid_catches_without_on_clauses - we want to catch all errors and just log them cuz for interface it does not matter what error is thrown
     } catch (e, st) {
       _talker.error("updateProduct failed", e, st);
-      return Left(ProductsUpdateCacheFailure());
+      return Left(const ProductsUpdateCacheFailure());
     }
   }
 
@@ -103,9 +111,10 @@ class ProductsLocalDataSourceImpl implements ProductsLocalDataSource {
       final productsBox = await _openProductsBox();
       await productsBox.delete(params.id);
       return Right(null);
+      // ignore: avoid_catches_without_on_clauses - we want to catch all errors and just log them cuz for interface it does not matter what error is thrown
     } catch (e, st) {
       _talker.error("deleteProduct failed", e, st);
-      return Left(ProductsDeleteCacheFailure());
+      return Left(const ProductsDeleteCacheFailure());
     }
   }
 }

@@ -15,7 +15,7 @@ enum CatalogUnits {
   milliliter,
   liter;
 
-  static const fallback = CatalogUnits.piece;
+  static const CatalogUnits fallback = CatalogUnits.piece;
 
   static CatalogUnitsLabels resolveLabels({
     required BuildContext context,

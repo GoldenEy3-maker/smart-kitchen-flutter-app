@@ -5,10 +5,10 @@ import "package:smart_kitchen_flutter_app/core/widgets/resizable_sheet/resizable
 
 Future<T?> showResizableSheet<T>({
   required BuildContext context,
-  double? initialSize,
   required double maxSize,
-  bool snap = true,
   required ResizableSheetBuilder builder,
+  double? initialSize,
+  bool snap = true,
   bool fitMaxSizeToContent = false,
   bool fitToContent = false,
 }) async {

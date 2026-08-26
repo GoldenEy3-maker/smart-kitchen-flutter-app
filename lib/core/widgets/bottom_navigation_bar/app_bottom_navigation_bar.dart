@@ -1,20 +1,22 @@
+import "dart:async";
+
 import "package:flutter/material.dart";
 import "package:smart_kitchen_flutter_app/core/context/context.dart";
 import "package:smart_kitchen_flutter_app/core/theme/theme.dart";
 
-import "app_bottom_navigation_bar_item.dart";
-import "app_bottom_navigation_bar_layout.dart";
+import "package:smart_kitchen_flutter_app/core/widgets/bottom_navigation_bar/app_bottom_navigation_bar_item.dart";
+import "package:smart_kitchen_flutter_app/core/widgets/bottom_navigation_bar/app_bottom_navigation_bar_layout.dart";
 
 class AppBottomNavigationBar extends StatefulWidget {
   const AppBottomNavigationBar({
-    super.key,
     required this.currentIndex,
     required this.onTap,
     required this.items,
+    super.key,
   });
 
-  static const _duration = Duration(milliseconds: 300);
-  static const _curve = Curves.easeInOut;
+  static const Duration _duration = AppDuration.main;
+  static const Cubic _curve = Curves.easeInOut;
   static const _itemGap = 4.0;
   static const _indicatorRadius = 22.0;
   static const _maxWidth = 400.0;
@@ -53,9 +55,8 @@ class _AppBottomNavigationBarState extends State<AppBottomNavigationBar>
     super.didUpdateWidget(oldWidget);
     if (oldWidget.currentIndex != widget.currentIndex) {
       _previousIndex = oldWidget.currentIndex;
-      _indicatorController
-        ..duration = AppBottomNavigationBar._duration
-        ..forward(from: 0);
+      _indicatorController.duration = AppBottomNavigationBar._duration;
+      unawaited(_indicatorController.forward(from: 0));
     }
   }
 

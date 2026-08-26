@@ -6,15 +6,16 @@ import "package:smart_kitchen_flutter_app/domains/fridge/domain/usecases/usecase
 import "package:talker_flutter/talker_flutter.dart";
 
 void registerFridgeDI() {
-  getIt.registerLazySingleton<FridgeLocalDataSource>(
-    () => FridgeLocalDataSourceImpl(talker: getIt.get<Talker>()),
-  );
-  getIt.registerLazySingleton<FridgeRepository>(
-    () => FridgeRepositoryImpl(
-      localDataSource: getIt.get<FridgeLocalDataSource>(),
-    ),
-  );
-  getIt.registerLazySingleton<GetFridgeProducts>(
-    () => GetFridgeProducts(repository: getIt.get<FridgeRepository>()),
-  );
+  getIt
+    ..registerLazySingleton<FridgeLocalDataSource>(
+      () => FridgeLocalDataSourceImpl(talker: getIt.get<Talker>()),
+    )
+    ..registerLazySingleton<FridgeRepository>(
+      () => FridgeRepositoryImpl(
+        localDataSource: getIt.get<FridgeLocalDataSource>(),
+      ),
+    )
+    ..registerLazySingleton<GetFridgeProducts>(
+      () => GetFridgeProducts(repository: getIt.get<FridgeRepository>()),
+    );
 }

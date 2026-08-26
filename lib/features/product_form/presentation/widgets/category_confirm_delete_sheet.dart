@@ -31,11 +31,11 @@ Future<bool?> showCategoryConfirmDeleteSheet({
 
 class CategoryConfirmDeleteSheetView extends StatefulWidget {
   const CategoryConfirmDeleteSheetView({
-    super.key,
     required this.category,
     required this.onConfirm,
     required this.isCategoryHasLinkedProducts,
     required this.scrollController,
+    super.key,
   });
 
   final CategoryWithProductsCount category;

@@ -1,9 +1,9 @@
 import "package:smart_kitchen_flutter_app/core/error/error.dart";
 import "package:smart_kitchen_flutter_app/core/usecase/usecase.dart";
 import "package:smart_kitchen_flutter_app/core/utils/utils.dart";
-import "package:smart_kitchen_flutter_app/features/product_form/domain/entities/entities.dart";
 import "package:smart_kitchen_flutter_app/domains/categories/domain/usecases/usecases.dart";
 import "package:smart_kitchen_flutter_app/domains/products/domain/usecases/usecases.dart";
+import "package:smart_kitchen_flutter_app/features/product_form/domain/entities/entities.dart";
 
 class GetCategoriesWithProductsCount
     implements UseCase<List<CategoryWithProductsCount>, NoParams> {
@@ -20,8 +20,8 @@ class GetCategoriesWithProductsCount
     NoParams params,
   ) async {
     final (categoriesResult, productsResult) = await (
-      _getCategories(NoParams()),
-      _getProducts(NoParams()),
+      _getCategories(const NoParams()),
+      _getProducts(const NoParams()),
     ).wait;
 
     if (categoriesResult.isRight() && productsResult.isRight()) {
@@ -47,7 +47,7 @@ class GetCategoriesWithProductsCount
     return Left(
       categoriesResult.leftOrNull ??
           productsResult.leftOrNull ??
-          UnknownFailure(),
+          const UnknownFailure(),
     );
   }
 }

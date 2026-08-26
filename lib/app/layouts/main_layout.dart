@@ -28,23 +28,23 @@ class MainLayoutPage extends StatelessWidget {
           onTap: (index) => tabsRouter.setActiveIndex(index),
           items: [
             AppBottomNavigationBarItem(
-              icon: Icon(LucideIcons.refrigerator),
+              icon: const Icon(LucideIcons.refrigerator),
               label: l10n.fridge,
             ),
             AppBottomNavigationBarItem(
-              icon: Icon(LucideIcons.chefHat),
+              icon: const Icon(LucideIcons.chefHat),
               label: l10n.recipes,
             ),
             AppBottomNavigationBarItem(
-              icon: Icon(LucideIcons.calendarDays),
+              icon: const Icon(LucideIcons.calendarDays),
               label: l10n.menu,
             ),
             AppBottomNavigationBarItem(
-              icon: Icon(LucideIcons.shoppingBasket),
+              icon: const Icon(LucideIcons.shoppingBasket),
               label: l10n.basket,
             ),
             AppBottomNavigationBarItem(
-              icon: Icon(LucideIcons.layoutGrid),
+              icon: const Icon(LucideIcons.layoutGrid),
               label: l10n.catalog,
             ),
           ],

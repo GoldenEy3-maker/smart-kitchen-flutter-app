@@ -41,10 +41,10 @@ class AppInputStyle {
 final class AppInputStyles {
   const AppInputStyles({required this.context});
 
-  final BuildContext context;
-
   factory AppInputStyles.of(BuildContext context) =>
       AppInputStyles(context: context);
+
+  final BuildContext context;
 
   AppColorsExtension get _colors => context.theme.colors;
 

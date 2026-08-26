@@ -1,3 +1,5 @@
+import "dart:async";
+
 import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
 import "package:lucide_icons_flutter/lucide_icons.dart";
@@ -12,19 +14,19 @@ import "package:smart_kitchen_flutter_app/core/widgets/button/button_style.dart"
 import "package:smart_kitchen_flutter_app/core/widgets/form_item/form_item.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/input/input.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/toast/app_toast.dart";
-import "package:smart_kitchen_flutter_app/features/product_form/domain/entities/entities.dart";
+import "package:smart_kitchen_flutter_app/domains/categories/presentation/widgets/widgets.dart";
 import "package:smart_kitchen_flutter_app/domains/products/domain/entities/entities.dart";
 import "package:smart_kitchen_flutter_app/domains/products/navigation/navigation.dart";
 import "package:smart_kitchen_flutter_app/domains/products/params/params.dart";
+import "package:smart_kitchen_flutter_app/features/product_form/domain/entities/entities.dart";
 import "package:smart_kitchen_flutter_app/features/product_form/presentation/bloc/bloc.dart";
 import "package:smart_kitchen_flutter_app/features/product_form/presentation/widgets/widgets.dart";
-import "package:smart_kitchen_flutter_app/domains/categories/presentation/widgets/widgets.dart";
 
 class ProductFormView extends StatefulWidget {
   const ProductFormView({
+    required this.onGoBackRequested,
     super.key,
     this.product,
-    required this.onGoBackRequested,
   });
 
   final Product? product;
@@ -45,97 +47,99 @@ class _ProductFormViewState extends State<ProductFormView> {
   final _categoryErrorText = ValueNotifier<String?>(null);
   final _unitErrorText = ValueNotifier<String?>(null);
 
-  void _onCatalogIconsPickerSheetOpened(
+  Future<void> _onCatalogIconsPickerSheetOpened(
     BuildContext context,
     CatalogIcons? initialSelectedCatalogIcon,
-  ) {
+  ) async {
     final l10n = context.l10n;
     final bloc = context.read<ProductFormBloc>();
-    showCatalogIconsPickerSheet(
+    final newCatalogIcon = await showCatalogIconsPickerSheet(
       context: context,
       initialSelectedCatalogIcon: initialSelectedCatalogIcon,
-    ).then((newCatalogIcon) {
-      if (newCatalogIcon != null) {
-        bloc.add(ProductFormCatalogIconSelected(catalogIcon: newCatalogIcon));
-        _iconErrorText.value = null;
-      } else if (bloc.state.selectedCatalogIcon == null) {
-        _iconErrorText.value = l10n.iconIsRequired;
-      }
-    });
+    );
+
+    if (newCatalogIcon != null) {
+      bloc.add(ProductFormCatalogIconSelected(catalogIcon: newCatalogIcon));
+      _iconErrorText.value = null;
+    } else if (bloc.state.selectedCatalogIcon == null) {
+      _iconErrorText.value = l10n.iconIsRequired;
+    }
   }
 
-  void _onCategoryManagerSheetOpened({
+  Future<void> _onCategoryManagerSheetOpened({
     required BuildContext context,
     required List<CategoryWithProductsCount> categories,
     required CategoryWithProductsCount? initialSelectedCategory,
-  }) {
+  }) async {
     final l10n = context.l10n;
     final bloc = context.read<ProductFormBloc>();
 
-    showCategoryManagerSheet(
+    final newCategory = await showCategoryManagerSheet(
       context: context,
       bloc: bloc,
       initialSelectedCategory: initialSelectedCategory,
-    ).then((category) {
-      if (category != null) {
-        bloc.add(ProductFormCategorySelected(category: category));
-        _categoryErrorText.value = null;
-      } else if (bloc.state.selectedCategory == null) {
-        _categoryErrorText.value = l10n.categoryIsRequired;
-      }
-    });
+    );
+
+    if (newCategory != null) {
+      bloc.add(ProductFormCategorySelected(category: newCategory));
+      _categoryErrorText.value = null;
+    } else if (bloc.state.selectedCategory == null) {
+      _categoryErrorText.value = l10n.categoryIsRequired;
+    }
   }
 
   void _onCategoryCreateSheetOpened(BuildContext context) {
     final l10n = context.l10n;
     final bloc = context.read<ProductFormBloc>();
 
-    showCategoryCreateSheet(
-      context: context,
-      onCreate: (label, iconKey) async {
-        final done = bloc.stream.firstWhere(
-          (state) => !state.isCreateCategoryPending,
-        );
-        bloc.add(
-          ProductFormCategoryCreateRequested(label: label, iconKey: iconKey),
-        );
-        final state = await done;
+    unawaited(
+      showCategoryCreateSheet(
+        context: context,
+        onCreate: (label, iconKey) async {
+          final done = bloc.stream.firstWhere(
+            (state) => !state.isCreateCategoryPending,
+          );
+          bloc.add(
+            ProductFormCategoryCreateRequested(label: label, iconKey: iconKey),
+          );
+          final state = await done;
 
-        final isSuccess = state.error == null;
+          final isSuccess = state.error == null;
 
-        if (!isSuccess && mounted) {
-          AppToast.showError(context, state.error!.localizedMessage(l10n));
-        }
+          if (!isSuccess && context.mounted) {
+            AppToast.showError(context, state.error!.localizedMessage(l10n));
+          }
 
-        if (isSuccess && mounted) {
-          _categoryErrorText.value = null;
-        }
+          if (isSuccess && mounted) {
+            _categoryErrorText.value = null;
+          }
 
-        return isSuccess;
-      },
+          return isSuccess;
+        },
+      ),
     );
   }
 
-  void _onCatalogUnitsPickerSheetOpened(
+  Future<void> _onCatalogUnitsPickerSheetOpened(
     BuildContext context,
     CatalogUnits? initialSelectedCatalogUnit,
-  ) {
+  ) async {
     final l10n = context.l10n;
     final bloc = context.read<ProductFormBloc>();
-    showCatalogUnitsPickerSheet(
+    final newCatalogUnit = await showCatalogUnitsPickerSheet(
       context: context,
       initialSelectedUnit: initialSelectedCatalogUnit,
-    ).then((newCatalogUnit) {
-      if (newCatalogUnit != null) {
-        bloc.add(ProductFormCatalogUnitSelected(catalogUnit: newCatalogUnit));
-        _unitErrorText.value = null;
-      } else if (bloc.state.selectedCatalogUnit == null) {
-        _unitErrorText.value = l10n.unitIsRequired;
-      }
-    });
+    );
+
+    if (newCatalogUnit != null) {
+      bloc.add(ProductFormCatalogUnitSelected(catalogUnit: newCatalogUnit));
+      _unitErrorText.value = null;
+    } else if (bloc.state.selectedCatalogUnit == null) {
+      _unitErrorText.value = l10n.unitIsRequired;
+    }
   }
 
-  void _onSavePressed(BuildContext context) async {
+  Future<void> _onSavePressed(BuildContext context) async {
     final l10n = context.l10n;
     final bloc = context.read<ProductFormBloc>();
 
@@ -188,7 +192,7 @@ class _ProductFormViewState extends State<ProductFormView> {
       final state = await done;
       final isSuccess = state.error == null && state.savedProduct != null;
 
-      if (!isSuccess && mounted) {
+      if (!isSuccess && context.mounted) {
         AppToast.showError(context, state.error!.localizedMessage(l10n));
       }
 
@@ -209,41 +213,43 @@ class _ProductFormViewState extends State<ProductFormView> {
     }
   }
 
-  void _onDeletePressed(BuildContext context) async {
+  void _onDeletePressed(BuildContext context) {
     final l10n = context.l10n;
     final bloc = context.read<ProductFormBloc>();
 
-    showProductConfirmDeleteSheet(
-      context: context,
-      onConfirm: () async {
-        final done = bloc.stream.firstWhere(
-          (state) => !state.isDeleteCategoryPending,
-        );
-        bloc.add(
-          ProductFormDeleteRequested(
-            params: DeleteProductParams(id: widget.product!.id),
-          ),
-        );
-        final state = await done;
-        final isSuccess = state.error == null;
+    unawaited(
+      showProductConfirmDeleteSheet(
+        context: context,
+        onConfirm: () async {
+          final done = bloc.stream.firstWhere(
+            (state) => !state.isDeleteCategoryPending,
+          );
+          bloc.add(
+            ProductFormDeleteRequested(
+              params: DeleteProductParams(id: widget.product!.id),
+            ),
+          );
+          final state = await done;
+          final isSuccess = state.error == null;
 
-        if (!isSuccess && mounted) {
-          AppToast.showError(context, state.error!.localizedMessage(l10n));
-        }
+          if (!isSuccess && context.mounted) {
+            AppToast.showError(context, state.error!.localizedMessage(l10n));
+          }
 
-        if (isSuccess && mounted) {
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            widget.onGoBackRequested(
-              OpenProductFormResultEventDeleted(
-                product: widget.product!,
-                categories: bloc.state.categories.toCategories(),
-              ),
-            );
-          });
-        }
+          if (isSuccess && mounted) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              widget.onGoBackRequested(
+                OpenProductFormResultEventDeleted(
+                  product: widget.product!,
+                  categories: bloc.state.categories.toCategories(),
+                ),
+              );
+            });
+          }
 
-        return isSuccess;
-      },
+          return isSuccess;
+        },
+      ),
     );
   }
 
@@ -296,7 +302,7 @@ class _ProductFormViewState extends State<ProductFormView> {
       ),
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: EdgeInsets.only(
+          padding: const EdgeInsets.only(
             bottom: AppSpacing.large,
             left: AppSpacing.containerHorizontal,
             right: AppSpacing.containerHorizontal,
@@ -345,11 +351,13 @@ class _ProductFormViewState extends State<ProductFormView> {
                                   ),
                                   child: selectedCatalogIcon != null
                                       ? Icon(selectedCatalogIcon.icon, size: 20)
-                                      : Icon(LucideIcons.tag, size: 20),
+                                      : const Icon(LucideIcons.tag, size: 20),
                                   onPressed: () {
-                                    _onCatalogIconsPickerSheetOpened(
-                                      context,
-                                      selectedCatalogIcon,
+                                    unawaited(
+                                      _onCatalogIconsPickerSheetOpened(
+                                        context,
+                                        selectedCatalogIcon,
+                                      ),
                                     );
                                   },
                                 );
@@ -422,16 +430,18 @@ class _ProductFormViewState extends State<ProductFormView> {
                                   isLoading: slice.isCategoriesLoading,
                                   invalid: categoryErrorText != null,
                                   onPressed: () {
-                                    _onCategoryManagerSheetOpened(
-                                      context: context,
-                                      categories: slice.categories,
-                                      initialSelectedCategory:
-                                          slice.selectedCategory,
+                                    unawaited(
+                                      _onCategoryManagerSheetOpened(
+                                        context: context,
+                                        categories: slice.categories,
+                                        initialSelectedCategory:
+                                            slice.selectedCategory,
+                                      ),
                                     );
                                   },
                                 );
                               }
-                              return SizedBox.shrink();
+                              return const SizedBox.shrink();
                             },
                           ),
                           SizedBox(
@@ -440,13 +450,14 @@ class _ProductFormViewState extends State<ProductFormView> {
                               style: buttonStyles.ghost,
                               size: ButtonSizes.sm,
                               rounder: ButtonRounders.rectangular,
-                              onPressed: () =>
-                                  _onCategoryCreateSheetOpened(context),
+                              onPressed: () {
+                                _onCategoryCreateSheetOpened(context);
+                              },
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 spacing: AppSpacing.small,
                                 children: [
-                                  Icon(LucideIcons.plus, size: 20),
+                                  const Icon(LucideIcons.plus, size: 20),
                                   Text(l10n.createCategory),
                                 ],
                               ),
@@ -479,11 +490,14 @@ class _ProductFormViewState extends State<ProductFormView> {
                             builder: (context, selectedCatalogUnit) {
                               return InputButton(
                                 invalid: unitErrorText != null,
-                                onPressed: () =>
+                                onPressed: () {
+                                  unawaited(
                                     _onCatalogUnitsPickerSheetOpened(
                                       context,
                                       selectedCatalogUnit,
                                     ),
+                                  );
+                                },
                                 hintText: l10n.selectUnit,
                                 value: selectedCatalogUnit != null
                                     ? CatalogUnits.resolveLabels(
@@ -531,7 +545,7 @@ class _ProductFormViewState extends State<ProductFormView> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             spacing: AppSpacing.small,
                             children: [
-                              Icon(LucideIcons.trash2, size: 20),
+                              const Icon(LucideIcons.trash2, size: 20),
                               Text(l10n.delete, textAlign: TextAlign.center),
                             ],
                           ),

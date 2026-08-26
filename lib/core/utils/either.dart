@@ -2,9 +2,9 @@ import "package:dartz/dartz.dart" as dartz;
 
 typedef Either<L, R> = dartz.Either<L, R>;
 
-// ignore: non_constant_identifier_names
+// ignore: non_constant_identifier_names - this is a utility function
 dartz.Left<L, R> Left<L, R>(L value) => dartz.Left<L, R>(value);
-// ignore: non_constant_identifier_names
+// ignore: non_constant_identifier_names - this is a utility function
 dartz.Right<L, R> Right<L, R>(R value) => dartz.Right<L, R>(value);
 
 extension EitherExtensions<L, R> on Either<L, R> {

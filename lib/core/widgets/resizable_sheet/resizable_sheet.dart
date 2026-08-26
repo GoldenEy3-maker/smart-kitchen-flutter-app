@@ -12,11 +12,11 @@ typedef ResizableSheetBuilder =
 
 class ResizableSheet extends StatefulWidget {
   const ResizableSheet({
+    required this.maxSize,
+    required this.builder,
     super.key,
     this.initialSize,
-    required this.maxSize,
     this.snap = true,
-    required this.builder,
     this.fitMaxSizeToContent = false,
     this.fitToContent = false,
   }) : assert(
@@ -44,7 +44,8 @@ class ResizableSheet extends StatefulWidget {
   /// Caps [maxSize] at the height needed by scrollable content, so the sheet
   /// cannot be expanded into empty space. Keep using an explicit [initialSize].
   ///
-  /// Requires the builder to attach [scrollController] to a vertical scrollable.
+  /// Requires the builder to attach `scrollController` to a vertical
+  /// scrollable.
   final bool fitMaxSizeToContent;
 
   /// Measures intrinsically-sized content and sets both the opening size and
@@ -69,9 +70,10 @@ class _ResizableSheetState extends State<ResizableSheet> {
   double? _fittedSize;
   bool _hasMeasuredContent = false;
 
-  /// After [fitMaxSizeToContent] settles, ignore further metrics. Resizing the
-  /// sheet during a drag fires ScrollMetricsNotifications; setState there
-  /// fights [DraggableScrollableSheet.snap] and the sheet jumps back.
+  /// After [ResizableSheet.fitMaxSizeToContent] settles, ignore further
+  /// metrics. Resizing the sheet during a drag fires
+  /// ScrollMetricsNotifications; setState there fights
+  /// [DraggableScrollableSheet.snap] and the sheet jumps back.
   bool _fitMaxSizeLocked = false;
   double? _lastFittedMaxSize;
 
@@ -196,10 +198,10 @@ class _ResizableSheetState extends State<ResizableSheet> {
         snap: widget.snap,
         snapSizes: widget.snap ? [snapSize.clamp(0.0, maxSize)] : null,
         builder: (context, scrollController) {
-          // showModalBottomSheet(useSafeArea: true) zeroes MediaQuery.padding,
-          // so a plain SafeArea would skip the home indicator. Keep viewPadding.
+          // showModalBottomSheet(useSafeArea: true)
+          // zeroes MediaQuery.padding, so a plain SafeArea would skip
+          // the home indicator. Keep viewPadding.
           final content = SafeArea(
-            maintainBottomViewPadding: false,
             minimum: EdgeInsets.only(
               bottom: MediaQuery.of(context).viewInsets.bottom + 26,
             ),
@@ -210,15 +212,16 @@ class _ResizableSheetState extends State<ResizableSheet> {
             alignment: Alignment.topCenter,
             clipBehavior: Clip.none,
             children: [
-              widget.fitToContent
-                  ? _SheetContentMeasurer(
-                      onMeasured: _onContentHeight,
-                      child: content,
-                    )
-                  : NotificationListener<ScrollMetricsNotification>(
-                      onNotification: _onScrollMetrics,
-                      child: content,
-                    ),
+              if (widget.fitToContent)
+                _SheetContentMeasurer(
+                  onMeasured: _onContentHeight,
+                  child: content,
+                )
+              else
+                NotificationListener<ScrollMetricsNotification>(
+                  onNotification: _onScrollMetrics,
+                  child: content,
+                ),
               Positioned(
                 top: -20,
                 child: Container(
@@ -239,7 +242,8 @@ class _ResizableSheetState extends State<ResizableSheet> {
 }
 
 /// Measures [child]'s intrinsic height, then lays it out with the real sheet
-/// constraints so nested scrollables can scroll when content exceeds [maxSize].
+/// constraints so nested scrollables can scroll when content exceeds
+/// [ResizableSheet.maxSize].
 class _SheetContentMeasurer extends SingleChildRenderObjectWidget {
   const _SheetContentMeasurer({required this.onMeasured, required super.child});
 
@@ -279,8 +283,6 @@ class _RenderSheetContentMeasurer extends RenderBox
       BoxConstraints(
         minWidth: constraints.maxWidth,
         maxWidth: constraints.maxWidth,
-        minHeight: 0,
-        maxHeight: double.infinity,
       ),
       parentUsesSize: true,
     );

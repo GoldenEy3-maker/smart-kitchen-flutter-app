@@ -44,10 +44,10 @@ class ButtonStyle {
 final class ButtonStyles {
   const ButtonStyles({required this.context});
 
-  final BuildContext context;
-
   factory ButtonStyles.of(BuildContext context) =>
       ButtonStyles(context: context);
+
+  final BuildContext context;
 
   AppColorsExtension get _colors => context.theme.colors;
 
@@ -63,7 +63,7 @@ final class ButtonStyles {
   ButtonStyle get secondary => ButtonStyle(
     backgroundColor: _colors.surface,
     foregroundColor: _colors.textPrimary,
-    border: Border.all(color: _colors.border, width: 1),
+    border: Border.all(color: _colors.border),
   );
 
   ButtonStyle get secondarySelected => ButtonStyle(

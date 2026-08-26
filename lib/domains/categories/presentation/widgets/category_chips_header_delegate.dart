@@ -7,15 +7,6 @@ import "package:smart_kitchen_flutter_app/core/widgets/selectable_chip/selectabl
 import "package:smart_kitchen_flutter_app/domains/categories/domain/entities/entities.dart";
 
 class CategoryChipsHeaderDelegate extends SliverPersistentHeaderDelegate {
-  final List<Category> categories;
-  final Category? selectedCategory;
-  final double height;
-  final double paddingVertical;
-  final double paddingHorizontal;
-  final bool isLoading;
-
-  final ValueChanged<Category?> onCategorySelected;
-
   const CategoryChipsHeaderDelegate({
     required this.categories,
     required this.selectedCategory,
@@ -25,6 +16,14 @@ class CategoryChipsHeaderDelegate extends SliverPersistentHeaderDelegate {
     this.paddingHorizontal = 0,
     this.isLoading = false,
   });
+  final List<Category> categories;
+  final Category? selectedCategory;
+  final double height;
+  final double paddingVertical;
+  final double paddingHorizontal;
+  final bool isLoading;
+
+  final ValueChanged<Category?> onCategorySelected;
 
   static const double kHeight = 36;
   static const double _chipSeparatorWidth = 10;
@@ -44,7 +43,7 @@ class CategoryChipsHeaderDelegate extends SliverPersistentHeaderDelegate {
     final l10n = context.l10n;
     final colors = context.theme.colors;
     final categoriesToRender = isLoading
-        ? [Category.loading, Category.loading, Category.loading]
+        ? [Category.loading(), Category.loading(), Category.loading()]
         : categories;
 
     return Container(

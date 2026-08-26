@@ -1,22 +1,22 @@
 import "package:flutter/material.dart";
 import "package:smart_kitchen_flutter_app/core/theme/app_colors_extension.dart";
 
-import "app_fonts.dart";
-import "app_radius.dart";
-import "app_spacing.dart";
-import "app_text_extension.dart";
+import "package:smart_kitchen_flutter_app/core/theme/app_fonts.dart";
+import "package:smart_kitchen_flutter_app/core/theme/app_radius.dart";
+import "package:smart_kitchen_flutter_app/core/theme/app_spacing.dart";
+import "package:smart_kitchen_flutter_app/core/theme/app_text_extension.dart";
 
 class AppTheme {
   static final ThemeData light = _buildThemeData(
     brightness: Brightness.light,
     colors: AppColorsExtension.light,
-    text: AppTextExtension.base,
+    text: AppTextExtension.base(),
   );
 
   static final ThemeData dark = _buildThemeData(
     brightness: Brightness.dark,
     colors: AppColorsExtension.dark,
-    text: AppTextExtension.base,
+    text: AppTextExtension.base(),
   );
 
   static ThemeData _buildThemeData({
@@ -47,7 +47,7 @@ class AppTheme {
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: colors.surface,
-        contentPadding: EdgeInsets.symmetric(
+        contentPadding: const EdgeInsets.symmetric(
           horizontal: AppSpacing.large,
           vertical: AppSpacing.medium,
         ),
@@ -98,7 +98,7 @@ class AppTheme {
         extendedTextStyle: text.labelSm,
         extendedIconLabelSpacing: AppSpacing.small,
         sizeConstraints: const BoxConstraints(minHeight: 48),
-        extendedPadding: EdgeInsets.symmetric(
+        extendedPadding: const EdgeInsets.symmetric(
           horizontal: AppSpacing.xLarge,
           vertical: AppSpacing.standard,
         ),

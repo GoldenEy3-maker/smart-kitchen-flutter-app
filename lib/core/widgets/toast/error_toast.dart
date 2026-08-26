@@ -4,7 +4,7 @@ import "package:smart_kitchen_flutter_app/core/context/context.dart";
 import "package:smart_kitchen_flutter_app/core/theme/theme.dart";
 
 class ErrorToast extends StatelessWidget {
-  const ErrorToast({super.key, required this.message});
+  const ErrorToast({required this.message, super.key});
 
   final String message;
 
@@ -17,15 +17,15 @@ class ErrorToast extends StatelessWidget {
       constraints: BoxConstraints(
         maxWidth: MediaQuery.of(context).size.width * 0.8,
       ),
-      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25.0),
+        borderRadius: BorderRadius.circular(25),
         color: colors.dangerSoft,
         boxShadow: [
           BoxShadow(
             blurRadius: 16,
             color: colors.danger.withValues(alpha: 0.25),
-            offset: Offset(0, 6),
+            offset: const Offset(0, 6),
           ),
         ],
       ),

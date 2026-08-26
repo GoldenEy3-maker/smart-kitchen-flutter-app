@@ -5,9 +5,9 @@ import "package:smart_kitchen_flutter_app/core/theme/theme.dart";
 
 class EmptyPlaceholder extends StatelessWidget {
   const EmptyPlaceholder({
+    required this.title,
     super.key,
     this.icon,
-    required this.title,
     this.description,
     this.action,
   });
@@ -42,7 +42,7 @@ class EmptyPlaceholder extends StatelessWidget {
         ),
         if (description != null)
           ConstrainedBox(
-            constraints: BoxConstraints(maxWidth: 280),
+            constraints: const BoxConstraints(maxWidth: 280),
             child: Text(
               description!,
               style: text.bodySm.copyWith(color: colors.textSecondary),

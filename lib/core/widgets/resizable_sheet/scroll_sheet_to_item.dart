@@ -1,14 +1,16 @@
 import "package:flutter/material.dart";
+import "package:smart_kitchen_flutter_app/core/theme/theme.dart";
 
-/// Main-axis extent of one cell for [SliverGridDelegateWithFixedCrossAxisCount].
+/// Main-axis extent of one cell for
+/// [SliverGridDelegateWithFixedCrossAxisCount].
 double gridItemExtent({
   required double crossAxisExtent,
   required int crossAxisCount,
   double crossAxisSpacing = 0,
   double childAspectRatio = 1,
 }) {
-  assert(crossAxisCount > 0);
-  assert(childAspectRatio > 0);
+  assert(crossAxisCount > 0, "crossAxisCount must be greater than 0");
+  assert(childAspectRatio > 0, "childAspectRatio must be greater than 0");
   final cellCrossAxisExtent =
       (crossAxisExtent - (crossAxisCount - 1) * crossAxisSpacing) /
       crossAxisCount;
@@ -38,7 +40,8 @@ double? scrollableCrossAxisExtent(ScrollController scrollController) {
 /// Position is computed from layout math — safe for lazy builders where
 /// off-screen items are not mounted yet (GlobalKey would be null / size 0).
 ///
-/// - List: `crossAxisCount: 1`, [itemExtent] = item height along the scroll axis.
+/// - List: `crossAxisCount: 1`,
+///   [itemExtent] = item height along the scroll axis.
 /// - Grid: [itemExtent] = cell main-axis size (see [gridItemExtent]).
 Future<void> scrollSheetToItem({
   required ScrollController scrollController,
@@ -48,7 +51,7 @@ Future<void> scrollSheetToItem({
   required double maxSheetSize,
   int crossAxisCount = 1,
   double mainAxisSpacing = 0,
-  Duration duration = const Duration(milliseconds: 300),
+  Duration duration = AppDuration.main,
   Curve curve = Curves.easeInOut,
 }) async {
   if (index < 0 || itemExtent <= 0 || !scrollController.hasClients) {
@@ -87,15 +90,8 @@ Future<void> scrollSheetToItem({
     return;
   }
 
-  final target =
-      (itemTop - (position.viewportDimension - itemExtent) / 2).clamp(
-        0.0,
-        position.maxScrollExtent,
-      );
+  final target = (itemTop - (position.viewportDimension - itemExtent) / 2)
+      .clamp(0.0, position.maxScrollExtent);
 
-  await scrollController.animateTo(
-    target,
-    duration: duration,
-    curve: curve,
-  );
+  await scrollController.animateTo(target, duration: duration, curve: curve);
 }

@@ -1,10 +1,11 @@
+import "dart:async";
+
 import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
 import "package:smart_kitchen_flutter_app/core/context/context.dart";
-import "package:smart_kitchen_flutter_app/core/l10n/app_localizations.dart";
 import "package:smart_kitchen_flutter_app/core/theme/theme.dart";
-import "package:smart_kitchen_flutter_app/core/units/scroll_sheet_to_item.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/button/button.dart";
+import "package:smart_kitchen_flutter_app/core/widgets/resizable_sheet/scroll_sheet_to_item.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/resizable_sheet/show_resizable_sheet.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/toast/app_toast.dart";
 import "package:smart_kitchen_flutter_app/features/product_form/domain/entities/category_with_products_count.dart";
@@ -21,7 +22,7 @@ Future<CategoryWithProductsCount?> showCategoryManagerSheet({
   required BuildContext context,
   required ProductFormBloc bloc,
   CategoryWithProductsCount? initialSelectedCategory,
-}) async {
+}) {
   return showResizableSheet(
     context: context,
     initialSize: _initialSheetSize,
@@ -40,10 +41,10 @@ Future<CategoryWithProductsCount?> showCategoryManagerSheet({
 
 class CategoryManagerSheetView extends StatefulWidget {
   const CategoryManagerSheetView({
-    super.key,
     required this.scrollController,
     required this.sheetController,
     required this.initialSelectedCategory,
+    super.key,
   });
 
   final ScrollController scrollController;
@@ -59,7 +60,7 @@ class _CategoryManagerSheetViewState extends State<CategoryManagerSheetView> {
   late final ValueNotifier<CategoryWithProductsCount?> _selectedCategory =
       ValueNotifier(widget.initialSelectedCategory);
 
-  void _onCategorySelected(CategoryWithProductsCount category) {
+  set _selectedCategory(CategoryWithProductsCount? category) {
     _selectedCategory.value = category;
   }
 
@@ -70,31 +71,34 @@ class _CategoryManagerSheetViewState extends State<CategoryManagerSheetView> {
   void _onEditPressed(CategoryWithProductsCount category) {
     final bloc = context.read<ProductFormBloc>();
     final l10n = context.l10n;
-    showCategoryEditSheet(
-      context: context,
-      category: category,
-      onEdit: (updatedCategory) async {
-        AppToast.removeToast(context);
 
-        final done = bloc.stream.firstWhere(
-          (state) => !state.isEditCategoryPending,
-        );
-        bloc.add(ProductFormCategoryEditRequested(category: updatedCategory));
-        final state = await done;
-        final isSuccess = state.error == null;
-        final isSelectedCategory =
-            updatedCategory.id == _selectedCategory.value?.id;
+    unawaited(
+      showCategoryEditSheet(
+        context: context,
+        category: category,
+        onEdit: (updatedCategory) async {
+          AppToast.removeToast(context);
 
-        if (isSuccess && isSelectedCategory && mounted) {
-          _selectedCategory.value = updatedCategory;
-        }
+          final done = bloc.stream.firstWhere(
+            (state) => !state.isEditCategoryPending,
+          );
+          bloc.add(ProductFormCategoryEditRequested(category: updatedCategory));
+          final state = await done;
+          final isSuccess = state.error == null;
+          final isSelectedCategory =
+              updatedCategory.id == _selectedCategory.value?.id;
 
-        if (!isSuccess && mounted) {
-          AppToast.showError(context, state.error!.localizedMessage(l10n));
-        }
+          if (isSuccess && isSelectedCategory && mounted) {
+            _selectedCategory.value = updatedCategory;
+          }
 
-        return isSuccess;
-      },
+          if (!isSuccess && mounted) {
+            AppToast.showError(context, state.error!.localizedMessage(l10n));
+          }
+
+          return isSuccess;
+        },
+      ),
     );
   }
 
@@ -120,27 +124,29 @@ class _CategoryManagerSheetViewState extends State<CategoryManagerSheetView> {
       },
     );
 
-    if (result == null || result == false) return;
+    if (result == null || !result) return;
 
     if (_selectedCategory.value?.id == category.id) {
       _selectedCategory.value = null;
     }
 
-    if (bloc.state.categories.isEmpty) {
+    if (bloc.state.categories.isEmpty && mounted) {
       Navigator.pop(context);
     }
   }
 
-  Future<void> _scrollToInitialSelectedCategory() async {
+  void _scrollToInitialSelectedCategory() {
     final bloc = context.read<ProductFormBloc>();
     if (widget.initialSelectedCategory == null) return;
 
-    await scrollSheetToItem(
-      scrollController: widget.scrollController,
-      sheetController: widget.sheetController,
-      index: bloc.state.categories.indexOf(widget.initialSelectedCategory!),
-      itemExtent: CategoryTile.height,
-      maxSheetSize: _maxSheetSize,
+    unawaited(
+      scrollSheetToItem(
+        scrollController: widget.scrollController,
+        sheetController: widget.sheetController,
+        index: bloc.state.categories.indexOf(widget.initialSelectedCategory!),
+        itemExtent: CategoryTile.height,
+        maxSheetSize: _maxSheetSize,
+      ),
     );
   }
 
@@ -203,9 +209,15 @@ class _CategoryManagerSheetViewState extends State<CategoryManagerSheetView> {
                               key: ValueKey(category.id),
                               selected: isSelected,
                               category: category,
-                              onPressed: () => _onCategorySelected(category),
-                              onEditPressed: () => _onEditPressed(category),
-                              onDeletePressed: () => _onDeletePressed(category),
+                              onPressed: () {
+                                _selectedCategory = category;
+                              },
+                              onEditPressed: () {
+                                _onEditPressed(category);
+                              },
+                              onDeletePressed: () {
+                                unawaited(_onDeletePressed(category));
+                              },
                             );
                           },
                         );

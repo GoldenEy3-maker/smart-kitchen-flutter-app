@@ -17,7 +17,7 @@ class ButtonRounder {
 }
 
 abstract final class ButtonRounders {
-  static final ButtonRounder circle = ButtonRounder(shape: BoxShape.circle);
+  static const ButtonRounder circle = ButtonRounder(shape: BoxShape.circle);
   static final ButtonRounder rectangular = ButtonRounder(
     shape: BoxShape.rectangle,
     borderRadius: BorderRadius.circular(AppRadius.xLarge),

@@ -5,9 +5,8 @@ import "package:smart_kitchen_flutter_app/domains/products/domain/entities/entit
 import "package:smart_kitchen_flutter_app/domains/products/domain/repositories/repositories.dart";
 
 class GetProducts implements UseCase<List<Product>, NoParams> {
-  final ProductsRepository _repository;
-
   const GetProducts({required this._repository});
+  final ProductsRepository _repository;
 
   @override
   Future<Either<Failure, List<Product>>> call(NoParams params) {

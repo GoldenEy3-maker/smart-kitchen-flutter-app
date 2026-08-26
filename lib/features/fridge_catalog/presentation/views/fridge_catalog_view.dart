@@ -3,7 +3,6 @@ import "package:flutter_bloc/flutter_bloc.dart";
 import "package:lucide_icons_flutter/lucide_icons.dart";
 import "package:skeletonizer/skeletonizer.dart";
 import "package:smart_kitchen_flutter_app/core/context/context.dart";
-import "package:smart_kitchen_flutter_app/core/l10n/app_localizations.dart";
 import "package:smart_kitchen_flutter_app/core/theme/theme.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/button/button_size.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/empty_placeholder/empty_placeholder.dart";
@@ -11,17 +10,17 @@ import "package:smart_kitchen_flutter_app/core/widgets/error_placeholder/error_p
 import "package:smart_kitchen_flutter_app/core/widgets/scroll/scroll.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/search_header_delegate/search_header_delegate.dart";
 import "package:smart_kitchen_flutter_app/domains/categories/presentation/widgets/category_chips_header_delegate.dart";
+import "package:smart_kitchen_flutter_app/domains/fridge/navigation/navigation.dart";
 import "package:smart_kitchen_flutter_app/features/fridge_catalog/domain/entities/entities.dart";
 import "package:smart_kitchen_flutter_app/features/fridge_catalog/presentation/bloc/bloc.dart";
 import "package:smart_kitchen_flutter_app/features/fridge_catalog/presentation/widgets/widgets.dart";
-import "package:smart_kitchen_flutter_app/domains/fridge/navigation/navigation.dart";
 
 final class _FridgeCatalogViewConfig {
   _FridgeCatalogViewConfig._();
 
   static const double verticalGap = AppSpacing.standard;
   static final double searchBarHeight = SearchHeaderDelegate.kHeight;
-  static final double categoryChipsHeight =
+  static const double categoryChipsHeight =
       CategoryChipsHeaderDelegate.kHeight + verticalGap * 2;
   static final double safeFooterHeight =
       AppSpacing.large * 2 + ButtonSizes.primary.minHeight;
@@ -29,7 +28,7 @@ final class _FridgeCatalogViewConfig {
 }
 
 class FridgeCatalogView extends StatelessWidget {
-  const FridgeCatalogView({super.key, required this._fridgeNavigator});
+  const FridgeCatalogView({required this._fridgeNavigator, super.key});
 
   final FridgeNavigator _fridgeNavigator;
 
@@ -54,9 +53,9 @@ class FridgeCatalogView extends StatelessWidget {
       builder: (context, state) {
         final categoryWithFridgeProducts = state.isLoading
             ? [
-                CategoryWithFridgeProductItems.loading,
-                CategoryWithFridgeProductItems.loading,
-                CategoryWithFridgeProductItems.loading,
+                CategoryWithFridgeProductItems.loading(),
+                CategoryWithFridgeProductItems.loading(),
+                CategoryWithFridgeProductItems.loading(),
               ]
             : state.filteredCategoriesWithFridgeProducts;
         final isEmpty = state.filteredCategoriesWithFridgeProducts.isEmpty;
@@ -88,7 +87,7 @@ class FridgeCatalogView extends StatelessWidget {
                   mainAxisAlignment: .center,
                   children: [
                     AddFridgeProductButton(
-                      onPressed: () => _onFridgeFormOpened(),
+                      onPressed: _onFridgeFormOpened,
                     ),
                   ],
                 ),
@@ -179,8 +178,9 @@ class FridgeCatalogView extends StatelessWidget {
                             );
                           },
                           itemBuilder: (context, index) {
-                            final fridgeProduct = categoryWithFridgeProducts[i]
-                                .fridgeProducts[index];
+                            // final fridgeProduct =
+                            // categoryWithFridgeProducts[i]
+                            // .fridgeProducts[index];
                             return Skeletonizer(
                               enabled: state.isLoading,
                               // child: FridgeProductTile(
@@ -188,7 +188,7 @@ class FridgeCatalogView extends StatelessWidget {
                               //       _onFridgeFormOpened(),
                               //   fridgeProduct: fridgeProduct,
                               // ),
-                              child: Text("FridgeProductTile"),
+                              child: const Text("FridgeProductTile"),
                             );
                           },
                         ),
@@ -220,7 +220,7 @@ class FridgeCatalogView extends StatelessWidget {
           ),
           floatingActionButton: isEmpty
               ? null
-              : AddFridgeProductButton(onPressed: () => _onFridgeFormOpened()),
+              : AddFridgeProductButton(onPressed: _onFridgeFormOpened),
           floatingActionButtonAnimator:
               FloatingActionButtonAnimator.noAnimation,
         );

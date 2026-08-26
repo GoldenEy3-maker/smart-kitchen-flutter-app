@@ -6,9 +6,9 @@ import "package:smart_kitchen_flutter_app/core/widgets/button/button.dart";
 
 class ErrorPlaceholder extends StatefulWidget {
   const ErrorPlaceholder({
-    super.key,
     required this.errorMessage,
     required this.onTryAgain,
+    super.key,
   });
 
   final String errorMessage;
@@ -55,7 +55,7 @@ class _ErrorPlaceholderState extends State<ErrorPlaceholder> {
           textAlign: TextAlign.center,
         ),
         ConstrainedBox(
-          constraints: BoxConstraints(maxWidth: 280),
+          constraints: const BoxConstraints(maxWidth: 280),
           child: Text(
             widget.errorMessage,
             style: text.bodySm.copyWith(color: colors.textSecondary),
@@ -73,7 +73,7 @@ class _ErrorPlaceholderState extends State<ErrorPlaceholder> {
                 mainAxisSize: .min,
                 spacing: AppSpacing.small,
                 children: [
-                  Icon(LucideIcons.rotateCcw, size: 16),
+                  const Icon(LucideIcons.rotateCcw, size: 16),
                   Text(l10n.tryAgain),
                 ],
               ),

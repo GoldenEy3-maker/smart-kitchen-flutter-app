@@ -39,7 +39,7 @@ class ButtonSize {
 }
 
 abstract final class ButtonSizes {
-  static final ButtonSize primary = ButtonSize(
+  static const ButtonSize primary = ButtonSize(
     minHeight: 48,
     minWidth: 0,
     maxHeight: double.infinity,
@@ -50,7 +50,7 @@ abstract final class ButtonSizes {
     ),
   );
 
-  static final ButtonSize sm = ButtonSize(
+  static const ButtonSize sm = ButtonSize(
     minHeight: 36,
     minWidth: 0,
     maxHeight: double.infinity,
@@ -62,7 +62,7 @@ abstract final class ButtonSizes {
     fontSize: 14,
   );
 
-  static final ButtonSize icon = ButtonSize(
+  static const ButtonSize icon = ButtonSize(
     minHeight: 48,
     minWidth: 48,
     maxHeight: 48,
@@ -70,7 +70,7 @@ abstract final class ButtonSizes {
     padding: EdgeInsets.zero,
   );
 
-  static final ButtonSize iconSmall = ButtonSize(
+  static const ButtonSize iconSmall = ButtonSize(
     minHeight: 44,
     minWidth: 44,
     maxHeight: 44,

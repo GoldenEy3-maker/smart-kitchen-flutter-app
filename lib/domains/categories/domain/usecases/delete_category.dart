@@ -5,9 +5,8 @@ import "package:smart_kitchen_flutter_app/domains/categories/domain/repositories
 import "package:smart_kitchen_flutter_app/domains/categories/params/params.dart";
 
 class DeleteCategory implements UseCase<void, DeleteCategoryParams> {
-  final CategoriesRepository _repository;
-
   DeleteCategory({required this._repository});
+  final CategoriesRepository _repository;
 
   @override
   Future<Either<Failure, void>> call(DeleteCategoryParams params) {

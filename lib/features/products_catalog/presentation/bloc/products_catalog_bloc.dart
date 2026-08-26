@@ -3,20 +3,17 @@ import "package:equatable/equatable.dart";
 import "package:flutter/material.dart";
 import "package:smart_kitchen_flutter_app/core/error/error.dart";
 import "package:smart_kitchen_flutter_app/core/usecase/usecase.dart";
-import "package:smart_kitchen_flutter_app/features/products_catalog/domain/entities/entities.dart";
-import "package:smart_kitchen_flutter_app/domains/products/domain/entities/entities.dart";
-import "package:smart_kitchen_flutter_app/domains/products/domain/usecases/usecases.dart";
 import "package:smart_kitchen_flutter_app/domains/categories/domain/entities/entities.dart";
 import "package:smart_kitchen_flutter_app/domains/categories/domain/usecases/usecases.dart";
+import "package:smart_kitchen_flutter_app/domains/products/domain/entities/entities.dart";
+import "package:smart_kitchen_flutter_app/domains/products/domain/usecases/usecases.dart";
+import "package:smart_kitchen_flutter_app/features/products_catalog/domain/entities/entities.dart";
 
 part "products_catalog_event.dart";
 part "products_catalog_state.dart";
 
 class ProductsCatalogBloc
     extends Bloc<ProductsCatalogEvent, ProductsCatalogState> {
-  final GetCategories _getCategories;
-  final GetProducts _getProducts;
-
   ProductsCatalogBloc({
     required this._getCategories,
     required this._getProducts,
@@ -38,6 +35,8 @@ class ProductsCatalogBloc
     on<ProductUpdated>(_onProductUpdated);
     on<ProductCategoriesUpdated>(_onProductCategoriesUpdated);
   }
+  final GetCategories _getCategories;
+  final GetProducts _getProducts;
 
   Future<void> _onLoadProductsCatalogRequested(
     LoadProductsCatalogRequested event,
@@ -45,8 +44,8 @@ class ProductsCatalogBloc
   ) async {
     emit(state.copyWith(isLoading: true));
     final (categoriesResult, productsResult) = await (
-      _getCategories(NoParams()),
-      _getProducts(NoParams()),
+      _getCategories(const NoParams()),
+      _getProducts(const NoParams()),
     ).wait;
     categoriesResult.fold(
       (failure) => emit(state.copyWith(isLoading: false, error: failure)),
@@ -123,16 +122,16 @@ class ProductsCatalogBloc
     List<Category> categories,
     Emitter<ProductsCatalogState> emit,
   ) {
-    final hasSelectedCategory = state.selectedCategory != null
-        ? categories.any(
-                (category) => category.id == state.selectedCategory?.id,
-              ) &&
-              state.filteredCategoryWithProducts.any(
-                (categoryWithProducts) =>
-                    categoryWithProducts.category.id ==
-                    state.selectedCategory?.id,
-              )
-        : false;
+    final hasSelectedCategory =
+        state.selectedCategory != null &&
+        (categories.any(
+              (category) => category.id == state.selectedCategory?.id,
+            ) &&
+            state.filteredCategoryWithProducts.any(
+              (categoryWithProducts) =>
+                  categoryWithProducts.category.id ==
+                  state.selectedCategory?.id,
+            ));
     emit(
       state.copyWith(
         categories: categories,

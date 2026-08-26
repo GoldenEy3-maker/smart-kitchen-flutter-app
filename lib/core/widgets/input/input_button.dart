@@ -6,8 +6,8 @@ import "package:smart_kitchen_flutter_app/core/widgets/input/input.dart";
 
 class InputButton extends StatelessWidget {
   const InputButton({
-    super.key,
     required this.onPressed,
+    super.key,
     this.hintText = "",
     this.value,
     this.invalid = false,

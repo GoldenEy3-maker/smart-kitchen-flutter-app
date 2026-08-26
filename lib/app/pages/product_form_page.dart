@@ -3,12 +3,12 @@ import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
 import "package:smart_kitchen_flutter_app/app/router/app_router.dart";
 import "package:smart_kitchen_flutter_app/core/di/di.dart";
-import "package:smart_kitchen_flutter_app/features/product_form/domain/usecases/usecases.dart";
+import "package:smart_kitchen_flutter_app/domains/categories/domain/usecases/usecases.dart";
 import "package:smart_kitchen_flutter_app/domains/products/domain/entities/entities.dart";
 import "package:smart_kitchen_flutter_app/domains/products/domain/usecases/usecases.dart";
+import "package:smart_kitchen_flutter_app/features/product_form/domain/usecases/usecases.dart";
 import "package:smart_kitchen_flutter_app/features/product_form/presentation/bloc/bloc.dart";
 import "package:smart_kitchen_flutter_app/features/product_form/presentation/views/views.dart";
-import "package:smart_kitchen_flutter_app/domains/categories/domain/usecases/usecases.dart";
 
 @RoutePage()
 class ProductFormPage extends StatelessWidget {
@@ -32,11 +32,9 @@ class ProductFormPage extends StatelessWidget {
         updateProduct: getIt.get<UpdateProduct>(),
         deleteProduct: getIt.get<DeleteProduct>(),
       )..add(ProductFormCategoriesRequested(product: product)),
-      child: Scaffold(
-        body: ProductFormView(
-          product: product,
-          onGoBackRequested: (event) => router.maybePop(event),
-        ),
+      child: ProductFormView(
+        product: product,
+        onGoBackRequested: router.maybePop,
       ),
     );
   }

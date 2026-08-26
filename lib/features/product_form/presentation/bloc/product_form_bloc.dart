@@ -5,21 +5,19 @@ import "package:smart_kitchen_flutter_app/core/error/error.dart";
 import "package:smart_kitchen_flutter_app/core/icons/catalog_icons.dart";
 import "package:smart_kitchen_flutter_app/core/units/catalog_units.dart";
 import "package:smart_kitchen_flutter_app/core/usecase/usecase.dart";
-import "package:smart_kitchen_flutter_app/features/product_form/domain/entities/entities.dart";
-import "package:smart_kitchen_flutter_app/features/product_form/domain/usecases/usecases.dart";
+import "package:smart_kitchen_flutter_app/domains/categories/domain/usecases/usecases.dart";
+import "package:smart_kitchen_flutter_app/domains/categories/params/params.dart";
 import "package:smart_kitchen_flutter_app/domains/products/domain/entities/entities.dart";
 import "package:smart_kitchen_flutter_app/domains/products/domain/usecases/usecases.dart";
 import "package:smart_kitchen_flutter_app/domains/products/params/params.dart";
-import "package:smart_kitchen_flutter_app/domains/categories/domain/entities/entities.dart";
-import "package:smart_kitchen_flutter_app/domains/categories/domain/usecases/usecases.dart";
-import "package:smart_kitchen_flutter_app/domains/categories/params/params.dart";
+import "package:smart_kitchen_flutter_app/features/product_form/domain/entities/entities.dart";
+import "package:smart_kitchen_flutter_app/features/product_form/domain/usecases/usecases.dart";
 
 part "product_form_event.dart";
 part "product_form_state.dart";
 
 class ProductFormBloc extends Bloc<ProductFormEvent, ProductFormState> {
   ProductFormBloc({
-    this._product,
     required this._getCategoriesWithProductsCount,
     required this._createCategory,
     required this._deleteCategory,
@@ -27,14 +25,15 @@ class ProductFormBloc extends Bloc<ProductFormEvent, ProductFormState> {
     required this._createProduct,
     required this._updateProduct,
     required this._deleteProduct,
+    Product? product,
   }) : super(
          ProductFormState(
-           categories: [],
-           selectedCatalogUnit: _product != null
-               ? CatalogUnits.fromName(_product.unit)
+           categories: const [],
+           selectedCatalogUnit: product != null
+               ? CatalogUnits.fromName(product.unit)
                : null,
-           selectedCatalogIcon: _product != null
-               ? CatalogIcons.fromName(_product.iconKey)
+           selectedCatalogIcon: product != null
+               ? CatalogIcons.fromName(product.iconKey)
                : null,
          ),
        ) {
@@ -50,8 +49,6 @@ class ProductFormBloc extends Bloc<ProductFormEvent, ProductFormState> {
     on<ProductFormDeleteRequested>(_onProductDeleteRequested);
   }
 
-  // ignore: unused_field
-  final Product? _product;
   final GetCategoriesWithProductsCount _getCategoriesWithProductsCount;
   final CreateCategory _createCategory;
   final DeleteCategory _deleteCategory;
@@ -65,7 +62,7 @@ class ProductFormBloc extends Bloc<ProductFormEvent, ProductFormState> {
     Emitter<ProductFormState> emit,
   ) async {
     emit(state.copyWith(isCategoriesLoading: true, error: () => null));
-    final result = await _getCategoriesWithProductsCount(NoParams());
+    final result = await _getCategoriesWithProductsCount(const NoParams());
     result.fold(
       (failure) => emit(
         state.copyWith(isCategoriesLoading: false, error: () => failure),
@@ -231,7 +228,7 @@ class ProductFormBloc extends Bloc<ProductFormEvent, ProductFormState> {
     emit(state.copyWith(selectedCatalogUnit: event.catalogUnit));
   }
 
-  void _onProductCreateRequested(
+  Future<void> _onProductCreateRequested(
     ProductFormCreateRequested event,
     Emitter<ProductFormState> emit,
   ) async {
@@ -258,7 +255,7 @@ class ProductFormBloc extends Bloc<ProductFormEvent, ProductFormState> {
     );
   }
 
-  void _onProductUpdateRequested(
+  Future<void> _onProductUpdateRequested(
     ProductFormUpdateRequested event,
     Emitter<ProductFormState> emit,
   ) async {
@@ -285,7 +282,7 @@ class ProductFormBloc extends Bloc<ProductFormEvent, ProductFormState> {
     );
   }
 
-  void _onProductDeleteRequested(
+  Future<void> _onProductDeleteRequested(
     ProductFormDeleteRequested event,
     Emitter<ProductFormState> emit,
   ) async {

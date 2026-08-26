@@ -6,9 +6,8 @@ import "package:smart_kitchen_flutter_app/domains/categories/domain/repositories
 import "package:smart_kitchen_flutter_app/domains/categories/params/params.dart";
 
 class UpdateCategory implements UseCase<Category, UpdateCategoryParams> {
-  final CategoriesRepository _repository;
-
   UpdateCategory({required this._repository});
+  final CategoriesRepository _repository;
 
   @override
   Future<Either<Failure, Category>> call(UpdateCategoryParams params) {

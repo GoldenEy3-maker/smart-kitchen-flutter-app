@@ -9,19 +9,19 @@ import "package:smart_kitchen_flutter_app/domains/products/navigation/navigation
 import "package:talker_flutter/talker_flutter.dart";
 
 Future<void> registerCoreScopeDI() async {
-  getIt.registerLazySingleton<Talker>(() => TalkerFactory().create());
+  getIt.registerLazySingleton<Talker>(() => const TalkerFactory().create());
 
   final hiveStoragePath = await HiveInitializer().init();
 
   getIt.get<Talker>().info("Hive initialized at $hiveStoragePath");
 
-  getIt.registerSingleton<AppRouter>(AppRouter());
-  getIt.registerLazySingleton<ThemeProvider>(() => ThemeProvider());
-
-  getIt.registerLazySingleton<ProductsNavigator>(
-    () => ProductsNavigatorImpl(router: getIt.get<AppRouter>()),
-  );
-  getIt.registerLazySingleton<FridgeNavigator>(
-    () => FridgeNavigatorImpl(router: getIt.get<AppRouter>()),
-  );
+  getIt
+    ..registerSingleton<AppRouter>(AppRouter())
+    ..registerLazySingleton<ThemeProvider>(ThemeProvider.new)
+    ..registerLazySingleton<ProductsNavigator>(
+      () => ProductsNavigatorImpl(router: getIt.get<AppRouter>()),
+    )
+    ..registerLazySingleton<FridgeNavigator>(
+      () => FridgeNavigatorImpl(router: getIt.get<AppRouter>()),
+    );
 }

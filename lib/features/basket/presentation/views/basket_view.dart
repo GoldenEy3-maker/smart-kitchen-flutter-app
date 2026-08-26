@@ -5,6 +5,6 @@ class BasketView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: SafeArea(child: Text("Basket")));
+    return const Scaffold(body: SafeArea(child: Text("Basket")));
   }
 }

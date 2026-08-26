@@ -10,17 +10,18 @@ class CategoryWithProductsCount extends Equatable {
     required this.productsCount,
   });
 
+  CategoryWithProductsCount.loading()
+    : this(
+        id: "loading",
+        label: "Loading Title...",
+        iconKey: CatalogIcons.fallback.name,
+        productsCount: 0,
+      );
+
   final String id;
   final String label;
   final String iconKey;
   final int productsCount;
-
-  static CategoryWithProductsCount get loading => CategoryWithProductsCount(
-    id: "loading",
-    label: "Loading Title...",
-    iconKey: CatalogIcons.fallback.name,
-    productsCount: 0,
-  );
 
   Category toCategory() => Category(id: id, label: label, iconKey: iconKey);
 

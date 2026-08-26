@@ -8,7 +8,7 @@ import "package:smart_kitchen_flutter_app/core/widgets/resizable_sheet/show_resi
 Future<bool?> showProductConfirmDeleteSheet({
   required BuildContext context,
   required Future<bool> Function() onConfirm,
-}) async {
+}) {
   return showResizableSheet<bool>(
     context: context,
     maxSize: 0.9,
@@ -23,9 +23,9 @@ Future<bool?> showProductConfirmDeleteSheet({
 
 class ProductConfirmDeleteSheetView extends StatefulWidget {
   const ProductConfirmDeleteSheetView({
-    super.key,
     required this.scrollController,
     required this.onConfirm,
+    super.key,
   });
 
   final ScrollController scrollController;
@@ -44,7 +44,7 @@ class _ProductConfirmDeleteSheetViewState
     Navigator.pop(context, false);
   }
 
-  void _onConfirmPressed() async {
+  Future<void> _onConfirmPressed() async {
     _isPending.value = true;
 
     try {

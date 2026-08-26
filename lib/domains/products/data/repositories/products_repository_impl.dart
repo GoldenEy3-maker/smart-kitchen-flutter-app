@@ -6,9 +6,8 @@ import "package:smart_kitchen_flutter_app/domains/products/domain/repositories/r
 import "package:smart_kitchen_flutter_app/domains/products/params/params.dart";
 
 class ProductsRepositoryImpl implements ProductsRepository {
-  final ProductsLocalDataSource _localDataSource;
-
   ProductsRepositoryImpl({required this._localDataSource});
+  final ProductsLocalDataSource _localDataSource;
 
   @override
   Future<Either<Failure, List<Product>>> getProducts() async {

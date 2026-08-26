@@ -1,17 +1,17 @@
 import "package:flutter/material.dart";
+import "package:lucide_icons_flutter/lucide_icons.dart";
 import "package:skeletonizer/skeletonizer.dart";
 import "package:smart_kitchen_flutter_app/core/context/context.dart";
 import "package:smart_kitchen_flutter_app/core/icons/catalog_icons.dart";
-import "package:smart_kitchen_flutter_app/core/units/units.dart";
 import "package:smart_kitchen_flutter_app/core/theme/theme.dart";
+import "package:smart_kitchen_flutter_app/core/units/units.dart";
 import "package:smart_kitchen_flutter_app/domains/products/domain/entities/entities.dart";
-import "package:lucide_icons_flutter/lucide_icons.dart";
 
 class ProductTile extends StatelessWidget {
   const ProductTile({
-    super.key,
     required this.product,
     required this.onPressed,
+    super.key,
   });
 
   final Product product;
@@ -27,17 +27,17 @@ class ProductTile extends StatelessWidget {
       color: colors.surface,
       surfaceTintColor: Colors.transparent,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(AppRadius.medium)),
+        borderRadius: const BorderRadius.all(Radius.circular(AppRadius.medium)),
         side: Border.all(color: colors.border).top,
       ),
       child: InkWell(
         onTap: onPressed,
-        borderRadius: BorderRadius.all(Radius.circular(AppRadius.medium)),
-        customBorder: RoundedRectangleBorder(
+        borderRadius: const BorderRadius.all(Radius.circular(AppRadius.medium)),
+        customBorder: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(AppRadius.medium)),
         ),
         child: Padding(
-          padding: EdgeInsets.all(AppSpacing.medium),
+          padding: const EdgeInsets.all(AppSpacing.medium),
           child: Row(
             children: [
               Skeleton.leaf(
@@ -57,7 +57,7 @@ class ProductTile extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(width: AppSpacing.medium),
+              const SizedBox(width: AppSpacing.medium),
               Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,

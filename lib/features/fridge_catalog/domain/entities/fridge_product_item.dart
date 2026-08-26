@@ -9,17 +9,18 @@ class FridgeProductItem extends Equatable {
     required this.expirationDate,
   });
 
+  FridgeProductItem.loading()
+    : this(
+        id: "Loading",
+        product: Product.loading(),
+        quantity: 1,
+        expirationDate: DateTime.now(),
+      );
+
   final String id;
   final Product product;
   final int quantity;
   final DateTime expirationDate;
-
-  static FridgeProductItem get loading => FridgeProductItem(
-    id: "Loading",
-    product: Product.loading,
-    quantity: 1,
-    expirationDate: DateTime.now(),
-  );
 
   @override
   List<Object> get props => [id, product, quantity, expirationDate];

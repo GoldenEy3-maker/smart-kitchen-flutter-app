@@ -21,6 +21,6 @@ Future<void> bootstrap() async {
       details.stack,
     );
 
-    runApp(SmartKitchenApp());
+    runApp(const SmartKitchenApp());
   }, (e, st) => getIt.get<Talker>().error(e, st));
 }

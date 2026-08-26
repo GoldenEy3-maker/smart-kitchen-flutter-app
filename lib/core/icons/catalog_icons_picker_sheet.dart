@@ -1,14 +1,13 @@
 import "package:flutter/material.dart";
 import "package:smart_kitchen_flutter_app/core/context/context.dart";
+import "package:smart_kitchen_flutter_app/core/icons/catalog_icons.dart";
 import "package:smart_kitchen_flutter_app/core/theme/theme.dart";
-import "package:smart_kitchen_flutter_app/core/units/scroll_sheet_to_item.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/button/button.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/button/button_rounder.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/button/button_size.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/button/button_style.dart";
+import "package:smart_kitchen_flutter_app/core/widgets/resizable_sheet/scroll_sheet_to_item.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/resizable_sheet/show_resizable_sheet.dart";
-
-import "catalog_icons.dart";
 
 const double _initialSheetSize = 0.53;
 const double _maxSheetSize = 0.9;
@@ -33,9 +32,9 @@ Future<CatalogIcons?> showCatalogIconsPickerSheet({
 
 class CatalogIconsPickerSheetView extends StatefulWidget {
   const CatalogIconsPickerSheetView({
-    super.key,
     required this.scrollController,
     required this.sheetController,
+    super.key,
     this.initialSelectedCatalogIcon,
   });
 
@@ -85,7 +84,7 @@ class _CatalogIconsPickerSheetViewState
     );
   }
 
-  void _onSelectedCatalogIcon(CatalogIcons? catalogIcon) {
+  set _selectedCatalogIcon(CatalogIcons? catalogIcon) {
     _selectedCatalogIcon.value = catalogIcon;
   }
 
@@ -96,8 +95,8 @@ class _CatalogIconsPickerSheetViewState
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _scrollToInitialSelectedCatalogIcon();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await _scrollToInitialSelectedCatalogIcon();
     });
   }
 
@@ -158,7 +157,7 @@ class _CatalogIconsPickerSheetViewState
                             ),
                           ),
                           onPressed: () {
-                            _onSelectedCatalogIcon(catalogIcon);
+                            _selectedCatalogIcon = catalogIcon;
                           },
                           child: Icon(
                             CatalogIcons.values[index].icon,

@@ -4,9 +4,9 @@ import "package:smart_kitchen_flutter_app/core/theme/theme.dart";
 
 class AppBottomNavigationBarItem extends StatelessWidget {
   const AppBottomNavigationBarItem({
-    super.key,
     required this.icon,
     required this.label,
+    super.key,
     this.onTap,
     this.index = 0,
     this.isSelected = false,
@@ -18,8 +18,8 @@ class AppBottomNavigationBarItem extends StatelessWidget {
   final ValueChanged<int>? onTap;
   final bool isSelected;
 
-  static const _duration = Duration(milliseconds: 300);
-  static const _curve = Curves.easeInOut;
+  static const Duration _duration = AppDuration.main;
+  static const Cubic _curve = Curves.easeInOut;
 
   @override
   Widget build(BuildContext context) {
@@ -49,12 +49,11 @@ class AppBottomNavigationBarItem extends StatelessWidget {
               padding: EdgeInsets.symmetric(
                 horizontal: isSelected ? AppSpacing.large : 0,
               ),
-              decoration: BoxDecoration(color: Colors.transparent),
+              decoration: const BoxDecoration(color: Colors.transparent),
               clipBehavior: Clip.antiAlias,
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   IconTheme.merge(
                     data: IconThemeData(color: color, size: 22),

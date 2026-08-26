@@ -5,12 +5,6 @@ part "product_model.g.dart";
 
 @JsonSerializable()
 class ProductModel {
-  final String id;
-  final String name;
-  final String iconKey;
-  final String unit;
-  final String categoryId;
-
   const ProductModel({
     required this.id,
     required this.name,
@@ -21,6 +15,11 @@ class ProductModel {
 
   factory ProductModel.fromJson(Map<String, dynamic> json) =>
       _$ProductModelFromJson(json);
+  final String id;
+  final String name;
+  final String iconKey;
+  final String unit;
+  final String categoryId;
 
   Map<String, dynamic> toJson() => _$ProductModelToJson(this);
 

@@ -10,19 +10,20 @@ class Product extends Equatable {
     required this.categoryId,
   });
 
+  Product.loading()
+    : this(
+        id: "loading",
+        name: "Loading Name",
+        iconKey: CatalogIcons.fallback.name,
+        unit: "",
+        categoryId: "loading",
+      );
+
   final String id;
   final String name;
   final String iconKey;
   final String unit;
   final String categoryId;
-
-  static Product get loading => Product(
-    id: "loading",
-    name: "Loading Name",
-    iconKey: CatalogIcons.fallback.name,
-    unit: "",
-    categoryId: "loading",
-  );
 
   @override
   List<Object?> get props => [id, name, iconKey, unit, categoryId];

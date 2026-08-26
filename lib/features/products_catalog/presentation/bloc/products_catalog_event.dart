@@ -12,16 +12,16 @@ class LoadProductsCatalogRequested extends ProductsCatalogEvent {
 }
 
 class SelectedCategoryChanged extends ProductsCatalogEvent {
-  final Category? category;
   const SelectedCategoryChanged({required this.category});
+  final Category? category;
 
   @override
   List<Object?> get props => [...super.props, category];
 }
 
 class SearchQueryChanged extends ProductsCatalogEvent {
-  final String query;
   const SearchQueryChanged({required this.query});
+  final String query;
 
   @override
   List<Object?> get props => [...super.props, query];

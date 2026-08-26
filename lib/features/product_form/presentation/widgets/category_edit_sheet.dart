@@ -36,10 +36,10 @@ Future<void> showCategoryEditSheet({
 
 class CategoryEditSheetView extends StatefulWidget {
   const CategoryEditSheetView({
-    super.key,
     required this.scrollController,
     required this.onEdit,
     required this.category,
+    super.key,
   });
 
   final ScrollController scrollController;
@@ -59,7 +59,7 @@ class _CategoryEditSheetViewState extends State<CategoryEditSheetView> {
     text: widget.category.label,
   );
 
-  void _onIconSelected(CatalogIcons? icon) {
+  set _selectedIcon(CatalogIcons? icon) {
     if (icon == null) return;
     _selectedIcon.value = icon;
   }
@@ -138,15 +138,17 @@ class _CategoryEditSheetViewState extends State<CategoryEditSheetView> {
                     rounder: ButtonRounders.rectangular.copyWith(
                       borderRadius: inputDecoration.shape.borderRadius,
                     ),
-                    onPressed: () {
-                      showCatalogIconsPickerSheet(
+                    onPressed: () async {
+                      final newIcon = await showCatalogIconsPickerSheet(
                         context: context,
                         initialSelectedCatalogIcon: icon,
-                      ).then(_onIconSelected);
+                      );
+
+                      _selectedIcon = newIcon;
                     },
                     child: icon != null
                         ? Icon(icon.icon, size: 20)
-                        : Icon(LucideIcons.tag, size: 20),
+                        : const Icon(LucideIcons.tag, size: 20),
                   ),
                 ),
                 Expanded(
@@ -159,7 +161,7 @@ class _CategoryEditSheetViewState extends State<CategoryEditSheetView> {
                 ),
               ],
             ),
-            SizedBox(height: AppSpacing.standard),
+            const SizedBox(height: AppSpacing.standard),
             ListenableBuilder(
               listenable: Listenable.merge([
                 _selectedIcon,

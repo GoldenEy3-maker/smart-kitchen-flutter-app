@@ -2,11 +2,11 @@ import "package:flutter/material.dart";
 import "package:smart_kitchen_flutter_app/core/context/context.dart";
 import "package:smart_kitchen_flutter_app/core/theme/theme.dart";
 import "package:smart_kitchen_flutter_app/core/units/catalog_units.dart";
-import "package:smart_kitchen_flutter_app/core/units/scroll_sheet_to_item.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/button/button.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/button/button_rounder.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/button/button_size.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/button/button_style.dart";
+import "package:smart_kitchen_flutter_app/core/widgets/resizable_sheet/scroll_sheet_to_item.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/resizable_sheet/show_resizable_sheet.dart";
 
 const _initialSheetSize = 0.52;
@@ -16,7 +16,7 @@ Future<CatalogUnits?> showCatalogUnitsPickerSheet({
   required BuildContext context,
   CatalogUnits? initialSelectedUnit,
 }) async {
-  return await showResizableSheet<CatalogUnits>(
+  return showResizableSheet<CatalogUnits>(
     context: context,
     initialSize: _initialSheetSize,
     maxSize: _maxSheetSize,
@@ -32,10 +32,10 @@ Future<CatalogUnits?> showCatalogUnitsPickerSheet({
 
 class CatalogUnitsPickerSheetView extends StatefulWidget {
   const CatalogUnitsPickerSheetView({
-    super.key,
     required this.scrollController,
     required this.sheetController,
     required this.initialSelectedUnit,
+    super.key,
   });
 
   final ScrollController scrollController;
@@ -53,7 +53,7 @@ class _CatalogUnitsPickerSheetViewState
     widget.initialSelectedUnit,
   );
 
-  void _onSelectedUnitChanged(CatalogUnits unit) {
+  set _selectedUnit(CatalogUnits unit) {
     _selectedUnit.value = unit;
   }
 
@@ -75,8 +75,8 @@ class _CatalogUnitsPickerSheetViewState
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _scrollToInitialSelectedUnit();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await _scrollToInitialSelectedUnit();
     });
   }
 
@@ -122,16 +122,16 @@ class _CatalogUnitsPickerSheetViewState
                         final isSelected = value == unit;
 
                         return Button(
-                          onPressed: () => _onSelectedUnitChanged(unit),
+                          onPressed: () => _selectedUnit = unit,
                           style: isSelected
                               ? buttonStyles.surfaceSelected
                               : buttonStyles.surface,
                           rounder: ButtonRounders.rectangularSm,
                           child: Text(
-                            (CatalogUnits.resolveLabels(
+                            CatalogUnits.resolveLabels(
                               context: context,
                               unit: CatalogUnits.values[index],
-                            ).full),
+                            ).full,
                           ),
                         );
                       },

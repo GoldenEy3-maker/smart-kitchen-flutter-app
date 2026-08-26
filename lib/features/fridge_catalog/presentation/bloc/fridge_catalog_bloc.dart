@@ -24,14 +24,14 @@ class FridgeCatalogBloc extends Bloc<FridgeCatalogEvent, FridgeCatalogState> {
   final GetCategories _getCategories;
   final GetFridgeCatalogItems _getFridgeCatalogItems;
 
-  void _onLoadFridgeCatalogRequested(
+  Future<void> _onLoadFridgeCatalogRequested(
     LoadFridgeCatalogRequested event,
     Emitter<FridgeCatalogState> emit,
   ) async {
     emit(state.copyWith(isLoading: true, error: () => null));
     final (categoriesResult, fridgeCatalogItemsResult) = await (
-      _getCategories(NoParams()),
-      _getFridgeCatalogItems(NoParams()),
+      _getCategories(const NoParams()),
+      _getFridgeCatalogItems(const NoParams()),
     ).wait;
 
     categoriesResult.fold(

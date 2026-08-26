@@ -13,7 +13,6 @@ class AppBottomNavigationBarParentData
 /// not jump when the label mounts or unmounts.
 class AppBottomNavigationBarLayout extends MultiChildRenderObjectWidget {
   const AppBottomNavigationBarLayout({
-    super.key,
     required super.children,
     required this.spacing,
     required this.selectedIndex,
@@ -21,6 +20,7 @@ class AppBottomNavigationBarLayout extends MultiChildRenderObjectWidget {
     required this.indicatorProgress,
     required this.indicatorColor,
     required this.indicatorRadius,
+    super.key,
   });
 
   final double spacing;
@@ -59,10 +59,7 @@ class AppBottomNavigationBarLayout extends MultiChildRenderObjectWidget {
 
 class RenderAppBottomNavigationBarLayout extends RenderBox
     with
-        ContainerRenderObjectMixin<
-          RenderBox,
-          AppBottomNavigationBarParentData
-        >,
+        ContainerRenderObjectMixin<RenderBox, AppBottomNavigationBarParentData>,
         RenderBoxContainerDefaultsMixin<
           RenderBox,
           AppBottomNavigationBarParentData
@@ -212,8 +209,10 @@ class RenderAppBottomNavigationBarLayout extends RenderBox
         BoxConstraints.tightFor(width: allocated[index], height: height),
         parentUsesSize: true,
       );
-      final parentData = child.parentData! as AppBottomNavigationBarParentData;
-      parentData.offset = Offset(x, (height - child.size.height) / 2);
+      (child.parentData! as AppBottomNavigationBarParentData).offset = Offset(
+        x,
+        (height - child.size.height) / 2,
+      );
       x += allocated[index] + _spacing;
       child = childAfter(child);
       index++;

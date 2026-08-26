@@ -12,13 +12,13 @@ class FridgeProductModel {
     required this.expirationDate,
   });
 
+  factory FridgeProductModel.fromJson(Map<String, dynamic> json) =>
+      _$FridgeProductModelFromJson(json);
+
   final String id;
   final String productId;
   final int quantity;
   final DateTime expirationDate;
-
-  factory FridgeProductModel.fromJson(Map<String, dynamic> json) =>
-      _$FridgeProductModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$FridgeProductModelToJson(this);
 

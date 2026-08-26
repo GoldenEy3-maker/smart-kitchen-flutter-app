@@ -33,8 +33,8 @@ class AppInputShape {
 abstract final class AppInputShapes {
   static final AppInputShape circular = AppInputShape(
     height: 42,
-    contentPadding: EdgeInsets.symmetric(horizontal: AppSpacing.standard),
-    prefixIconPadding: EdgeInsets.only(
+    contentPadding: const EdgeInsets.symmetric(horizontal: AppSpacing.standard),
+    prefixIconPadding: const EdgeInsets.only(
       right: AppSpacing.xSmall,
       left: AppSpacing.large,
     ),
@@ -43,8 +43,8 @@ abstract final class AppInputShapes {
 
   static final AppInputShape rectangular = AppInputShape(
     height: 46,
-    contentPadding: EdgeInsets.symmetric(horizontal: AppSpacing.large),
-    prefixIconPadding: EdgeInsets.only(
+    contentPadding: const EdgeInsets.symmetric(horizontal: AppSpacing.large),
+    prefixIconPadding: const EdgeInsets.only(
       right: AppSpacing.xSmall,
       left: AppSpacing.large,
     ),
@@ -53,8 +53,8 @@ abstract final class AppInputShapes {
 
   static final AppInputShape rectangularSmall = AppInputShape(
     height: 44,
-    contentPadding: EdgeInsets.symmetric(horizontal: AppSpacing.standard),
-    prefixIconPadding: EdgeInsets.only(
+    contentPadding: const EdgeInsets.symmetric(horizontal: AppSpacing.standard),
+    prefixIconPadding: const EdgeInsets.only(
       right: AppSpacing.xSmall,
       left: AppSpacing.large,
     ),

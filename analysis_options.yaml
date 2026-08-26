@@ -1,6 +1,20 @@
 include:
-  - package:flutter_lints/flutter.yaml
+  - package:very_good_analysis/analysis_options.yaml
   - package:bloc_lint/recommended.yaml
+
+analyzer:
+  exclude:
+    - "**/*.g.dart"
+    - "**/*.gr.dart"
+    - "lib/core/l10n/app_localizations*.dart"
+
 linter:
   rules:
+    # В проекте принят двойной апостроф, см. AGENTS.md.
+    prefer_single_quotes: false
     prefer_double_quotes: true
+    # Правило рассчитано на публикуемые пакеты, а не на приложение.
+    public_member_api_docs: false
+    # Ломает вывод типов у math.max/min: с int-литералом T выводится
+    # в num вместо double. См. app_bottom_navigation_bar_layout.dart.
+    prefer_int_literals: false

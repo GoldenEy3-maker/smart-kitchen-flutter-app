@@ -3,16 +3,15 @@ import "package:smart_kitchen_flutter_app/core/context/context.dart";
 import "package:smart_kitchen_flutter_app/core/theme/theme.dart";
 
 class FormItem extends StatelessWidget {
-  final Widget child;
-  final Widget? label;
-  final Widget? errorMessage;
-
   const FormItem({
-    super.key,
     required this.child,
+    super.key,
     this.label,
     this.errorMessage,
   });
+  final Widget child;
+  final Widget? label;
+  final Widget? errorMessage;
 
   @override
   Widget build(BuildContext context) {

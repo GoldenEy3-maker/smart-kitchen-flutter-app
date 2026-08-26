@@ -5,9 +5,8 @@ import "package:smart_kitchen_flutter_app/domains/categories/domain/entities/ent
 import "package:smart_kitchen_flutter_app/domains/categories/domain/repositories/repositories.dart";
 
 class GetCategories implements UseCase<List<Category>, NoParams> {
-  final CategoriesRepository _repository;
-
   const GetCategories({required this._repository});
+  final CategoriesRepository _repository;
 
   @override
   Future<Either<Failure, List<Category>>> call(NoParams params) {

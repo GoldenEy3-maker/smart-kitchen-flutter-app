@@ -5,14 +5,13 @@ part "category_model.g.dart";
 
 @JsonSerializable()
 class CategoryModel {
-  final String id;
-  final String label;
-  final String iconKey;
-
   CategoryModel({required this.id, required this.label, required this.iconKey});
 
   factory CategoryModel.fromJson(Map<String, dynamic> json) =>
       _$CategoryModelFromJson(json);
+  final String id;
+  final String label;
+  final String iconKey;
 
   Map<String, dynamic> toJson() => _$CategoryModelToJson(this);
 

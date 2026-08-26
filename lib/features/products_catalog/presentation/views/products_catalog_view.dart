@@ -1,19 +1,19 @@
 import "package:flutter/material.dart";
+import "package:flutter_bloc/flutter_bloc.dart";
 import "package:lucide_icons_flutter/lucide_icons.dart";
 import "package:skeletonizer/skeletonizer.dart";
 import "package:smart_kitchen_flutter_app/core/context/context.dart";
+import "package:smart_kitchen_flutter_app/core/theme/theme.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/button/button_size.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/empty_placeholder/empty_placeholder.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/error_placeholder/error_placeholder.dart";
-import "package:smart_kitchen_flutter_app/features/products_catalog/domain/entities/entities.dart";
-import "package:smart_kitchen_flutter_app/domains/products/navigation/navigation.dart";
-import "package:smart_kitchen_flutter_app/core/theme/theme.dart";
 import "package:smart_kitchen_flutter_app/core/widgets/scroll/scroll.dart";
+import "package:smart_kitchen_flutter_app/domains/categories/presentation/widgets/widgets.dart";
 import "package:smart_kitchen_flutter_app/domains/products/domain/entities/entities.dart";
+import "package:smart_kitchen_flutter_app/domains/products/navigation/navigation.dart";
+import "package:smart_kitchen_flutter_app/features/products_catalog/domain/entities/entities.dart";
 import "package:smart_kitchen_flutter_app/features/products_catalog/presentation/bloc/bloc.dart";
 import "package:smart_kitchen_flutter_app/features/products_catalog/presentation/widgets/widgets.dart";
-import "package:flutter_bloc/flutter_bloc.dart";
-import "package:smart_kitchen_flutter_app/domains/categories/presentation/widgets/widgets.dart";
 
 final class _ProductsCatalogViewConfig {
   _ProductsCatalogViewConfig._();
@@ -29,11 +29,14 @@ final class _ProductsCatalogViewConfig {
 }
 
 class ProductsCatalogView extends StatelessWidget {
-  const ProductsCatalogView({super.key, required this.navigator});
+  const ProductsCatalogView({required this.navigator, super.key});
 
   final ProductsNavigator navigator;
 
-  void _onProductFormOpened(BuildContext context, Product? product) async {
+  Future<void> _onProductFormOpened(
+    BuildContext context,
+    Product? product,
+  ) async {
     final bloc = context.read<ProductsCatalogBloc>();
     final event = await navigator.openProductForm(product: product);
     if (event != null) {
@@ -45,7 +48,6 @@ class ProductsCatalogView extends StatelessWidget {
               categories: event.categories,
             ),
           );
-          break;
         case OpenProductFormResultEventCreated():
           bloc.add(
             ProductCreated(
@@ -53,7 +55,6 @@ class ProductsCatalogView extends StatelessWidget {
               categories: event.categories,
             ),
           );
-          break;
         case OpenProductFormResultEventUpdated():
           bloc.add(
             ProductUpdated(
@@ -61,7 +62,6 @@ class ProductsCatalogView extends StatelessWidget {
               categories: event.categories,
             ),
           );
-          break;
         case OpenProductFormResultEventReturned():
           bloc.add(ProductCategoriesUpdated(categories: event.categories));
       }
@@ -85,9 +85,9 @@ class ProductsCatalogView extends StatelessWidget {
 
         final categoryWithProducts = state.isLoading
             ? [
-                CategoryWithProducts.loading,
-                CategoryWithProducts.loading,
-                CategoryWithProducts.loading,
+                CategoryWithProducts.loading(),
+                CategoryWithProducts.loading(),
+                CategoryWithProducts.loading(),
               ]
             : state.filteredCategoryWithProducts;
         final isEmpty = state.filteredCategoryWithProducts.isEmpty;

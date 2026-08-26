@@ -28,15 +28,20 @@ class CategoriesLocalDataSourceImpl implements CategoriesLocalDataSource {
   Future<Either<Failure, List<CategoryModel>>> getCategories() async {
     try {
       final categoriesBox = await _openCategoriesBox();
-      final categories = categoriesBox.values.toList().reversed.toList();
+      final categories = categoriesBox.values
+          .cast<Map<dynamic, dynamic>>()
+          .toList()
+          .reversed
+          .toList();
       return Right(
         categories
             .map((c) => CategoryModel.fromJson(Map<String, dynamic>.from(c)))
             .toList(),
       );
+      // ignore: avoid_catches_without_on_clauses - we want to catch all errors and just log them cuz for interface it does not matter what error is thrown
     } catch (e, st) {
       _talker.error("getCategories failed", e, st);
-      return Left(CategoriesReadCacheFailure());
+      return Left(const CategoriesReadCacheFailure());
     }
   }
 
@@ -53,9 +58,10 @@ class CategoriesLocalDataSourceImpl implements CategoriesLocalDataSource {
       );
       await categoriesBox.put(newCategory.id, newCategory.toJson());
       return Right(newCategory);
+      // ignore: avoid_catches_without_on_clauses - we want to catch all errors and just log them cuz for interface it does not matter what error is thrown
     } catch (e, st) {
       _talker.error("createCategory failed", e, st);
-      return Left(CategoriesCreateFailure());
+      return Left(const CategoriesCreateFailure());
     }
   }
 
@@ -66,6 +72,7 @@ class CategoriesLocalDataSourceImpl implements CategoriesLocalDataSource {
     try {
       final categoriesBox = await _openCategoriesBox();
       final existsCategory = categoriesBox.values
+          .cast<Map<dynamic, dynamic>>()
           .map((c) => CategoryModel.fromJson(Map<String, dynamic>.from(c)))
           .firstWhere((category) => category.id == params.id);
 
@@ -76,12 +83,13 @@ class CategoriesLocalDataSourceImpl implements CategoriesLocalDataSource {
       );
       await categoriesBox.put(newCategory.id, newCategory.toJson());
       return Right(newCategory);
-    } on StateError catch (e, st) {
+    } on Exception catch (e, st) {
       _talker.error("updateCategory failed", e, st);
-      return Left(CategoriesNotFoundFailure());
+      return Left(const CategoriesNotFoundFailure());
+      // ignore: avoid_catches_without_on_clauses - we want to catch all errors and just log them cuz for interface it does not matter what error is thrown
     } catch (e, st) {
       _talker.error("updateCategory failed", e, st);
-      return Left(CategoriesUpdateFailure());
+      return Left(const CategoriesUpdateFailure());
     }
   }
 
@@ -93,9 +101,10 @@ class CategoriesLocalDataSourceImpl implements CategoriesLocalDataSource {
       final categoriesBox = await _openCategoriesBox();
       await categoriesBox.delete(params.id);
       return Right(null);
+      // ignore: avoid_catches_without_on_clauses - we want to catch all errors and just log them cuz for interface it does not matter what error is thrown
     } catch (e, st) {
       _talker.error("deleteCategory failed", e, st);
-      return Left(CategoriesDeleteFailure());
+      return Left(const CategoriesDeleteFailure());
     }
   }
 

@@ -1,13 +1,23 @@
 import "package:equatable/equatable.dart";
 import "package:smart_kitchen_flutter_app/domains/categories/domain/entities/entities.dart";
 
-import "fridge_product_item.dart";
+import "package:smart_kitchen_flutter_app/features/fridge_catalog/domain/entities/fridge_product_item.dart";
 
 class CategoryWithFridgeProductItems extends Equatable {
   const CategoryWithFridgeProductItems({
     required this.category,
     required this.fridgeProducts,
   });
+
+  CategoryWithFridgeProductItems.loading()
+    : this(
+        category: Category.loading(),
+        fridgeProducts: [
+          FridgeProductItem.loading(),
+          FridgeProductItem.loading(),
+          FridgeProductItem.loading(),
+        ],
+      );
 
   final Category category;
   final List<FridgeProductItem> fridgeProducts;
@@ -31,16 +41,6 @@ class CategoryWithFridgeProductItems extends Equatable {
         .where((category) => category.fridgeProducts.isNotEmpty)
         .toList();
   }
-
-  static CategoryWithFridgeProductItems get loading =>
-      CategoryWithFridgeProductItems(
-        category: Category.loading,
-        fridgeProducts: [
-          FridgeProductItem.loading,
-          FridgeProductItem.loading,
-          FridgeProductItem.loading,
-        ],
-      );
 
   @override
   List<Object?> get props => [category, fridgeProducts];

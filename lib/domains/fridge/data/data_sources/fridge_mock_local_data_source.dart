@@ -1,10 +1,7 @@
 import "package:smart_kitchen_flutter_app/core/error/failure.dart";
-
 import "package:smart_kitchen_flutter_app/core/utils/either.dart";
-
+import "package:smart_kitchen_flutter_app/domains/fridge/data/data_sources/fridge_local_data_source.dart";
 import "package:smart_kitchen_flutter_app/domains/fridge/data/models/fridge_product_model.dart";
-
-import "fridge_local_data_source.dart";
 
 class FridgeMockLocalDataSource implements FridgeLocalDataSource {
   @override

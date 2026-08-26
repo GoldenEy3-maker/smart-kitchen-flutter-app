@@ -5,6 +5,6 @@ class RecipesCatalogView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: SafeArea(child: Text("Recipes Catalog")));
+    return const Scaffold(body: SafeArea(child: Text("Recipes Catalog")));
   }
 }

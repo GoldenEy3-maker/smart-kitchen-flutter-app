@@ -5,6 +5,7 @@ import "package:smart_kitchen_flutter_app/domains/fridge/data/models/models.dart
 import "package:smart_kitchen_flutter_app/domains/fridge/error/error.dart";
 import "package:talker_flutter/talker_flutter.dart";
 
+// ignore: one_member_abstracts - this is a contract for the data source may extend with more methods in the future
 abstract interface class FridgeLocalDataSource {
   Future<Either<Failure, List<FridgeProductModel>>> getFridgeProducts();
 }
@@ -21,14 +22,16 @@ class FridgeLocalDataSourceImpl implements FridgeLocalDataSource {
     try {
       final fridgeBox = await _getFridgeBox();
       final fridgeProducts = fridgeBox.values
+          .cast<Map<dynamic, dynamic>>()
           .toList()
           .reversed
           .map((e) => FridgeProductModel.fromJson(Map<String, dynamic>.from(e)))
           .toList();
       return Right(fridgeProducts);
+      // ignore: avoid_catches_without_on_clauses - we want to catch all errors and just log them cuz for interface it does not matter what error is thrown
     } catch (e, st) {
       _talker.error("getFridgeProducts failed", e, st);
-      return Left(FridgeReadProductsCacheFailure());
+      return Left(const FridgeReadProductsCacheFailure());
     }
   }
 

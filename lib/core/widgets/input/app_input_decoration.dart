@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
 
-import "app_input_shape.dart";
-import "app_input_style.dart";
+import "package:smart_kitchen_flutter_app/core/widgets/input/app_input_shape.dart";
+import "package:smart_kitchen_flutter_app/core/widgets/input/app_input_style.dart";
 
 class AppInputDecoration {
   AppInputDecoration({
@@ -72,7 +72,7 @@ class AppInputDecoration {
       prefixIcon: prefixIcon != null
           ? Padding(padding: shape.prefixIconPadding, child: prefixIcon)
           : null,
-      prefixIconConstraints: const BoxConstraints(minWidth: 0),
+      prefixIconConstraints: const BoxConstraints(),
       prefixIconColor: style.prefixIconColor,
       border: border,
       enabledBorder: border,
