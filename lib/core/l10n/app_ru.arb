@@ -290,6 +290,44 @@
   "@fridgeFormPageAppBarTitle": {
     "description": "Заголовок страницы для добавления продукта в холодильник"
   },
+  "product": "Продукт",
+  "@product": {
+    "description": "Название поля для выбора продукта"
+  },
+  "selectProduct": "Выберите продукт",
+  "@selectProduct": {
+    "description": "Заголовок шторки выбора продукта"
+  },
+  "productIsRequired": "Продукт обязателен",
+  "@productIsRequired": {
+    "description": "Ошибка, если продукт не выбран"
+  },
+  "findInCatalogHint": "Найти в каталоге…",
+  "@findInCatalogHint": {
+    "description": "Подсказка поиска продукта в каталоге"
+  },
+  "fridgeFormProductMeta": "{category} · {unit}",
+  "@fridgeFormProductMeta": {
+    "description": "Категория и единица измерения выбранного продукта",
+    "placeholders": {
+      "category": {
+        "type": "String",
+        "description": "Название категории"
+      },
+      "unit": {
+        "type": "String",
+        "description": "Единица измерения"
+      }
+    }
+  },
+  "fridgeFormStepFirst": "Шаг 1. Выберите продукт из каталога или создайте новый",
+  "@fridgeFormStepFirst": {
+    "description": "Шаг 1. Выберите продукт из каталога или создайте новый"
+  },
+  "createNewProductInCatalog": "Создать новый продукт в каталоге",
+  "@createNewProductInCatalog": {
+    "description": "Название кнопки для создания нового продукта в каталоге"
+  },
   "fridgeReadProductsCacheFailure": "Ошибка чтения кэша продуктов холодильника. Попробуйте перезапустить приложение и попробовать снова.",
   "@fridgeReadProductsCacheFailure": {
     "description": "Ошибка чтения кэша продуктов холодильника"

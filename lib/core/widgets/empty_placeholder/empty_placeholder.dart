@@ -24,7 +24,7 @@ class EmptyPlaceholder extends StatelessWidget {
     final resolvedIcon =
         icon ?? Icon(LucideIcons.bookOpen, size: 40, color: colors.primary);
     return Column(
-      spacing: AppSpacing.large,
+      spacing: AppSpacing.standard,
       children: [
         Container(
           width: 96,

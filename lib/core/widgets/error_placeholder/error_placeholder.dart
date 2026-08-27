@@ -38,7 +38,7 @@ class _ErrorPlaceholderState extends State<ErrorPlaceholder> {
       color: colors.dangerText,
     );
     return Column(
-      spacing: AppSpacing.large,
+      spacing: AppSpacing.standard,
       children: [
         Container(
           width: 96,

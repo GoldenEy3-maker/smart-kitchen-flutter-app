@@ -187,55 +187,71 @@ class _ResizableSheetState extends State<ResizableSheet> {
         ? (_fittedSize ?? initialSize)
         : _resolvedInitialSize;
 
-    return Opacity(
-      opacity: !widget.fitToContent || _hasMeasuredContent ? 1 : 0,
-      child: DraggableScrollableSheet(
-        controller: _controller,
-        expand: false,
-        initialChildSize: initialSize.clamp(0.0, maxSize),
-        maxChildSize: maxSize,
-        minChildSize: 0,
-        snap: widget.snap,
-        snapSizes: widget.snap ? [snapSize.clamp(0.0, maxSize)] : null,
-        builder: (context, scrollController) {
-          // showModalBottomSheet(useSafeArea: true)
-          // zeroes MediaQuery.padding, so a plain SafeArea would skip
-          // the home indicator. Keep viewPadding.
-          final content = SafeArea(
-            minimum: EdgeInsets.only(
-              bottom: MediaQuery.of(context).viewInsets.bottom + 26,
-            ),
-            child: widget.builder(context, scrollController, _controller),
-          );
+    final keyboardInset = MediaQuery.of(context).viewInsets.bottom;
+    // List sheets must be lifted with outer padding — inner insets only
+    // shrink Expanded content and leave the sheet behind the keyboard.
+    // fitToContent sheets instead grow by the inset so the form keeps its
+    // pixel height and the extra space pushes the sheet up.
+    final liftWithOuterPadding = !widget.fitToContent;
 
-          return Stack(
-            alignment: Alignment.topCenter,
-            clipBehavior: Clip.none,
-            children: [
-              if (widget.fitToContent)
-                _SheetContentMeasurer(
-                  onMeasured: _onContentHeight,
-                  child: content,
-                )
-              else
-                NotificationListener<ScrollMetricsNotification>(
-                  onNotification: _onScrollMetrics,
-                  child: content,
+    return Padding(
+      padding: EdgeInsets.only(
+        bottom: liftWithOuterPadding ? keyboardInset : 0,
+      ),
+      child: MediaQuery.removeViewInsets(
+        context: context,
+        removeBottom: true,
+        child: Opacity(
+          opacity: !widget.fitToContent || _hasMeasuredContent ? 1 : 0,
+          child: DraggableScrollableSheet(
+            controller: _controller,
+            expand: false,
+            initialChildSize: initialSize.clamp(0.0, maxSize),
+            maxChildSize: maxSize,
+            minChildSize: 0,
+            snap: widget.snap,
+            snapSizes: widget.snap ? [snapSize.clamp(0.0, maxSize)] : null,
+            builder: (context, scrollController) {
+              // showModalBottomSheet(useSafeArea: true) zeroes
+              // MediaQuery.padding, so a plain SafeArea would skip the
+              // home indicator.
+              final content = SafeArea(
+                minimum: EdgeInsets.only(
+                  bottom: 26 + (liftWithOuterPadding ? 0 : keyboardInset),
                 ),
-              Positioned(
-                top: -20,
-                child: Container(
-                  width: 60,
-                  height: 7,
-                  decoration: BoxDecoration(
-                    color: colors.surface,
-                    borderRadius: BorderRadius.circular(10),
+                child: widget.builder(context, scrollController, _controller),
+              );
+
+              return Stack(
+                alignment: Alignment.topCenter,
+                clipBehavior: Clip.none,
+                children: [
+                  if (widget.fitToContent)
+                    _SheetContentMeasurer(
+                      onMeasured: _onContentHeight,
+                      child: content,
+                    )
+                  else
+                    NotificationListener<ScrollMetricsNotification>(
+                      onNotification: _onScrollMetrics,
+                      child: content,
+                    ),
+                  Positioned(
+                    top: -20,
+                    child: Container(
+                      width: 60,
+                      height: 7,
+                      decoration: BoxDecoration(
+                        color: colors.surface,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
                   ),
-                ),
-              ),
-            ],
-          );
-        },
+                ],
+              );
+            },
+          ),
+        ),
       ),
     );
   }

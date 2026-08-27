@@ -48,7 +48,7 @@ class AppTheme {
         filled: true,
         fillColor: colors.surface,
         contentPadding: const EdgeInsets.symmetric(
-          horizontal: AppSpacing.large,
+          horizontal: AppSpacing.standard,
           vertical: AppSpacing.medium,
         ),
         enabledBorder: OutlineInputBorder(

@@ -243,6 +243,30 @@ class AppLocalizationsRu extends AppLocalizations {
   String get fridgeFormPageAppBarTitle => 'Добавить в холодильник';
 
   @override
+  String get product => 'Продукт';
+
+  @override
+  String get selectProduct => 'Выберите продукт';
+
+  @override
+  String get productIsRequired => 'Продукт обязателен';
+
+  @override
+  String get findInCatalogHint => 'Найти в каталоге…';
+
+  @override
+  String fridgeFormProductMeta(String category, String unit) {
+    return '$category · $unit';
+  }
+
+  @override
+  String get fridgeFormStepFirst =>
+      'Шаг 1. Выберите продукт из каталога или создайте новый';
+
+  @override
+  String get createNewProductInCatalog => 'Создать новый продукт в каталоге';
+
+  @override
   String get fridgeReadProductsCacheFailure =>
       'Ошибка чтения кэша продуктов холодильника. Попробуйте перезапустить приложение и попробовать снова.';
 

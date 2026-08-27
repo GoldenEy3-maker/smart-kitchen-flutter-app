@@ -47,7 +47,7 @@ class AppBottomNavigationBarItem extends StatelessWidget {
               curve: _curve,
               constraints: const BoxConstraints(minHeight: 44, minWidth: 44),
               padding: EdgeInsets.symmetric(
-                horizontal: isSelected ? AppSpacing.large : 0,
+                horizontal: isSelected ? AppSpacing.standard : 0,
               ),
               decoration: const BoxDecoration(color: Colors.transparent),
               clipBehavior: Clip.antiAlias,

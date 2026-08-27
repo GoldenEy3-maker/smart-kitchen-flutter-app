@@ -108,7 +108,7 @@ class _CategoryCreateSheetViewState extends State<CategoryCreateSheetView> {
               color: colors.surface,
               padding: const EdgeInsets.only(
                 top: AppSpacing.xLarge,
-                bottom: AppSpacing.large,
+                bottom: AppSpacing.standard,
               ),
               child: Text(l10n.newCategory, style: text.headingLg),
             ),

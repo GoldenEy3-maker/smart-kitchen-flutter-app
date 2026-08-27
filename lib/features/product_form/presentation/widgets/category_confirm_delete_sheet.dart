@@ -99,7 +99,7 @@ class _CategoryConfirmDeleteSheetViewState
               color: colors.surface,
               padding: const EdgeInsets.only(
                 top: AppSpacing.xLarge,
-                bottom: AppSpacing.large,
+                bottom: AppSpacing.standard,
               ),
               child: Column(
                 crossAxisAlignment: .start,

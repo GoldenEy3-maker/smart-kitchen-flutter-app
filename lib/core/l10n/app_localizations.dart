@@ -508,6 +508,48 @@ abstract class AppLocalizations {
   /// **'Добавить в холодильник'**
   String get fridgeFormPageAppBarTitle;
 
+  /// Название поля для выбора продукта
+  ///
+  /// In ru, this message translates to:
+  /// **'Продукт'**
+  String get product;
+
+  /// Заголовок шторки выбора продукта
+  ///
+  /// In ru, this message translates to:
+  /// **'Выберите продукт'**
+  String get selectProduct;
+
+  /// Ошибка, если продукт не выбран
+  ///
+  /// In ru, this message translates to:
+  /// **'Продукт обязателен'**
+  String get productIsRequired;
+
+  /// Подсказка поиска продукта в каталоге
+  ///
+  /// In ru, this message translates to:
+  /// **'Найти в каталоге…'**
+  String get findInCatalogHint;
+
+  /// Категория и единица измерения выбранного продукта
+  ///
+  /// In ru, this message translates to:
+  /// **'{category} · {unit}'**
+  String fridgeFormProductMeta(String category, String unit);
+
+  /// Шаг 1. Выберите продукт из каталога или создайте новый
+  ///
+  /// In ru, this message translates to:
+  /// **'Шаг 1. Выберите продукт из каталога или создайте новый'**
+  String get fridgeFormStepFirst;
+
+  /// Название кнопки для создания нового продукта в каталоге
+  ///
+  /// In ru, this message translates to:
+  /// **'Создать новый продукт в каталоге'**
+  String get createNewProductInCatalog;
+
   /// Ошибка чтения кэша продуктов холодильника
   ///
   /// In ru, this message translates to:

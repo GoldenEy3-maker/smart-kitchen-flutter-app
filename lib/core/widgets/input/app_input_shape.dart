@@ -36,17 +36,17 @@ abstract final class AppInputShapes {
     contentPadding: const EdgeInsets.symmetric(horizontal: AppSpacing.standard),
     prefixIconPadding: const EdgeInsets.only(
       right: AppSpacing.xSmall,
-      left: AppSpacing.large,
+      left: AppSpacing.standard,
     ),
     borderRadius: BorderRadius.circular(AppRadius.large),
   );
 
   static final AppInputShape rectangular = AppInputShape(
     height: 46,
-    contentPadding: const EdgeInsets.symmetric(horizontal: AppSpacing.large),
+    contentPadding: const EdgeInsets.symmetric(horizontal: AppSpacing.standard),
     prefixIconPadding: const EdgeInsets.only(
       right: AppSpacing.xSmall,
-      left: AppSpacing.large,
+      left: AppSpacing.standard,
     ),
     borderRadius: BorderRadius.circular(AppRadius.medium),
   );
@@ -56,7 +56,7 @@ abstract final class AppInputShapes {
     contentPadding: const EdgeInsets.symmetric(horizontal: AppSpacing.standard),
     prefixIconPadding: const EdgeInsets.only(
       right: AppSpacing.xSmall,
-      left: AppSpacing.large,
+      left: AppSpacing.standard,
     ),
     borderRadius: BorderRadius.circular(AppRadius.small),
   );

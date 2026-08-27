@@ -70,13 +70,13 @@ class _ProductConfirmDeleteSheetViewState
     return SingleChildScrollView(
       controller: widget.scrollController,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: AppSpacing.large),
+        padding: const EdgeInsets.symmetric(horizontal: AppSpacing.standard),
         child: Column(
           children: [
             Container(
               padding: const EdgeInsets.only(
                 top: AppSpacing.xLarge,
-                bottom: AppSpacing.large,
+                bottom: AppSpacing.standard,
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

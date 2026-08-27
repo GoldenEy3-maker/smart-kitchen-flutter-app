@@ -24,7 +24,7 @@ final class _ProductsCatalogViewConfig {
       CategoryChipsHeaderDelegate.kHeight + verticalGap * 2;
   static final double searchBarHeight = SearchHeaderDelegate.kHeight;
   static final double safeFooterHeight =
-      AppSpacing.large * 2 + ButtonSizes.primary.minHeight;
+      AppSpacing.standard * 2 + ButtonSizes.primary.minHeight;
   static const double productListVerticalGap = verticalGap - 6;
 }
 

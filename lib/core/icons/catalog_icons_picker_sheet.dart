@@ -124,7 +124,7 @@ class _CatalogIconsPickerSheetViewState
             color: colors.surface,
             padding: const EdgeInsets.only(
               top: AppSpacing.xLarge,
-              bottom: AppSpacing.large,
+              bottom: AppSpacing.standard,
             ),
             child: Text(l10n.selectProductIcon, style: text.headingLg),
           ),

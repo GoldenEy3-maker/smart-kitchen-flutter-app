@@ -303,7 +303,7 @@ class _ProductFormViewState extends State<ProductFormView> {
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.only(
-            bottom: AppSpacing.large,
+            bottom: AppSpacing.standard,
             left: AppSpacing.containerHorizontal,
             right: AppSpacing.containerHorizontal,
           ),

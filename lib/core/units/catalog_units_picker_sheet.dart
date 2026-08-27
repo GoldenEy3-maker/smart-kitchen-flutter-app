@@ -104,7 +104,7 @@ class _CatalogUnitsPickerSheetViewState
             color: colors.surface,
             padding: const EdgeInsets.only(
               top: AppSpacing.xLarge,
-              bottom: AppSpacing.large,
+              bottom: AppSpacing.standard,
             ),
             child: Text(l10n.selectUnit, style: text.headingLg),
           ),
@@ -144,7 +144,7 @@ class _CatalogUnitsPickerSheetViewState
           Container(
             width: double.infinity,
             color: colors.surface,
-            padding: const EdgeInsets.only(top: AppSpacing.large),
+            padding: const EdgeInsets.only(top: AppSpacing.standard),
             child: Button(
               onPressed: () {
                 Navigator.pop(context, _selectedUnit.value);

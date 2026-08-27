@@ -23,7 +23,7 @@ final class _FridgeCatalogViewConfig {
   static const double categoryChipsHeight =
       CategoryChipsHeaderDelegate.kHeight + verticalGap * 2;
   static final double safeFooterHeight =
-      AppSpacing.large * 2 + ButtonSizes.primary.minHeight;
+      AppSpacing.standard * 2 + ButtonSizes.primary.minHeight;
   static const double productListVerticalGap = verticalGap - 6;
 }
 

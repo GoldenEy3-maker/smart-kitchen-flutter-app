@@ -74,8 +74,8 @@ class _AppBottomNavigationBarState extends State<AppBottomNavigationBar>
       heightFactor: 1,
       child: Padding(
         padding: EdgeInsets.only(
-          left: AppSpacing.large,
-          right: AppSpacing.large,
+          left: AppSpacing.standard,
+          right: AppSpacing.standard,
           bottom: MediaQuery.of(context).padding.bottom + AppSpacing.small,
         ),
         child: ConstrainedBox(

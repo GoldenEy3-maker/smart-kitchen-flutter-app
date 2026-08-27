@@ -120,7 +120,7 @@ class _CategoryEditSheetViewState extends State<CategoryEditSheetView> {
               color: colors.surface,
               padding: const EdgeInsets.only(
                 top: AppSpacing.xLarge,
-                bottom: AppSpacing.large,
+                bottom: AppSpacing.standard,
               ),
               child: Text(l10n.editCategory, style: text.headingLg),
             ),
