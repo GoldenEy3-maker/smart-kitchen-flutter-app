@@ -99,35 +99,35 @@ class _FridgeFormViewState extends State<FridgeFormView> {
                 style: text.bodyXs.copyWith(color: colors.textSecondary),
               ),
               const SizedBox(height: AppSpacing.standard),
-              ValueListenableBuilder(
-                valueListenable: _productErrorText,
-                builder: (context, productErrorText, child) {
-                  return FormItem(
-                    errorMessage: productErrorText != null
-                        ? Text(productErrorText)
-                        : null,
-                    child: Column(
-                      children: [
-                        BlocSelector<
-                          FridgeFormBloc,
-                          FridgeFormState,
-                          ({
-                            List<ProductWithCategory> products,
-                            ProductWithCategory? selectedProduct,
-                            bool isProductsLoading,
-                          })
-                        >(
-                          selector: (state) => (
-                            products: state.products,
-                            selectedProduct: state.selectedProduct,
-                            isProductsLoading: state.isProductsLoading,
-                          ),
-                          builder: (context, slice) {
-                            if (slice.isProductsLoading ||
-                                slice.products.isNotEmpty) {
-                              return Column(
-                                children: [
-                                  SelectedProductCard(
+              Column(
+                children: [
+                  BlocSelector<
+                    FridgeFormBloc,
+                    FridgeFormState,
+                    ({
+                      List<ProductWithCategory> products,
+                      ProductWithCategory? selectedProduct,
+                      bool isProductsLoading,
+                    })
+                  >(
+                    selector: (state) => (
+                      products: state.products,
+                      selectedProduct: state.selectedProduct,
+                      isProductsLoading: state.isProductsLoading,
+                    ),
+                    builder: (context, slice) {
+                      if (slice.isProductsLoading ||
+                          slice.products.isNotEmpty) {
+                        return Column(
+                          children: [
+                            ValueListenableBuilder(
+                              valueListenable: _productErrorText,
+                              builder: (context, productErrorText, _) {
+                                return FormItem(
+                                  errorMessage: productErrorText != null
+                                      ? Text(productErrorText)
+                                      : null,
+                                  child: SelectedProductCard(
                                     product: slice.selectedProduct,
                                     isLoading: slice.isProductsLoading,
                                     invalid: productErrorText != null,
@@ -141,32 +141,32 @@ class _FridgeFormViewState extends State<FridgeFormView> {
                                       );
                                     },
                                   ),
-                                  const SizedBox(height: AppSpacing.small),
-                                ],
-                              );
-                            }
+                                );
+                              },
+                            ),
+                            const SizedBox(height: AppSpacing.small),
+                          ],
+                        );
+                      }
 
-                            return const SizedBox.shrink();
-                          },
-                        ),
-                        Button(
-                          onPressed: () {
-                            widget.productsNavigator.openProductForm();
-                          },
-                          style: buttonStyles.ghost,
-                          size: ButtonSizes.sm,
-                          child: Row(
-                            spacing: AppSpacing.small,
-                            children: [
-                              const Icon(LucideIcons.plus, size: 20),
-                              Text(l10n.createNewProductInCatalog),
-                            ],
-                          ),
-                        ),
+                      return const SizedBox.shrink();
+                    },
+                  ),
+                  Button(
+                    onPressed: () {
+                      widget.productsNavigator.openProductForm();
+                    },
+                    style: buttonStyles.ghost,
+                    size: ButtonSizes.sm,
+                    child: Row(
+                      spacing: AppSpacing.small,
+                      children: [
+                        const Icon(LucideIcons.plus, size: 20),
+                        Text(l10n.createNewProductInCatalog),
                       ],
                     ),
-                  );
-                },
+                  ),
+                ],
               ),
             ],
           ),

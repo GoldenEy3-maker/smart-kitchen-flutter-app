@@ -397,76 +397,80 @@ class _ProductFormViewState extends State<ProductFormView> {
                     );
                   },
                 ),
-                ValueListenableBuilder(
-                  valueListenable: _categoryErrorText,
-                  builder: (context, categoryErrorText, child) {
-                    return FormItem(
-                      label: Text(l10n.category),
-                      errorMessage: categoryErrorText != null
-                          ? Text(categoryErrorText)
-                          : null,
-                      child: Column(
-                        spacing: AppSpacing.small,
-                        children: [
-                          BlocSelector<
-                            ProductFormBloc,
-                            ProductFormState,
-                            ({
-                              CategoryWithProductsCount? selectedCategory,
-                              List<CategoryWithProductsCount> categories,
-                              bool isCategoriesLoading,
-                            })
-                          >(
-                            selector: (state) => (
-                              selectedCategory: state.selectedCategory,
-                              categories: state.categories,
-                              isCategoriesLoading: state.isCategoriesLoading,
-                            ),
-                            builder: (context, slice) {
-                              if (slice.isCategoriesLoading ||
-                                  slice.categories.isNotEmpty) {
-                                return SelectedCategoryCard(
-                                  category: slice.selectedCategory,
-                                  isLoading: slice.isCategoriesLoading,
-                                  invalid: categoryErrorText != null,
-                                  onPressed: () {
-                                    unawaited(
-                                      _onCategoryManagerSheetOpened(
-                                        context: context,
-                                        categories: slice.categories,
-                                        initialSelectedCategory:
-                                            slice.selectedCategory,
-                                      ),
-                                    );
-                                  },
-                                );
-                              }
-                              return const SizedBox.shrink();
-                            },
-                          ),
-                          SizedBox(
-                            width: double.infinity,
-                            child: Button(
-                              style: buttonStyles.ghost,
-                              size: ButtonSizes.sm,
-                              rounder: ButtonRounders.rectangular,
-                              onPressed: () {
-                                _onCategoryCreateSheetOpened(context);
-                              },
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                spacing: AppSpacing.small,
-                                children: [
-                                  const Icon(LucideIcons.plus, size: 20),
-                                  Text(l10n.createCategory),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
+                Column(
+                  children: [
+                    BlocSelector<
+                      ProductFormBloc,
+                      ProductFormState,
+                      ({
+                        CategoryWithProductsCount? selectedCategory,
+                        List<CategoryWithProductsCount> categories,
+                        bool isCategoriesLoading,
+                      })
+                    >(
+                      selector: (state) => (
+                        selectedCategory: state.selectedCategory,
+                        categories: state.categories,
+                        isCategoriesLoading: state.isCategoriesLoading,
                       ),
-                    );
-                  },
+                      builder: (context, slice) {
+                        if (slice.isCategoriesLoading ||
+                            slice.categories.isNotEmpty) {
+                          return Column(
+                            children: [
+                              ValueListenableBuilder(
+                                valueListenable: _categoryErrorText,
+                                builder: (context, categoryErrorText, child) {
+                                  return FormItem(
+                                    label: Text(l10n.category),
+                                    errorMessage: categoryErrorText != null
+                                        ? Text(categoryErrorText)
+                                        : null,
+                                    child: SelectedCategoryCard(
+                                      category: slice.selectedCategory,
+                                      isLoading: slice.isCategoriesLoading,
+                                      invalid: categoryErrorText != null,
+                                      onPressed: () {
+                                        unawaited(
+                                          _onCategoryManagerSheetOpened(
+                                            context: context,
+                                            categories: slice.categories,
+                                            initialSelectedCategory:
+                                                slice.selectedCategory,
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  );
+                                },
+                              ),
+                              const SizedBox(height: AppSpacing.small),
+                            ],
+                          );
+                        }
+                        return const SizedBox.shrink();
+                      },
+                    ),
+                    SizedBox(
+                      width: double.infinity,
+                      child: Button(
+                        style: buttonStyles.ghost,
+                        size: ButtonSizes.sm,
+                        rounder: ButtonRounders.rectangular,
+                        onPressed: () {
+                          _onCategoryCreateSheetOpened(context);
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          spacing: AppSpacing.small,
+                          children: [
+                            const Icon(LucideIcons.plus, size: 20),
+                            Text(l10n.createCategory),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
                 Text(
                   l10n.productFormAttention,
