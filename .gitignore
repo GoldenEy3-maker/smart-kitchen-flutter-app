@@ -23,10 +23,11 @@ migrate_working_dir/
 # is commented out by default.
 #.vscode/
 
-# Zed runtime artifacts
-.zed/flutter.pid
-.zed/hot_reload_watch.log
-.zed/dart/
+# Zed related
+.zed/
+
+# Flutter Demon related
+.fdemon/
 
 # Flutter/Dart/Pub related
 **/doc/api/
@@ -48,3 +49,6 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Flutter Demon user preferences (not tracked)
+.fdemon/settings.local.toml
