@@ -23,6 +23,11 @@ migrate_working_dir/
 # is commented out by default.
 #.vscode/
 
+# Zed runtime artifacts
+.zed/flutter.pid
+.zed/hot_reload_watch.log
+.zed/dart/
+
 # Flutter/Dart/Pub related
 **/doc/api/
 **/ios/Flutter/.last_build_id
